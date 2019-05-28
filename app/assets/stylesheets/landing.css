@@ -1,0 +1,230 @@
+body > main {
+  color: #202227;
+  background-color: #25252a;
+  font-family: Whitney, Helvetica, Arial, sans-serif;
+  line-height: 1.15;
+  text-rendering: optimizeLegibility;
+  user-select: none;
+}
+
+#root {
+  height: 100%;
+}
+
+.main-body {
+  padding: 72px 0;
+}
+
+.nav-component {
+  position: absolute;
+  width: 100%;
+  z-index: 1;
+}
+
+.nav-component .header {
+  box-sizing: border-box;
+  color: #fff;
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  height: 72px;
+  padding: 8px 0;
+  position: relative;
+  width: 100%;
+  z-index: 5;
+}
+
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  padding: 0 30px;
+  position: relative;
+  height: 100%;
+  max-width: 1600px;
+  flex-wrap: wrap;
+}
+
+.right-nav {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+}
+
+.login-button {
+  color: #adadad;
+  border: 2px solid#b1b1b3;
+  border-radius: 20px;
+  margin-right: 18px;
+  padding: 4px 18px 6px;
+  text-decoration: none;
+  top: 0;
+}
+
+.no-underline {
+  color: #adadad;
+}
+
+.nav-bar .right-nav .login-button:hover {
+  border: 2px solid white;
+  cursor: pointer;
+  color: white;
+}
+
+.left-nav > img {
+  height: 50px;
+  margin-top: 5px;
+}
+
+.head-component {
+  box-sizing: border-box;
+  margin: auto;
+  max-width: 1200px;
+  padding: 70px 50px 0;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.head-component > h1 {
+  color: #fff;
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 44px;
+  margin: 0;
+}
+
+.head-component > p {
+  color: #adadad;
+  max-width: 710px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  margin: auto;
+  margin-top: 12px;
+  margin-bottom: 30px;
+  vertical-align: baseline;
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.buttons .signup-button {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 3px;
+  color: #18191c;
+  font-size: 15px;
+  font-weight: 500;
+  padding: 0;
+  z-index: 1;
+  margin-right: 40px;
+  height: 45px;
+  width: 250px;
+  text-decoration: none;
+}
+
+.buttons .signup-button:hover {
+  cursor: pointer;
+  transform: translateY(1px);
+}
+
+.buttons .login {
+  text-decoration: none;
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+  height: 45px;
+  width: 250px;
+  background-color: #7289da;
+  color: #fff;
+  border-radius: 3px;
+}
+
+.buttons .login:hover {
+  cursor: pointer;
+  transform: translateY(1px);
+}
+
+.footer {
+  position: relative;
+  padding: 80px 160px 50px;
+  font-weight: 400;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.footer-background {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  font-weight: 400;
+  height: 100%;
+}
+
+.seperator {
+  height: 1px;
+  width: 100%;
+  background: url(https://discordapp.com/assets/ffa0a8d74568beaa8ec72dd51951685c.svg);
+  opacity: 0.1;
+  margin: 34px 0;
+}
+
+.footer-content {
+  position: relative;
+  max-width: 1600px;
+  margin: 0 auto;
+  height: 270px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.footer-content h2 {
+  font-size: 26px;
+  color: #fff;
+  line-height: 34px;
+}
+
+.footer-content h3 {
+  font-size: 14px;
+  color: hsla(0, 0%, 100%, 0.6);
+  font-weight: 500;
+  margin-top: 4px;
+  text-transform: capitalize;
+}
+
+.footer-btn {
+  color: #fff;
+  background-color: #7289da;
+  padding: 16px;
+  height: 15px;
+  border-radius: 3px;
+  font-size: 15px;
+  line-height: 15px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.footer-btn:hover {
+  transform: translateY(1px);
+}

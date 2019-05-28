@@ -1,0 +1,224 @@
+.fade-in {
+  animation: fadeIn ease 2s;
+}
+
+.animated-section {
+  position: relative;
+  height: 640px;
+  overflow: hidden;
+  user-select: none;
+  width: 100%;
+  max-width: 100%;
+}
+
+.ease-in {
+  position: absolute;
+  left: 50%;
+}
+
+.opac {
+  opacity: 0.3;
+}
+
+.triangle1 {
+  margin-left: -580px;
+  bottom: 300px;
+}
+
+.triangle2 {
+  margin-left: 30px;
+  bottom: 550px;
+}
+
+.triangle3 {
+  margin-left: -280px;
+  bottom: 450px;
+}
+
+.square1 {
+  margin-left: 330px;
+  bottom: 600px;
+}
+
+.square2 {
+  margin-left: 430px;
+  bottom: 400px;
+}
+
+.square3 {
+  margin-left: 17px;
+  bottom: 92px;
+}
+
+.ex1 {
+  margin-left: -580px;
+  bottom: 510px;
+}
+
+.ex2 {
+  margin-left: 540px;
+  bottom: 220px;
+}
+
+.dot1 {
+  margin-left: 530px;
+  bottom: 600px;
+}
+
+.dot2 {
+  margin-left: -320px;
+  bottom: 600px;
+}
+
+.dot3 {
+  margin-left: 180px;
+  bottom: 500px;
+}
+
+.dot4 {
+  margin-left: -600px;
+  bottom: 200px;
+}
+
+.dot5 {
+  margin-left: 620px;
+  bottom: 140px;
+}
+
+.circle1 {
+  margin-left: -360px;
+  bottom: 530px;
+}
+
+.circle2 {
+  margin-left: 575px;
+  bottom: 280px;
+}
+
+.circle3 {
+  margin-left: -200px;
+  bottom: 90px;
+}
+
+.shield {
+  margin-left: 425px;
+  bottom: 10px;
+}
+
+.monitor {
+  margin-left: -290px;
+  bottom: 10px;
+}
+
+.laptop {
+  margin-left: -5px;
+  bottom: 10px;
+}
+
+.potion {
+  margin-left: -610px;
+  bottom: 10px;
+}
+
+.headphones {
+  bottom: 142px;
+  margin-left: 270px;
+  position: absolute;
+  left: 50%;
+  transform: scale(0.75);
+}
+
+.controller {
+  bottom: 10px;
+  margin-left: -255px;
+}
+
+.iphone {
+  margin-left: -400px;
+  bottom: 10px;
+}
+
+.android {
+  margin-left: -550px;
+  bottom: 10px;
+}
+
+.mystery-box {
+  margin-left: -240px;
+  bottom: 462px;
+}
+
+.coin1 {
+  left: 50%;
+  margin-left: -430px;
+  bottom: 300px;
+  position: absolute;
+}
+
+.coin2 {
+  left: 50%;
+  margin-left: 80px;
+  bottom: 530px;
+  position: absolute;
+}
+
+.bomb {
+  left: 50%;
+  margin-left: -480px;
+  bottom: 335px;
+  position: absolute;
+}
+
+.game {
+  left: 50%;
+  margin-left: 250px;
+  bottom: 390px;
+  position: absolute;
+}
+
+.float-1 {
+  animation-name: float-1;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+}
+
+.float-2 {
+  animation-name: float-2;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: ease-in-out;
+  animation-delay: 0.5s;
+}
+
+@keyframes float-1 {
+  0% {
+    transform: translate3d(0, -5px, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 5px, 0);
+  }
+}
+
+@keyframes float-2 {
+  0% {
+    transform: translate3d(0, -5px, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 5px, 0);
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
