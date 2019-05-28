@@ -56,6 +56,10 @@ class MainContent extends React.Component {
             className="triangle2 ease-in opac"
           />
           <img
+            src="https://discordapp.com/assets/0a2fd7b3bab977b4619f466b81b426d4.svg"
+            className="triangle3 ease-in opac"
+          />
+          <img
             src="https://discordapp.com/assets/173ee5a6d2f1b6a19190465c41371a3b.svg"
             className="square1 ease-in opac"
           />
