@@ -1227,3 +1227,185 @@ Processing by StaticPagesController#root as HTML
 Completed 200 OK in 85ms (Views: 81.5ms | ActiveRecord: 0.4ms)
 
 
+Started POST "/api/session" for ::1 at 2019-05-28 15:36:04 -0400
+Processing by Api::SessionsController#create as JSON
+  Parameters: {"user"=>{"username"=>"DemoUser", "password"=>"[FILTERED]"}}
+  [1m[36mUser Load (0.5ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."username" = $1 LIMIT $2[0m  [["username", "DemoUser"], ["LIMIT", 1]]
+  ↳ app/models/user.rb:24
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/models/user.rb:40
+  [1m[36mUser Exists (0.8ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."username" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["username", "DemoUser"], ["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user.rb:40
+  [1m[36mUser Exists (0.5ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."email" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["email", "email@email.com"], ["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user.rb:40
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."password_digest" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["password_digest", "$2a$10$68LvAg8EuWT6p58mAXE/w.Ef.E.8TzS1IJKBdj6vewpPPsiGUsLlS"], ["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user.rb:40
+  [1m[36mUser Exists (0.4ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE "users"."session_token" = $1 AND "users"."id" != $2 LIMIT $3[0m  [["session_token", "OuipxmkHkg90auj7EtHnFA"], ["id", 1], ["LIMIT", 1]]
+  ↳ app/models/user.rb:40
+  [1m[36mUser Update (2.1ms)[0m  [1m[33mUPDATE "users" SET "session_token" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["session_token", "OuipxmkHkg90auj7EtHnFA"], ["updated_at", "2019-05-28 19:36:04.661631"], ["id", 1]]
+  ↳ app/models/user.rb:40
+  [1m[35m (0.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/models/user.rb:40
+  Rendering api/sessions/create.json.jbuilder
+  Rendered api/sessions/create.json.jbuilder (0.7ms)
+Completed 200 OK in 87ms (Views: 6.8ms | ActiveRecord: 5.8ms)
+
+
+Started GET "/api/users/1/servers" for ::1 at 2019-05-28 15:36:04 -0400
+Processing by Api::ServersController#index as JSON
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.9ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  [1m[36mUserServer Load (2.7ms)[0m  [1m[34mSELECT "user_servers".* FROM "user_servers" WHERE "user_servers"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  [1m[36mServer Load (1.0ms)[0m  [1m[34mSELECT "servers".* FROM "servers" WHERE "servers"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  Rendering api/servers/index.json.jbuilder
+  Rendered api/servers/_server.json.jbuilder (0.7ms)
+  Rendered api/servers/_server.json.jbuilder (0.1ms)
+  Rendered api/servers/_server.json.jbuilder (0.1ms)
+  Rendered api/servers/_server.json.jbuilder (0.2ms)
+  Rendered api/servers/index.json.jbuilder (7.1ms)
+Completed 200 OK in 26ms (Views: 12.8ms | ActiveRecord: 4.6ms)
+
+
+Started GET "/" for ::1 at 2019-05-28 15:37:05 -0400
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  Rendered static_pages/root.html.erb within layouts/application (0.4ms)
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "OuipxmkHkg90auj7EtHnFA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+  Rendered api/users/_user.json.jbuilder (0.8ms)
+Completed 200 OK in 414ms (Views: 409.2ms | ActiveRecord: 0.3ms)
+
+
+Started GET "/api/users/1/servers" for ::1 at 2019-05-28 15:37:06 -0400
+Processing by Api::ServersController#index as JSON
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  [1m[36mUserServer Load (14.1ms)[0m  [1m[34mSELECT "user_servers".* FROM "user_servers" WHERE "user_servers"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  [1m[36mServer Load (0.8ms)[0m  [1m[34mSELECT "servers".* FROM "servers" WHERE "servers"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  Rendering api/servers/index.json.jbuilder
+  Rendered api/servers/_server.json.jbuilder (1.0ms)
+  Rendered api/servers/_server.json.jbuilder (0.2ms)
+  Rendered api/servers/_server.json.jbuilder (0.1ms)
+  Rendered api/servers/_server.json.jbuilder (0.1ms)
+  Rendered api/servers/index.json.jbuilder (8.4ms)
+Completed 200 OK in 43ms (Views: 18.4ms | ActiveRecord: 15.7ms)
+
+
+Started GET "/" for ::1 at 2019-05-28 15:37:46 -0400
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  Rendered static_pages/root.html.erb within layouts/application (1.0ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "OuipxmkHkg90auj7EtHnFA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+  Rendered api/users/_user.json.jbuilder (0.5ms)
+Completed 200 OK in 47ms (Views: 44.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/api/users/1/servers" for ::1 at 2019-05-28 15:37:46 -0400
+Processing by Api::ServersController#index as JSON
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (5.3ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  [1m[36mUserServer Load (0.5ms)[0m  [1m[34mSELECT "user_servers".* FROM "user_servers" WHERE "user_servers"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  [1m[36mServer Load (4.0ms)[0m  [1m[34mSELECT "servers".* FROM "servers" WHERE "servers"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  Rendering api/servers/index.json.jbuilder
+  Rendered api/servers/_server.json.jbuilder (0.5ms)
+  Rendered api/servers/_server.json.jbuilder (0.1ms)
+  Rendered api/servers/_server.json.jbuilder (0.2ms)
+  Rendered api/servers/_server.json.jbuilder (0.3ms)
+  Rendered api/servers/index.json.jbuilder (7.1ms)
+Completed 200 OK in 35ms (Views: 13.4ms | ActiveRecord: 9.8ms)
+
+
+Started GET "/" for ::1 at 2019-05-28 15:39:16 -0400
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  Rendered static_pages/root.html.erb within layouts/application (0.8ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "OuipxmkHkg90auj7EtHnFA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+  Rendered api/users/_user.json.jbuilder (0.4ms)
+Completed 200 OK in 721ms (Views: 716.2ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/api/users/1/servers" for ::1 at 2019-05-28 15:39:17 -0400
+Processing by Api::ServersController#index as JSON
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (1.6ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  [1m[36mUserServer Load (10.3ms)[0m  [1m[34mSELECT "user_servers".* FROM "user_servers" WHERE "user_servers"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  [1m[36mServer Load (2.7ms)[0m  [1m[34mSELECT "servers".* FROM "servers" WHERE "servers"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  Rendering api/servers/index.json.jbuilder
+  Rendered api/servers/_server.json.jbuilder (0.9ms)
+  Rendered api/servers/_server.json.jbuilder (0.4ms)
+  Rendered api/servers/_server.json.jbuilder (0.5ms)
+  Rendered api/servers/_server.json.jbuilder (1.2ms)
+  Rendered api/servers/index.json.jbuilder (13.6ms)
+Completed 200 OK in 52ms (Views: 25.1ms | ActiveRecord: 15.2ms)
+
+
+Started GET "/" for ::1 at 2019-05-28 15:39:26 -0400
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  Rendered static_pages/root.html.erb within layouts/application (0.7ms)
+  [1m[36mUser Load (0.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "OuipxmkHkg90auj7EtHnFA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+  Rendered api/users/_user.json.jbuilder (0.6ms)
+Completed 200 OK in 109ms (Views: 103.1ms | ActiveRecord: 0.4ms)
+
+
+Started GET "/api/users/1/servers" for ::1 at 2019-05-28 15:39:26 -0400
+Processing by Api::ServersController#index as JSON
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (3.4ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  [1m[36mUserServer Load (0.7ms)[0m  [1m[34mSELECT "user_servers".* FROM "user_servers" WHERE "user_servers"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  [1m[36mServer Load (0.7ms)[0m  [1m[34mSELECT "servers".* FROM "servers" WHERE "servers"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  Rendering api/servers/index.json.jbuilder
+  Rendered api/servers/_server.json.jbuilder (0.6ms)
+  Rendered api/servers/_server.json.jbuilder (0.1ms)
+  Rendered api/servers/_server.json.jbuilder (0.1ms)
+  Rendered api/servers/_server.json.jbuilder (0.1ms)
+  Rendered api/servers/index.json.jbuilder (7.3ms)
+Completed 200 OK in 31ms (Views: 17.9ms | ActiveRecord: 4.9ms)
+
+
+Started GET "/" for ::1 at 2019-05-28 15:39:35 -0400
+Processing by StaticPagesController#root as HTML
+  Rendering static_pages/root.html.erb within layouts/application
+  Rendered static_pages/root.html.erb within layouts/application (1.2ms)
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."session_token" = $1 LIMIT $2[0m  [["session_token", "OuipxmkHkg90auj7EtHnFA"], ["LIMIT", 1]]
+  ↳ app/controllers/application_controller.rb:6
+  Rendered api/users/_user.json.jbuilder (0.8ms)
+Completed 200 OK in 107ms (Views: 102.9ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/api/users/1/servers" for ::1 at 2019-05-28 15:39:36 -0400
+Processing by Api::ServersController#index as JSON
+  Parameters: {"user_id"=>"1"}
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  [1m[36mUserServer Load (0.9ms)[0m  [1m[34mSELECT "user_servers".* FROM "user_servers" WHERE "user_servers"."user_id" = $1[0m  [["user_id", 1]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  [1m[36mServer Load (1.4ms)[0m  [1m[34mSELECT "servers".* FROM "servers" WHERE "servers"."id" IN ($1, $2, $3, $4)[0m  [["id", 1], ["id", 2], ["id", 3], ["id", 4]]
+  ↳ app/controllers/api/servers_controller.rb:7
+  Rendering api/servers/index.json.jbuilder
+  Rendered api/servers/_server.json.jbuilder (0.4ms)
+  Rendered api/servers/_server.json.jbuilder (0.2ms)
+  Rendered api/servers/_server.json.jbuilder (0.1ms)
+  Rendered api/servers/_server.json.jbuilder (0.1ms)
+  Rendered api/servers/index.json.jbuilder (8.1ms)
+Completed 200 OK in 30ms (Views: 15.4ms | ActiveRecord: 3.1ms)
+
+
