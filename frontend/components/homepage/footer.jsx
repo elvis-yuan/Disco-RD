@@ -1,7 +1,21 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 
-const Footer = () => {
+const msp = ({ entities, session }) => ({
+  currentUser: entities.users[session.id]
+});
+
+const Footer = props => {
+  const button = props.currentUser ? (
+    <Link to="/servers" className="footer-btn">
+      Open
+    </Link>
+  ) : (
+    <Link to="/login" className="footer-btn">
+      Login
+    </Link>
+  );
   return (
     <footer className="footer">
       <svg
@@ -26,12 +40,13 @@ const Footer = () => {
             <h2>Ready to try Disco-RD? It's free!</h2>
             <h3>JOIN ALL THE OTHER DISCO USERS TODAY</h3>
           </div>
-          <Link className="footer-btn" to="/login">
-            Login
-          </Link>
+          {button}
         </div>
       </div>
     </footer>
   );
 };
-export default Footer;
+export default connect(
+  msp,
+  null
+)(Footer);
