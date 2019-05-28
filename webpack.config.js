@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   context: __dirname,
-  entry: "./frontend/disco_rd.jsx",
+  entry: "./frontend/index.jsx",
   output: {
     path: path.resolve(__dirname, "app", "assets", "javascripts"),
     filename: "bundle.js"
@@ -24,5 +24,5 @@ module.exports = {
       }
     ]
   },
-  devtool: "eval-source-map"
+  devtool: "source-map"
 };
