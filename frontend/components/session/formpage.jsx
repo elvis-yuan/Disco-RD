@@ -22,7 +22,6 @@ class Formpage extends React.Component {
               alt=""
             />
           </div>
-          <canvas className="form-canvas" />
           <div className="left-split">
             <Link to="/" className="form-logo" />
             <div className="form-wrapper">{form}</div>

@@ -10,6 +10,48 @@
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
  *
+ *
  *= require_tree .
  *= require_self
  */
+@font-face {
+  font-family: "Whitney";
+  src: url("https://discordapp.com/assets/6c6374bad0b0b6d204d8d6dc4a18d820.woff")
+    format("woff");
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: "Whitney";
+  src: url("https://discordapp.com/assets/be0060dafb7a0e31d2a1ca17c0708636.woff")
+    format("woff");
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: "Whitney";
+  src: url("https://discordapp.com/assets/3bdef1251a424500c1b3a78dea9b7e57.woff")
+    format("woff");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Whitney";
+  src: url("https://discordapp.com/assets/e8acd7d9bf6207f99350ca9f9e23b168.woff")
+    format("woff");
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "Whitney";
+  src: url("https://discordapp.com/assets/2e004dd717cdc58b9ccb361d286ebbce.woff")
+    format("woff");
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: "Whitney";
+  src: url("https://discordapp.com/assets/a934ab008c7f6a2274ec441f6be0696a.woff")
+    format("woff");
+  font-weight: 500;
+}
