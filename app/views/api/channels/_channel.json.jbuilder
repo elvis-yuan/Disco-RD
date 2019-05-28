@@ -1,0 +1,1 @@
+json.extract! channel, :server_id, :title
