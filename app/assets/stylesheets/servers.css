@@ -1,3 +1,77 @@
 .server-index-container {
   color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1f2124;
+  padding-top: 10px;
+  width: 100px;
+  height: 100vh;
+}
+
+.server-ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.server-btn {
+  margin-top: 10px;
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  background-color: #292b2f;
+  color: #43b581;
+  cursor: pointer;
+  border: none;
+  border-radius: 100%;
+  transition: color 0.25s ease, background-color 0.25s ease,
+    border-radius 0.25s ease;
+  position: relative;
+}
+
+.server-btn > p {
+  display: none;
+  position: absolute;
+  left: 50px;
+  bottom: 12px;
+  border-radius: 5px;
+  color: white;
+  background-color: black;
+  font-family: Whitney;
+  font-size: 12px;
+  padding: 5px;
+  width: 70px;
+}
+.server-btn:hover > p {
+  display: block;
+}
+
+.server-btn:hover {
+  border-radius: 15px;
+  color: white;
+  background-color: #43b581;
+  transition: color 0.25s ease, background-color 0.25s ease,
+    border-radius 0.25s ease;
+}
+
+.server-icon {
+  font-size: 38px;
+  font-weight: 200;
+  line-height: 0;
+  height: 8px;
+}
+
+.server-icon-text {
+  font-size: 18px;
+  color: #b9bbbe;
+}
+
+.blue-btn:hover {
+  background-color: #7289d9;
+}
+
+.blue-btn:hover > h3 {
+  color: white;
 }

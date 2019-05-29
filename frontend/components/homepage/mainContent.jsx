@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { loginUser } from "../../actions/session_actions";
 
 const msp = ({ entities, session }) => ({
-  currentUser: entities.users[session.id]
+  currentUser: session.currentUser
 });
 
 const mdp = dispatch => ({

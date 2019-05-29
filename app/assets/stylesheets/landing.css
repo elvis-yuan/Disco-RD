@@ -1,3 +1,8 @@
+body {
+  overscroll-behavior-y: none;
+  overscroll-behavior-x: none;
+}
+
 body > main {
   color: #202227;
   background-color: #25252a;
@@ -53,8 +58,8 @@ body > main {
 }
 
 .login-button {
-  color: #adadad;
-  border: 2px solid#b1b1b3;
+  color: #cececf;
+  border: 2px solid#cececf;
   border-radius: 20px;
   margin-right: 18px;
   padding: 4px 18px 6px;

@@ -2,6 +2,19 @@
   animation: fadeIn ease 2s;
 }
 
+.shadow {
+  left: 50%;
+  margin-left: -650px;
+  bottom: 0;
+  border-radius: 50px;
+  width: 1300px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  -webkit-transition: all 0.5s ease;
+  transition: all 20s ease;
+}
+
 .animated-section {
   position: relative;
   height: 640px;

@@ -16,11 +16,12 @@ class Formpage extends React.Component {
       <div className="form-content">
         <div className="form-background">
           <div className="right-split">
-            <img
-              className="form-image"
-              src="https://discordapp.com/assets/fd91131ea693096d6be5e8aa99d18f9e.jpg"
-              alt=""
-            />
+            <div className="form-image">
+              <img
+                src="https://discordapp.com/assets/fd91131ea693096d6be5e8aa99d18f9e.jpg"
+                alt=""
+              />
+            </div>
           </div>
           <div className="left-split">
             <Link to="/" className="form-logo" />
