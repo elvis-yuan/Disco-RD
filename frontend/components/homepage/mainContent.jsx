@@ -1,25 +1,31 @@
 import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import { loginUser } from "../../actions/session_actions";
+import { loginUser, logoutUser } from "../../actions/session_actions";
 
 const msp = ({ entities, session }) => ({
   currentUser: session.currentUser
 });
 
 const mdp = dispatch => ({
-  signin: user => dispatch(loginUser(user))
+  signin: user => dispatch(loginUser(user)),
+  logout: () => dispatch(logoutUser())
 });
 
 class MainContent extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.clickHandler = this.clickHandler.bind(this);
   }
 
   handleClick() {
     const user = { username: "DemoUser", password: "Password" };
     this.props.signin(user).then(() => this.props.history.push("/servers"));
+  }
+
+  clickHandler() {
+    this.props.logout();
   }
 
   render() {
@@ -33,6 +39,16 @@ class MainContent extends React.Component {
       </Link>
     );
 
+    const demo = this.props.currentUser ? (
+      <span onClick={this.clickHandler} className="login fade-in">
+        Logout
+      </span>
+    ) : (
+      <span onClick={this.handleClick} className="login fade-in">
+        Demo
+      </span>
+    );
+
     return (
       <section className="main-body">
         <div className="head-component">
@@ -40,9 +56,7 @@ class MainContent extends React.Component {
           <p>Text chat app for all users with no fees or hassle</p>
           <div className="buttons">
             {button}
-            <span onClick={this.handleClick} className="login fade-in">
-              Demo
-            </span>
+            {demo}
           </div>
         </div>
         <div className="animated-section">

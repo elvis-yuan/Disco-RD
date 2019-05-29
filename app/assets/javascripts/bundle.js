@@ -438,6 +438,9 @@ var mdp = function mdp(dispatch) {
   return {
     signin: function signin(user) {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["loginUser"])(user));
+    },
+    logout: function logout() {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_3__["logoutUser"])());
     }
   };
 };
@@ -454,6 +457,7 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MainContent).call(this, props));
     _this.handleClick = _this.handleClick.bind(_assertThisInitialized(_this));
+    _this.clickHandler = _this.clickHandler.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -471,6 +475,11 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "clickHandler",
+    value: function clickHandler() {
+      this.props.logout();
+    }
+  }, {
     key: "render",
     value: function render() {
       var button = this.props.currentUser ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
@@ -480,16 +489,20 @@ function (_React$Component) {
         to: "/signup",
         className: "signup-button fade-in"
       }, "Signup");
+      var demo = this.props.currentUser ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        onClick: this.clickHandler,
+        className: "login fade-in"
+      }, "Logout") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        onClick: this.handleClick,
+        className: "login fade-in"
+      }, "Demo");
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("section", {
         className: "main-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "head-component"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "It's time to ditch Discord and Kaos."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Text chat app for all users with no fees or hassle"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "buttons"
-      }, button, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        onClick: this.handleClick,
-        className: "login fade-in"
-      }, "Demo"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, button, demo)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "animated-section"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "shadow"
@@ -648,10 +661,10 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var currentUser = this.props.currentUser;
-      var button = currentUser ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        onClick: this.clickHandler,
-        className: "login-button"
-      }, "Logout") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+      var button = currentUser ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
+        className: "login-button",
+        to: "/servers"
+      }, "Open") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "login-button",
         to: "/login"
       }, "Login");
