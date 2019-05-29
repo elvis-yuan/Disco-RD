@@ -1,3 +1,22 @@
+.channel-index {
+  background-color: 2e3135;
+}
+
+.chat-box {
+  background-color: #35393f;
+}
+
 .main-app {
-  height: 100vh;
+  background-color: #35393f;
+  display: flex;
+}
+
+.search-bar {
+  padding: 5px;
+}
+
+.search-bar > input {
+  margin-top: 10px;
+  height: 24px;
+  line-height: 24px;
 }

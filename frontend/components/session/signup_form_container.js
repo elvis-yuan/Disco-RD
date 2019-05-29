@@ -1,6 +1,10 @@
 import SessionForm from "./session_form";
 import { connect } from "react-redux";
-import { signupUser, deleteErrors } from "../../actions/session_actions";
+import {
+  signupUser,
+  deleteErrors,
+  loginUser
+} from "../../actions/session_actions";
 import { withRouter } from "react-router-dom";
 
 const msp = state => ({
@@ -10,6 +14,7 @@ const msp = state => ({
 
 const mdp = dispatch => ({
   processForm: user => dispatch(signupUser(user)),
+  // login: user => dispatch(loginUser(user)),
   removeErrors: () => dispatch(deleteErrors())
 });
 

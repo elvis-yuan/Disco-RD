@@ -1,3 +1,8 @@
+body {
+  overscroll-behavior-y: none;
+  overscroll-behavior-x: none;
+}
+
 body > main {
   color: #202227;
   background-color: #25252a;

@@ -1,9 +1,15 @@
 import { combineReducers } from "redux";
 
 import users from "./users_reducer";
-import servers from "./servers_reducer.js";
+// import servers from "./servers_reducer.js";
+import servers from "./servers_reducer";
 // import channels from "./channels_reducer";
 // import messages from "./messages_reducer";
+
+const reducer = something => {
+  debugger;
+  return something;
+};
 
 export default combineReducers({
   users,

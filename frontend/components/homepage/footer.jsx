@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 const msp = ({ entities, session }) => ({
-  currentUser: entities.users[session.id]
+  currentUser: entities.users[session.currentUser]
 });
 
 const Footer = props => {

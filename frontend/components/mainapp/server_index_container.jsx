@@ -4,7 +4,7 @@ import { withRouter, Link } from "react-router-dom";
 import ServerIndex from "./server_index";
 
 const msp = ({ entities, session }) => ({
-  currentUser: entities.users[session.id],
+  currentUser: session.currentUser,
   servers: Object.values(entities.servers)
 });
 
