@@ -17,6 +17,10 @@
 }
 
 .server-btn {
+  align-items: center;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
   margin-top: 10px;
   box-sizing: border-box;
   width: 48px;
@@ -43,6 +47,7 @@
   font-size: 12px;
   padding: 5px;
   width: 70px;
+  text-align: center;
 }
 .server-btn:hover > p {
   display: block;

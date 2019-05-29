@@ -976,16 +976,12 @@ function (_React$Component) {
   _createClass(ServerIndex, [{
     key: "render",
     value: function render() {
-      var _this = this;
-
       var servers = this.props.servers;
       var serverList = servers ? servers.map(function (server, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-          onClick: function onClick() {
-            return _this.props.history.push("/servers/".concat(server.id));
-          },
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
           key: index,
-          className: "button-flex server-btn blue-btn"
+          className: "button-flex server-btn blue-btn",
+          to: "/servers/".concat(server.id)
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
           className: "server-icon-text"
         }, server.title.slice(0, 1).toLowerCase()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, server.title));

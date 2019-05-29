@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import ServerIcon from "./server_icon";
 
 class ServerIndex extends React.Component {
@@ -16,16 +16,16 @@ class ServerIndex extends React.Component {
     const { servers } = this.props;
     const serverList = servers
       ? servers.map((server, index) => (
-          <button
-            onClick={() => this.props.history.push(`/servers/${server.id}`)}
+          <NavLink
             key={index}
             className="button-flex server-btn blue-btn"
+            to={`/servers/${server.id}`}
           >
             <h3 className="server-icon-text">
               {server.title.slice(0, 1).toLowerCase()}
             </h3>
             <p>{server.title}</p>
-          </button>
+          </NavLink>
         ))
       : null;
 
