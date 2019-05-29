@@ -23,34 +23,34 @@ const Protected = ({ component: Component, path, loggedIn, exact }) => (
   />
 );
 
-const Custom = props => {
+const Server = ({
+  component: Component,
+  path,
+  exact,
+  connectedServer,
+  history
+}) => {
+  debugger;
   return (
     <Route
-      {...props}
-      Component={props => {
-        if (props.match.params.serverId) return ChannelIndex;
-        else this.props.histor.push("/servers");
-      }}
+      path={path}
+      exact={exact}
+      render={props =>
+        connectedServer ? <Component {...props} /> : history.push("/servers")
+      }
     />
   );
 };
 
-const Server = ({ component: Component, path, exact }) => (
-  <Route
-    path={path}
-    exact={exact}
-    render={props =>
-      loggedIn ? <Component {...props} /> : <Redirect to="/servers" />
-    }
-  />
-);
-
 const msp = (state, ownProps) => {
-  // debugger;
+  debugger;
+  const empty = ownProps.location.pathname.slice(9) === "";
+  const path = parseInt(ownProps.location.pathname.slice(9));
   return {
-    connectedServer: Object.values(state.servers).includes(
-      ownProps.match.params.serverId
-    )
+    connectedServer:
+      Object.values(state.entities.servers)
+        .map(server => server.id)
+        .includes(path) || empty
   };
 };
 
@@ -64,4 +64,3 @@ const mapStateToProps = state => {
 export const AuthRoute = withRouter(connect(mapStateToProps)(Auth));
 export const ProtectedRoute = withRouter(connect(mapStateToProps)(Protected));
 export const ServerRoute = withRouter(connect(msp)(Server));
-export const CustomRoute = withRouter(connect(msp)(Custom));

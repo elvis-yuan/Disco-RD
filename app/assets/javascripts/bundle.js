@@ -244,7 +244,11 @@ var App = function App(_ref) {
   var store = _ref.store;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_redux__WEBPACK_IMPORTED_MODULE_1__["Provider"], {
     store: store
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Switch"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["AuthRoute"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+    exact: true,
+    path: "/",
+    component: _components_homepage_homepage__WEBPACK_IMPORTED_MODULE_3__["default"]
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["AuthRoute"], {
     path: "/login",
     component: _components_session_formpage__WEBPACK_IMPORTED_MODULE_4__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["AuthRoute"], {
@@ -253,10 +257,7 @@ var App = function App(_ref) {
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_5__["ProtectedRoute"], {
     path: "/servers",
     component: _components_mainapp_main__WEBPACK_IMPORTED_MODULE_6__["default"]
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-    path: "/",
-    component: _components_homepage_homepage__WEBPACK_IMPORTED_MODULE_3__["default"]
-  }))));
+  })));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (App);
@@ -880,7 +881,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var servercomp = this.props.servers.length === 0 ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      var servercomp = this.props.servers.length === 0 ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_route_util__WEBPACK_IMPORTED_MODULE_4__["ServerRoute"], {
         path: "/:serverId",
         component: _channel_index__WEBPACK_IMPORTED_MODULE_3__["default"]
       });
@@ -1149,7 +1150,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var msp = function msp(state) {
   return {
-    errors: state.errors.session.responseJSON,
+    errors: state.errors.session,
     formType: "login"
   };
 };
@@ -1260,17 +1261,42 @@ function (_React$Component) {
       var text = formType === "login" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "register-text"
       }, "Need an account? ") : null;
-      var redError = errors ? "red-errors" : "";
-      var redBorder = errors ? "red-border" : "form-input ";
+      var usernameError = errors.includes("username") || errors.includes("Invalid Username or Password") || errors.includes("Username has already been taken") ? "red-errors" : "";
+      var passwordError = errors.includes("password") || errors.includes("Invalid Username or Password") || errors.includes("Password is too short (minimum is 6 characters)") ? "red-errors" : "";
+      var emailError = errors.includes("email") || errors.includes("Invalid Username or Password") || errors.includes("Email has already been taken") ? "red-errors" : "";
+      var usernameBorder = errors.includes("username") || errors.includes("Invalid Username or Password") || errors.includes("Username has already been taken") ? "red-border" : "form-input ";
+      var passwordBorder = errors.includes("password") || errors.includes("Invalid Username or Password") || errors.includes("Password is too short (minimum is 6 characters)") ? "red-border" : "form-input ";
+      var emailBorder = errors.includes("email") || errors.includes("Invalid Username or Password") || errors.includes("Email has already been taken") ? "red-border" : "form-input ";
+      var useremptyError = errors.includes("username") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "empty-error-text"
+      }, "- This field is required") : null;
+      var passwordemptyError = errors.includes("password") > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "empty-error-text"
+      }, "- This field is required") : null;
+      var emailemptyError = errors.includes("email") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "empty-error-text"
+      }, "- This field is required") : null;
+      var incorrectFields = errors.includes("Invalid Username or Password") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "empty-error-text"
+      }, "- Invalid Username or Password") : null;
+      var usernameTaken = errors.includes("Username has already been taken") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "empty-error-text"
+      }, "- Username has already been taken") : null;
+      var emailTaken = errors.includes("Email has already been taken") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "empty-error-text"
+      }, "- Email has already been taken") : null;
+      var passwordMin = errors.includes("Password is too short (minimum is 6 characters)") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "empty-error-text"
+      }, "- Password is too short (minimum is 6 characters)") : null;
       var email = formType === "signup" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "email-block"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
-        className: "form-email ".concat(redError)
-      }, "EMAIL"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-email ".concat(emailError)
+      }, "EMAIL ", emailemptyError, " ", emailTaken), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "email-input-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "".concat(redBorder),
-        type: "text",
+        className: "".concat(emailBorder),
+        type: "email",
         onChange: this.handleChange("email"),
         value: this.state.email
       }))) : null;
@@ -1287,22 +1313,22 @@ function (_React$Component) {
       }, email, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "email-block"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
-        className: "form-email ".concat(redError)
-      }, "USERNAME"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-email ".concat(usernameError)
+      }, "USERNAME ", useremptyError, " ", incorrectFields, " ", usernameTaken), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "email-input-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "".concat(redBorder),
+        className: "".concat(usernameBorder),
         type: "text",
         onChange: this.handleChange("username"),
         value: this.state.username
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "email-block"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
-        className: "form-email ".concat(redError)
-      }, "PASSWORD"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-email ".concat(passwordError)
+      }, "PASSWORD ", passwordemptyError, " ", incorrectFields, " ", passwordMin), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "email-input-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "".concat(redBorder),
+        className: "".concat(passwordBorder),
         type: "password",
         onChange: this.handleChange("password"),
         value: this.state.password
@@ -1345,7 +1371,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var msp = function msp(state) {
   return {
-    errors: state.errors.session.responseJSON,
+    errors: state.errors.session,
     formType: "signup"
   };
 };
@@ -1355,7 +1381,6 @@ var mdp = function mdp(dispatch) {
     processForm: function processForm(user) {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["signupUser"])(user));
     },
-    // login: user => dispatch(loginUser(user)),
     removeErrors: function removeErrors() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["deleteErrors"])());
     }
@@ -1550,19 +1575,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var sessionErrorsReducer = function sessionErrorsReducer() {
-  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var action = arguments.length > 1 ? arguments[1] : undefined;
   Object.freeze(state);
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ERRORS"]:
-      return Object.assign({}, state, action.errors);
+      return action.errors.responseJSON;
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
-      return {};
+      return [];
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_ERRORS"]:
-      return {};
+      return [];
 
     default:
       return state;
@@ -1679,7 +1704,7 @@ var configureStore = function configureStore() {
 /*!**************************************!*\
   !*** ./frontend/util/route_util.jsx ***!
   \**************************************/
-/*! exports provided: AuthRoute, ProtectedRoute, ServerRoute, CustomRoute */
+/*! exports provided: AuthRoute, ProtectedRoute, ServerRoute */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -1687,16 +1712,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthRoute", function() { return AuthRoute; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ProtectedRoute", function() { return ProtectedRoute; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServerRoute", function() { return ServerRoute; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CustomRoute", function() { return CustomRoute; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _components_mainapp_channel_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/mainapp/channel_index */ "./frontend/components/mainapp/channel_index.jsx");
-var _this = undefined;
-
-function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
-
 
 
 
@@ -1734,33 +1754,30 @@ var Protected = function Protected(_ref2) {
   });
 };
 
-var Custom = function Custom(props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], _extends({}, props, {
-    Component: function Component(props) {
-      if (props.match.params.serverId) return _components_mainapp_channel_index__WEBPACK_IMPORTED_MODULE_3__["default"];else _this.props.histor.push("/servers");
-    }
-  }));
-};
-
 var Server = function Server(_ref3) {
   var Component = _ref3.component,
       path = _ref3.path,
-      exact = _ref3.exact;
+      exact = _ref3.exact,
+      connectedServer = _ref3.connectedServer,
+      history = _ref3.history;
+  debugger;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: path,
     exact: exact,
     render: function render(props) {
-      return loggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-        to: "/servers"
-      });
+      return connectedServer ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props) : history.push("/servers");
     }
   });
 };
 
 var msp = function msp(state, ownProps) {
-  // debugger;
+  debugger;
+  var empty = ownProps.location.pathname.slice(9) === "";
+  var path = parseInt(ownProps.location.pathname.slice(9));
   return {
-    connectedServer: Object.values(state.servers).includes(ownProps.match.params.serverId)
+    connectedServer: Object.values(state.entities.servers).map(function (server) {
+      return server.id;
+    }).includes(path) || empty
   };
 };
 
@@ -1774,7 +1791,6 @@ var mapStateToProps = function mapStateToProps(state) {
 var AuthRoute = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps)(Auth));
 var ProtectedRoute = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps)(Protected));
 var ServerRoute = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(msp)(Server));
-var CustomRoute = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(msp)(Custom));
 
 /***/ }),
 

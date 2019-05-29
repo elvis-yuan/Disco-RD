@@ -8,13 +8,12 @@ import {
 import { withRouter } from "react-router-dom";
 
 const msp = state => ({
-  errors: state.errors.session.responseJSON,
+  errors: state.errors.session,
   formType: "signup"
 });
 
 const mdp = dispatch => ({
   processForm: user => dispatch(signupUser(user)),
-  // login: user => dispatch(loginUser(user)),
   removeErrors: () => dispatch(deleteErrors())
 });
 

@@ -1,8 +1,8 @@
 import React from "react";
 import ServerIndexContainer from "./server_index_container";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import ChannelIndex from "./channel_index";
-import { ServerRoute } from "../../util/route_util";
+import { ServerRoute, CustomRoute } from "../../util/route_util";
 import { connect } from "react-redux";
 import { fetchAllServers, fetchServer } from "../../actions/server_actions";
 
@@ -28,13 +28,12 @@ class Main extends React.Component {
   render() {
     const servercomp =
       this.props.servers.length === 0 ? null : (
-        <Route path="/:serverId" component={ChannelIndex} />
+        <ServerRoute path="/:serverId" component={ChannelIndex} />
       );
     return (
       <div className="main-app">
         <ServerIndexContainer />
         {servercomp}
-        {/* <ServerRoute path="/:serverId" component={ChannelIndex} /> */}
         {/* // <Route path="/:serverId/:channelId" component={ChannelIndex} /> */}
       </div>
     );

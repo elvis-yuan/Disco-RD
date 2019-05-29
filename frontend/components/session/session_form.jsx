@@ -35,20 +35,97 @@ class SessionForm extends React.Component {
     const { formType, errors } = this.props;
     const button = formType === "signup" ? "Continue" : "Login";
     const title = formType === "login" ? "Welcome back!" : "Create an account";
+
     const text =
       formType === "login" ? (
         <span className="register-text">Need an account? </span>
       ) : null;
-    const redError = errors ? "red-errors" : "";
-    const redBorder = errors ? "red-border" : "form-input ";
+    const usernameError =
+      errors.includes("username") ||
+      errors.includes("Invalid Username or Password") ||
+      errors.includes("Username has already been taken")
+        ? "red-errors"
+        : "";
+    const passwordError =
+      errors.includes("password") ||
+      errors.includes("Invalid Username or Password") ||
+      errors.includes("Password is too short (minimum is 6 characters)")
+        ? "red-errors"
+        : "";
+
+    const emailError =
+      errors.includes("email") ||
+      errors.includes("Invalid Username or Password") ||
+      errors.includes("Email has already been taken")
+        ? "red-errors"
+        : "";
+
+    const usernameBorder =
+      errors.includes("username") ||
+      errors.includes("Invalid Username or Password") ||
+      errors.includes("Username has already been taken")
+        ? "red-border"
+        : "form-input ";
+
+    const passwordBorder =
+      errors.includes("password") ||
+      errors.includes("Invalid Username or Password") ||
+      errors.includes("Password is too short (minimum is 6 characters)")
+        ? "red-border"
+        : "form-input ";
+
+    const emailBorder =
+      errors.includes("email") ||
+      errors.includes("Invalid Username or Password") ||
+      errors.includes("Email has already been taken")
+        ? "red-border"
+        : "form-input ";
+
+    const useremptyError = errors.includes("username") ? (
+      <span className="empty-error-text">- This field is required</span>
+    ) : null;
+
+    const passwordemptyError =
+      errors.includes("password") > 0 ? (
+        <span className="empty-error-text">- This field is required</span>
+      ) : null;
+
+    const emailemptyError = errors.includes("email") ? (
+      <span className="empty-error-text">- This field is required</span>
+    ) : null;
+
+    const incorrectFields = errors.includes("Invalid Username or Password") ? (
+      <span className="empty-error-text">- Invalid Username or Password</span>
+    ) : null;
+
+    const usernameTaken = errors.includes("Username has already been taken") ? (
+      <span className="empty-error-text">
+        - Username has already been taken
+      </span>
+    ) : null;
+
+    const emailTaken = errors.includes("Email has already been taken") ? (
+      <span className="empty-error-text">- Email has already been taken</span>
+    ) : null;
+
+    const passwordMin = errors.includes(
+      "Password is too short (minimum is 6 characters)"
+    ) ? (
+      <span className="empty-error-text">
+        - Password is too short (minimum is 6 characters)
+      </span>
+    ) : null;
+
     const email =
       formType === "signup" ? (
         <div className="email-block">
-          <h5 className={`form-email ${redError}`}>EMAIL</h5>
+          <h5 className={`form-email ${emailError}`}>
+            EMAIL {emailemptyError} {emailTaken}
+          </h5>
           <div className="email-input-wrapper">
             <input
-              className={`${redBorder}`}
-              type="text"
+              className={`${emailBorder}`}
+              type="email"
               onChange={this.handleChange("email")}
               value={this.state.email}
             />
@@ -69,10 +146,12 @@ class SessionForm extends React.Component {
             <div className="form-block">
               {email}
               <div className="email-block">
-                <h5 className={`form-email ${redError}`}>USERNAME</h5>
+                <h5 className={`form-email ${usernameError}`}>
+                  USERNAME {useremptyError} {incorrectFields} {usernameTaken}
+                </h5>
                 <div className="email-input-wrapper">
                   <input
-                    className={`${redBorder}`}
+                    className={`${usernameBorder}`}
                     type="text"
                     onChange={this.handleChange("username")}
                     value={this.state.username}
@@ -80,10 +159,12 @@ class SessionForm extends React.Component {
                 </div>
               </div>
               <div className="email-block">
-                <h5 className={`form-email ${redError}`}>PASSWORD</h5>
+                <h5 className={`form-email ${passwordError}`}>
+                  PASSWORD {passwordemptyError} {incorrectFields} {passwordMin}
+                </h5>
                 <div className="email-input-wrapper">
                   <input
-                    className={`${redBorder}`}
+                    className={`${passwordBorder}`}
                     type="password"
                     onChange={this.handleChange("password")}
                     value={this.state.password}

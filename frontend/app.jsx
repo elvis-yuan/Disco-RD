@@ -9,12 +9,10 @@ import Main from "./components/mainapp/main";
 const App = ({ store }) => (
   <Provider store={store}>
     <HashRouter>
-      <Switch>
-        <AuthRoute path="/login" component={Formpage} />
-        <AuthRoute path="/signup" component={Formpage} />
-        <ProtectedRoute path="/servers" component={Main} />
-        <Route path="/" component={Homepage} />
-      </Switch>
+      <Route exact path="/" component={Homepage} />
+      <AuthRoute path="/login" component={Formpage} />
+      <AuthRoute path="/signup" component={Formpage} />
+      <ProtectedRoute path="/servers" component={Main} />
     </HashRouter>
   </Provider>
 );
