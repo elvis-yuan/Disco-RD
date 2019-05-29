@@ -6,6 +6,10 @@
   height: 100%;
 }
 
+.empty-error-text {
+  font-weight: 200;
+}
+
 .form-content {
   width: 100%;
   position: relative;

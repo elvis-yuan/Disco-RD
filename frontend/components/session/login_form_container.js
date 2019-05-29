@@ -4,7 +4,7 @@ import { loginUser, deleteErrors } from "../../actions/session_actions";
 import { withRouter } from "react-router-dom";
 
 const msp = state => ({
-  errors: state.errors.session.responseJSON,
+  errors: state.errors.session,
   formType: "login"
 });
 
