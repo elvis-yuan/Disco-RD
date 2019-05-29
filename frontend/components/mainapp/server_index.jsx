@@ -21,6 +21,7 @@ class ServerIndex extends React.Component {
             className="button-flex server-btn blue-btn"
             to={`/servers/${server.id}`}
           >
+            <div className="sever-selector" />
             <h3 className="server-icon-text">
               {server.title.slice(0, 1).toLowerCase()}
             </h3>

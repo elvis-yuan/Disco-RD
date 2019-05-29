@@ -5,7 +5,7 @@ export const ServerIcon = props => {
   return (
     <>
       <button>
-        <div className="selector">|</div>
+        <div className="server-selector">|</div>
         <h3 className="server-icon-text">
           {server.title.slice(0, 1).toLowerCase()}
         </h3>

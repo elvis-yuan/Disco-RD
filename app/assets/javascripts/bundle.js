@@ -914,7 +914,7 @@ __webpack_require__.r(__webpack_exports__);
 var ServerIcon = function ServerIcon(props) {
   var server = props.server;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "selector"
+    className: "server-selector"
   }, "|"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "server-icon-text"
   }, server.title.slice(0, 1).toLowerCase()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, server.title)));
@@ -982,7 +982,9 @@ function (_React$Component) {
           key: index,
           className: "button-flex server-btn blue-btn",
           to: "/servers/".concat(server.id)
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "sever-selector"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
           className: "server-icon-text"
         }, server.title.slice(0, 1).toLowerCase()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, server.title));
       }) : null;

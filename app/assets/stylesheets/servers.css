@@ -9,6 +9,16 @@
   height: 100vh;
 }
 
+.server-selector {
+  width: 10px;
+  height: 40px;
+  color: white;
+  background-color: white;
+  position: absolute;
+  left: -32px;
+  border-radius: 12px;
+}
+
 .server-ul {
   display: flex;
   flex-direction: column;
