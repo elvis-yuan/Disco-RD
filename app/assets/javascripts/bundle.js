@@ -1262,10 +1262,10 @@ function (_React$Component) {
         className: "register-text"
       }, "Need an account? ") : null;
       var usernameError = errors.includes("username") || errors.includes("Invalid Username or Password") || errors.includes("Username has already been taken") ? "red-errors" : "";
-      var passwordError = errors.includes("password") || errors.includes("Invalid Username or Password") ? "red-errors" : "";
+      var passwordError = errors.includes("password") || errors.includes("Invalid Username or Password") || errors.includes("Password is too short (minimum is 6 characters)") ? "red-errors" : "";
       var emailError = errors.includes("email") || errors.includes("Invalid Username or Password") || errors.includes("Email has already been taken") ? "red-errors" : "";
       var usernameBorder = errors.includes("username") || errors.includes("Invalid Username or Password") || errors.includes("Username has already been taken") ? "red-border" : "form-input ";
-      var passwordBorder = errors.includes("password") || errors.includes("Invalid Username or Password") ? "red-border" : "form-input ";
+      var passwordBorder = errors.includes("password") || errors.includes("Invalid Username or Password") || errors.includes("Password is too short (minimum is 6 characters)") ? "red-border" : "form-input ";
       var emailBorder = errors.includes("email") || errors.includes("Invalid Username or Password") || errors.includes("Email has already been taken") ? "red-border" : "form-input ";
       var useremptyError = errors.includes("username") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "empty-error-text"
@@ -1285,6 +1285,9 @@ function (_React$Component) {
       var emailTaken = errors.includes("Email has already been taken") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "empty-error-text"
       }, "- Email has already been taken") : null;
+      var passwordMin = errors.includes("Password is too short (minimum is 6 characters)") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "empty-error-text"
+      }, "- Password is too short (minimum is 6 characters)") : null;
       var email = formType === "signup" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "email-block"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
@@ -1322,7 +1325,7 @@ function (_React$Component) {
         className: "email-block"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
         className: "form-email ".concat(passwordError)
-      }, "PASSWORD ", passwordemptyError, " ", incorrectFields), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "PASSWORD ", passwordemptyError, " ", incorrectFields, " ", passwordMin), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "email-input-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "".concat(passwordBorder),

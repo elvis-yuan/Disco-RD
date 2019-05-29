@@ -48,7 +48,8 @@ class SessionForm extends React.Component {
         : "";
     const passwordError =
       errors.includes("password") ||
-      errors.includes("Invalid Username or Password")
+      errors.includes("Invalid Username or Password") ||
+      errors.includes("Password is too short (minimum is 6 characters)")
         ? "red-errors"
         : "";
 
@@ -68,7 +69,8 @@ class SessionForm extends React.Component {
 
     const passwordBorder =
       errors.includes("password") ||
-      errors.includes("Invalid Username or Password")
+      errors.includes("Invalid Username or Password") ||
+      errors.includes("Password is too short (minimum is 6 characters)")
         ? "red-border"
         : "form-input ";
 
@@ -104,6 +106,14 @@ class SessionForm extends React.Component {
 
     const emailTaken = errors.includes("Email has already been taken") ? (
       <span className="empty-error-text">- Email has already been taken</span>
+    ) : null;
+
+    const passwordMin = errors.includes(
+      "Password is too short (minimum is 6 characters)"
+    ) ? (
+      <span className="empty-error-text">
+        - Password is too short (minimum is 6 characters)
+      </span>
     ) : null;
 
     const email =
@@ -150,7 +160,7 @@ class SessionForm extends React.Component {
               </div>
               <div className="email-block">
                 <h5 className={`form-email ${passwordError}`}>
-                  PASSWORD {passwordemptyError} {incorrectFields}
+                  PASSWORD {passwordemptyError} {incorrectFields} {passwordMin}
                 </h5>
                 <div className="email-input-wrapper">
                   <input
