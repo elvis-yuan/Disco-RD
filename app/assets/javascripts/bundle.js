@@ -913,9 +913,11 @@ __webpack_require__.r(__webpack_exports__);
 
 var ServerIcon = function ServerIcon(props) {
   var server = props.server;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "selector"
+  }, "|"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "server-icon-text"
-  }, server.title.slice(0, 1).toLowerCase()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, server.title));
+  }, server.title.slice(0, 1).toLowerCase()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, server.title)));
 };
 /* harmony default export */ __webpack_exports__["default"] = (ServerIcon);
 
@@ -1760,7 +1762,6 @@ var Server = function Server(_ref3) {
       exact = _ref3.exact,
       connectedServer = _ref3.connectedServer,
       history = _ref3.history;
-  debugger;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: path,
     exact: exact,
@@ -1771,7 +1772,6 @@ var Server = function Server(_ref3) {
 };
 
 var msp = function msp(state, ownProps) {
-  debugger;
   var empty = ownProps.location.pathname.slice(9) === "";
   var path = parseInt(ownProps.location.pathname.slice(9));
   return {
@@ -1782,7 +1782,6 @@ var msp = function msp(state, ownProps) {
 };
 
 var mapStateToProps = function mapStateToProps(state) {
-  // debugger;
   return {
     loggedIn: Boolean(state.session.currentUser)
   };
@@ -48204,7 +48203,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
