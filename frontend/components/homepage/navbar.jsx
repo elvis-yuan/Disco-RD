@@ -16,9 +16,9 @@ class navbar extends React.Component {
     const { currentUser } = this.props;
 
     const button = currentUser ? (
-      <span onClick={this.clickHandler} className="login-button">
-        Logout
-      </span>
+      <Link className="login-button" to="/servers">
+        Open
+      </Link>
     ) : (
       <Link className="login-button" to="/login">
         Login
