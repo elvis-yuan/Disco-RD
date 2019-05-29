@@ -26,7 +26,6 @@ class Main extends React.Component {
   }
 
   render() {
-    // debugger;
     const servercomp =
       this.props.servers.length === 0 ? null : (
         <Route path="/:serverId" component={ChannelIndex} />

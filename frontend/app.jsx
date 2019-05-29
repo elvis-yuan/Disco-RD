@@ -10,9 +10,9 @@ const App = ({ store }) => (
   <Provider store={store}>
     <HashRouter>
       <Switch>
-        <Route path="/login" component={Formpage} />
-        <Route path="/signup" component={Formpage} />
-        {/* <ProtectedRoute path="/servers" component={Main} /> */}
+        <AuthRoute path="/login" component={Formpage} />
+        <AuthRoute path="/signup" component={Formpage} />
+        <ProtectedRoute path="/servers" component={Main} />
         <Route path="/" component={Homepage} />
       </Switch>
     </HashRouter>

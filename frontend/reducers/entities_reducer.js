@@ -7,7 +7,6 @@ import servers from "./servers_reducer";
 // import messages from "./messages_reducer";
 
 const reducer = something => {
-  debugger;
   return something;
 };
 

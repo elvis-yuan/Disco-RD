@@ -28,7 +28,6 @@ const Custom = props => {
     <Route
       {...props}
       Component={props => {
-        debugger;
         if (props.match.params.serverId) return ChannelIndex;
         else this.props.histor.push("/servers");
       }}
