@@ -11,7 +11,7 @@ class ServerFormModal extends React.Component {
     ];
     // )
     return (
-      <div className="server-modal-form">
+      <div className="server-modal-form modal-animation">
         <h1 className="server-modal-header">
           {message[Math.floor(Math.random() * message.length)]}
         </h1>

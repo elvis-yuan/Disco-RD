@@ -1039,7 +1039,7 @@ function (_React$Component) {
       var message = ["Hi there Adam!", "Oh, Another server huh?", "This server is on the house!", "the next one is gonna' cost you"]; // )
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "server-modal-form"
+        className: "server-modal-form modal-animation"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "server-modal-header"
       }, message[Math.floor(Math.random() * message.length)]), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
