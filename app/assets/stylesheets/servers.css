@@ -6,7 +6,6 @@
   background-color: #1f2124;
   padding-top: 12px;
   width: 72px;
-  height: 100vh;
 }
 
 .server-seperator {
@@ -65,6 +64,10 @@
   transition: color 0.25s ease, background-color 0.25s ease,
     border-radius 0.25s ease;
   position: relative;
+}
+
+.server-grey {
+  background-color: #2f3036;
 }
 
 .server-btn > p {

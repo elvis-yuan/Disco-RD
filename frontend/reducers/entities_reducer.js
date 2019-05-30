@@ -6,10 +6,6 @@ import servers from "./servers_reducer";
 // import channels from "./channels_reducer";
 // import messages from "./messages_reducer";
 
-const reducer = something => {
-  return something;
-};
-
 export default combineReducers({
   users,
   servers

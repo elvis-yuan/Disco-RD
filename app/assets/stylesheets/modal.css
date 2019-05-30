@@ -1,0 +1,132 @@
+.modal-background {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
+
+.modal-child {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.server-modal-form {
+  width: 540px;
+  height: 420px;
+  background: #fff;
+  box-shadow: none;
+  overflow: hidden;
+  border-radius: 5px;
+  box-sizing: border-box;
+  background-position: 0 100%, 100% 100%;
+  background-size: 155px auto, 75px auto;
+  background-repeat: no-repeat;
+  background-image: url("https://discordapp.com/assets/19494428f3a5649ffd64818fc75d0e76.png"),
+    url("https://discordapp.com/assets/6906eb345e3aeb89322c5167db31c1f6.png");
+  padding: 28px 40px 0;
+}
+
+.server-modal-header {
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  padding: 0;
+  margin-top: 6px;
+  margin-bottom: 40px;
+  color: #7289da;
+}
+
+.server-form-actions {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+}
+
+.server-action-container {
+  text-align: center;
+  width: 228px;
+  border-radius: 3px;
+  overflow: hidden;
+  padding: 10px;
+  box-sizing: border-box;
+  display: inline-block;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: hsla(0, 0%, 100%, 0.75);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.server-create-container {
+  margin-right: 16px;
+}
+
+.server-container-header {
+  font-size: 18px;
+  font-weight: 500;
+  text-transform: uppercase;
+  margin-top: 20px;
+}
+
+.blue-text {
+  color: #7289da;
+}
+
+.green-text {
+  color: #3ca374;
+}
+
+.server-plain-text {
+  margin-top: 16px;
+  font-size: 14px;
+  padding: 0 15px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #99aab5;
+}
+
+.create-action-icon {
+  background-image: url("https://discordapp.com/assets/845d431ebfc24e13a0b31f7e64fc612b.png");
+  height: 78px;
+  background-size: 112px 78px;
+  width: 100%;
+  margin: 26px 0;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.join-action-icon {
+  background-image: url("https://discordapp.com/assets/8fb52ec5260dfe6c5b93d211d3b6ecde.png");
+  height: 78px;
+  background-size: 178.5px 78px;
+  width: 100%;
+  margin: 26px 0;
+  background-position: 50%;
+  background-repeat: no-repeat;
+}
+
+.create-action-btn {
+  background-color: #7289da;
+}
+
+.action-btns {
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  color: white;
+  transition: background-color 0.2s ease;
+  font-family: Whitney;
+}
+
+.join-action-btn {
+  background-color: #3ca374;
+}

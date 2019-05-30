@@ -3,6 +3,7 @@ import { fetchAllServers, fetchServer } from "../../actions/server_actions";
 import { logoutUser } from "../../actions/session_actions";
 import { withRouter, Link } from "react-router-dom";
 import ServerIndex from "./server_index";
+import { openModal } from "../../actions/modal_actions";
 
 const msp = ({ entities, session }) => ({
   currentUser: session.currentUser,

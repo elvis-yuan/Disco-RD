@@ -5,7 +5,7 @@ export const ServerIcon = props => {
   const { server } = props;
   return (
     <NavLink
-      className="button-flex server-btn blue-btn"
+      className="button-flex server-btn server-grey blue-btn"
       to={`/servers/${server.id}`}
       activeClassName="selected"
     >

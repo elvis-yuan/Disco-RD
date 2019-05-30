@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import ServerIcon from "./server_icon";
+import { openModal } from "../../actions/modal_actions";
 
 class ServerIndex extends React.Component {
   constructor(props) {
@@ -38,13 +39,16 @@ class ServerIndex extends React.Component {
         <div className="server-seperator" />
         <ul className="server-ul">
           {serverList}
-          <button className="server-btn">
+          <button
+            className="server-btn"
+            onClick={() => dispatch(openModal("main"))}
+          >
             <h3 className="server-icon">+</h3>
             <p>Add a Server</p>
           </button>
           <div className="logout-seperator" />
           <button className="server-btn" onClick={this.props.logoutUser}>
-            <i class="fas fa-sign-out-alt" />
+            <i className="fas fa-sign-out-alt" />
             <p>Logout</p>
           </button>
         </ul>
