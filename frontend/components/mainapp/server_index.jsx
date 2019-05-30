@@ -19,7 +19,6 @@ class ServerIndex extends React.Component {
           <ServerIcon server={server} key={index} />
         ))
       : null;
-    debugger;
     const selected =
       this.props.history.location.pathname === "/servers" ? "selected" : "";
 
