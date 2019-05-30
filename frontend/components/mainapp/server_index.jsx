@@ -19,7 +19,6 @@ class ServerIndex extends React.Component {
           <ServerIcon server={server} key={index} />
         ))
       : null;
-    debugger;
     const selected =
       this.props.history.location.pathname === "/servers" ? "selected" : "";
 
@@ -42,6 +41,11 @@ class ServerIndex extends React.Component {
           <button className="server-btn">
             <h3 className="server-icon">+</h3>
             <p>Add a Server</p>
+          </button>
+          <div className="logout-seperator" />
+          <button className="server-btn" onClick={this.props.logoutUser}>
+            <i class="fas fa-sign-out-alt" />
+            <p>Logout</p>
           </button>
         </ul>
       </div>

@@ -6,7 +6,7 @@ class ChannelIndex extends React.Component {
   }
 
   render() {
-    return <div className="channel-index">hello</div>;
+    return <div className="channel-index">Hello Adam</div>;
   }
 }
 

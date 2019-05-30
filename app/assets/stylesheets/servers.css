@@ -156,3 +156,16 @@
   transition: all 0.45s ease;
   opacity: 1;
 }
+
+.logout-seperator {
+  height: 2px;
+  width: 32px;
+  border-radius: 1px;
+  background: #2f3136;
+  margin-bottom: 8px;
+}
+
+.fa-sign-out-alt:before {
+  content: "\f2f5";
+  font-size: 20px;
+}
