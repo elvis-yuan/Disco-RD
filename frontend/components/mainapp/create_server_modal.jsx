@@ -1,5 +1,6 @@
 import React from "react";
 import { openModal, closeModal } from "../../actions/modal_actions";
+import { Redirect } from "react-router-dom";
 
 class CreateServerModal extends React.Component {
   constructor(props) {
@@ -9,6 +10,12 @@ class CreateServerModal extends React.Component {
       icon_url: ""
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
+  }
+
+  handleCloseModal(action) {
+    this.props.closeModal();
+    this.props.history.push(`/servers/${action.server.id}`);
   }
 
   handleChange(field) {
@@ -19,15 +26,16 @@ class CreateServerModal extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.createServer(this.state).then(server => {
-      this.props.closeModal();
-      this.props.history.push(`/servers/${server.id}`);
-    });
+    this.props.createServer(this.state).then(this.handleCloseModal);
+    // this.props.history.push(`/servers/${server.id}`);
   }
 
   render() {
+    // debugger;
     const errors = this.props.errors;
 
+    if (this.actionCompleteId)
+      return <Redirect to={`/servers/${this.actionCompleteId}`} />;
     return (
       <div className="server-modal-form no-padding">
         <div className="server-create-animation">
@@ -54,6 +62,13 @@ class CreateServerModal extends React.Component {
                 </div>
               </div>
               <div className="create-server-btn-container">
+                <div
+                  className="form-back-button"
+                  onClick={() => dispatch(openModal("main"))}
+                >
+                  <div />
+                  <p>Back</p>
+                </div>
                 <input type="submit" value="Create" />
               </div>
             </form>

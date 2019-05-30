@@ -885,6 +885,9 @@ var mdp = function mdp(dispatch) {
     createServer: function createServer(server) {
       return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_4__["createServer"])(server));
     },
+    mainModal: function mainModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("main"));
+    },
     closeModal: function closeModal() {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
     }
@@ -907,6 +910,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -930,6 +934,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var CreateServerModal =
 /*#__PURE__*/
 function (_React$Component) {
@@ -946,10 +951,17 @@ function (_React$Component) {
       icon_url: ""
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.handleCloseModal = _this.handleCloseModal.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(CreateServerModal, [{
+    key: "handleCloseModal",
+    value: function handleCloseModal(action) {
+      this.props.closeModal();
+      this.props.history.push("/servers/".concat(action.server.id));
+    }
+  }, {
     key: "handleChange",
     value: function handleChange(field) {
       var _this2 = this;
@@ -961,19 +973,17 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
-      var _this3 = this;
-
       e.preventDefault();
-      this.props.createServer(this.state).then(function (server) {
-        _this3.props.closeModal();
-
-        _this3.props.history.push("/servers/".concat(server.id));
-      });
+      this.props.createServer(this.state).then(this.handleCloseModal); // this.props.history.push(`/servers/${server.id}`);
     }
   }, {
     key: "render",
     value: function render() {
+      // debugger;
       var errors = this.props.errors;
+      if (this.actionCompleteId) return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Redirect"], {
+        to: "/servers/".concat(this.actionCompleteId)
+      });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "server-modal-form no-padding"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1000,7 +1010,12 @@ function (_React$Component) {
         className: "server-icon-selector"
       }, "placeholder"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "create-server-btn-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-back-button",
+        onClick: function onClick() {
+          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["openModal"])("main"));
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Back")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "submit",
         value: "Create"
       }))))));
@@ -2037,6 +2052,8 @@ var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"]
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return modalReducer; });
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/server_actions */ "./frontend/actions/server_actions.js");
+
 
 function modalReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
