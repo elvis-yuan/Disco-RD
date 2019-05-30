@@ -1,5 +1,6 @@
 import React from "react";
 import ServerFormContainer from "../mainapp/server_form_container";
+import CreateServerContainer from "../mainapp/create_server_container";
 
 class Modal extends React.Component {
   constructor(props) {
@@ -15,9 +16,9 @@ class Modal extends React.Component {
       case "main":
         component = <ServerFormContainer />;
         break;
-      // case "create":
-      //   component = <CreateServerContainer />;
-      //   break;
+      case "create":
+        component = <CreateServerContainer />;
+        break;
       // case "join":
       //   component = <JoinServerContainer />;
       //   break;

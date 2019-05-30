@@ -1,4 +1,5 @@
 import React from "react";
+import { openModal } from "../../actions/modal_actions";
 
 class ServerFormModal extends React.Component {
   render() {
@@ -11,7 +12,7 @@ class ServerFormModal extends React.Component {
     ];
     // )
     return (
-      <div className="server-modal-form modal-animation">
+      <div className="server-modal-form modal-animation ">
         <h1 className="server-modal-header">
           {message[Math.floor(Math.random() * message.length)]}
         </h1>
@@ -42,6 +43,7 @@ class ServerFormModal extends React.Component {
               Join a server
             </button>
           </div>
+          <div className="server-center-image">or</div>
         </div>
       </div>
     );

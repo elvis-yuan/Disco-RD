@@ -14,6 +14,7 @@ class Api::ServersController < ApplicationController
     @server.invitation_code = INVITATION_CODE.sample(8).join
     @server.admin_id = current_user.id
     if @server.save
+      @server.user_servers.create(user_id: current_user.id)
       render :show
     else
       render json: @server.errors.full_messages, status: 422
