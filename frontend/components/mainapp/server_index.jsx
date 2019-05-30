@@ -42,6 +42,11 @@ class ServerIndex extends React.Component {
             <h3 className="server-icon">+</h3>
             <p>Add a Server</p>
           </button>
+          <div className="logout-seperator" />
+          <button className="server-btn" onClick={this.props.logoutUser}>
+            <i class="fas fa-sign-out-alt" />
+            <p>Logout</p>
+          </button>
         </ul>
       </div>
     );
