@@ -266,7 +266,6 @@
   flex: 1.2 1 0px;
   color: #2f3136;
   background: transparent;
-  border-bottom-color: #f0f0f0;
   border-color: rgba(79, 84, 92, 0.3);
   margin-top: 12px;
   padding: 10px;
@@ -282,10 +281,15 @@
   box-sizing: border-box;
   transition: background-color 0.15s ease, border 0.15s ease;
   font-family: whitney;
+  border-bottom-color: #f0f0f0;
 }
 
 .server-information > input::placeholder {
   color: rgb(188, 190, 193);
+}
+
+.server-information > input:focus {
+  border-color: #7289da;
 }
 
 .server-information > input:hover {
@@ -302,6 +306,8 @@
   overflow-x: hidden;
   position: relative;
   flex: 0 0 auto;
+  display: flex;
+  justify-content: space-between;
 }
 
 .create-server-btn-container > input {
@@ -322,4 +328,31 @@
 
 .create-server-btn-container > input:hover {
   background-color: rgb(104, 123, 196);
+}
+
+.form-back-button {
+  text-transform: uppercase;
+  font-size: 12px;
+  padding: 0;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  color: #99aab5;
+  background: transparent;
+  border-bottom-color: transparent;
+  font-family: Whitney;
+  display: flex;
+}
+
+.form-back-button > div {
+  background-image: url("https://discordapp.com/assets/eb57a76361c43375bf23207ad2acc631.svg");
+  background-position: 0;
+  background-repeat: no-repeat;
+  background-size: 18px, 12px;
+  margin-right: 10px;
+  padding-right: 18px;
+}
+
+.form-back-button > p {
+  display: flex;
+  align-items: center;
 }

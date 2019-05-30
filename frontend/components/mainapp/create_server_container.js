@@ -12,6 +12,7 @@ const msp = ({ errors }) => ({
 
 const mdp = dispatch => ({
   createServer: server => dispatch(createServer(server)),
+  mainModal: () => dispatch(openModal("main")),
   closeModal: () => dispatch(closeModal())
 });
 
