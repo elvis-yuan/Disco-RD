@@ -1126,6 +1126,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-image"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "form-img-background",
         src: "https://discordapp.com/assets/fd91131ea693096d6be5e8aa99d18f9e.jpg",
         alt: ""
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1317,7 +1318,7 @@ function (_React$Component) {
         value: this.state.email
       }))) : null;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        className: "form-container"
+        className: "form-container dropdown"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "centering"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

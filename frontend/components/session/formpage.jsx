@@ -18,6 +18,7 @@ class Formpage extends React.Component {
           <div className="right-split">
             <div className="form-image">
               <img
+                className="form-img-background"
                 src="https://discordapp.com/assets/fd91131ea693096d6be5e8aa99d18f9e.jpg"
                 alt=""
               />

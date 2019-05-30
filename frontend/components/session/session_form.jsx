@@ -135,7 +135,7 @@ class SessionForm extends React.Component {
 
     return (
       <>
-        <form className="form-container">
+        <form className="form-container dropdown">
           <div className="centering">
             <div className="form-title">{title}</div>
             {formType === "login" ? (

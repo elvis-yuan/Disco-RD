@@ -30,6 +30,7 @@
 }
 
 .opac {
+  animation: all 2s ease;
   opacity: 0.3;
 }
 
@@ -206,6 +207,11 @@
   animation-delay: 0.5s;
 }
 
+.dropdown {
+  animation-name: dropdown;
+  animation-duration: 0.15s;
+}
+
 @keyframes float-1 {
   0% {
     transform: translate3d(0, -5px, 0);
@@ -234,4 +240,25 @@
   100% {
     opacity: 1;
   }
+}
+
+@keyframes dropdown {
+  0% {
+    opacity: 0;
+    transform: translate(40px, -100px);
+  }
+  80% {
+    transform: translate(2px, -10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0px, 0px);
+  }
+}
+
+.form-img-background {
+  opacity: 0;
+  animation: fadeIn ease 0.7s;
+  animation-delay: 0.2s;
+  animation-fill-mode: forwards;
 }
