@@ -4,19 +4,36 @@
   flex-direction: column;
   align-items: center;
   background-color: #1f2124;
-  padding-top: 10px;
-  width: 100px;
+  padding-top: 12px;
+  width: 72px;
   height: 100vh;
 }
 
-.server-selector {
-  width: 10px;
-  height: 40px;
-  color: white;
-  background-color: white;
-  position: absolute;
-  left: -32px;
-  border-radius: 12px;
+.server-seperator {
+  height: 2px;
+  width: 32px;
+  border-radius: 1px;
+  background: #2f3136;
+  margin: 0 0 8px;
+}
+
+.server-home {
+  align-items: center;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 8px;
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  background-color: #292b2f;
+  color: #43b581;
+  cursor: pointer;
+  border: none;
+  border-radius: 100%;
+  transition: color 0.25s ease, background-color 0.25s ease,
+    border-radius 0.25s ease;
+  position: relative;
 }
 
 .server-ul {
@@ -26,12 +43,17 @@
   align-items: center;
 }
 
+.default-icon {
+  width: 30px;
+  height: 30px;
+}
+
 .server-btn {
   align-items: center;
   text-decoration: none;
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin: 0 0 8px;
   box-sizing: border-box;
   width: 48px;
   height: 48px;
@@ -71,6 +93,13 @@
     border-radius 0.25s ease;
 }
 
+.server-btn:hover > .server-selector {
+  display: block;
+  height: 50%;
+  opacity: 0.75;
+  transition: opacity 0.45s ease;
+}
+
 .server-icon {
   font-size: 38px;
   font-weight: 200;
@@ -89,4 +118,41 @@
 
 .blue-btn:hover > h3 {
   color: white;
+}
+
+.server-selector {
+  opacity: 0;
+  height: 40px;
+  color: white;
+  position: absolute;
+  left: -12px;
+  display: block;
+  width: 8px;
+  background-color: #fff;
+  border-radius: 0 4px 4px 0;
+  margin-left: -4px;
+}
+
+.selected {
+  opacity: 1;
+  border-radius: 15px;
+  color: white;
+  background-color: #7289d9;
+  transition: color 0.25s ease, background-color 0.25s ease,
+    border-radius 0.25s ease;
+}
+
+.selected > h3 {
+  color: white;
+}
+
+.selected > .server-selector {
+  opacity: 1;
+  transition: all 0.45s ease;
+}
+
+.selected:hover > .server-selector {
+  height: 40px;
+  transition: all 0.45s ease;
+  opacity: 1;
 }

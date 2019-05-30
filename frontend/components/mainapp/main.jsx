@@ -30,7 +30,13 @@ class Main extends React.Component {
       this.props.servers.length === 0 ? null : (
         <ServerRoute path="/:serverId" component={ChannelIndex} />
       );
-    return (
+
+    return this.props.location.pathname === "/servers" ? (
+      <div className="main-app">
+        <ServerIndexContainer />
+        {/* // <Route path="/:serverId/:channelId" component={ChannelIndex} /> */}
+      </div>
+    ) : (
       <div className="main-app">
         <ServerIndexContainer />
         {servercomp}

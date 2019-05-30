@@ -885,7 +885,9 @@ function (_React$Component) {
         path: "/:serverId",
         component: _channel_index__WEBPACK_IMPORTED_MODULE_3__["default"]
       });
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return this.props.location.pathname === "/servers" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "main-app"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_server_index_container__WEBPACK_IMPORTED_MODULE_1__["default"], null)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-app"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_server_index_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), servercomp);
     }
@@ -910,16 +912,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ServerIcon", function() { return ServerIcon; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
 
 var ServerIcon = function ServerIcon(props) {
   var server = props.server;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+    className: "button-flex server-btn blue-btn",
+    to: "/servers/".concat(server.id),
+    activeClassName: "selected"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "server-selector"
-  }, "|"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "server-icon-text"
-  }, server.title.slice(0, 1).toLowerCase()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, server.title)));
+  }, server.title.slice(0, 1).toLowerCase()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, server.title));
 };
-/* harmony default export */ __webpack_exports__["default"] = (ServerIcon);
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(ServerIcon));
 
 /***/ }),
 
@@ -978,19 +986,27 @@ function (_React$Component) {
     value: function render() {
       var servers = this.props.servers;
       var serverList = servers ? servers.map(function (server, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-          key: index,
-          className: "button-flex server-btn blue-btn",
-          to: "/servers/".concat(server.id)
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "sever-selector"
-        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-          className: "server-icon-text"
-        }, server.title.slice(0, 1).toLowerCase()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, server.title));
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_server_icon__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          server: server,
+          key: index
+        });
       }) : null;
+      debugger;
+      var selected = this.props.history.location.pathname === "/servers" ? "selected" : "";
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "server-index-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        className: "button-flex server-btn blue-btn",
+        to: "/servers",
+        activeClassName: selected
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        className: "default-icon",
+        src: "https://i.ibb.co/42kLm6j/discord.png"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "server-selector"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "server-seperator"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "server-ul"
       }, serverList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "server-btn"

@@ -16,22 +16,27 @@ class ServerIndex extends React.Component {
     const { servers } = this.props;
     const serverList = servers
       ? servers.map((server, index) => (
-          <NavLink
-            key={index}
-            className="button-flex server-btn blue-btn"
-            to={`/servers/${server.id}`}
-          >
-            <div className="sever-selector" />
-            <h3 className="server-icon-text">
-              {server.title.slice(0, 1).toLowerCase()}
-            </h3>
-            <p>{server.title}</p>
-          </NavLink>
+          <ServerIcon server={server} key={index} />
         ))
       : null;
+    debugger;
+    const selected =
+      this.props.history.location.pathname === "/servers" ? "selected" : "";
 
     return (
       <div className="server-index-container">
+        <NavLink
+          className="button-flex server-btn blue-btn"
+          to={`/servers`}
+          activeClassName={selected}
+        >
+          <img
+            className="default-icon"
+            src="https://i.ibb.co/42kLm6j/discord.png"
+          />
+          <div className="server-selector" />
+        </NavLink>
+        <div className="server-seperator" />
         <ul className="server-ul">
           {serverList}
           <button className="server-btn">
