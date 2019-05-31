@@ -15,6 +15,11 @@ const receiveServer = server => ({
   server
 });
 
+const receiveErrors = errors => ({
+  type: RECEIVE_ERRORS,
+  errors
+});
+
 export const fetchAllServers = userId => dispatch =>
   ServerAPI.fetchAllServers(userId).then(servers => {
     dispatch(receiveAllServers(servers));
@@ -29,7 +34,8 @@ export const createServer = server => dispatch =>
     errors => dispatch(receiveErrors(errors))
   );
 
-const receiveErrors = errors => ({
-  type: RECEIVE_ERRORS,
-  errors
-});
+export const joinServer = server => dispatch =>
+  ServerAPI.joinServer(server).then(
+    server => dispatch(receiveServer(server)),
+    errors => dispatch(receiveErrors(errors))
+  );

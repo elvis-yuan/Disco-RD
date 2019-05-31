@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     end
     resource :session, only: [:create, :destroy]
     resources :servers, only: [:show, :create, :update, :destroy] do
+      collection do 
+        post "join"
+      end
       resources :channels, only: [:index, :create]
     end
     resources :channels, only: [:destroy, :update] do 

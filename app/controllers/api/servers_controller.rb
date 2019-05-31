@@ -44,8 +44,26 @@ class Api::ServersController < ApplicationController
     render :show
   end
 
+  def join
+    errors = []
+    errors.concat(['empty'])if params[:server][:invitation_code] === ""
+
+    @server = Server.find_by(invitation_code: params[:server][:invitation_code])
+    if @server
+      @server.user_servers.create!(user_id: current_user.id, server_id: @server.id)
+      render :show
+    elsif errors.length > 0
+      render json: errors, status: 422
+    elsif @server.nil?
+      errors.concat(['no server found']) 
+      render json: errors, status: 422
+    else
+      render json: @server.errors.full_messages, status: 422
+    end
+  end
+
   private 
   def server_params
-    params.require(:server).permit(:title, :icon_url, :public)
+    params.require(:server).permit(:title, :icon_url, :public, :invitation_code)
   end
 end
