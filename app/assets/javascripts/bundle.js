@@ -1393,8 +1393,8 @@ function (_React$Component) {
         className: "server-seperator"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "server-ul"
-      }, serverList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "server-btn",
+      }, serverList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        className: "btn-flex server-btn",
         onClick: function onClick() {
           return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])("main"));
         }
@@ -1404,7 +1404,7 @@ function (_React$Component) {
         className: "server-icon"
       }, "+"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Add a Server")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "logout-seperator"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "server-btn",
         onClick: this.props.logoutUser
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

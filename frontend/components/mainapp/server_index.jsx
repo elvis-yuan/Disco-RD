@@ -39,20 +39,20 @@ class ServerIndex extends React.Component {
         <div className="server-seperator" />
         <ul className="server-ul">
           {serverList}
-          <button
-            className="server-btn"
+          <a
+            className="btn-flex server-btn"
             onClick={() => dispatch(openModal("main"))}
           >
             <div className="server-selector" />
             <h3 className="server-icon">+</h3>
             <p>Add a Server</p>
-          </button>
+          </a>
           <div className="logout-seperator" />
-          <button className="server-btn" onClick={this.props.logoutUser}>
+          <a className="server-btn" onClick={this.props.logoutUser}>
             <div className="server-selector" />
             <i className="fas fa-sign-out-alt" />
             <p>Logout</p>
-          </button>
+          </a>
         </ul>
       </div>
     );

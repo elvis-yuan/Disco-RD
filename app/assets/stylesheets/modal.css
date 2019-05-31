@@ -326,6 +326,10 @@
   font-family: whitney;
 }
 
+.action-btns {
+  border: none;
+}
+
 .create-server-btn-container > input:hover {
   background-color: rgb(104, 123, 196);
 }
