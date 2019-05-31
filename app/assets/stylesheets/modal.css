@@ -249,7 +249,7 @@
   width: 50%;
 }
 
-.server-information > label {
+.server-information-label {
   color: #87909c;
   font-size: 11px;
   font-weight: 700;
@@ -397,7 +397,7 @@
   margin-bottom: 8px;
 }
 
-.join-input-container > input {
+.join-server-input {
   font-family: Whitney;
   box-sizing: border-box;
   padding: 10px;
@@ -415,11 +415,11 @@
   border-bottom-color: #f0f0f0;
 }
 
-.join-input-container > input:hover {
+.join-server-input {
   border-color: #b9bbbe;
 }
 
-.join-input-container > input:focus {
+.join-server-input :focus {
   border-color: #7289da;
 }
 
@@ -452,12 +452,24 @@
   background-color: rgb(54, 147, 104);
 }
 
+.server-create-error {
+  font-weight: 400;
+  font-size: 12px;
+  text-transform: none;
+  font-style: italic;
+  font-family: Whitney;
+}
+
 .blue-text {
   color: #7289da;
 }
 
 .green-text {
   color: #3ca374;
+}
+
+.red-text {
+  color: #f04747;
 }
 
 .green-background {

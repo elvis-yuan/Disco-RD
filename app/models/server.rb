@@ -8,7 +8,7 @@ class Server < ApplicationRecord
 
   has_many :user_servers
 
-  has_many :users, 
+  has_many :connected_users, 
     through: :user_servers,
     source: :user
 

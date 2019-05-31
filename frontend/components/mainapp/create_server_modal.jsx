@@ -17,9 +17,14 @@ class CreateServerModal extends React.Component {
     this.props.history.push(`/servers/${action.server.id}`);
   }
 
+  componentWillUnmount() {
+    if (this.props.errors.length > 0) this.props.removeErrors();
+  }
+
   handleChange(field) {
     return e => {
       this.setState({ [field]: e.target.value });
+      if (this.props.errors.length > 0) this.props.removeErrors();
     };
   }
 
@@ -31,7 +36,15 @@ class CreateServerModal extends React.Component {
 
   render() {
     // debugger;
-    const errors = this.props.errors;
+    const { errors } = this.props;
+
+    const redText = errors.length > 0 ? "red-text" : "";
+    const errorText =
+      errors.length > 0 ? (
+        <span className="server-create-error">- This field is required</span>
+      ) : (
+        ""
+      );
 
     return (
       <div className="server-modal-form no-padding">
@@ -47,7 +60,9 @@ class CreateServerModal extends React.Component {
                 </p>
                 <div className="server-inputs">
                   <div className="server-information">
-                    <label>Server Name</label>
+                    <label className={`server-information-label ${redText}`}>
+                      Server Name {errorText}
+                    </label>
                     <input
                       placeholder="Enter a server name"
                       type="text"

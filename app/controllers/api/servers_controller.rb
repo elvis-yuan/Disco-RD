@@ -22,10 +22,10 @@ class Api::ServersController < ApplicationController
   end
 
   def show
-    @server = Server.includes(:channels, :messages, :users, :user_servers).find(params[:id])
+    @server = Server.includes(:channels, :messages, :connected_users, :user_servers).find(params[:id])
     @channels = @server.channels
     @messages = @server.messages
-    @users = @server.users
+
     render :show
   end
 
