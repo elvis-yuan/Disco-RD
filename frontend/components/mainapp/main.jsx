@@ -22,7 +22,7 @@ class Main extends React.Component {
 
   componentDidMount() {
     const { currentUser, fetchAllServers } = this.props;
-    fetchAllServers(currentUser.id);
+    fetchAllServers(currentUser);
   }
 
   render() {

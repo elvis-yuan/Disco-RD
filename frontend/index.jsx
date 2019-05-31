@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
         users: { [window.currentUser.id]: window.currentUser }
       },
       session: {
-        currentUser: window.currentUser
+        currentUser: window.currentUser.id
       }
     };
     store = configureStore(preloadedState);

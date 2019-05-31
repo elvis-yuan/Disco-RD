@@ -1,5 +1,6 @@
 import React from "react";
 import { openModal } from "../../actions/modal_actions";
+import { deleteErrors } from "../../actions/session_actions";
 
 class JoinServerModal extends React.Component {
   constructor(props) {
@@ -7,6 +8,10 @@ class JoinServerModal extends React.Component {
     this.state = { invitation_code: "" };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCloseModal = this.handleCloseModal.bind(this);
+  }
+
+  componentWillUnmount() {
+    if (this.props.errors.length > 0) this.props.removeErrors();
   }
 
   handleCloseModal(action) {
@@ -17,16 +22,28 @@ class JoinServerModal extends React.Component {
   handleChange(field) {
     return e => {
       this.setState({ [field]: e.target.value });
+      if (this.props.errors.length > 0) this.props.removeErrors();
     };
   }
 
   handleSubmit(e) {
     e.preventDefault();
     this.props.joinServer(this.state).then(this.handleCloseModal);
-    // this.props.history.push(`/servers/${server.id}`);
+    // this.props.history.push(`/servers/${server.server.id}`);
   }
 
   render() {
+    const { errors } = this.props;
+
+    const serverError = errors.includes("no server found") ? "red-text" : "";
+
+    const inviteError =
+      errors.includes("empty") || errors.includes("no server found") ? (
+        <span className="red-text">(The instant invite is invalid)</span>
+      ) : (
+        ""
+      );
+
     return (
       <div className="server-modal-form no-padding">
         <div className="server-create-animation">
@@ -48,8 +65,9 @@ class JoinServerModal extends React.Component {
                     type="text"
                     value={this.state.invitation_code}
                     onChange={this.handleChange("invitation_code")}
+                    className={`join-server-input ${serverError}`}
                   />
-                  <label>Enter an Instant Invite</label>
+                  <label>Enter an Instant Invite {inviteError}</label>
                 </div>
               </div>
               <div className="create-server-btn-container">

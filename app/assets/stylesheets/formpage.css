@@ -8,6 +8,7 @@
 
 .empty-error-text {
   font-weight: 200;
+  font-style: italic;
 }
 
 .form-content {
