@@ -26,13 +26,14 @@ class Formpage extends React.Component {
             </div>
           </div>
           <div className="left-split">
-            <Link to="/" className="form-logo">
-              <img
-                className="form-logo"
-                src="https://res.cloudinary.com/divtvpzuc/image/upload/v1559268535/disco-rd_logo_with_reflection.png"
-                alt=""
-              />
-            </Link>
+            {/* <Link to="/" className="form-logo"> */}
+            <img
+              className="form-logo"
+              onClick={() => this.props.history.push("/")}
+              src="https://res.cloudinary.com/divtvpzuc/image/upload/v1559268535/disco-rd_logo_with_reflection.png"
+              alt=""
+            />
+            {/* </Link> */}
             <div className="form-wrapper">{form}</div>
           </div>
         </div>

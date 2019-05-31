@@ -1647,6 +1647,8 @@ function (_React$Component) {
   _createClass(Formpage, [{
     key: "render",
     value: function render() {
+      var _this = this;
+
       var form = this.props.match.path === "/login" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_login_form_container__WEBPACK_IMPORTED_MODULE_2__["default"], null) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_signup_form_container__WEBPACK_IMPORTED_MODULE_3__["default"], null);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-content"
@@ -1662,14 +1664,14 @@ function (_React$Component) {
         alt: ""
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "left-split"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
-        to: "/",
-        className: "form-logo"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         className: "form-logo",
+        onClick: function onClick() {
+          return _this.props.history.push("/");
+        },
         src: "https://res.cloudinary.com/divtvpzuc/image/upload/v1559268535/disco-rd_logo_with_reflection.png",
         alt: ""
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-wrapper"
       }, form))));
     }
