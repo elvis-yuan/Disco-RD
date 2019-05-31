@@ -1,6 +1,5 @@
 import React from "react";
-import { openModal, closeModal } from "../../actions/modal_actions";
-import { Redirect } from "react-router-dom";
+import { openModal } from "../../actions/modal_actions";
 
 class CreateServerModal extends React.Component {
   constructor(props) {
@@ -34,8 +33,6 @@ class CreateServerModal extends React.Component {
     // debugger;
     const errors = this.props.errors;
 
-    if (this.actionCompleteId)
-      return <Redirect to={`/servers/${this.actionCompleteId}`} />;
     return (
       <div className="server-modal-form no-padding">
         <div className="server-create-animation">
@@ -43,7 +40,7 @@ class CreateServerModal extends React.Component {
             <form action="create-form" onSubmit={this.handleSubmit}>
               <div className="create-form-container">
                 <h1 className="create-form-header">Create Your Server</h1>
-                <p>
+                <p className="create-form-p">
                   By creating a server, you will have access to{" "}
                   <strong>free</strong> voice and text chat to use amongst your
                   friends.
@@ -69,7 +66,11 @@ class CreateServerModal extends React.Component {
                   <div />
                   <p>Back</p>
                 </div>
-                <input type="submit" value="Create" />
+                <input
+                  className="server-create-btn"
+                  type="submit"
+                  value="Create"
+                />
               </div>
             </form>
           </div>

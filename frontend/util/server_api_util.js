@@ -17,3 +17,10 @@ export const createServer = server =>
     url: `api/servers`,
     data: { server }
   });
+
+export const joinServer = server =>
+  $.ajax({
+    method: "POST",
+    url: `api/servers/join`,
+    data: { server }
+  });

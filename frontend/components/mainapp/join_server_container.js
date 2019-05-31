@@ -1,8 +1,8 @@
 import { connect } from "react-redux";
-import CreateServerModal from "./create_server_modal";
-import { closeModal } from "../../actions/modal_actions";
-import { createServer } from "../../actions/server_actions";
 import { withRouter } from "react-router-dom";
+import { closeModal } from "../../actions/modal_actions";
+import JoinServerModal from "./join_server_modal";
+import { joinServer } from "../../actions/server_actions";
 
 const msp = ({ errors }) => ({
   errors: errors.server,
@@ -10,7 +10,7 @@ const msp = ({ errors }) => ({
 });
 
 const mdp = dispatch => ({
-  createServer: server => dispatch(createServer(server)),
+  joinServer: server => dispatch(joinServer(server)),
   mainModal: () => dispatch(openModal("main")),
   closeModal: () => dispatch(closeModal())
 });
@@ -19,5 +19,5 @@ export default withRouter(
   connect(
     msp,
     mdp
-  )(CreateServerModal)
+  )(JoinServerModal)
 );
