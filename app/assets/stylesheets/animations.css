@@ -281,7 +281,7 @@
   }
 }
 
-.form-img-background {
+.fading-background {
   opacity: 0;
   animation: fadeIn ease 0.7s;
   animation-delay: 0.2s;

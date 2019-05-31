@@ -5,6 +5,12 @@ import SignupFormContainer from "./signup_form_container";
 // import FormHolder from "./form_holder";
 
 class Formpage extends React.Component {
+  componentDidMount() {
+    // document
+    //   .getElementsByClassName("form-img-background")
+    //   .classList.add("fading-background");
+  }
+
   render() {
     const form =
       this.props.match.path === "/login" ? (
@@ -19,7 +25,7 @@ class Formpage extends React.Component {
           <div className="right-split">
             <div className="form-image">
               <img
-                className="form-img-background"
+                className="form-img-background fading-background"
                 src="https://discordapp.com/assets/fd91131ea693096d6be5e8aa99d18f9e.jpg"
                 alt=""
               />

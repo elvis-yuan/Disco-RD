@@ -46,6 +46,9 @@ class CreateServerModal extends React.Component {
         ""
       );
 
+    const { title } = this.state;
+    const serverIconLetter = title.length > 0 ? title.slice(0, 1) : "";
+
     return (
       <div className="server-modal-form no-padding">
         <div className="server-create-animation">
@@ -70,7 +73,16 @@ class CreateServerModal extends React.Component {
                       value={this.state.title}
                     />
                   </div>
-                  <div className="server-icon-selector">placeholder</div>
+                  <div className="server-icon-selector">
+                    <div className="icon-uploader">
+                      <div className="server-default-icon">
+                        <div className="server-icon-letter">
+                          {serverIconLetter}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="server-icon-size">Default server icon</div>
+                  </div>
                 </div>
               </div>
               <div className="create-server-btn-container">

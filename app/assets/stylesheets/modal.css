@@ -293,6 +293,46 @@
 
 .server-icon-selector {
   flex: 1 1 0px;
+  margin-left: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-uploader {
+  text-align: center;
+  font-size: 12px;
+}
+
+.server-default-icon {
+  position: relative;
+  box-sizing: border-box;
+  width: 138px;
+  height: 138px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+  background-color: #7289da;
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  border: 5px solid #ebebeb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.server-icon-letter {
+  font-size: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+  pointer-events: none;
+  color: #fff;
+}
+
+.server-icon-size {
+  display: block;
+  font-size: 10px;
+  color: #87909c;
 }
 
 .create-server-btn-container {
