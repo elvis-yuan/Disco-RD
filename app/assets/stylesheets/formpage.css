@@ -219,7 +219,7 @@
 .form-logo {
   z-index: 2;
   opacity: 1;
-  background: url(https://discordapp.com/assets/4f004ac9be168ac6ee18fc442a52ab53.svg)
+  background: url("https://res.cloudinary.com/divtvpzuc/image/upload/v1559268535/disco-rd_logo_with_reflection.png")
     no-repeat;
 }
 

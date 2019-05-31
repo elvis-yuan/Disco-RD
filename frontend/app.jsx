@@ -5,10 +5,12 @@ import Homepage from "./components/homepage/homepage";
 import Formpage from "./components/session/formpage";
 import { AuthRoute, ProtectedRoute } from "./util/route_util";
 import Main from "./components/mainapp/main";
+import Modal from "./components/modal/modal_container";
 
 const App = ({ store }) => (
   <Provider store={store}>
     <HashRouter>
+      <Modal />
       <Route exact path="/" component={Homepage} />
       <AuthRoute path="/login" component={Formpage} />
       <AuthRoute path="/signup" component={Formpage} />

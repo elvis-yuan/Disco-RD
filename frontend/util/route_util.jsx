@@ -30,7 +30,6 @@ const Server = ({
   connectedServer,
   history
 }) => {
-  debugger;
   return (
     <Route
       path={path}
@@ -43,7 +42,6 @@ const Server = ({
 };
 
 const msp = (state, ownProps) => {
-  debugger;
   const empty = ownProps.location.pathname.slice(9) === "";
   const path = parseInt(ownProps.location.pathname.slice(9));
   return {
@@ -55,7 +53,6 @@ const msp = (state, ownProps) => {
 };
 
 const mapStateToProps = state => {
-  // debugger;
   return {
     loggedIn: Boolean(state.session.currentUser)
   };

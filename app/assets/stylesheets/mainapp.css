@@ -9,6 +9,7 @@
 .main-app {
   background-color: #35393f;
   display: flex;
+  height: 100vh;
 }
 
 .search-bar {

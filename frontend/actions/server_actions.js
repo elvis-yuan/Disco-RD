@@ -1,5 +1,6 @@
 import * as ServerAPI from "../util/server_api_util";
 //{fetchAllServers,  fetchServer,  createServer}
+import { RECEIVE_ERRORS } from "./session_actions";
 
 export const RECEIVE_ALL_SERVERS = "RECEIVE_ALL_SERVERS";
 export const RECEIVE_SERVER = "RECEIVE_SERVER";
@@ -21,3 +22,14 @@ export const fetchAllServers = userId => dispatch =>
 
 export const fetchServer = id => dispatch =>
   ServerAPI.fetchServer(id).then(server => dispatch(receiveServer(server)));
+
+export const createServer = server => dispatch =>
+  ServerAPI.createServer(server).then(
+    server => dispatch(receiveServer(server)),
+    errors => dispatch(receiveErrors(errors))
+  );
+
+const receiveErrors = errors => ({
+  type: RECEIVE_ERRORS,
+  errors
+});
