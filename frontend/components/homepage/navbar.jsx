@@ -30,7 +30,7 @@ class navbar extends React.Component {
         <header className="header">
           <nav className="nav-bar">
             <div className="left-nav">
-              <img src="https://discordapp.com/assets/192cb9459cbc0f9e73e2591b700f1857.svg" />
+              <img src="https://res.cloudinary.com/divtvpzuc/image/upload/v1559268535/disco-rd_logo_with_reflection.png" />
             </div>
             <ul className="right-nav">
               <li>{button}</li>
