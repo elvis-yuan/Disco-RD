@@ -1001,6 +1001,8 @@ function (_React$Component) {
       var errorText = errors.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "server-create-error"
       }, "- This field is required") : "";
+      var title = this.state.title;
+      var serverIconLetter = title.length > 0 ? title.slice(0, 1) : "";
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "server-modal-form no-padding"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1029,7 +1031,15 @@ function (_React$Component) {
         value: this.state.title
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "server-icon-selector"
-      }, "placeholder"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "icon-uploader"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "server-default-icon"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "server-icon-letter"
+      }, serverIconLetter))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "server-icon-size"
+      }, "Default server icon")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "create-server-btn-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-back-button",
@@ -1862,6 +1872,12 @@ function (_React$Component) {
   }
 
   _createClass(Formpage, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {// document
+      //   .getElementsByClassName("form-img-background")
+      //   .classList.add("fading-background");
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this = this;
@@ -1876,7 +1892,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-image"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "form-img-background",
+        className: "form-img-background fading-background",
         src: "https://discordapp.com/assets/fd91131ea693096d6be5e8aa99d18f9e.jpg",
         alt: ""
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
