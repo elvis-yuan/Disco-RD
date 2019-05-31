@@ -1,6 +1,7 @@
 class Api::ChannelsController < ApplicationController
 
   def index
+    # debugger
     @server = Server.find(params[:server_id])
     @channels = @server.channels
     render :index
@@ -14,6 +15,8 @@ class Api::ChannelsController < ApplicationController
 
   def create
     @channel = Channel.new(channel_params)
+    @channel.server_id = params[:server_id]
+
     if @channel.save
       render :show
     else
@@ -38,6 +41,6 @@ class Api::ChannelsController < ApplicationController
 
   private
   def channel_params
-    params.require(:channel).permit(:title)
+    params.require(:channel).permit(:title, :server_id)
   end
 end
