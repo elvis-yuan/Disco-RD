@@ -9,6 +9,6 @@ import servers from "./servers_reducer";
 export default combineReducers({
   users,
   servers
-  // channels,
+  // channels
   // messages
 });

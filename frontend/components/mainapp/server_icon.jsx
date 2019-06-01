@@ -13,7 +13,7 @@ export const ServerIcon = props => {
       <h3 className="server-icon-text">
         {server.title.slice(0, 1).toLowerCase()}
       </h3>
-      <p>{server.title}</p>
+      <p className="server-btn-hover">{server.title}</p>
     </NavLink>
   );
 };
