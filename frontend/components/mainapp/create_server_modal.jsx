@@ -67,11 +67,12 @@ class CreateServerModal extends React.Component {
                       Server Name {errorText}
                     </label>
                     <input
+                      className="server-information-input"
                       placeholder="Enter a server name"
                       type="text"
                       onChange={this.handleChange("title")}
                       value={this.state.title}
-                      autoFocus
+                      // autoFocus
                     />
                   </div>
                   <div className="server-icon-selector">

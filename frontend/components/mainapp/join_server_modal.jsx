@@ -66,7 +66,7 @@ class JoinServerModal extends React.Component {
                     value={this.state.invitation_code}
                     onChange={this.handleChange("invitation_code")}
                     className={`join-server-input ${serverError}`}
-                    autoFocus
+                    // autoFocus
                   />
                   <label>Enter an Instant Invite {inviteError}</label>
                 </div>

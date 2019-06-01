@@ -1025,11 +1025,12 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "server-information-label ".concat(redText)
       }, "Server Name ", errorText), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "server-information-input",
         placeholder: "Enter a server name",
         type: "text",
         onChange: this.handleChange("title"),
-        value: this.state.title,
-        autoFocus: true
+        value: this.state.title // autoFocus
+
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "server-icon-selector"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1231,8 +1232,8 @@ function (_React$Component) {
         type: "text",
         value: this.state.invitation_code,
         onChange: this.handleChange("invitation_code"),
-        className: "join-server-input ".concat(serverError),
-        autoFocus: true
+        className: "join-server-input ".concat(serverError) // autoFocus
+
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Enter an Instant Invite ", inviteError))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "create-server-btn-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1685,7 +1686,6 @@ var msp = function msp(_ref) {
   var entities = _ref.entities,
       session = _ref.session,
       ui = _ref.ui;
-  debugger;
   return {
     currentUser: session.currentUser,
     servers: Object.values(entities.servers),
@@ -2499,7 +2499,6 @@ var sessionReducer = function sessionReducer() {
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
-      debugger;
       return {
         currentUser: action.currentUser.id
       };

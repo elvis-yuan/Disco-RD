@@ -6,7 +6,6 @@ import ServerIndex from "./server_index";
 import { openModal } from "../../actions/modal_actions";
 
 const msp = ({ entities, session, ui }) => {
-  debugger;
   return {
     currentUser: session.currentUser,
     servers: Object.values(entities.servers),

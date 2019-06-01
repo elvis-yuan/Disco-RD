@@ -190,7 +190,7 @@
 @keyframes create-animation {
   0% {
     opacity: 0;
-    transform: translateX(100%);
+    transform: translateX(200%);
     transition: all 0.5s ease-in-out;
   }
 
@@ -257,7 +257,7 @@
   display: block;
 }
 
-.server-information > input {
+.server-information-input {
   flex: 1.2 1 0px;
   color: #2f3136;
   background: transparent;
@@ -279,15 +279,15 @@
   border-bottom-color: #f0f0f0;
 }
 
-.server-information > input::placeholder {
+.server-information-input::placeholder {
   color: rgb(188, 190, 193);
 }
 
-.server-information > input:focus {
-  border-color: #7289da;
+.server-information-input:hover {
+  border-color: #b9bbbe;
 }
 
-.server-information > input:hover {
+.server-information-input:focus {
   border-color: #7289da;
 }
 
@@ -455,11 +455,11 @@
   border-bottom-color: #f0f0f0;
 }
 
-.join-server-input {
+.join-server-input:hover {
   border-color: #b9bbbe;
 }
 
-.join-server-input :focus {
+.join-server-input:focus {
   border-color: #7289da;
 }
 
