@@ -6,6 +6,7 @@
   background-color: #1f2124;
   padding-top: 12px;
   width: 72px;
+  overflow-y: scroll;
 }
 
 .server-seperator {
