@@ -1,7 +1,7 @@
 import React from "react";
-import ServerFormContainer from "../mainapp/server_form_container";
-import CreateServerContainer from "../mainapp/create_server_container";
-import JoinServerContainer from "../mainapp/join_server_container";
+import ServerFormContainer from "../mainapp/server_modals/server_form_container";
+import CreateServerContainer from "../mainapp/server_modals/create_server_container";
+import JoinServerContainer from "../mainapp/server_modals/join_server_container";
 
 class Modal extends React.Component {
   constructor(props) {

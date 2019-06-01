@@ -1,7 +1,7 @@
 import * as ChannelAPI from "../util/channel_api_util";
 import { RECEIVE_ERRORS } from "./session_actions";
 
-export const RECEIVE_ALL_CHANNELS = "RECEIVE_ALL_SERVERS";
+export const RECEIVE_ALL_CHANNELS = "RECEIEVE_ALL_CHANNELS";
 export const RECEIVE_CHANNEL = "RECEIVE_CHANNEL";
 
 const receiveAllChannels = channels => ({

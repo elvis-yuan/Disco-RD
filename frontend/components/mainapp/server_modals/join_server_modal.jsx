@@ -1,6 +1,6 @@
 import React from "react";
-import { openModal } from "../../actions/modal_actions";
-import { deleteErrors } from "../../actions/session_actions";
+import { openModal } from "../../../actions/modal_actions";
+import { deleteErrors } from "../../../actions/session_actions";
 
 class JoinServerModal extends React.Component {
   constructor(props) {

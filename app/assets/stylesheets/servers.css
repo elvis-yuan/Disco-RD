@@ -66,17 +66,22 @@
   transition: color 0.25s ease, background-color 0.25s ease,
     border-radius 0.25s ease;
   position: relative;
+  flex-shrink: 0;
 }
 
 .server-grey {
   background-color: #2f3036;
 }
 
+.server-icon-wrapper {
+  position: relative;
+}
+
 .server-btn-hover {
   display: none;
   position: absolute;
   left: 55px;
-  bottom: 8px;
+  bottom: 15px;
   border-radius: 5px;
   color: white;
   background-color: black;
@@ -87,14 +92,19 @@
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
+  z-index: 2;
 }
 
-.server-btn:hover .server-btn-hover {
+.server-btn:hover + .server-btn-hover {
   display: block;
 }
 
 .server-btn:active {
   transform: translateY(1px);
+}
+
+.server-btn:active + .server-btn-hover {
+  z-index: 2;
 }
 
 .server-btn:hover {

@@ -1,5 +1,5 @@
 import React from "react";
-import { openModal } from "../../actions/modal_actions";
+import { openModal } from "../../../actions/modal_actions";
 
 class ServerFormModal extends React.Component {
   render() {

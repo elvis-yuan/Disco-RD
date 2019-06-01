@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import ServerFormModal from "./server_form_modal";
-import { openModal } from "../../actions/modal_actions";
+import { openModal } from "../../../actions/modal_actions";
 import React from "react";
 
 const msp = ({ errors }) => ({
