@@ -1473,7 +1473,10 @@ function (_React$Component) {
       }, message[Math.floor(Math.random() * message.length)]), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "server-form-actions"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "server-action-container server-create-container"
+        className: "server-action-container server-create-container",
+        onClick: function onClick() {
+          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["openModal"])("create"));
+        }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "server-container-header blue-text"
       }, "create"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -1481,12 +1484,12 @@ function (_React$Component) {
       }, "Create a new server and invite your friends. It's free!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "create-action-icon"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "action-btns create-action-btn",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["openModal"])("create"));
-        }
+        className: "action-btns create-action-btn"
       }, "Create a server")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "server-action-container"
+        className: "server-action-container",
+        onClick: function onClick() {
+          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["openModal"])("join"));
+        }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "server-container-header green-text"
       }, "join"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -1494,10 +1497,8 @@ function (_React$Component) {
       }, "Enter an Instant Invite and join your friend's server."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "join-action-icon"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "action-btns join-action-btn",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["openModal"])("join"));
-        }
+        className: "action-btns join-action-btn" // onClick={() => dispatch(openModal("join"))}
+
       }, "Join a server")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "server-center-image"
       }, "or")));
@@ -49109,7 +49110,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
+/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

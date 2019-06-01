@@ -327,6 +327,7 @@
   border-radius: 50%;
   pointer-events: none;
   color: #fff;
+  text-transform: lowercase;
 }
 
 .server-icon-size {
