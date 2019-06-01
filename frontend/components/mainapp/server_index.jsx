@@ -14,14 +14,17 @@ class ServerIndex extends React.Component {
   // }
 
   render() {
-    const { servers } = this.props;
+    const { servers, modalOpen, history } = this.props;
     const serverList = servers
       ? servers.map((server, index) => (
           <ServerIcon server={server} key={index} />
         ))
       : null;
-    const selected =
-      this.props.history.location.pathname === "/servers" ? "selected" : "";
+    const selected = history.location.pathname === "/servers" ? "selected" : "";
+
+    const selectedServer = modalOpen ? "selected-server-green-icon" : "";
+
+    let selectedGreen = modalOpen ? "selected-green" : "";
 
     return (
       <div className="server-index-container">
@@ -40,18 +43,18 @@ class ServerIndex extends React.Component {
         <ul className="server-ul">
           {serverList}
           <a
-            className="btn-flex server-btn"
+            className={`btn-flex server-btn ${selectedGreen}`}
             onClick={() => dispatch(openModal("main"))}
           >
-            <div className="server-selector" />
+            <div className={`server-selector ${selectedServer}`} />
             <h3 className="server-icon">+</h3>
-            <p>Add a Server</p>
+            <p className="server-btn-hover">Add a Server</p>
           </a>
           <div className="logout-seperator" />
           <a className="server-btn" onClick={this.props.logoutUser}>
             <div className="server-selector" />
             <i className="fas fa-sign-out-alt" />
-            <p>Logout</p>
+            <p className="server-btn-hover">Logout</p>
           </a>
         </ul>
       </div>

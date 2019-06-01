@@ -71,6 +71,7 @@ class CreateServerModal extends React.Component {
                       type="text"
                       onChange={this.handleChange("title")}
                       value={this.state.title}
+                      autoFocus
                     />
                   </div>
                   <div className="server-icon-selector">

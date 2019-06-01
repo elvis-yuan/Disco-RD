@@ -128,11 +128,12 @@ class SessionForm extends React.Component {
               type="email"
               onChange={this.handleChange("email")}
               value={this.state.email}
+              autoFocus
             />
           </div>
         </div>
       ) : null;
-
+    const autofocus = formType === "signup" ? false : true;
     return (
       <>
         <form className="form-container dropdown">
@@ -155,6 +156,7 @@ class SessionForm extends React.Component {
                     type="text"
                     onChange={this.handleChange("username")}
                     value={this.state.username}
+                    autoFocus={autofocus}
                   />
                 </div>
               </div>

@@ -70,22 +70,29 @@
   background-color: #2f3036;
 }
 
-.server-btn > p {
+.server-btn-hover {
   display: none;
   position: absolute;
-  left: 50px;
-  bottom: 12px;
+  left: 55px;
+  bottom: 8px;
   border-radius: 5px;
   color: white;
   background-color: black;
   font-family: Whitney;
-  font-size: 12px;
-  padding: 5px;
-  width: 70px;
+  font-size: 14px;
+  font-weight: 400;
+  padding: 6px 12px 8px 12px;
   text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
 }
-.server-btn:hover > p {
+
+.server-btn:hover .server-btn-hover {
   display: block;
+}
+
+.server-btn:active {
+  transform: translateY(1px);
 }
 
 .server-btn:hover {
@@ -144,6 +151,15 @@
     border-radius 0.25s ease;
 }
 
+.selected-green {
+  opacity: 1;
+  border-radius: 15px;
+  color: white;
+  background-color: #43b581;
+  transition: color 0.25s ease, background-color 0.25s ease,
+    border-radius 0.25s ease;
+}
+
 .selected > h3 {
   color: white;
 }
@@ -154,6 +170,12 @@
 }
 
 .selected:hover > .server-selector {
+  height: 40px;
+  transition: all 0.45s ease;
+  opacity: 1;
+}
+
+.selected-server-green-icon {
   height: 40px;
   transition: all 0.45s ease;
   opacity: 1;

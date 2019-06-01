@@ -1028,7 +1028,8 @@ function (_React$Component) {
         placeholder: "Enter a server name",
         type: "text",
         onChange: this.handleChange("title"),
-        value: this.state.title
+        value: this.state.title,
+        autoFocus: true
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "server-icon-selector"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1230,7 +1231,8 @@ function (_React$Component) {
         type: "text",
         value: this.state.invitation_code,
         onChange: this.handleChange("invitation_code"),
-        className: "join-server-input ".concat(serverError)
+        className: "join-server-input ".concat(serverError),
+        autoFocus: true
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Enter an Instant Invite ", inviteError))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "create-server-btn-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -1533,7 +1535,9 @@ var ServerIcon = function ServerIcon(props) {
     className: "server-selector"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "server-icon-text"
-  }, server.title.slice(0, 1).toLowerCase()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, server.title));
+  }, server.title.slice(0, 1).toLowerCase()), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "server-btn-hover"
+  }, server.title));
 };
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(ServerIcon));
 
@@ -1594,14 +1598,19 @@ function (_React$Component) {
   _createClass(ServerIndex, [{
     key: "render",
     value: function render() {
-      var servers = this.props.servers;
+      var _this$props = this.props,
+          servers = _this$props.servers,
+          modalOpen = _this$props.modalOpen,
+          history = _this$props.history;
       var serverList = servers ? servers.map(function (server, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_server_icon__WEBPACK_IMPORTED_MODULE_2__["default"], {
           server: server,
           key: index
         });
       }) : null;
-      var selected = this.props.history.location.pathname === "/servers" ? "selected" : "";
+      var selected = history.location.pathname === "/servers" ? "selected" : "";
+      var selectedServer = modalOpen ? "selected-server-green-icon" : "";
+      var selectedGreen = modalOpen ? "selected-green" : "";
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "server-index-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
@@ -1618,15 +1627,17 @@ function (_React$Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "server-ul"
       }, serverList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "btn-flex server-btn",
+        className: "btn-flex server-btn ".concat(selectedGreen),
         onClick: function onClick() {
           return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])("main"));
         }
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "server-selector"
+        className: "server-selector ".concat(selectedServer)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
         className: "server-icon"
-      }, "+"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Add a Server")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "+"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "server-btn-hover"
+      }, "Add a Server")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "logout-seperator"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
         className: "server-btn",
@@ -1635,7 +1646,9 @@ function (_React$Component) {
         className: "server-selector"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
         className: "fas fa-sign-out-alt"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Logout"))));
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "server-btn-hover"
+      }, "Logout"))));
     }
   }]);
 
@@ -1670,10 +1683,13 @@ __webpack_require__.r(__webpack_exports__);
 
 var msp = function msp(_ref) {
   var entities = _ref.entities,
-      session = _ref.session;
+      session = _ref.session,
+      ui = _ref.ui;
+  debugger;
   return {
     currentUser: session.currentUser,
-    servers: Object.values(entities.servers)
+    servers: Object.values(entities.servers),
+    modalOpen: ui.modal ? ["join", "main", "create"].includes(ui.modal) : false
   };
 };
 
@@ -2085,8 +2101,10 @@ function (_React$Component) {
         className: "".concat(emailBorder),
         type: "email",
         onChange: this.handleChange("email"),
-        value: this.state.email
+        value: this.state.email,
+        autoFocus: true
       }))) : null;
+      var autofocus = formType === "signup" ? false : true;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "form-container dropdown"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2107,7 +2125,8 @@ function (_React$Component) {
         className: "".concat(usernameBorder),
         type: "text",
         onChange: this.handleChange("username"),
-        value: this.state.username
+        value: this.state.username,
+        autoFocus: autofocus
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "email-block"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
@@ -2250,7 +2269,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  servers: _servers_reducer__WEBPACK_IMPORTED_MODULE_2__["default"] // channels,
+  servers: _servers_reducer__WEBPACK_IMPORTED_MODULE_2__["default"] // channels
   // messages
 
 }));
@@ -2271,6 +2290,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _server_errors_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./server_errors_reducer */ "./frontend/reducers/server_errors_reducer.js");
 
 
+ // import channels from "./channels_error_reducer";
 
 var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
