@@ -29,17 +29,19 @@ class ServerIndex extends React.Component {
     return (
       // <div className="server-index-wrapper">
       <div className="server-index-container">
-        <NavLink
-          className="button-flex server-btn blue-btn"
-          to={`/servers`}
-          activeClassName={selected}
-        >
-          <img
-            className="default-icon"
-            src="https://i.ibb.co/42kLm6j/discord.png"
-          />
-          <div className="server-selector" />
-        </NavLink>
+        <div className="server-margin-wrapper">
+          <NavLink
+            className="button-flex server-btn blue-btn"
+            to={`/servers`}
+            activeClassName={selected}
+          >
+            <img
+              className="default-icon"
+              src="https://i.ibb.co/42kLm6j/discord.png"
+            />
+            <div className="server-selector" />
+          </NavLink>
+        </div>
         <div className="server-seperator" />
         <ul className="server-ul">
           {serverList}
