@@ -332,11 +332,11 @@ p.plus-icon-hover::after {
   left: 159px;
   bottom: 34px;
   border-radius: 5px;
-  color: white;
+  color: #cececf;
   background-color: black;
   font-family: Whitney;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   padding: 6px 12px 8px 12px;
   text-align: center;
   white-space: nowrap;
@@ -349,11 +349,11 @@ p.plus-icon-hover::after {
   left: 160px;
   bottom: 36px;
   border-radius: 5px;
-  color: white;
+  color: #cececf;
   background-color: black;
   font-family: Whitney;
   font-size: 14px;
-  font-weight: 400;
+  font-weight: 500;
   padding: 6px 12px 8px 12px;
   text-align: center;
   white-space: nowrap;
