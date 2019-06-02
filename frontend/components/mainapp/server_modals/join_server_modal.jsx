@@ -16,8 +16,8 @@ class JoinServerModal extends React.Component {
 
   handleCloseModal(action) {
     this.props.closeModal();
-    this.props.fetchAllChannels(action.server.id);
-    this.props.history.push(`/servers/${action.server.id}`);
+    // this.props.fetchAllChannels(action.server.id);
+    this.props.history.push(`/servers/${action.server.server.id}`);
   }
   /*onSubmit={this.handleSubmit}*/
   handleChange(field) {

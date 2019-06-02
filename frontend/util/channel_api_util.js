@@ -13,6 +13,12 @@ export const fetchChannel = id =>
 export const createChannel = channel =>
   $.ajax({
     method: "POST",
-    url: `api/servers/${channel.server_id}`,
+    url: `api/servers/${channel.server_id}/channels`,
     data: { channel }
+  });
+
+export const deleteChannel = channelId =>
+  $.ajax({
+    method: "DELETE",
+    url: `api/channels/${channelId}`
   });

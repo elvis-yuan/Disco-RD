@@ -29,8 +29,14 @@ export const fetchChannel = id => dispatch =>
     dispatch(receiveChannel(channel))
   );
 
-export const createChanne = channel => dispatch =>
+export const createChannel = channel => dispatch =>
   ChannelAPI.createChannel(channel).then(
+    channel => dispatch(receiveChannel(channel)),
+    errors => dispatch(receiveErrors(errors))
+  );
+
+export const deleteChannel = channel => dispatch =>
+  ChannelAPI.deleteChannel(channel).then(
     channel => dispatch(receiveChannel(channel)),
     errors => dispatch(receiveErrors(errors))
   );

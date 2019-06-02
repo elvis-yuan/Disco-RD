@@ -4,6 +4,7 @@ import ChannelIndex from "./channel_index";
 import { fetchAllChannels } from "../../../actions/channel_actions";
 
 const msp = ({ entities, session }) => {
+  
   return {
     channels: entities.channels,
     currentUser: entities.users[session.currentUser],

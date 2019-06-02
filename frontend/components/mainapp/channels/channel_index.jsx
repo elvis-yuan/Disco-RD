@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import ChannelListItem from "./channel_list_item";
+import { openModal } from "../../../actions/modal_actions";
 
 class ChannelIndex extends React.Component {
   constructor(props) {
@@ -107,6 +108,7 @@ class ChannelIndex extends React.Component {
             <div className="channel-text-channel">
               text channels{" "}
               <svg
+                onClick={() => dispatch(openModal("createChannel"))}
                 className="add-button-icon"
                 aria-hidden="false"
                 width="18"
@@ -119,7 +121,7 @@ class ChannelIndex extends React.Component {
                   points="15 10 10 10 10 15 8 15 8 10 3 10 3 8 8 8 8 3 10 3 10 8 15 8"
                 />
               </svg>
-              <p className="gear-icon-hover ">Create Channel</p>
+              <p className="gear-icon-hover">Create Channel</p>
             </div>
           </div>
           <div className="channel-list-container">{channelTitles}</div>
