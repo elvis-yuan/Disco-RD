@@ -3,6 +3,7 @@ import ServerFormContainer from "../mainapp/server_modals/server_form_container"
 import CreateServerContainer from "../mainapp/server_modals/create_server_container";
 import JoinServerContainer from "../mainapp/server_modals/join_server_container";
 // import CreateChannelContainer from "../mainapp/channels/create_channal_container";
+//import DeleteChannelContainer from '../mainapp/channels/delete_channel_container";
 
 class Modal extends React.Component {
   constructor(props) {
@@ -24,8 +25,12 @@ class Modal extends React.Component {
       case "join":
         component = <JoinServerContainer />;
         break;
-      // case "channel":
+      // case "createchannel":
       //   component = <CreateChannelContainer />;
+      //break
+      // case 'deletechannel':
+      //   component = <DeleteChannelContainer />;
+      //break
       default:
         return null;
     }

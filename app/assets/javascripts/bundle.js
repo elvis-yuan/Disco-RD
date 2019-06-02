@@ -870,6 +870,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _channel_list_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./channel_list_item */ "./frontend/components/mainapp/channels/channel_list_item.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -880,13 +881,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -903,8 +905,10 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(ChannelIndex).call(this, props));
     _this.state = {
-      currentServer: _this.props.match.params.serverId
+      currentServer: _this.props.match.params.serverId,
+      dropDownOpen: false
     };
+    _this.dropDownAnimation = _this.dropDownAnimation.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -927,44 +931,38 @@ function (_React$Component) {
       }
     }
   }, {
+    key: "dropDownAnimation",
+    value: function dropDownAnimation() {
+      var newState = this.state.dropDownOpen === false ? true : false;
+      this.setState({
+        dropDownOpen: newState
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
 
-      var serverTitle = this.props.servers[parseInt(this.props.match.params.serverId)].title;
+      var currentServer = this.props.servers[parseInt(this.props.match.params.serverId)];
+      var serverTitle = currentServer.title;
+      var dropDownOpen = this.state.dropDownOpen ? "drop-down-open" : "";
+      var dropDownMenu = this.state.dropDownOpen ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "drop-down-menu-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "drop-down-menu"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Server Invitation Code"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "invitation-code",
+        value: currentServer.invitation_code,
+        disabled: true
+      }))) : null;
       var channels = this.props.channels;
       var channelTitles = channels ? channels.map(function (channel, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-          to: "servers/".concat(parseInt(_this3.props.match.params.serverId), "/").concat(channel.id),
-          key: index,
-          className: "channel-container-channel-wrapper"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          className: "channel-container-channel-name"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
-          viewBox: "0 0 24 24",
-          className: "channel-icon"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
-          fill: "currentColor",
-          fillRule: "evenodd",
-          clipRule: "evenodd",
-          d: "M5.88657 21C5.57547 21 5.3399 20.7189 5.39427 20.4126L6.00001 17H2.59511C2.28449 17 2.04905 16.7198 2.10259 16.4138L2.27759 15.4138C2.31946 15.1746 2.52722 15 2.77011 15H6.35001L7.41001 9H4.00511C3.69449 9 3.45905 8.71977 3.51259 8.41381L3.68759 7.41381C3.72946 7.17456 3.93722 7 4.18011 7H7.76001L8.39677 3.41262C8.43914 3.17391 8.64664 3 8.88907 3H9.87344C10.1845 3 10.4201 3.28107 10.3657 3.58738L9.76001 7H15.76L16.3968 3.41262C16.4391 3.17391 16.6466 3 16.8891 3H17.8734C18.1845 3 18.4201 3.28107 18.3657 3.58738L17.76 7H21.1649C21.4755 7 21.711 7.28023 21.6574 7.58619L21.4824 8.58619C21.4406 8.82544 21.2328 9 20.9899 9H17.41L16.35 15H19.7549C20.0655 15 20.301 15.2802 20.2474 15.5862L20.0724 16.5862C20.0306 16.8254 19.8228 17 19.5799 17H16L15.3632 20.5874C15.3209 20.8261 15.1134 21 14.8709 21H13.8866C13.5755 21 13.3399 20.7189 13.3943 20.4126L14 17H8.00001L7.36325 20.5874C7.32088 20.8261 7.11337 21 6.87094 21H5.88657ZM9.41045 9L8.35045 15H14.3504L15.4104 9H9.41045Z"
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
-          className: "channel-name"
-        }, channel.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
-          name: "Gear",
-          className: "gear-icon",
-          "aria-hidden": "false",
-          width: "16",
-          height: "16",
-          viewBox: "0 0 16 16"
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
-          fill: "currentColor",
-          fillRule: "evenodd",
-          clipRule: "evenodd",
-          d: "M14 7V9C14 9 12.5867 9 12.5733 9.00667C12.42 9.58667 12.1733 10.1267 11.84 10.6067L12.74 11.5067L11.4933 12.7533L10.5933 11.8533C10.1133 12.1867 9.57334 12.44 8.99334 12.5867V14H6.99334V12.58C6.41334 12.4333 5.87334 12.18 5.39334 11.8467L4.49333 12.7467L3.24667 11.5L4.14667 10.6C3.81333 10.1267 3.56 9.58 3.41333 9H2V7H3.41333C3.56 6.42 3.81333 5.88 4.14667 5.4L3.24667 4.5L4.5 3.24667L5.4 4.14667C5.87334 3.81333 6.42 3.56 7 3.41333V2H9V3.41333C9.58 3.56667 10.12 3.81333 10.6 4.14667L11.5067 3.25333L12.7533 4.5L11.8533 5.4C12.1867 5.87334 12.44 6.42 12.5867 7H14ZM8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z"
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-          className: "gear-icon-hover"
-        }, "Edit Channel")));
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_channel_list_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          channel: channel,
+          match: _this3.props.match,
+          key: index
+        });
       }) : null;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-index-container"
@@ -972,13 +970,31 @@ function (_React$Component) {
         className: "channel-name-links"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-server-information"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "channel-container-server-dropdown"
+      }, dropDownMenu, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "channel-container-server-dropdown",
+        onClick: this.dropDownAnimation
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-server-name-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "channel-container-server-name"
-      }, serverTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "X"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, serverTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
+        width: "18",
+        height: "18",
+        className: "drop-down-button ".concat(dropDownOpen)
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("g", {
+        fill: "none",
+        fillRule: "evenodd"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
+        d: "M0 0h18v18H0"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
+        stroke: "#FFF",
+        d: "M4.5 4.5l9 9",
+        strokeLinecap: "round"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
+        stroke: "#FFF",
+        d: "M13.5 4.5l-9 9",
+        strokeLinecap: "round"
+      }))))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-list-container-scroll"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-text-channel-catagory"
@@ -1056,6 +1072,58 @@ var mdp = function mdp(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_channel_index__WEBPACK_IMPORTED_MODULE_2__["default"])));
+
+/***/ }),
+
+/***/ "./frontend/components/mainapp/channels/channel_list_item.jsx":
+/*!********************************************************************!*\
+  !*** ./frontend/components/mainapp/channels/channel_list_item.jsx ***!
+  \********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+var ChannelListItem = function ChannelListItem(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+    to: "servers/".concat(parseInt(props.match.params.serverId), "/").concat(props.channel.id),
+    className: "channel-container-channel-wrapper"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "channel-container-channel-name"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
+    viewBox: "0 0 24 24",
+    className: "channel-icon"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
+    fill: "currentColor",
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M5.88657 21C5.57547 21 5.3399 20.7189 5.39427 20.4126L6.00001 17H2.59511C2.28449 17 2.04905 16.7198 2.10259 16.4138L2.27759 15.4138C2.31946 15.1746 2.52722 15 2.77011 15H6.35001L7.41001 9H4.00511C3.69449 9 3.45905 8.71977 3.51259 8.41381L3.68759 7.41381C3.72946 7.17456 3.93722 7 4.18011 7H7.76001L8.39677 3.41262C8.43914 3.17391 8.64664 3 8.88907 3H9.87344C10.1845 3 10.4201 3.28107 10.3657 3.58738L9.76001 7H15.76L16.3968 3.41262C16.4391 3.17391 16.6466 3 16.8891 3H17.8734C18.1845 3 18.4201 3.28107 18.3657 3.58738L17.76 7H21.1649C21.4755 7 21.711 7.28023 21.6574 7.58619L21.4824 8.58619C21.4406 8.82544 21.2328 9 20.9899 9H17.41L16.35 15H19.7549C20.0655 15 20.301 15.2802 20.2474 15.5862L20.0724 16.5862C20.0306 16.8254 19.8228 17 19.5799 17H16L15.3632 20.5874C15.3209 20.8261 15.1134 21 14.8709 21H13.8866C13.5755 21 13.3399 20.7189 13.3943 20.4126L14 17H8.00001L7.36325 20.5874C7.32088 20.8261 7.11337 21 6.87094 21H5.88657ZM9.41045 9L8.35045 15H14.3504L15.4104 9H9.41045Z"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+    className: "channel-name"
+  }, props.channel.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
+    name: "Gear",
+    className: "gear-icon",
+    "aria-hidden": "false",
+    width: "16",
+    height: "16",
+    viewBox: "0 0 16 16"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("path", {
+    fill: "currentColor",
+    fillRule: "evenodd",
+    clipRule: "evenodd",
+    d: "M14 7V9C14 9 12.5867 9 12.5733 9.00667C12.42 9.58667 12.1733 10.1267 11.84 10.6067L12.74 11.5067L11.4933 12.7533L10.5933 11.8533C10.1133 12.1867 9.57334 12.44 8.99334 12.5867V14H6.99334V12.58C6.41334 12.4333 5.87334 12.18 5.39334 11.8467L4.49333 12.7467L3.24667 11.5L4.14667 10.6C3.81333 10.1267 3.56 9.58 3.41333 9H2V7H3.41333C3.56 6.42 3.81333 5.88 4.14667 5.4L3.24667 4.5L4.5 3.24667L5.4 4.14667C5.87334 3.81333 6.42 3.56 7 3.41333V2H9V3.41333C9.58 3.56667 10.12 3.81333 10.6 4.14667L11.5067 3.25333L12.7533 4.5L11.8533 5.4C12.1867 5.87334 12.44 6.42 12.5867 7H14ZM8 10C9.10457 10 10 9.10457 10 8C10 6.89543 9.10457 6 8 6C6.89543 6 6 6.89543 6 8C6 9.10457 6.89543 10 8 10Z"
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "gear-icon-hover"
+  }, "Edit Channel")));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(ChannelListItem));
 
 /***/ }),
 
@@ -2018,6 +2086,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
  // import CreateChannelContainer from "../mainapp/channels/create_channal_container";
+//import DeleteChannelContainer from '../mainapp/channels/delete_channel_container";
 
 var Modal =
 /*#__PURE__*/
@@ -2051,8 +2120,12 @@ function (_React$Component) {
         case "join":
           component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mainapp_server_modals_join_server_container__WEBPACK_IMPORTED_MODULE_3__["default"], null);
           break;
-        // case "channel":
+        // case "createchannel":
         //   component = <CreateChannelContainer />;
+        //break
+        // case 'deletechannel':
+        //   component = <DeleteChannelContainer />;
+        //break
 
         default:
           return null;
