@@ -213,10 +213,10 @@ var receiveAllServers = function receiveAllServers(servers) {
   };
 };
 
-var receiveServer = function receiveServer(server) {
+var receiveServer = function receiveServer(action) {
   return {
     type: RECEIVE_SERVER,
-    server: server
+    server: action
   };
 };
 
@@ -916,20 +916,12 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchAllChannels(parseInt(this.props.match.params.serverId));
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      var _this2 = this;
+    } // componentDidUpdate() {
+    //   if (this.state.currentServer !== this.props.match.params.serverId) {
+    //     this.setState({ dropDownOpen: false });
+    //   }
+    // }
 
-      if (this.state.currentServer !== this.props.match.params.serverId) {
-        this.props.fetchAllChannels(parseInt(this.props.match.params.serverId)).then(function () {
-          _this2.setState({
-            currentServer: _this2.props.match.params.serverId
-          });
-        });
-      }
-    }
   }, {
     key: "dropDownAnimation",
     value: function dropDownAnimation() {
@@ -941,7 +933,7 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
       var currentServer = this.props.servers[parseInt(this.props.match.params.serverId)];
       var serverTitle = currentServer.title;
@@ -957,10 +949,13 @@ function (_React$Component) {
         disabled: true
       }))) : null;
       var channels = this.props.channels;
-      var channelTitles = channels ? channels.map(function (channel, index) {
+      var channelNames = Object.values(currentServer.channel_ids.map(function (id) {
+        return channels[id];
+      }));
+      var channelTitles = !channelNames.includes(undefined) ? channelNames.map(function (channel, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_channel_list_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
           channel: channel,
-          match: _this3.props.match,
+          match: _this2.props.match,
           key: index
         });
       }) : null;
@@ -1057,7 +1052,7 @@ var msp = function msp(_ref) {
   var entities = _ref.entities,
       session = _ref.session;
   return {
-    channels: Object.values(entities.channels),
+    channels: entities.channels,
     currentUser: entities.users[session.currentUser],
     servers: entities.servers
   };
@@ -1819,8 +1814,10 @@ var ServerIcon = function ServerIcon(props) {
     className: "server-icon-wrapper"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "server-margin-wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"] // onClick={() => props.fetchAllChannels(server.id)}
-  , {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+    onClick: function onClick() {
+      return props.fetchServer(server.id);
+    },
     className: "button-flex server-btn server-grey blue-btn",
     to: "/servers/".concat(server.id),
     activeClassName: "selected"
@@ -1849,6 +1846,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 /* harmony import */ var _server_icon__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./server_icon */ "./frontend/components/mainapp/servers/server_icon.jsx");
+/* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/server_actions */ "./frontend/actions/server_actions.js");
+
 
 
 
@@ -1860,8 +1859,9 @@ var msp = function msp(state, ownProps) {
 
 var mdp = function mdp(dispatch) {
   return {
-    fetchAllChannels: function fetchAllChannels(serverId) {
-      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["fetchAllChannels"])(serverId));
+    // fetchAllChannels: serverId => dispatch(fetchAllChannels(serverId)),
+    fetchServer: function fetchServer(serverId) {
+      return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_4__["fetchServer"])(serverId));
     }
   };
 };
@@ -1928,7 +1928,8 @@ function (_React$Component) {
       var _this$props = this.props,
           servers = _this$props.servers,
           modalOpen = _this$props.modalOpen,
-          history = _this$props.history;
+          history = _this$props.history,
+          fetchServer = _this$props.fetchServer;
       var serverList = servers ? servers.map(function (server, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_server_icon_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
           server: server,
@@ -2609,7 +2610,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
 /* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/server_actions */ "./frontend/actions/server_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -2626,6 +2629,10 @@ var channelsReducer = function channelsReducer() {
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CHANNEL"]:
       var channel = action.channel;
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, _defineProperty({}, channel.id, channel));
+
+    case _actions_server_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_SERVER"]:
+      var channels = action.server.channels;
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, channels);
 
     default:
       return state;
@@ -2808,14 +2815,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var serverReducer = function serverReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
-  Object.freeze(state);
+  Object.freeze(state); // debugger;
 
   switch (action.type) {
     case _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_ALL_SERVERS"]:
       return action.servers;
 
     case _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_SERVER"]:
-      var server = action.server;
+      var server = action.server.server;
 
       var newServer = _defineProperty({}, server.id, server);
 

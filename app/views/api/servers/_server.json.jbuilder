@@ -1,1 +1,1 @@
-json.extract! server, :id, :title, :icon_url, :admin_id, :public, :invitation_code, :connected_user_ids
+json.extract! server, :id, :title, :icon_url, :admin_id, :public, :invitation_code, :connected_user_ids, :channel_ids

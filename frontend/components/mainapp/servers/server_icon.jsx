@@ -7,7 +7,7 @@ export const ServerIcon = props => {
     <div className="server-icon-wrapper">
       <div className="server-margin-wrapper">
         <NavLink
-          // onClick={() => props.fetchAllChannels(server.id)}
+          onClick={() => props.fetchServer(server.id)}
           className="button-flex server-btn server-grey blue-btn"
           to={`/servers/${server.id}`}
           activeClassName="selected"

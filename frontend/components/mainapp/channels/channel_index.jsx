@@ -16,15 +16,11 @@ class ChannelIndex extends React.Component {
     this.props.fetchAllChannels(parseInt(this.props.match.params.serverId));
   }
 
-  componentDidUpdate() {
-    if (this.state.currentServer !== this.props.match.params.serverId) {
-      this.props
-        .fetchAllChannels(parseInt(this.props.match.params.serverId))
-        .then(() => {
-          this.setState({ currentServer: this.props.match.params.serverId });
-        });
-    }
-  }
+  // componentDidUpdate() {
+  //   if (this.state.currentServer !== this.props.match.params.serverId) {
+  //     this.setState({ dropDownOpen: false });
+  //   }
+  // }
 
   dropDownAnimation() {
     const newState = this.state.dropDownOpen === false ? true : false;
@@ -56,8 +52,12 @@ class ChannelIndex extends React.Component {
 
     const { channels } = this.props;
 
-    const channelTitles = channels
-      ? channels.map((channel, index) => (
+    const channelNames = Object.values(
+      currentServer.channel_ids.map(id => channels[id])
+    );
+
+    const channelTitles = !channelNames.includes(undefined)
+      ? channelNames.map((channel, index) => (
           <ChannelListItem
             channel={channel}
             match={this.props.match}

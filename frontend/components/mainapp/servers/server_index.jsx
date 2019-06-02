@@ -14,7 +14,7 @@ class ServerIndex extends React.Component {
   // }
 
   render() {
-    const { servers, modalOpen, history } = this.props;
+    const { servers, modalOpen, history, fetchServer } = this.props;
     const serverList = servers
       ? servers.map((server, index) => (
           <ServerIconContainer server={server} key={index} />
