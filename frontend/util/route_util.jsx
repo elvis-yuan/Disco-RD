@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import ChannelIndex from "../components/mainapp/channel_index";
+import ChannelIndex from "../components/mainapp/channels/channel_index";
 
 const Auth = ({ component: Component, path, loggedIn, exact }) => (
   <Route

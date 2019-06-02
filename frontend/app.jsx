@@ -14,10 +14,12 @@ const App = ({ store }) => (
     </div>
     <HashRouter>
       <Modal />
-      <Route exact path="/" component={Homepage} />
-      <AuthRoute path="/login" component={Formpage} />
-      <AuthRoute path="/signup" component={Formpage} />
-      <ProtectedRoute path="/servers" component={Main} />
+      <Switch>
+        <AuthRoute path="/login" component={Formpage} />
+        <AuthRoute path="/signup" component={Formpage} />
+        <ProtectedRoute path="/servers" component={Main} />
+        <Route exact path="/" component={Homepage} />
+      </Switch>
     </HashRouter>
   </Provider>
 );

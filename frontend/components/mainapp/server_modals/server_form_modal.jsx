@@ -1,5 +1,5 @@
 import React from "react";
-import { openModal } from "../../actions/modal_actions";
+import { openModal } from "../../../actions/modal_actions";
 
 class ServerFormModal extends React.Component {
   render() {
@@ -17,20 +17,23 @@ class ServerFormModal extends React.Component {
           {message[Math.floor(Math.random() * message.length)]}
         </h1>
         <div className="server-form-actions">
-          <div className="server-action-container server-create-container">
+          <div
+            className="server-action-container server-create-container"
+            onClick={() => dispatch(openModal("create"))}
+          >
             <h1 className="server-container-header blue-text">create</h1>
             <p className="server-plain-text">
               Create a new server and invite your friends. It's free!
             </p>
             <div className="create-action-icon" />
-            <button
-              className="action-btns create-action-btn"
-              onClick={() => dispatch(openModal("create"))}
-            >
+            <button className="action-btns create-action-btn">
               Create a server
             </button>
           </div>
-          <div className="server-action-container">
+          <div
+            className="server-action-container"
+            onClick={() => dispatch(openModal("join"))}
+          >
             <h1 className="server-container-header green-text">join</h1>
             <p className="server-plain-text">
               Enter an Instant Invite and join your friend's server.
@@ -38,7 +41,7 @@ class ServerFormModal extends React.Component {
             <div className="join-action-icon" />
             <button
               className="action-btns join-action-btn"
-              onClick={() => dispatch(openModal("join"))}
+              // onClick={() => dispatch(openModal("join"))}
             >
               Join a server
             </button>

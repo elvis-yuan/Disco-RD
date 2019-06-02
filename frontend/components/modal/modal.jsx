@@ -1,7 +1,9 @@
 import React from "react";
-import ServerFormContainer from "../mainapp/server_form_container";
-import CreateServerContainer from "../mainapp/create_server_container";
-import JoinServerContainer from "../mainapp/join_server_container";
+import ServerFormContainer from "../mainapp/server_modals/server_form_container";
+import CreateServerContainer from "../mainapp/server_modals/create_server_container";
+import JoinServerContainer from "../mainapp/server_modals/join_server_container";
+import CreateChannelContainer from "../mainapp/channel_modals/create_channel_modal_container";
+//import DeleteChannelContainer from '../mainapp/channels/delete_channel_container";
 
 class Modal extends React.Component {
   constructor(props) {
@@ -23,6 +25,12 @@ class Modal extends React.Component {
       case "join":
         component = <JoinServerContainer />;
         break;
+      case "createChannel":
+        component = <CreateChannelContainer />;
+        break;
+      // case 'deletechannel':
+      //   component = <DeleteChannelContainer />;
+      //break
       default:
         return null;
     }
@@ -30,9 +38,13 @@ class Modal extends React.Component {
     return (
       <div className="modal-background" onClick={closeModal}>
         <div className="modal-child" onClick={e => e.stopPropagation()}>
+<<<<<<< HEAD
           <div className=" modal-animation ">
             {component}
           </div>
+=======
+          <div className="modal-animation ">{component}</div>
+>>>>>>> master
         </div>
       </div>
     );

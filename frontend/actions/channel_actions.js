@@ -1,7 +1,7 @@
 import * as ChannelAPI from "../util/channel_api_util";
 import { RECEIVE_ERRORS } from "./session_actions";
 
-export const RECEIVE_ALL_CHANNELS = "RECEIVE_ALL_SERVERS";
+export const RECEIVE_ALL_CHANNELS = "RECEIEVE_ALL_CHANNELS";
 export const RECEIVE_CHANNEL = "RECEIVE_CHANNEL";
 
 const receiveAllChannels = channels => ({
@@ -29,8 +29,14 @@ export const fetchChannel = id => dispatch =>
     dispatch(receiveChannel(channel))
   );
 
-export const createChanne = channel => dispatch =>
+export const createChannel = channel => dispatch =>
   ChannelAPI.createChannel(channel).then(
+    channel => dispatch(receiveChannel(channel)),
+    errors => dispatch(receiveErrors(errors))
+  );
+
+export const deleteChannel = channel => dispatch =>
+  ChannelAPI.deleteChannel(channel).then(
     channel => dispatch(receiveChannel(channel)),
     errors => dispatch(receiveErrors(errors))
   );

@@ -10,9 +10,9 @@ const receiveAllServers = servers => ({
   servers
 });
 
-const receiveServer = server => ({
+const receiveServer = action => ({
   type: RECEIVE_SERVER,
-  server
+  server: action
 });
 
 const receiveErrors = errors => ({

@@ -1,0 +1,361 @@
+.channel-index-container {
+  background-color: #2f3136;
+  width: 240px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.channel-name-links {
+  margin-bottom: 7px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  flex: 1 1 auto;
+  min-height: 0;
+  position: relative;
+  background-color: #2f3136;
+}
+
+.channel-container-server-dropdown {
+  cursor: pointer;
+  position: relative;
+}
+
+.channel-container-server-dropdown:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.channel-container-server-name-header {
+  position: relative;
+  cursor: pointer;
+  color: #fff;
+  font-weight: 500;
+  padding: 0 16px;
+  height: 48px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  z-index: 3;
+  transition: background-color 0.15s ease;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 1.5px 0 rgba(0, 0, 0, 0.05),
+    0 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.channel-container-server-name {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.channel-container-user-icon-container {
+  border-radius: 50%;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  float: left;
+  flex-shrink: 0;
+  margin: 0 10px 0 0;
+  /* cursor: pointer; */
+}
+
+.channel-container-user-icon {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-clip: padding-box;
+  background-size: 100% 100%;
+  background-color: none;
+  background-position: 50%;
+  border-radius: 50%;
+  background-image: url(https://discordapp.com/assets/0e291f67c9274a1abdddeb3fd919cbaa.png);
+}
+
+.channel-container-user-information {
+  height: 52px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 400;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 10px;
+  margin-bottom: 1px;
+  background: rgba(32, 34, 37, 0.3);
+  flex-shrink: 0;
+}
+
+.channel-list-container-scroll {
+  position: relative;
+  display: flex;
+  height: 100%;
+  flex: 1 1 auto;
+  flex-direction: column;
+}
+
+.channel-container-channel-wrapper {
+  height: 34px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.channel-container-channel-name {
+  box-sizing: border-box;
+  height: 32px;
+  padding: 0 8px;
+  margin: 1px 0 1px 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.channel-icon {
+  color: #72767d;
+  display: block;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  margin-right: 6px;
+  color: #72767d;
+}
+
+.channel-name {
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #8e9297;
+  flex: 1 1 auto;
+}
+
+.channel-list-container {
+  /* overflow-y: scroll; */
+  flex: 1 1 auto;
+  padding-right: 8px;
+  z-index: 1;
+}
+
+.channel-list-container::-webkit-scrollbar {
+  width: 0 !important;
+}
+
+.channel-text-channel-catagory {
+  position: relative;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  transition: opacity 0.2s ease-in-out;
+  padding-top: 16px;
+}
+
+.channel-text-channel {
+  position: relative;
+  box-sizing: border-box;
+  height: 24px;
+  padding-right: 16px;
+  padding-left: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: default;
+  color: #8e9297;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 600;
+  flex: 1 1 auto;
+}
+
+.drop-down-button {
+  transition: all 0.15s ease;
+  opacity: 0.6;
+  transform: translate3d(0, 3px, 0);
+  transition: all 0.2s ease;
+  margin-left: 4px;
+}
+
+.drop-down-button path {
+  stroke-width: 2px;
+  stroke-dasharray: 7;
+  stroke-dashoffset: 1;
+  transition: stroke-dasharray 0.2s ease;
+}
+
+.drop-down-button.drop-down-open path {
+  stroke-dasharray: 14;
+}
+
+.drop-down-open {
+  transform: rotate(-90deg);
+  /* transform: translate3d(0, -3px, 0); */
+}
+
+/* .drop-down-menu-wrapper {
+  position: absolute;
+  z-index: 1001;
+  overflow: hidden;
+  top: 52px;
+  left: 10px;
+  height: 307px;
+  width: 216px;
+  transform: translateY(0%) translateX(-50%) translateZ(0px);
+} */
+
+.drop-down-menu {
+  position: absolute;
+  box-sizing: border-box;
+  background: #282b30;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.82), 0 1px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+  width: 216px;
+  top: 52px;
+  left: 10px;
+  color: white;
+  z-index: 3;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.invitation-code {
+  margin-top: 5px;
+  user-select: text;
+  color: #f6f6f7;
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  height: 40px;
+  font-size: 16px;
+  transition: background-color 0.15s ease, border 0.15s ease;
+  border-radius: 3px;
+  box-sizing: border-box;
+  width: 100%;
+  font-family: Whitney;
+}
+
+.invitation-code:hover {
+  border-color: black;
+}
+
+.add-button-icon {
+  width: 18;
+  height: 18;
+  opacity: 0.3;
+}
+
+.add-button-icon:hover {
+  opacity: 0.8;
+}
+
+.add-button-icon:hover + .plus-icon-hover {
+  display: block;
+  text-transform: none;
+  z-index: 100;
+}
+
+.channel-container-server-information {
+  position: relative;
+}
+
+.channel-container-channel-name:hover {
+  background-color: #292b2f;
+}
+
+.channel-container-channel-name:hover > .channel-name {
+  color: #dcddde;
+}
+
+.channel-container-channel-name:hover > .gear-icon {
+  display: block;
+}
+
+.gear-icon {
+  color: #b9bbbe;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  display: none;
+  position: relative;
+}
+
+.gear-icon:hover {
+  color: #dcddde;
+}
+
+.gear-icon:hover + .gear-icon-hover {
+  display: block;
+}
+
+p.gear-icon-hover::after {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 50px;
+  margin-left: 0px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: #000 transparent transparent transparent;
+}
+
+p.plus-icon-hover::after {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 50px;
+  margin-left: 0px;
+  border-width: 6px;
+  border-style: solid;
+  border-color: #000 transparent transparent transparent;
+}
+
+.plus-icon-hover {
+  display: none;
+  position: absolute;
+  left: 159px;
+  bottom: 34px;
+  border-radius: 5px;
+  color: #cececf;
+  background-color: black;
+  font-family: Whitney;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 12px 8px 12px;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.gear-icon-hover {
+  display: none;
+  position: absolute;
+  left: 160px;
+  bottom: 36px;
+  border-radius: 5px;
+  color: #cececf;
+  background-color: black;
+  font-family: Whitney;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 12px 8px 12px;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 2;
+}
