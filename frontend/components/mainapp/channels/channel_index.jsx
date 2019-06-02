@@ -11,6 +11,7 @@ class ChannelIndex extends React.Component {
       dropDownOpen: false
     };
     this.dropDownAnimation = this.dropDownAnimation.bind(this);
+    this.deleteServer = this.deleteServer.bind(this);
   }
 
   componentDidMount() {
@@ -26,6 +27,12 @@ class ChannelIndex extends React.Component {
   dropDownAnimation() {
     const newState = this.state.dropDownOpen === false ? true : false;
     this.setState({ dropDownOpen: newState });
+  }
+
+  deleteServer() {
+    this.props
+      .deleteServer(this.state.currentServer)
+      .then(() => this.props.history.push("/servers"));
   }
 
   render() {
@@ -47,6 +54,9 @@ class ChannelIndex extends React.Component {
             value={currentServer.invitation_code}
             disabled
           />
+        </div>
+        <div className="delete-server-button-wrapper">
+          <span onClick={this.deleteServer}>Delete Server</span>
         </div>
       </div>
     ) : null;

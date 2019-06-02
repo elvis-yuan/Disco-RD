@@ -18,11 +18,25 @@ export const createServer = server =>
     data: { server }
   });
 
+export const updateServer = server =>
+  $.ajax({
+    method: "PATCH",
+    url: `api/servers/${server.id}`,
+    data: { server }
+  });
+
 export const joinServer = server =>
   $.ajax({
     method: "POST",
     url: `api/servers/join`,
     data: { server }
+  });
+
+export const leaveServer = server =>
+  $.ajax({
+    method: "DELETE",
+    url: `api/servers/leave`,
+    data: {server}
   });
 
 export const deleteServer = serverId =>

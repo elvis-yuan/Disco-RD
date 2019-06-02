@@ -12,6 +12,9 @@ Rails.application.routes.draw do
       collection do 
         post "join"
       end
+      collection do 
+        delete "leave"
+      end
       resources :channels, only: [:index, :create]
     end
     resources :channels, only: [:destroy, :update] do 

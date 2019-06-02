@@ -38,13 +38,9 @@ class Modal extends React.Component {
     return (
       <div className="modal-background" onClick={closeModal}>
         <div className="modal-child" onClick={e => e.stopPropagation()}>
-<<<<<<< HEAD
           <div className=" modal-animation ">
             {component}
           </div>
-=======
-          <div className="modal-animation ">{component}</div>
->>>>>>> master
         </div>
       </div>
     );
