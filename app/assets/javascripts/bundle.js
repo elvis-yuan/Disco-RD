@@ -879,6 +879,8 @@ var mdp = function mdp(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/session_actions */ "./frontend/actions/session_actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -898,6 +900,8 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -922,6 +926,11 @@ function (_React$Component) {
   }
 
   _createClass(CreateChannelModal, [{
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["deleteErrors"])());
+    }
+  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       var _this2 = this;
@@ -944,27 +953,45 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var title = this.props.servers[this.state.server_id].title;
+      var errors = this.props.errors;
+      var errorText = errors.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "server-create-error"
+      }, "- This field is required") : "";
+      var redText = errors.length > 0 ? "red-text" : "";
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "join-channel-modal-wrapper"
+        className: "create-channel-modal-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
-        className: "join-channel-modal-form",
+        className: "create-channel-modal-form",
         onSubmit: this.handleSubmit
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "join-channel-header"
+        className: "create-channel-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "join-channel-wrapper"
+        className: "create-channel-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-        className: "join-channel-h4"
+        className: "create-channel-h4"
       }, "Create Text channel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: "join-channel-subtitle"
-      }, "in ", title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "create-channel-subtitle"
+      }, "in ", title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "create-channel-input-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "create-channel-label ".concat(redText)
+      }, "CHANNEL NAME ", errorText), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "create-channel-input",
         type: "text",
         value: this.state.title,
         onChange: this.handleChange("title")
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "create-channel-button-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "create-channel-cancel",
+        onClick: function onClick() {
+          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["closeModal"])());
+        }
+      }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "create-channel-button",
         type: "submit",
-        value: "Create"
-      })));
+        value: "Create Channel"
+      }))));
     }
   }]);
 
@@ -2896,8 +2923,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  server: _server_errors_reducer__WEBPACK_IMPORTED_MODULE_2__["default"] // channel
-
+  server: _server_errors_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  channel: _channel_errors_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (errorsReducer);
 

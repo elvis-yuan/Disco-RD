@@ -5,8 +5,8 @@ import channel from "./channel_errors_reducer";
 
 const errorsReducer = combineReducers({
   session,
-  server
-  // channel
+  server,
+  channel
 });
 
 export default errorsReducer;

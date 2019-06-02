@@ -4,10 +4,12 @@ import { createChannel } from "../../../actions/channel_actions";
 import CreateChannelModal from "./create_channel_modal";
 import { openModal, closeModal } from "../../../actions/modal_actions";
 
-const msp = ({ errors, entities }) => ({
-  errors: errors.channel,
-  servers: entities.servers
-});
+const msp = ({ errors, entities }) => {
+  return {
+    errors: errors.channel,
+    servers: entities.servers
+  };
+};
 
 const mdp = dispatch => ({
   closeModal: () => dispatch(closeModal()),
