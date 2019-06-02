@@ -7,9 +7,15 @@
   padding-top: 12px;
   width: 72px;
   /* overflow-y: scroll; */
-  /* overflow-x: visibile; */
 }
 
+.server-index-wrapper {
+  overflow-x: visible;
+}
+
+.server-index-container::-webkit-scrollbar {
+  width: 0 !important;
+}
 .server-seperator {
   height: 2px;
   width: 32px;
@@ -54,7 +60,6 @@
   text-decoration: none;
   display: flex;
   justify-content: center;
-  margin: 0 0 8px;
   box-sizing: border-box;
   width: 48px;
   height: 48px;
@@ -77,6 +82,10 @@
   position: relative;
 }
 
+.server-margin-wrapper {
+  margin: 0 0 8px;
+}
+
 .server-btn-hover {
   display: none;
   position: absolute;
@@ -95,7 +104,7 @@
   z-index: 2;
 }
 
-.server-btn:hover + .server-btn-hover {
+.server-margin-wrapper:hover + .server-btn-hover {
   display: block;
 }
 
@@ -103,7 +112,7 @@
   transform: translateY(1px);
 }
 
-.server-btn:active + .server-btn-hover {
+.server-margin-wrapper + .server-btn-hover {
   z-index: 2;
 }
 

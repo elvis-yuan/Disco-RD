@@ -4,16 +4,24 @@ import { NavLink } from "react-router-dom";
 class ChannelIndex extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { currentServer: this.props.match.params.serverId };
   }
 
   componentDidMount() {
     this.props.fetchAllChannels(parseInt(this.props.match.params.serverId));
   }
 
+  componentDidUpdate() {
+    if (this.state.currentServer !== this.props.match.params.serverId) {
+      this.props
+        .fetchAllChannels(parseInt(this.props.match.params.serverId))
+        .then(() => {
+          this.setState({ currentServer: this.props.match.params.serverId });
+        });
+    }
+  }
+
   render() {
-    // let serverName = this.props.servers
-    //   ? this.props.servers[this.serverId].title
-    //   : "Waiting";
     const serverTitle = this.props.servers[
       parseInt(this.props.match.params.serverId)
     ].title;
@@ -58,7 +66,22 @@ class ChannelIndex extends React.Component {
         </div>
         <div className="channel-list-container-scroll">
           <div className="channel-text-channel-catagory">
-            <div className="channel-text-channel">text channels</div>
+            <div className="channel-text-channel">
+              text channels{" "}
+              <svg
+                className="add-button-icon"
+                aria-hidden="false"
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+              >
+                <polygon
+                  fillRule="nonzero"
+                  fill="#ffffff"
+                  points="15 10 10 10 10 15 8 15 8 10 3 10 3 8 8 8 8 3 10 3 10 8 15 8"
+                />
+              </svg>
+            </div>
           </div>
           <div className="channel-list-container">{channelTitles}</div>
         </div>

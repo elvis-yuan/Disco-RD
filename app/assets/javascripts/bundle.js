@@ -897,9 +897,15 @@ function (_React$Component) {
   _inherits(ChannelIndex, _React$Component);
 
   function ChannelIndex(props) {
+    var _this;
+
     _classCallCheck(this, ChannelIndex);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(ChannelIndex).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ChannelIndex).call(this, props));
+    _this.state = {
+      currentServer: _this.props.match.params.serverId
+    };
+    return _this;
   }
 
   _createClass(ChannelIndex, [{
@@ -908,18 +914,28 @@ function (_React$Component) {
       this.props.fetchAllChannels(parseInt(this.props.match.params.serverId));
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      var _this2 = this;
+
+      if (this.state.currentServer !== this.props.match.params.serverId) {
+        this.props.fetchAllChannels(parseInt(this.props.match.params.serverId)).then(function () {
+          _this2.setState({
+            currentServer: _this2.props.match.params.serverId
+          });
+        });
+      }
+    }
+  }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this3 = this;
 
-      // let serverName = this.props.servers
-      //   ? this.props.servers[this.serverId].title
-      //   : "Waiting";
       var serverTitle = this.props.servers[parseInt(this.props.match.params.serverId)].title;
       var channels = this.props.channels;
       var channelTitles = channels ? channels.map(function (channel, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-          to: "servers/".concat(parseInt(_this.props.match.params.serverId), "/").concat(channel.id),
+          to: "servers/".concat(parseInt(_this3.props.match.params.serverId), "/").concat(channel.id),
           key: index,
           className: "channel-container-channel-wrapper"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -954,7 +970,17 @@ function (_React$Component) {
         className: "channel-text-channel-catagory"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-text-channel"
-      }, "text channels")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "text channels", " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
+        className: "add-button-icon",
+        "aria-hidden": "false",
+        width: "18",
+        height: "18",
+        viewBox: "0 0 18 18"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("polygon", {
+        fillRule: "nonzero",
+        fill: "#ffffff",
+        points: "15 10 10 10 10 15 8 15 8 10 3 10 3 8 8 8 8 3 10 3 10 8 15 8"
+      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-list-container"
       }, channelTitles)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-user-information"
@@ -1139,6 +1165,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/server_actions */ "./frontend/actions/server_actions.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+
 
 
 
@@ -1163,6 +1191,9 @@ var mdp = function mdp(dispatch) {
     },
     closeModal: function closeModal() {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
+    },
+    fetchAllChannels: function fetchAllChannels(serverId) {
+      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_6__["fetchAllChannels"])(serverId));
     },
     removeErrors: function removeErrors() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_5__["deleteErrors"])());
@@ -1233,6 +1264,7 @@ function (_React$Component) {
     key: "handleCloseModal",
     value: function handleCloseModal(action) {
       this.props.closeModal();
+      this.props.fetchAllChannels(action.server.id);
       this.props.history.push("/servers/".concat(action.server.id));
     }
   }, {
@@ -1343,6 +1375,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _join_server_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./join_server_modal */ "./frontend/components/mainapp/server_modals/join_server_modal.jsx");
 /* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/server_actions */ "./frontend/actions/server_actions.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+
 
 
 
@@ -1370,6 +1404,9 @@ var mdp = function mdp(dispatch) {
     },
     removeErrors: function removeErrors() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_5__["deleteErrors"])());
+    },
+    fetchAllChannels: function fetchAllChannels(serverId) {
+      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_6__["fetchAllChannels"])(serverId));
     }
   };
 };
@@ -1443,6 +1480,7 @@ function (_React$Component) {
     key: "handleCloseModal",
     value: function handleCloseModal(action) {
       this.props.closeModal();
+      this.props.fetchAllChannels(action.server.id);
       this.props.history.push("/servers/".concat(action.server.id));
     }
     /*onSubmit={this.handleSubmit}*/
@@ -1695,10 +1733,10 @@ var ServerIcon = function ServerIcon(props) {
   var server = props.server;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "server-icon-wrapper"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-    onClick: function onClick() {
-      return props.fetchAllChannels(server.id);
-    },
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "server-margin-wrapper"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"] // onClick={() => props.fetchAllChannels(server.id)}
+  , {
     className: "button-flex server-btn server-grey blue-btn",
     to: "/servers/".concat(server.id),
     activeClassName: "selected"
@@ -1706,7 +1744,7 @@ var ServerIcon = function ServerIcon(props) {
     className: "server-selector"
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
     className: "server-icon-text"
-  }, server.title.slice(0, 1).toLowerCase())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+  }, server.title.slice(0, 1).toLowerCase()))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
     className: "server-btn-hover"
   }, server.title));
 };
@@ -1816,48 +1854,55 @@ function (_React$Component) {
       var selected = history.location.pathname === "/servers" ? "selected" : "";
       var selectedServer = modalOpen ? "selected-server-green-icon" : "";
       var selectedGreen = modalOpen ? "selected-green" : "";
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "server-index-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-        className: "button-flex server-btn blue-btn",
-        to: "/servers",
-        activeClassName: selected
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        className: "default-icon",
-        src: "https://i.ibb.co/42kLm6j/discord.png"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "server-selector"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "server-seperator"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
-        className: "server-ul"
-      }, serverList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "server-icon-wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "btn-flex server-btn ".concat(selectedGreen),
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])("main"));
-        }
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "server-selector ".concat(selectedServer)
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
-        className: "server-icon"
-      }, "+")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: "server-btn-hover"
-      }, "Add a Server")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "logout-seperator"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "server-icon-wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-        className: "server-btn",
-        onClick: this.props.logoutUser
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "server-selector"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
-        className: "fas fa-sign-out-alt"
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: "server-btn-hover"
-      }, "Logout"))));
+      return (// <div className="server-index-wrapper">
+        react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "server-index-container"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+          className: "button-flex server-btn blue-btn",
+          to: "/servers",
+          activeClassName: selected
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+          className: "default-icon",
+          src: "https://i.ibb.co/42kLm6j/discord.png"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "server-selector"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "server-seperator"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+          className: "server-ul"
+        }, serverList, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "server-icon-wrapper"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "server-margin-wrapper"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          className: "btn-flex server-btn ".concat(selectedGreen),
+          onClick: function onClick() {
+            return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])("main"));
+          }
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "server-selector ".concat(selectedServer)
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
+          className: "server-icon"
+        }, "+")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "server-btn-hover"
+        }, "Add a Server"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "logout-seperator"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "server-icon-wrapper"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "server-margin-wrapper"
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+          className: "server-btn",
+          onClick: this.props.logoutUser
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "server-selector"
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+          className: "fas fa-sign-out-alt"
+        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+          className: "server-btn-hover"
+        }, "Logout"))))) // </div>
+
+      );
     }
   }]);
 
@@ -1954,7 +1999,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
+ // import CreateChannelContainer from "../mainapp/channels/create_channal_container";
 
 var Modal =
 /*#__PURE__*/
@@ -1988,6 +2033,8 @@ function (_React$Component) {
         case "join":
           component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mainapp_server_modals_join_server_container__WEBPACK_IMPORTED_MODULE_3__["default"], null);
           break;
+        // case "channel":
+        //   component = <CreateChannelContainer />;
 
         default:
           return null;
@@ -2479,6 +2526,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var channelsReducer = function channelsReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
 
   switch (action.type) {
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_ALL_CHANNELS"]:
@@ -2566,6 +2614,7 @@ __webpack_require__.r(__webpack_exports__);
 function modalReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
 
   switch (action.type) {
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["OPEN_MODAL"]:
@@ -49394,7 +49443,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
