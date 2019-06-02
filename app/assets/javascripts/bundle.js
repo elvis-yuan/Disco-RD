@@ -1161,7 +1161,7 @@ function (_React$Component) {
         fill: "#ffffff",
         points: "15 10 10 10 10 15 8 15 8 10 3 10 3 8 8 8 8 3 10 3 10 8 15 8"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-        className: "gear-icon-hover"
+        className: "plus-icon-hover"
       }, "Create Channel"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-list-container"
       }, channelTitles)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2125,9 +2125,9 @@ function (_React$Component) {
           className: "server-selector ".concat(selectedServer)
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
           className: "server-icon"
-        }, "+")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }, "+"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "server-btn-hover"
-        }, "Add a Server"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        }, "Add a Server")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "logout-seperator"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "server-icon-wrapper"
@@ -2140,9 +2140,9 @@ function (_React$Component) {
           className: "server-selector"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
           className: "fas fa-sign-out-alt"
-        })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
           className: "server-btn-hover"
-        }, "Logout"))))) // </div>
+        }, "Logout")))) // </div>
 
       );
     }

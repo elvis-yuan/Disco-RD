@@ -121,7 +121,7 @@ class ChannelIndex extends React.Component {
                   points="15 10 10 10 10 15 8 15 8 10 3 10 3 8 8 8 8 3 10 3 10 8 15 8"
                 />
               </svg>
-              <p className="gear-icon-hover">Create Channel</p>
+              <p className="plus-icon-hover">Create Channel</p>
             </div>
           </div>
           <div className="channel-list-container">{channelTitles}</div>

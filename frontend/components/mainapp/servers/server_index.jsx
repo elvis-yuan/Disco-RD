@@ -54,8 +54,8 @@ class ServerIndex extends React.Component {
                 <div className={`server-selector ${selectedServer}`} />
                 <h3 className="server-icon">+</h3>
               </a>
-              <p className="server-btn-hover">Add a Server</p>
             </div>
+            <p className="server-btn-hover">Add a Server</p>
           </div>
           <div className="logout-seperator" />
           <div className="server-icon-wrapper">
@@ -64,8 +64,8 @@ class ServerIndex extends React.Component {
                 <div className="server-selector" />
                 <i className="fas fa-sign-out-alt" />
               </a>
-              <p className="server-btn-hover">Logout</p>
             </div>
+            <p className="server-btn-hover">Logout</p>
           </div>
         </ul>
       </div>
