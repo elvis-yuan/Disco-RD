@@ -943,12 +943,21 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var title = this.props.servers[this.state.server_id].title;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "join-channel-modal-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "join-channel-modal-form",
         onSubmit: this.handleSubmit
-      }, "form here", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "Create Text channel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "join-channel-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "join-channel-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+        className: "join-channel-h4"
+      }, "Create Text channel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "join-channel-subtitle"
+      }, "in ", title))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         type: "text",
         value: this.state.title,
         onChange: this.handleChange("title")
@@ -987,9 +996,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var msp = function msp(_ref) {
-  var errors = _ref.errors;
+  var errors = _ref.errors,
+      entities = _ref.entities;
   return {
-    errors: errors.channel
+    errors: errors.channel,
+    servers: entities.servers
   };
 };
 
