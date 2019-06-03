@@ -302,7 +302,7 @@ var createServer = function createServer(server) {
 };
 var updateServer = function updateServer(server) {
   return function (dispatch) {
-    return _util_server_api_util__WEBPACK_IMPORTED_MODULE_0__["createServer"](server).then(function (server) {
+    return _util_server_api_util__WEBPACK_IMPORTED_MODULE_0__["updateServer"](server).then(function (server) {
       return dispatch(receiveServer(server));
     }, function (errors) {
       return dispatch(receiveErrors(errors));
@@ -1163,6 +1163,7 @@ function (_React$Component) {
     };
     _this.dropDownAnimation = _this.dropDownAnimation.bind(_assertThisInitialized(_this));
     _this.deleteServer = _this.deleteServer.bind(_assertThisInitialized(_this));
+    _this.handleOpenModal = _this.handleOpenModal.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1176,6 +1177,17 @@ function (_React$Component) {
     //   }
     // }
 
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {}
+  }, {
+    key: "handleOpenModal",
+    value: function handleOpenModal() {
+      this.setState({
+        dropDownOpen: false
+      });
+      dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])("editServer"));
+    }
   }, {
     key: "dropDownAnimation",
     value: function dropDownAnimation() {
@@ -1209,10 +1221,11 @@ function (_React$Component) {
         value: currentServer.invitation_code,
         disabled: true
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "delete-server-button-wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        onClick: this.deleteServer
-      }, "Delete Server")))) : null;
+        className: "px-margin-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-button",
+        onClick: this.handleOpenModal
+      }, " ", "EDIT SERVER", " ")))) : null;
       var channels = this.props.channels;
       var channelNames = Object.values(currentServer.channel_ids.map(function (id) {
         return channels[id];
@@ -1710,6 +1723,269 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (CreateServerModal);
+
+/***/ }),
+
+/***/ "./frontend/components/mainapp/server_modals/delete_server_container.js":
+/*!******************************************************************************!*\
+  !*** ./frontend/components/mainapp/server_modals/delete_server_container.js ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _delete_server_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./delete_server_modal */ "./frontend/components/mainapp/server_modals/delete_server_modal.jsx");
+/* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/server_actions */ "./frontend/actions/server_actions.js");
+
+
+
+
+
+var msp = function msp(state) {
+  return {
+    errors: state.errors.servers
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    deleteServer: function deleteServer(serverId) {
+      return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_3__["deleteServer"])(serverId));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_delete_server_modal__WEBPACK_IMPORTED_MODULE_2__["default"])));
+
+/***/ }),
+
+/***/ "./frontend/components/mainapp/server_modals/delete_server_modal.jsx":
+/*!***************************************************************************!*\
+  !*** ./frontend/components/mainapp/server_modals/delete_server_modal.jsx ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var DeleteServerModal =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(DeleteServerModal, _React$Component);
+
+  function DeleteServerModal() {
+    _classCallCheck(this, DeleteServerModal);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(DeleteServerModal).apply(this, arguments));
+  }
+
+  _createClass(DeleteServerModal, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Hello");
+    }
+  }]);
+
+  return DeleteServerModal;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (DeleteServerModal);
+
+/***/ }),
+
+/***/ "./frontend/components/mainapp/server_modals/edit_server_container.js":
+/*!****************************************************************************!*\
+  !*** ./frontend/components/mainapp/server_modals/edit_server_container.js ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _edit_server_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit_server_modal */ "./frontend/components/mainapp/server_modals/edit_server_modal.jsx");
+/* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/server_actions */ "./frontend/actions/server_actions.js");
+
+
+
+
+
+var msp = function msp(store) {
+  return {
+    servers: store.entities.servers,
+    errors: store.errors.server
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    updateServer: function updateServer(server) {
+      return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_3__["updateServer"])(server));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_edit_server_modal__WEBPACK_IMPORTED_MODULE_2__["default"])));
+
+/***/ }),
+
+/***/ "./frontend/components/mainapp/server_modals/edit_server_modal.jsx":
+/*!*************************************************************************!*\
+  !*** ./frontend/components/mainapp/server_modals/edit_server_modal.jsx ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+
+var EditServerModal =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(EditServerModal, _React$Component);
+
+  function EditServerModal(props) {
+    var _this;
+
+    _classCallCheck(this, EditServerModal);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(EditServerModal).call(this, props));
+    _this.currentServer = parseInt(_this.props.history.location.pathname.split("/")[2]);
+    _this.currentTitle = _this.props.servers[_this.currentServer].title;
+    _this.state = {
+      title: _this.currentTitle,
+      id: _this.currentServer
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(EditServerModal, [{
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["deleteErrors"])());
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      this.props.updateServer(this.state).then(function () {
+        return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
+      });
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(field) {
+      var _this2 = this;
+
+      return function (e) {
+        _this2.setState(_defineProperty({}, field, e.target.value));
+      };
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-modal-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "edit-server-modal-form",
+        onSubmit: this.handleSubmit
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+        className: "edit-server-h4"
+      }, "Edit ", this.currentTitle), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "edit-server-subtitle"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-input-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "edit-server-label"
+      }, "SERVER NAME"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "edit-server-input",
+        type: "text",
+        value: this.state.title,
+        onChange: this.handleChange("title")
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-button-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "edit-server-delete-button",
+        onClick: function onClick() {
+          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("deleteServer"));
+        }
+      }, "DELETE SERVER"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "edit-server-cancel",
+        onClick: function onClick() {
+          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
+        }
+      }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "edit-server-button",
+        type: "submit",
+        value: "Edit Server"
+      })))));
+    }
+  }]);
+
+  return EditServerModal;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (EditServerModal);
 
 /***/ }),
 
@@ -2381,6 +2657,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mainapp_server_modals_create_server_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../mainapp/server_modals/create_server_container */ "./frontend/components/mainapp/server_modals/create_server_container.js");
 /* harmony import */ var _mainapp_server_modals_join_server_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../mainapp/server_modals/join_server_container */ "./frontend/components/mainapp/server_modals/join_server_container.js");
 /* harmony import */ var _mainapp_channel_modals_create_channel_modal_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../mainapp/channel_modals/create_channel_modal_container */ "./frontend/components/mainapp/channel_modals/create_channel_modal_container.js");
+/* harmony import */ var _mainapp_server_modals_edit_server_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../mainapp/server_modals/edit_server_container */ "./frontend/components/mainapp/server_modals/edit_server_container.js");
+/* harmony import */ var _mainapp_server_modals_delete_server_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../mainapp/server_modals/delete_server_container */ "./frontend/components/mainapp/server_modals/delete_server_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2403,7 +2681,10 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
- //import DeleteChannelContainer from '../mainapp/channels/delete_channel_container";
+ // import DeleteChannelContainer from '../mainapp/channels/delete_channel_container';
+
+
+
 
 var Modal =
 /*#__PURE__*/
@@ -2436,6 +2717,14 @@ function (_React$Component) {
 
         case "join":
           component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mainapp_server_modals_join_server_container__WEBPACK_IMPORTED_MODULE_3__["default"], null);
+          break;
+
+        case "deleteServer":
+          component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mainapp_server_modals_delete_server_container__WEBPACK_IMPORTED_MODULE_6__["default"], null);
+          break;
+
+        case "editServer":
+          component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mainapp_server_modals_edit_server_container__WEBPACK_IMPORTED_MODULE_5__["default"], null);
           break;
 
         case "createChannel":

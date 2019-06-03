@@ -47,7 +47,7 @@ export const createServer = server => dispatch =>
   );
 
 export const updateServer = server => dispatch =>
-  ServerAPI.createServer(server).then(
+  ServerAPI.updateServer(server).then(
     server => dispatch(receiveServer(server)),
     errors => dispatch(receiveErrors(errors))
   );

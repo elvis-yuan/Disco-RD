@@ -249,6 +249,8 @@
   box-sizing: border-box;
   width: 100%;
   font-family: Whitney;
+  text-align: center;
+  cursor: text;
 }
 
 .invitation-code:hover {
@@ -358,4 +360,28 @@ p.plus-icon-hover::after {
   text-align: center;
   white-space: nowrap;
   z-index: 2;
+}
+
+.delete-server-button-wrapper {
+  margin-top: 5px;
+  color: #f6f6f7;
+  background-color: #f04747;
+  padding: 10px;
+  height: 40px;
+  font-size: 16px;
+  transition: background-color 0.15s ease, border 0.15s ease;
+  border-radius: 3px;
+  box-sizing: border-box;
+  width: 100%;
+  font-family: Whitney;
+  text-align: center;
+  cursor: pointer;
+}
+
+.delete-server-button-wrapper:hover {
+  background-color: #c43939;
+}
+
+.delete-server-button {
+  text-align: center;
 }
