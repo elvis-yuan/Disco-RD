@@ -65,7 +65,7 @@ class EditServerModal extends React.Component {
               className="edit-server-delete-button"
               onClick={() => dispatch(openModal("deleteServer"))}
             >
-              DELETE SERVER
+              Delete Server
             </span>
             <div className="edit-server-buttons">
               <span

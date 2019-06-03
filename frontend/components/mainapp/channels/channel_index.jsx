@@ -64,7 +64,7 @@ class ChannelIndex extends React.Component {
           <div className="px-margin-wrapper">
             <div className="edit-server-button" onClick={this.handleOpenModal}>
               {" "}
-              EDIT SERVER{" "}
+              Edit Server{" "}
             </div>
           </div>
 

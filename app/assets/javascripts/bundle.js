@@ -1225,7 +1225,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "edit-server-button",
         onClick: this.handleOpenModal
-      }, " ", "EDIT SERVER", " ")))) : null;
+      }, " ", "Edit Server", " ")))) : null;
       var channels = this.props.channels;
       var channelNames = Object.values(currentServer.channel_ids.map(function (id) {
         return channels[id];
@@ -2198,7 +2198,7 @@ function (_React$Component) {
         onClick: function onClick() {
           return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("deleteServer"));
         }
-      }, "DELETE SERVER"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Delete Server"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "edit-server-buttons"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "edit-server-cancel",
