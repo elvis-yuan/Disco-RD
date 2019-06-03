@@ -1,9 +1,9 @@
 class Api::ChannelsController < ApplicationController
 
   def index
-
     @server = Server.find(params[:server_id])
     @channels = @server.channels
+
     render :index
   end
 
@@ -20,6 +20,8 @@ class Api::ChannelsController < ApplicationController
     @channel.server_id = params[:server_id]
     if @channel.save
       @server = @channel.server
+      @messages = @channel.messages
+
       render :show
     else
       render json: @channel.errors.full_messages, status: 422
@@ -27,8 +29,9 @@ class Api::ChannelsController < ApplicationController
   end
 
   def update
-    @channel = Channel.find(params[:id])
+    @channel = Channel.includes(:servers, :messages).find(params[:id])
     if @channel.update(channel_params)
+      @messages = @channel.messages
       @server = @channel.server
       render :show
     else
@@ -37,10 +40,12 @@ class Api::ChannelsController < ApplicationController
   end
 
   def destroy
-    @channel = Channel.includes(:server).find(params[:id])
+    @channel = Channel.includes(:server, :messages).find(params[:id])
     @server = @channel.server
+    @messages = @channel.messages
     @channel.destroy
     @channels = @server.channels
+    
     render :show
   end
 
