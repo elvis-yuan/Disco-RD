@@ -19,9 +19,14 @@ class DeleteChannelModal extends React.Component {
   }
 
   handleSubmit(e) {
-
     e.preventDefault();
-    this.props.history.push(`/servers/${this.currentServer}`);
+    if (
+      parseInt(this.props.history.location.pathname.split("/")[3]) ===
+      this.props.currentChannel
+    ) {
+      this.props.history.push(`/servers/${this.currentServer}`);
+    }
+
     this.props
       .deleteChannel(this.props.currentChannel)
       .then(() => dispatch(closeModal()));

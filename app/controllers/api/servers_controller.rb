@@ -4,8 +4,9 @@ class Api::ServersController < ApplicationController
   INVITATION_CODE = (('a'..'z').to_a + (1..9).to_a + ("A".."Z").to_a)
 
   def index
-    @user = User.includes(:servers).find(params[:user_id])
-    @servers = @user.servers
+    # @user = User.includes(:servers).find(params[:user_id])
+    @servers = current_user.servers
+
     render :index
   end
 
@@ -43,12 +44,15 @@ class Api::ServersController < ApplicationController
 
   def destroy
     @server = Server.find(params[:id])
-    @server.destroy
-
-    @servers = current_user.servers
-    @channels = @server.channels
+    if @server.admin_id == current_user.id
+      server.destroy
+      @servers = current_user.servers
+      @channels = @server.channels
     
-    render :index
+      render :index
+    else
+      render json: "you are not an admin", status: 422
+    end
   end
 
   def join
@@ -71,11 +75,11 @@ class Api::ServersController < ApplicationController
   end
 
   def leave
-    @server = Server.find_by(params[:id])
-    @server.users_servers.find_by(user_id: current_user.id).destroy
-    @channels = @server.channels
+    @server = Server.includes(:user_servers).find(params[:id])
+    @server.user_servers.find_by(user_id: current_user.id).destroy
+    @servers = current_user.servers
 
-    render :show
+    render :index
   end
 
   private 

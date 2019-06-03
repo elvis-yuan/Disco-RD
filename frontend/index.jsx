@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./app";
 import configureStore from "./store/store";
 import { fetchAllServers } from "./actions/server_actions";
-import { deleteServer } from "./actions/server_actions";
+import { deleteServer, leaveServer } from "./actions/server_actions";
 
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("root");
@@ -24,6 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
     store = configureStore();
   }
 
+  window.leaveServer = leaveServer;
   window.deleteServer = deleteServer;
   window.store = store;
   window.dispatch = store.dispatch;

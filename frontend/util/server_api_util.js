@@ -32,11 +32,11 @@ export const joinServer = server =>
     data: { server }
   });
 
-export const leaveServer = server =>
+export const leaveServer = id =>
   $.ajax({
     method: "DELETE",
     url: `api/servers/leave`,
-    data: {server}
+    data: { id }
   });
 
 export const deleteServer = serverId =>

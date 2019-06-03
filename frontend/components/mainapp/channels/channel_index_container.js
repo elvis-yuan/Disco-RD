@@ -5,7 +5,6 @@ import { fetchAllChannels } from "../../../actions/channel_actions";
 import { deleteServer } from "../../../actions/server_actions";
 
 const msp = ({ entities, session }) => {
-
   return {
     channels: entities.channels,
     currentUser: entities.users[session.currentUser],
@@ -16,7 +15,8 @@ const msp = ({ entities, session }) => {
 const mdp = dispatch => {
   return {
     fetchAllChannels: serverId => dispatch(fetchAllChannels(serverId)),
-    deleteServer: serverId => dispatch(deleteServer(serverId))
+    deleteServer: serverId => dispatch(deleteServer(serverId)),
+    leaveServer: serverId => dispatch(leaveServer(serverId))
   };
 };
 

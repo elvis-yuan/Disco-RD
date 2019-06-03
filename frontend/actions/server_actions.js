@@ -63,5 +63,7 @@ export const joinServer = server => dispatch =>
     errors => dispatch(receiveErrors(errors))
   );
 
-export const leaveServer = server => dispatch =>
-  ServerAPI.leaveServer(server).then(server => dispatch(quitServer(server)));
+export const leaveServer = serverId => dispatch =>
+  ServerAPI.leaveServer(serverId).then(servers =>
+    dispatch(receiveAllServers(servers))
+  );

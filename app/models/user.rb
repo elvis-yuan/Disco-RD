@@ -16,6 +16,10 @@ class User < ApplicationRecord
 
   has_many :messages
 
+  has_many :channels,
+    through: :messages,
+    source: :channel
+
   has_many :alias,
     foreign_key: :user_id,
     class_name: "UserServer"

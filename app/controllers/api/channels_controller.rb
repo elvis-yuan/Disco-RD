@@ -8,8 +8,10 @@ class Api::ChannelsController < ApplicationController
   end
 
   def show 
-    @channel = Channel.includes(:message).find(params[:id])
+    @channel = Channel.includes(:messages, :server).find(params[:id])
     @messages = @channel.messages
+    @server = @channel.server
+
     render :show
   end
 

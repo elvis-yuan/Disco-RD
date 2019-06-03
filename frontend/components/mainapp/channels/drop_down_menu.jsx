@@ -7,7 +7,31 @@ class DropDownMenu extends React.Component {
   }
 
   render() {
-    const { currentServer, handleOpenModal } = this.props;
+    const { currentServer, handleOpenModal, currentUser } = this.props;
+
+    const correctButton =
+      this.props.currentServer.admin_id === currentUser.id ? (
+        <div className="px-margin-wrapper">
+          <div
+            className="edit-server-button"
+            onClick={() => dispatch(openModal("editServer"))}
+          >
+            {" "}
+            Edit Server{" "}
+          </div>
+        </div>
+      ) : (
+        <div className="px-margin-wrapper">
+          <div
+            className="edit-server-button"
+            onClick={() => dispatch(openModal("leaveServer"))}
+          >
+            {" "}
+            Leave Server{" "}
+          </div>
+        </div>
+      );
+
     return (
       <div className="drop-down-menu-wrapper">
         <div className="drop-down-menu">
@@ -18,7 +42,8 @@ class DropDownMenu extends React.Component {
             value={currentServer.invitation_code}
             disabled
           />
-          <div className="px-margin-wrapper">
+          {correctButton}
+          {/* <div className="px-margin-wrapper">
             <div
               className="edit-server-button"
               onClick={() => dispatch(openModal("editServer"))}
@@ -26,7 +51,7 @@ class DropDownMenu extends React.Component {
               {" "}
               Edit Server{" "}
             </div>
-          </div>
+          </div> */}
 
           {/* <div
             className="delete-server-button-wrapper"
