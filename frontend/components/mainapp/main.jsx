@@ -5,6 +5,7 @@ import ChannelIndexContainer from "./channels/channel_index_container";
 import { ServerRoute, CustomRoute } from "../../util/route_util";
 import { connect } from "react-redux";
 import { fetchAllServers, fetchServer } from "../../actions/server_actions";
+import ChannelChat from "./channels/channel_chat";
 
 const msp = ({ entities, session }) => ({
   currentUser: session.currentUser,
@@ -43,7 +44,11 @@ class Main extends React.Component {
       <div className="main-app">
         <ServerIndexContainer />
         {servercomp}
-        <Route path="/:serverId/:channelId" component={ChannelIndex} />
+        <Route
+          exact
+          path="/servers/:serverId/:channelId"
+          component={ChannelChat}
+        />
       </div>
     );
     // <Switch>

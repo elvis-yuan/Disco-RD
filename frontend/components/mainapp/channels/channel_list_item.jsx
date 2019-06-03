@@ -4,7 +4,7 @@ import { withRouter, NavLink } from "react-router-dom";
 const ChannelListItem = props => {
   return (
     <NavLink
-      to={`servers/${parseInt(props.match.params.serverId)}/${
+      to={`/servers/${parseInt(props.match.params.serverId)}/${
         props.channel.id
       }`}
       className="channel-container-channel-wrapper"
