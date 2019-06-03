@@ -34,16 +34,21 @@ class Api::ServersController < ApplicationController
   def update
     @server = Server.find(params[:id])
     if @server.update(server_params)
+      @channels = @server.channels
       render :show
     else
       render json: @server.errors.full_messages, status: 422
     end
   end
 
-  def delete
-    @server = Server.find_by(params[:id])
-    @server.delete
-    render :show
+  def destroy
+    @server = Server.find(params[:id])
+    @server.destroy
+
+    @servers = current_user.servers
+    @channels = @server.channels
+    
+    render :index
   end
 
   def join
@@ -53,6 +58,7 @@ class Api::ServersController < ApplicationController
     @server = Server.find_by(invitation_code: params[:server][:invitation_code])
     if @server
       @server.user_servers.create!(user_id: current_user.id, server_id: @server.id)
+      @channels = @server.channels
       render :show
     elsif errors.length > 0
       render json: errors, status: 422
@@ -62,6 +68,14 @@ class Api::ServersController < ApplicationController
     else
       render json: @server.errors.full_messages, status: 422
     end
+  end
+
+  def leave
+    @server = Server.find_by(params[:id])
+    @server.users_servers.find_by(user_id: current_user.id).destroy
+    @channels = @server.channels
+
+    render :show
   end
 
   private 

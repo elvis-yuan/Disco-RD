@@ -11,6 +11,8 @@ class ChannelIndex extends React.Component {
       dropDownOpen: false
     };
     this.dropDownAnimation = this.dropDownAnimation.bind(this);
+    this.deleteServer = this.deleteServer.bind(this);
+    this.handleOpenModal = this.handleOpenModal.bind(this);
   }
 
   componentDidMount() {
@@ -22,13 +24,25 @@ class ChannelIndex extends React.Component {
   //     this.setState({ dropDownOpen: false });
   //   }
   // }
+  componentDidUpdate() {}
+
+  handleOpenModal() {
+    this.setState({ dropDownOpen: false });
+    dispatch(openModal("editServer"));
+  }
 
   dropDownAnimation() {
     const newState = this.state.dropDownOpen === false ? true : false;
     this.setState({ dropDownOpen: newState });
   }
 
+  deleteServer() {
+    this.props.history.push("/servers");
+    this.props.deleteServer(parseInt(this.props.match.params.serverId));
+  }
+
   render() {
+    // debugger;
     const currentServer = this.props.servers[
       parseInt(this.props.match.params.serverId)
     ];
@@ -47,6 +61,19 @@ class ChannelIndex extends React.Component {
             value={currentServer.invitation_code}
             disabled
           />
+          <div className="px-margin-wrapper">
+            <div className="edit-server-button" onClick={this.handleOpenModal}>
+              {" "}
+              EDIT SERVER{" "}
+            </div>
+          </div>
+
+          {/* <div
+            className="delete-server-button-wrapper"
+            onClick={this.deleteServer}
+          >
+            <span className="delete-server-button">Delete Server</span>
+          </div> */}
         </div>
       </div>
     ) : null;

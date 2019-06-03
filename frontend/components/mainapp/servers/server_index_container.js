@@ -8,7 +8,7 @@ import { openModal } from "../../../actions/modal_actions";
 const msp = ({ entities, session, ui }) => {
   return {
     currentUser: session.currentUser,
-    servers: Object.values(entities.servers),
+    servers: entities.servers,
     modalOpen: ui.modal ? ["join", "main", "create"].includes(ui.modal) : false
   };
 };

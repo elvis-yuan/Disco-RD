@@ -15,11 +15,14 @@ class ServerIndex extends React.Component {
 
   render() {
     const { servers, modalOpen, history, fetchServer } = this.props;
-    const serverList = servers
-      ? servers.map((server, index) => (
-          <ServerIconContainer server={server} key={index} />
-        ))
-      : null;
+    const serverValues = servers ? Object.values(servers) : [];
+
+    const serverList =
+      serverValues.length > 0
+        ? serverValues.map((server, index) => (
+            <ServerIconContainer server={server} key={index} />
+          ))
+        : null;
     const selected = history.location.pathname === "/servers" ? "selected" : "";
 
     const selectedServer = modalOpen ? "selected-server-green-icon" : "";
@@ -60,7 +63,7 @@ class ServerIndex extends React.Component {
           <div className="logout-seperator" />
           <div className="server-icon-wrapper">
             <div className="server-margin-wrapper">
-              <a className="server-btn" onClick={this.props.logoutUser}>
+              <a className="server-btn" onClick={()=> dispatch(openModal('logoutUser'))}>
                 <div className="server-selector" />
                 <i className="fas fa-sign-out-alt" />
               </a>

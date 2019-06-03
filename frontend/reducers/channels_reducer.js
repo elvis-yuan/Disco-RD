@@ -1,9 +1,10 @@
 import merge from "lodash/merge";
 import {
   RECEIVE_CHANNEL,
-  RECEIVE_ALL_CHANNELS
+  RECEIVE_ALL_CHANNELS,
+  REMOVE_CHANNEL
 } from "../actions/channel_actions";
-import { RECEIVE_SERVER } from "../actions/server_actions";
+import { RECEIVE_SERVER, REMOVE_SERVER } from "../actions/server_actions";
 
 const channelsReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -16,6 +17,14 @@ const channelsReducer = (state = {}, action) => {
     case RECEIVE_SERVER:
       const { channels } = action.server;
       return merge({}, state, channels);
+    case REMOVE_SERVER:
+      const removeChannels = merge({}, state);
+      // action.server.channels.each(channel => delete removeChannels[channel.id]);
+      return removeChannels;
+    case REMOVE_CHANNEL:
+      const oldState = merge({}, state);
+      delete oldState[action.channel.channel.id];
+      return oldState;
     default:
       return state;
   }

@@ -3,6 +3,7 @@ import { RECEIVE_ERRORS } from "./session_actions";
 
 export const RECEIVE_ALL_CHANNELS = "RECEIEVE_ALL_CHANNELS";
 export const RECEIVE_CHANNEL = "RECEIVE_CHANNEL";
+export const REMOVE_CHANNEL = "REMOVE_CHANNEL";
 
 const receiveAllChannels = channels => ({
   type: RECEIVE_ALL_CHANNELS,
@@ -17,6 +18,11 @@ const receiveChannel = channel => ({
 const receiveErrors = errors => ({
   type: RECEIVE_ERRORS,
   errors
+});
+
+const removeChannel = channel => ({
+  type: REMOVE_CHANNEL,
+  channel
 });
 
 export const fetchAllChannels = serverId => dispatch =>
@@ -35,8 +41,14 @@ export const createChannel = channel => dispatch =>
     errors => dispatch(receiveErrors(errors))
   );
 
-export const deleteChannel = channel => dispatch =>
-  ChannelAPI.deleteChannel(channel).then(
+export const updateChannel = channel => dispatch =>
+  ChannelAPI.updateChannel(channel).then(
     channel => dispatch(receiveChannel(channel)),
+    errors => dispatch(receiveErrors(errors))
+  );
+
+export const deleteChannel = channelId => dispatch =>
+  ChannelAPI.deleteChannel(channelId).then(
+    channel => dispatch(removeChannel(channel)),
     errors => dispatch(receiveErrors(errors))
   );
