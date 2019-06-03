@@ -30,12 +30,12 @@ class ChannelIndex extends React.Component {
   }
 
   deleteServer() {
-    this.props
-      .deleteServer(this.state.currentServer)
-      .then(() => this.props.history.push("/servers"));
+    this.props.history.push("/servers");
+    this.props.deleteServer(parseInt(this.props.match.params.serverId));
   }
 
   render() {
+    debugger;
     const currentServer = this.props.servers[
       parseInt(this.props.match.params.serverId)
     ];

@@ -1187,17 +1187,15 @@ function (_React$Component) {
   }, {
     key: "deleteServer",
     value: function deleteServer() {
-      var _this2 = this;
-
-      this.props.deleteServer(this.state.currentServer).then(function () {
-        return _this2.props.history.push("/servers");
-      });
+      this.props.history.push("/servers");
+      this.props.deleteServer(parseInt(this.props.match.params.serverId));
     }
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
+      var _this2 = this;
 
+      debugger;
       var currentServer = this.props.servers[parseInt(this.props.match.params.serverId)];
       var serverTitle = currentServer.title;
       var dropDownOpen = this.state.dropDownOpen ? "drop-down-open" : "";
@@ -1222,7 +1220,7 @@ function (_React$Component) {
       var channelTitles = !channelNames.includes(undefined) ? channelNames.map(function (channel, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_channel_list_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
           channel: channel,
-          match: _this3.props.match,
+          match: _this2.props.match,
           key: index
         });
       }) : null;
@@ -1323,6 +1321,7 @@ __webpack_require__.r(__webpack_exports__);
 var msp = function msp(_ref) {
   var entities = _ref.entities,
       session = _ref.session;
+  debugger;
   return {
     channels: entities.channels,
     currentUser: entities.users[session.currentUser],
