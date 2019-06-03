@@ -1565,24 +1565,24 @@ function (_React$Component) {
         }, message, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           ref: _this3.bottom
         }));
-      }); // debugger;
-      // const oldMessages =
-      //   Object.values(channels).length > 0
-      //     ? channels[this.currentChannelId].message_ids.map(
-      //         message_id => messages[message_id]
-      //       )
-      //     : //
-      //       null;
-      //  const history = oldMessages.length > 0 ?
-      //         oldMessages.map((message,index)=> )
-      //   debugger;
+      });
+      debugger;
+      var oldMessages = Object.values(channels).length > 0 ? channels[this.currentChannelId].message_ids.map(function (message_id) {
+        return messages[message_id];
+      }) : null;
+      debugger;
+      var history = oldMessages !== null ? oldMessages.map(function (message, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: index
+        }, message.body);
+      }) : null; // debugger;
       // const oldMessages = currentChannel?
 
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chatroom-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-list"
-      }, allMessages), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_input_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, history, allMessages), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_input_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         currentId: this.currentChannelId
       }));
     }
@@ -2334,9 +2334,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -2350,13 +2350,25 @@ var LogoutModal =
 function (_React$Component) {
   _inherits(LogoutModal, _React$Component);
 
-  function LogoutModal() {
+  function LogoutModal(props) {
+    var _this;
+
     _classCallCheck(this, LogoutModal);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(LogoutModal).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(LogoutModal).call(this, props));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(LogoutModal, [{
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+      this.props.logoutUser();
+      this.props.history.push("/");
+      dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["closeModal"])());
+    }
+  }, {
     key: "render",
     value: function render() {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2385,7 +2397,7 @@ function (_React$Component) {
           return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["closeModal"])());
         }
       }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        onClick: this.props.logoutUser,
+        onClick: this.handleSubmit,
         className: "delete-server-button",
         type: "submit",
         value: "Log Out"
@@ -2430,9 +2442,7 @@ var msp = function msp(_ref) {
 var mdp = function mdp(dispatch) {
   return {
     logoutUser: function logoutUser() {
-      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["logoutUser"])()).then(function () {
-        return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["closeModal"])());
-      });
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["logoutUser"])());
     }
   };
 };

@@ -41,24 +41,27 @@ class ChannelChat extends React.Component {
       </div>
     ));
 
+    debugger;
+    const oldMessages =
+      Object.values(channels).length > 0
+        ? channels[this.currentChannelId].message_ids.map(
+            message_id => messages[message_id]
+          )
+        : null;
+    debugger;
+    const history =
+      oldMessages !== null
+        ? oldMessages.map((message, index) => (
+            <div key={index}>{message.body}</div>
+          ))
+        : null;
     // debugger;
-    // const oldMessages =
-    //   Object.values(channels).length > 0
-    //     ? channels[this.currentChannelId].message_ids.map(
-    //         message_id => messages[message_id]
-    //       )
-    //     : //
-    //       null;
-
-    //  const history = oldMessages.length > 0 ?
-    //         oldMessages.map((message,index)=> )
-    //   debugger;
     // const oldMessages = currentChannel?
 
     return (
       <div className="chatroom-container">
         <div className="message-list">
-          {/* {oldMessages} */}
+          {history}
           {allMessages}
         </div>
         <MessageInputContainer currentId={this.currentChannelId} />

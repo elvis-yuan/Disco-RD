@@ -2,6 +2,18 @@ import React from "react";
 import { closeModal } from "../../../actions/modal_actions";
 
 class LogoutModal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.logoutUser();
+    this.props.history.push("/");
+    dispatch(closeModal());
+  }
+
   render() {
     return (
       <div className="edit-server-modal-wrapper">
@@ -13,7 +25,7 @@ class LogoutModal extends React.Component {
             </div>
           </div>
           <div className="edit-server-input-wrapper">
-            <label className='logout-confirm-text'>
+            <label className="logout-confirm-text">
               Are you sure you want to logout?
             </label>
           </div>
@@ -28,7 +40,7 @@ class LogoutModal extends React.Component {
                 Cancel
               </span>
               <input
-                onClick={this.props.logoutUser}
+                onClick={this.handleSubmit}
                 className="delete-server-button"
                 type="submit"
                 value="Log Out"

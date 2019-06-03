@@ -9,7 +9,7 @@ const msp = ({ session }) => ({
 });
 
 const mdp = dispatch => ({
-  logoutUser: () => dispatch(logoutUser()).then(() => dispatch(closeModal()))
+  logoutUser: () => dispatch(logoutUser())
 });
 
 export default withRouter(
