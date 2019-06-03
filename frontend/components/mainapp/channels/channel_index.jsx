@@ -162,7 +162,7 @@ class ChannelIndex extends React.Component {
               {this.props.currentUser.username}
             </div>
           </div>
-          <div>buttons</div>
+          {/* <div>buttons</div> */}
         </div>
       </div>
     );

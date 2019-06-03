@@ -1300,7 +1300,7 @@ function (_React$Component) {
         className: "channel-conainner-user-information"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-user-username"
-      }, this.props.currentUser.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, "buttons")));
+      }, this.props.currentUser.username))));
     }
   }]);
 
