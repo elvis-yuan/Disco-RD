@@ -14,7 +14,7 @@ class ChannelListItem extends React.Component {
   }
 
   render() {
-    debugger;
+
     return (
       <div className="channel-link-wrapper">
         <NavLink

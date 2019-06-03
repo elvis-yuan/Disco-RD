@@ -19,6 +19,7 @@ class DeleteChannelModal extends React.Component {
   }
 
   handleSubmit(e) {
+
     e.preventDefault();
     this.props.history.push(`/servers/${this.currentServer}`);
     this.props

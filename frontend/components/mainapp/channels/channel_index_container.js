@@ -5,7 +5,7 @@ import { fetchAllChannels } from "../../../actions/channel_actions";
 import { deleteServer } from "../../../actions/server_actions";
 
 const msp = ({ entities, session }) => {
-  debugger;
+
   return {
     channels: entities.channels,
     currentUser: entities.users[session.currentUser],

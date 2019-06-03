@@ -1666,7 +1666,6 @@ function (_React$Component) {
       var channelNames = Object.values(currentServer.channel_ids.map(function (id) {
         return channels[id];
       }));
-      debugger;
       var channelTitles = !channelNames.includes(undefined) ? channelNames.map(function (channel, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_channel_list_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
           channel: channel,
@@ -1771,7 +1770,6 @@ __webpack_require__.r(__webpack_exports__);
 var msp = function msp(_ref) {
   var entities = _ref.entities,
       session = _ref.session;
-  debugger;
   return {
     channels: entities.channels,
     currentUser: entities.users[session.currentUser],
@@ -1853,7 +1851,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-link-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
@@ -4112,7 +4109,6 @@ var channelsReducer = function channelsReducer() {
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__["REMOVE_CHANNEL"]:
       var newState = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
       delete newState[action.channel.channel.id];
-      debugger;
       return newState;
 
     default:
