@@ -48,8 +48,9 @@ class ChannelChat extends React.Component {
           )
         : null;
 
+    debugger;
     const history =
-      oldMessages !== null
+      oldMessages !== null && !oldMessages.includes(null)
         ? oldMessages.map((message, index) => (
             <div key={index}>{message.body}</div>
           ))
@@ -57,6 +58,7 @@ class ChannelChat extends React.Component {
     // debugger;
     // const oldMessages = currentChannel?
 
+    debugger;
     return (
       <div className="chatroom-container">
         <div className="message-list">

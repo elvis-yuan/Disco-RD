@@ -1569,13 +1569,15 @@ function (_React$Component) {
       var oldMessages = Object.values(channels).length > 0 ? channels[this.currentChannelId].message_ids.map(function (message_id) {
         return messages[message_id];
       }) : null;
-      var history = oldMessages !== null ? oldMessages.map(function (message, index) {
+      debugger;
+      var history = oldMessages !== null && !oldMessages.includes(null) ? oldMessages.map(function (message, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: index
         }, message.body);
       }) : null; // debugger;
       // const oldMessages = currentChannel?
 
+      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chatroom-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
