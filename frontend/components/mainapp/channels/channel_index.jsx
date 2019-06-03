@@ -35,7 +35,7 @@ class ChannelIndex extends React.Component {
   }
 
   render() {
-    debugger;
+    // debugger;
     const currentServer = this.props.servers[
       parseInt(this.props.match.params.serverId)
     ];
@@ -54,9 +54,9 @@ class ChannelIndex extends React.Component {
             value={currentServer.invitation_code}
             disabled
           />
-        </div>
-        <div className="delete-server-button-wrapper">
-          <span onClick={this.deleteServer}>Delete Server</span>
+          <div className="delete-server-button-wrapper">
+            <span onClick={this.deleteServer}>Delete Server</span>
+          </div>
         </div>
       </div>
     ) : null;

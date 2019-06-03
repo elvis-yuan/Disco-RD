@@ -1195,7 +1195,7 @@ function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
-      debugger;
+      // debugger;
       var currentServer = this.props.servers[parseInt(this.props.match.params.serverId)];
       var serverTitle = currentServer.title;
       var dropDownOpen = this.state.dropDownOpen ? "drop-down-open" : "";
@@ -1208,11 +1208,11 @@ function (_React$Component) {
         className: "invitation-code",
         value: currentServer.invitation_code,
         disabled: true
-      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "delete-server-button-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         onClick: this.deleteServer
-      }, "Delete Server"))) : null;
+      }, "Delete Server")))) : null;
       var channels = this.props.channels;
       var channelNames = Object.values(currentServer.channel_ids.map(function (id) {
         return channels[id];
@@ -1321,7 +1321,7 @@ __webpack_require__.r(__webpack_exports__);
 var msp = function msp(_ref) {
   var entities = _ref.entities,
       session = _ref.session;
-  debugger;
+  // debugger;
   return {
     channels: entities.channels,
     currentUser: entities.users[session.currentUser],
