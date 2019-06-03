@@ -47,7 +47,7 @@ class DeleteServerModal extends React.Component {
     ) : null;
 
     const redText = errors ? "red-text" : "";
-    debugger;
+    //debugger;
     return (
       <div className="delete-server-modal-wrapper">
         <form className="delete-server-modal-form" onSubmit={this.handleSubmit}>

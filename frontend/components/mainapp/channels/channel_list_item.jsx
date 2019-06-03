@@ -1,5 +1,6 @@
 import React from "react";
 import { withRouter, NavLink } from "react-router-dom";
+import { openModal, editChannel } from "../../../actions/modal_actions";
 
 const ChannelListItem = props => {
   return (
@@ -20,6 +21,7 @@ const ChannelListItem = props => {
         </svg>
         <h1 className="channel-name">{props.channel.title}</h1>
         <svg
+          onClick={() => dispatch(editChannel(props.channel.id))}
           name="Gear"
           className="gear-icon"
           aria-hidden="false"
