@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import ChannelListItem from "./channel_list_item";
 import { openModal } from "../../../actions/modal_actions";
+import DropDownMenu from "./drop_down_menu";
 
 class ChannelIndex extends React.Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class ChannelIndex extends React.Component {
     this.dropDownAnimation = this.dropDownAnimation.bind(this);
     this.deleteServer = this.deleteServer.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.closeDropDown = this.closeDropDown.bind(this);
   }
 
   componentDidMount() {
@@ -24,7 +26,6 @@ class ChannelIndex extends React.Component {
   //     this.setState({ dropDownOpen: false });
   //   }
   // }
-  componentDidUpdate() {}
 
   handleOpenModal() {
     this.setState({ dropDownOpen: false });
@@ -34,6 +35,10 @@ class ChannelIndex extends React.Component {
   dropDownAnimation() {
     const newState = this.state.dropDownOpen === false ? true : false;
     this.setState({ dropDownOpen: newState });
+  }
+
+  closeDropDown() {
+    this.setState({ dropDownOpen: false });
   }
 
   deleteServer() {
@@ -52,30 +57,36 @@ class ChannelIndex extends React.Component {
     const dropDownOpen = this.state.dropDownOpen ? "drop-down-open" : "";
 
     const dropDownMenu = this.state.dropDownOpen ? (
-      <div className="drop-down-menu-wrapper">
-        <div className="drop-down-menu">
-          <h1>Server Invitation Code</h1>
-          <input
-            type="text"
-            className="invitation-code"
-            value={currentServer.invitation_code}
-            disabled
-          />
-          <div className="px-margin-wrapper">
-            <div className="edit-server-button" onClick={this.handleOpenModal}>
-              {" "}
-              Edit Server{" "}
-            </div>
-          </div>
+      // <div className="drop-down-menu-wrapper">
+      //   <div className="drop-down-menu">
+      //     <h1>Server Invitation Code</h1>
+      //     <input
+      //       type="text"
+      //       className="invitation-code"
+      //       value={currentServer.invitation_code}
+      //       disabled
+      //     />
+      //     <div className="px-margin-wrapper">
+      //       <div className="edit-server-button" onClick={this.handleOpenModal}>
+      //         {" "}
+      //         Edit Server{" "}
+      //       </div>
+      //     </div>
 
-          {/* <div
-            className="delete-server-button-wrapper"
-            onClick={this.deleteServer}
-          >
-            <span className="delete-server-button">Delete Server</span>
-          </div> */}
-        </div>
-      </div>
+      //     {/* <div
+      //       className="delete-server-button-wrapper"
+      //       onClick={this.deleteServer}
+      //     >
+      //       <span className="delete-server-button">Delete Server</span>
+      //     </div> */}
+      //   </div>
+      // </div>
+      <DropDownMenu
+        handleOpenModal={this.handleOpenMdal}
+        currentServer={currentServer}
+        deleteServer={this.deleteServer}
+        closeDropDown={this.closeDropDown}
+      />
     ) : null;
 
     const { channels } = this.props;

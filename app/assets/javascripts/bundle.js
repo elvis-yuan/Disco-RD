@@ -1123,6 +1123,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _channel_list_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./channel_list_item */ "./frontend/components/mainapp/channels/channel_list_item.jsx");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _drop_down_menu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./drop_down_menu */ "./frontend/components/mainapp/channels/drop_down_menu.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1140,6 +1141,7 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -1164,6 +1166,7 @@ function (_React$Component) {
     _this.dropDownAnimation = _this.dropDownAnimation.bind(_assertThisInitialized(_this));
     _this.deleteServer = _this.deleteServer.bind(_assertThisInitialized(_this));
     _this.handleOpenModal = _this.handleOpenModal.bind(_assertThisInitialized(_this));
+    _this.closeDropDown = _this.closeDropDown.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -1177,9 +1180,6 @@ function (_React$Component) {
     //   }
     // }
 
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {}
   }, {
     key: "handleOpenModal",
     value: function handleOpenModal() {
@@ -1197,6 +1197,13 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "closeDropDown",
+    value: function closeDropDown() {
+      this.setState({
+        dropDownOpen: false
+      });
+    }
+  }, {
     key: "deleteServer",
     value: function deleteServer() {
       this.props.history.push("/servers");
@@ -1211,21 +1218,35 @@ function (_React$Component) {
       var currentServer = this.props.servers[parseInt(this.props.match.params.serverId)];
       var serverTitle = currentServer.title;
       var dropDownOpen = this.state.dropDownOpen ? "drop-down-open" : "";
-      var dropDownMenu = this.state.dropDownOpen ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "drop-down-menu-wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "drop-down-menu"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Server Invitation Code"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "text",
-        className: "invitation-code",
-        value: currentServer.invitation_code,
-        disabled: true
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "px-margin-wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "edit-server-button",
-        onClick: this.handleOpenModal
-      }, " ", "Edit Server", " ")))) : null;
+      var dropDownMenu = this.state.dropDownOpen ? // <div className="drop-down-menu-wrapper">
+      //   <div className="drop-down-menu">
+      //     <h1>Server Invitation Code</h1>
+      //     <input
+      //       type="text"
+      //       className="invitation-code"
+      //       value={currentServer.invitation_code}
+      //       disabled
+      //     />
+      //     <div className="px-margin-wrapper">
+      //       <div className="edit-server-button" onClick={this.handleOpenModal}>
+      //         {" "}
+      //         Edit Server{" "}
+      //       </div>
+      //     </div>
+      //     {/* <div
+      //       className="delete-server-button-wrapper"
+      //       onClick={this.deleteServer}
+      //     >
+      //       <span className="delete-server-button">Delete Server</span>
+      //     </div> */}
+      //   </div>
+      // </div>
+      react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_drop_down_menu__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        handleOpenModal: this.handleOpenMdal,
+        currentServer: currentServer,
+        deleteServer: this.deleteServer,
+        closeDropDown: this.closeDropDown
+      }) : null;
       var channels = this.props.channels;
       var channelNames = Object.values(currentServer.channel_ids.map(function (id) {
         return channels[id];
@@ -1311,10 +1332,10 @@ function (_React$Component) {
 
 /***/ }),
 
-/***/ "./frontend/components/mainapp/channels/channel_index_container.jsx":
-/*!**************************************************************************!*\
-  !*** ./frontend/components/mainapp/channels/channel_index_container.jsx ***!
-  \**************************************************************************/
+/***/ "./frontend/components/mainapp/channels/channel_index_container.js":
+/*!*************************************************************************!*\
+  !*** ./frontend/components/mainapp/channels/channel_index_container.js ***!
+  \*************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1406,6 +1427,88 @@ var ChannelListItem = function ChannelListItem(props) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(ChannelListItem));
+
+/***/ }),
+
+/***/ "./frontend/components/mainapp/channels/drop_down_menu.jsx":
+/*!*****************************************************************!*\
+  !*** ./frontend/components/mainapp/channels/drop_down_menu.jsx ***!
+  \*****************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var DropDownMenu =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(DropDownMenu, _React$Component);
+
+  function DropDownMenu() {
+    _classCallCheck(this, DropDownMenu);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(DropDownMenu).apply(this, arguments));
+  }
+
+  _createClass(DropDownMenu, [{
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      this.props.closeDropDown();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          currentServer = _this$props.currentServer,
+          handleOpenModal = _this$props.handleOpenModal;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "drop-down-menu-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "drop-down-menu"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Server Invitation Code"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "text",
+        className: "invitation-code",
+        value: currentServer.invitation_code,
+        disabled: true
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "px-margin-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-button",
+        onClick: function onClick() {
+          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["openModal"])("editServer"));
+        }
+      }, " ", "Edit Server", " "))));
+    }
+  }]);
+
+  return DropDownMenu;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (DropDownMenu);
 
 /***/ }),
 
@@ -1551,7 +1654,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _servers_server_index_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./servers/server_index_container */ "./frontend/components/mainapp/servers/server_index_container.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _channels_channel_index_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./channels/channel_index_container */ "./frontend/components/mainapp/channels/channel_index_container.jsx");
+/* harmony import */ var _channels_channel_index_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./channels/channel_index_container */ "./frontend/components/mainapp/channels/channel_index_container.js");
 /* harmony import */ var _util_route_util__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../util/route_util */ "./frontend/util/route_util.jsx");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/server_actions */ "./frontend/actions/server_actions.js");
