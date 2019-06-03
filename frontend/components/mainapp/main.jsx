@@ -43,7 +43,7 @@ class Main extends React.Component {
       <div className="main-app">
         <ServerIndexContainer />
         {servercomp}
-        {/* // <Route path="/:serverId/:channelId" component={ChannelIndex} /> */}
+        <Route path="/:serverId/:channelId" component={ChannelIndex} />
       </div>
     );
     // <Switch>
