@@ -45,7 +45,7 @@ class Api::ServersController < ApplicationController
   def destroy
     @server = Server.find(params[:id])
     if @server.admin_id == current_user.id
-      server.destroy
+      @server.destroy
       @servers = current_user.servers
       @channels = @server.channels
     
