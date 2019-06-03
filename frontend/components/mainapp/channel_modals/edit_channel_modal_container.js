@@ -3,8 +3,10 @@ import { withRouter } from "react-router-dom";
 import EditChannelModal from "./edit_channel_modal";
 import { updateChannel } from "../../../actions/channel_actions";
 
-const msp = state => ({
-  errors: state.errors.channel
+const msp = ({ entities, errors, ui }) => ({
+  channels: entities.channels,
+  errors: errors.channel,
+  currentChannel: ui.channel
 });
 
 const mdp = dispatch => ({

@@ -19,8 +19,10 @@ const serverReducer = (state = {}, action) => {
     case REMOVE_SERVER:
       return action.servers;
     case RECEIVE_CHANNEL:
-      // case REMOVE_CHANNEL:
-      return merge({}, state, {
+    case REMOVE_CHANNEL:
+      const newState = merge({}, state);
+      delete newState[action.channel.server.id];
+      return merge({}, newState, {
         [action.channel.server.id]: action.channel.server
       });
     default:

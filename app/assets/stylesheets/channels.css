@@ -104,18 +104,22 @@
 }
 
 .channel-container-channel-wrapper {
+  width: 100%;
   height: 34px;
-  overflow: hidden;
   position: relative;
   cursor: pointer;
   text-decoration: none;
 }
 
+.channel-link-wrapper:hover .channel-name {
+  color: #dcddde;
+}
 .channel-container-channel-name {
+  width: 100%;
   box-sizing: border-box;
   height: 32px;
   padding: 0 8px;
-  margin: 1px 0 1px 8px;
+  /* margin: 1px 0 1px 8px; */
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -277,7 +281,16 @@
   position: relative;
 }
 
-.channel-container-channel-name:hover {
+/* .channel-container-channel-name:hover {
+  background-color: #292b2f;
+} */
+
+.channel-link-wrapper {
+  margin: 1px 0 1px 8px;
+  border-radius: 4px;
+}
+
+.channel-link-wrapper:hover {
   background-color: #292b2f;
 }
 
@@ -285,17 +298,22 @@
   color: #dcddde;
 }
 
-.channel-container-channel-name:hover > .gear-icon {
+.channel-link-wrapper:hover > .channel-name {
+  color: #dcddde;
+}
+
+.channel-link-wrapper:hover > .gear-icon {
   display: block;
 }
 
 .gear-icon {
   color: #b9bbbe;
-  width: 16px;
-  height: 16px;
+  width: 18px;
+  height: 18px;
   cursor: pointer;
   display: none;
   position: relative;
+  margin-right: 9px;
 }
 
 .gear-icon:hover {
@@ -348,8 +366,8 @@ p.plus-icon-hover::after {
 .gear-icon-hover {
   display: none;
   position: absolute;
-  left: 160px;
-  bottom: 36px;
+  left: 151px;
+  bottom: 38px;
   border-radius: 5px;
   color: #cececf;
   background-color: black;
@@ -390,4 +408,15 @@ p.plus-icon-hover::after {
   color: #dcddde;
   line-height: 20px;
   font-size: 16px;
+}
+
+.channel-link-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 34px;
+  /* overflow: hidden; */
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
 }

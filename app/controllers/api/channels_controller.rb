@@ -35,10 +35,11 @@ class Api::ChannelsController < ApplicationController
   end
 
   def destroy
-    @channel = Channel.find(params[:id])
-    @channel.destroy
+    @channel = Channel.includes(:server).find(params[:id])
     @server = @channel.server
-    render :index
+    @channel.destroy
+    @channels = @server.channels
+    render :show
   end
 
   private

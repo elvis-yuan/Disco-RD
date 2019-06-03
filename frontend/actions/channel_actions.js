@@ -49,6 +49,6 @@ export const updateChannel = channel => dispatch =>
 
 export const deleteChannel = channelId => dispatch =>
   ChannelAPI.deleteChannel(channelId).then(
-    channel => dispatch(removeChannel(channel)),
+    action => dispatch(removeChannel(action)),
     errors => dispatch(receiveErrors(errors))
   );

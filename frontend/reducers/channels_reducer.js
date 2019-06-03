@@ -22,9 +22,10 @@ const channelsReducer = (state = {}, action) => {
       // action.server.channels.each(channel => delete removeChannels[channel.id]);
       return removeChannels;
     case REMOVE_CHANNEL:
-      const oldState = merge({}, state);
-      delete oldState[action.channel.channel.id];
-      return oldState;
+      const newState = merge({}, state);
+      delete newState[action.channel.channel.id];
+      debugger;
+      return newState;
     default:
       return state;
   }
