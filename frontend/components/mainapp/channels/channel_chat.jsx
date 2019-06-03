@@ -41,14 +41,13 @@ class ChannelChat extends React.Component {
       </div>
     ));
 
-    debugger;
     const oldMessages =
       Object.values(channels).length > 0
         ? channels[this.currentChannelId].message_ids.map(
             message_id => messages[message_id]
           )
         : null;
-    debugger;
+
     const history =
       oldMessages !== null
         ? oldMessages.map((message, index) => (

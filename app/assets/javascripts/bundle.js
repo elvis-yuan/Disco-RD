@@ -1566,11 +1566,9 @@ function (_React$Component) {
           ref: _this3.bottom
         }));
       });
-      debugger;
       var oldMessages = Object.values(channels).length > 0 ? channels[this.currentChannelId].message_ids.map(function (message_id) {
         return messages[message_id];
       }) : null;
-      debugger;
       var history = oldMessages !== null ? oldMessages.map(function (message, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: index
