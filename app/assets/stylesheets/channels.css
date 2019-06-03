@@ -385,3 +385,9 @@ p.plus-icon-hover::after {
 .delete-server-button {
   text-align: center;
 }
+
+.logout-confirm-text {
+  color: #dcddde;
+  line-height: 20px;
+  font-size: 16px;
+}

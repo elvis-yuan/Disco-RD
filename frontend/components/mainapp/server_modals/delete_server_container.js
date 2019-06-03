@@ -4,7 +4,8 @@ import DeleteServerModal from "./delete_server_modal";
 import { deleteServer } from "../../../actions/server_actions";
 
 const msp = state => ({
-  errors: state.errors.servers
+  errors: state.errors.server,
+  servers: state.entities.servers
 });
 
 const mdp = dispatch => ({

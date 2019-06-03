@@ -3,9 +3,9 @@ import { withRouter } from "react-router-dom";
 import EditServerModal from "./edit_server_modal";
 import { updateServer } from "../../../actions/server_actions";
 
-const msp = store => ({
-  servers: store.entities.servers,
-  errors: store.errors.server
+const msp = state => ({
+  servers: state.entities.servers,
+  errors: state.errors.server
 });
 
 const mdp = dispatch => ({

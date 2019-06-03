@@ -38,9 +38,7 @@ class CreateChannelModal extends React.Component {
     const errorText =
       errors.length > 0 ? (
         <span className="server-create-error">- This field is required</span>
-      ) : (
-        ""
-      );
+      ) : null;
 
     const redText = errors.length > 0 ? "red-text" : "";
 

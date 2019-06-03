@@ -32,6 +32,14 @@ class EditServerModal extends React.Component {
   }
 
   render() {
+    const { errors } = this.props;
+    const errorText =
+      errors.length > 0 ? (
+        <span className="server-create-error">- This field is required</span>
+      ) : null;
+
+    const redText = errors.length > 0 ? "red-text" : "";
+
     return (
       <div className="edit-server-modal-wrapper">
         <form className="edit-server-modal-form" onSubmit={this.handleSubmit}>
@@ -42,7 +50,9 @@ class EditServerModal extends React.Component {
             </div>
           </div>
           <div className="edit-server-input-wrapper">
-            <label className={`edit-server-label`}>SERVER NAME</label>
+            <label className={`edit-server-label ${redText}`}>
+              SERVER NAME {errorText}
+            </label>
             <input
               className="edit-server-input"
               type="text"

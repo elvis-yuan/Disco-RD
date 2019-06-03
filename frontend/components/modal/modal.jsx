@@ -6,7 +6,7 @@ import CreateChannelContainer from "../mainapp/channel_modals/create_channel_mod
 // import DeleteChannelContainer from '../mainapp/channels/delete_channel_container';
 import EditServerContainer from "../mainapp/server_modals/edit_server_container";
 import DeleteServerContainer from "../mainapp/server_modals/delete_server_container";
-
+import LogoutModalContainer from "../mainapp/logout_modal/logout_modal_container";
 class Modal extends React.Component {
   constructor(props) {
     super(props);
@@ -35,6 +35,9 @@ class Modal extends React.Component {
         break;
       case "createChannel":
         component = <CreateChannelContainer />;
+        break;
+      case "logoutUser":
+        component = <LogoutModalContainer />;
         break;
       // case 'deletechannel':
       //   component = <DeleteChannelContainer />;

@@ -63,7 +63,7 @@ class ServerIndex extends React.Component {
           <div className="logout-seperator" />
           <div className="server-icon-wrapper">
             <div className="server-margin-wrapper">
-              <a className="server-btn" onClick={this.props.logoutUser}>
+              <a className="server-btn" onClick={()=> dispatch(openModal('logoutUser'))}>
                 <div className="server-selector" />
                 <i className="fas fa-sign-out-alt" />
               </a>

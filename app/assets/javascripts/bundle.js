@@ -1019,7 +1019,7 @@ function (_React$Component) {
       var errors = this.props.errors;
       var errorText = errors.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "server-create-error"
-      }, "- This field is required") : "";
+      }, "- This field is required") : null;
       var redText = errors.length > 0 ? "red-text" : "";
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "create-channel-modal-wrapper"
@@ -1409,6 +1409,135 @@ var ChannelListItem = function ChannelListItem(props) {
 
 /***/ }),
 
+/***/ "./frontend/components/mainapp/logout_modal/logout_modal.jsx":
+/*!*******************************************************************!*\
+  !*** ./frontend/components/mainapp/logout_modal/logout_modal.jsx ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var LogoutModal =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(LogoutModal, _React$Component);
+
+  function LogoutModal() {
+    _classCallCheck(this, LogoutModal);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(LogoutModal).apply(this, arguments));
+  }
+
+  _createClass(LogoutModal, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-modal-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "edit-server-modal-form"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+        className: "edit-server-h4"
+      }, "LOGOUT"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "edit-server-subtitle"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-input-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "logout-confirm-text"
+      }, "Are you sure you want to logout?")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-button-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "edit-server-cancel",
+        onClick: function onClick() {
+          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["closeModal"])());
+        }
+      }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        onClick: this.props.logoutUser,
+        className: "delete-server-button",
+        type: "submit",
+        value: "Log Out"
+      })))));
+    }
+  }]);
+
+  return LogoutModal;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (LogoutModal);
+
+/***/ }),
+
+/***/ "./frontend/components/mainapp/logout_modal/logout_modal_container.js":
+/*!****************************************************************************!*\
+  !*** ./frontend/components/mainapp/logout_modal/logout_modal_container.js ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _logout_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./logout_modal */ "./frontend/components/mainapp/logout_modal/logout_modal.jsx");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+
+
+
+
+
+var msp = function msp(_ref) {
+  var session = _ref.session;
+  return {
+    currentUser: session.currentUser
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    logoutUser: function logoutUser() {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["logoutUser"])()).then(function () {
+        return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["closeModal"])());
+      });
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_logout_modal__WEBPACK_IMPORTED_MODULE_3__["default"])));
+
+/***/ }),
+
 /***/ "./frontend/components/mainapp/main.jsx":
 /*!**********************************************!*\
   !*** ./frontend/components/mainapp/main.jsx ***!
@@ -1746,7 +1875,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var msp = function msp(state) {
   return {
-    errors: state.errors.servers
+    errors: state.errors.server,
+    servers: state.entities.servers
   };
 };
 
@@ -1773,7 +1903,11 @@ var mdp = function mdp(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -1783,13 +1917,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
 
 
 
@@ -1798,16 +1934,106 @@ var DeleteServerModal =
 function (_React$Component) {
   _inherits(DeleteServerModal, _React$Component);
 
-  function DeleteServerModal() {
+  function DeleteServerModal(props) {
+    var _this;
+
     _classCallCheck(this, DeleteServerModal);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(DeleteServerModal).apply(this, arguments));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(DeleteServerModal).call(this, props));
+    _this.currentServer = parseInt(_this.props.history.location.pathname.split("/")[2]);
+    _this.currentTitle = _this.props.servers[_this.currentServer].title;
+    _this.state = {
+      title: "",
+      id: _this.currentServer,
+      errors: false
+    };
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
   }
 
   _createClass(DeleteServerModal, [{
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      if (this.props.errors.length > 0) {
+        dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["deleteErrors"])());
+      }
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit(e) {
+      e.preventDefault();
+
+      if (this.state.title === this.currentTitle) {
+        this.props.history.push("/servers");
+        this.props.deleteServer(this.currentServer).then(function () {
+          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
+        });
+      } else {
+        this.setState({
+          errors: true
+        });
+      }
+    }
+  }, {
+    key: "handleChange",
+    value: function handleChange(field) {
+      var _this2 = this;
+
+      return function (e) {
+        _this2.setState(_defineProperty({}, field, e.target.value));
+      };
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Hello");
+      var errors = this.state.errors;
+      var errorText = errors ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "server-create-error"
+      }, "- Incorrect Server Name") : null;
+      var redText = errors ? "red-text" : "";
+      debugger;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "delete-server-modal-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
+        className: "delete-server-modal-form",
+        onSubmit: this.handleSubmit
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "delete-server-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "delete-server-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
+        className: "delete-server-h4"
+      }, "delete '", this.currentTitle, "'"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "delete-server-subtitle"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "delete-server-warning-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "delete-server-warning"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "delete-server-warning-text"
+      }, "Are you sure you want to delete", " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, this.currentTitle), "? This action cannot be undone."))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "delete-server-input-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "delete-server-label ".concat(redText)
+      }, "ENTER SERVER NAME ", errorText), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "delete-server-input",
+        type: "text",
+        value: this.state.title,
+        onChange: this.handleChange("title")
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-button-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "edit-server-buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "edit-server-cancel",
+        onClick: function onClick() {
+          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
+        }
+      }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "delete-server-button",
+        type: "submit",
+        value: "Delete Server"
+      })))));
     }
   }]);
 
@@ -1836,10 +2062,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var msp = function msp(store) {
+var msp = function msp(state) {
   return {
-    servers: store.entities.servers,
-    errors: store.errors.server
+    servers: state.entities.servers,
+    errors: state.errors.server
   };
 };
 
@@ -1938,6 +2164,11 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var errors = this.props.errors;
+      var errorText = errors.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "server-create-error"
+      }, "- This field is required") : null;
+      var redText = errors.length > 0 ? "red-text" : "";
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "edit-server-modal-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
@@ -1954,8 +2185,8 @@ function (_React$Component) {
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "edit-server-input-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        className: "edit-server-label"
-      }, "SERVER NAME"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "edit-server-label ".concat(redText)
+      }, "SERVER NAME ", errorText), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "edit-server-input",
         type: "text",
         value: this.state.title,
@@ -2571,7 +2802,9 @@ function (_React$Component) {
           className: "server-margin-wrapper"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
           className: "server-btn",
-          onClick: this.props.logoutUser
+          onClick: function onClick() {
+            return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])('logoutUser'));
+          }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "server-selector"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -2659,6 +2892,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mainapp_channel_modals_create_channel_modal_container__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../mainapp/channel_modals/create_channel_modal_container */ "./frontend/components/mainapp/channel_modals/create_channel_modal_container.js");
 /* harmony import */ var _mainapp_server_modals_edit_server_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../mainapp/server_modals/edit_server_container */ "./frontend/components/mainapp/server_modals/edit_server_container.js");
 /* harmony import */ var _mainapp_server_modals_delete_server_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../mainapp/server_modals/delete_server_container */ "./frontend/components/mainapp/server_modals/delete_server_container.js");
+/* harmony import */ var _mainapp_logout_modal_logout_modal_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../mainapp/logout_modal/logout_modal_container */ "./frontend/components/mainapp/logout_modal/logout_modal_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2682,6 +2916,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
  // import DeleteChannelContainer from '../mainapp/channels/delete_channel_container';
+
 
 
 
@@ -2729,6 +2964,10 @@ function (_React$Component) {
 
         case "createChannel":
           component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mainapp_channel_modals_create_channel_modal_container__WEBPACK_IMPORTED_MODULE_4__["default"], null);
+          break;
+
+        case "logoutUser":
+          component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mainapp_logout_modal_logout_modal_container__WEBPACK_IMPORTED_MODULE_7__["default"], null);
           break;
         // case 'deletechannel':
         //   component = <DeleteChannelContainer />;
