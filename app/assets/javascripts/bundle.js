@@ -1566,11 +1566,14 @@ function (_React$Component) {
           ref: _this3.bottom
         }));
       }); // debugger;
-
-      var oldMessages = Object.values(channels).length > 0 ? channels[this.currentChannelId].message_ids.map(function (message_id) {
-        return messages[message_id];
-      }) : //
-      null; //  const history = oldMessages.length > 0 ?
+      // const oldMessages =
+      //   Object.values(channels).length > 0
+      //     ? channels[this.currentChannelId].message_ids.map(
+      //         message_id => messages[message_id]
+      //       )
+      //     : //
+      //       null;
+      //  const history = oldMessages.length > 0 ?
       //         oldMessages.map((message,index)=> )
       //   debugger;
       // const oldMessages = currentChannel?
@@ -1579,7 +1582,7 @@ function (_React$Component) {
         className: "chatroom-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-list"
-      }, oldMessages, allMessages), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_input_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, allMessages), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_input_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         currentId: this.currentChannelId
       }));
     }
