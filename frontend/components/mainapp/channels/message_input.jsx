@@ -25,14 +25,25 @@ class MessageInput extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <input
-          type="text"
-          value={this.state.body}
-          onChange={this.handleChange("body")}
-          placeholder="type here"
-        />
-        <input type="submit" value="Submit" />
+      <form className="message-input-form" onSubmit={this.handleSubmit}>
+        <div className="message-input-wrapper">
+          <div className="text-area-container">
+            <div className="text-input-wrapper">
+              <input
+                className="text-area-input"
+                type="text"
+                value={this.state.body}
+                onChange={this.handleChange("body")}
+                placeholder="type here"
+              />
+              <input
+                className="text-submit-button"
+                type="submit"
+                value="Submit"
+              />
+            </div>
+          </div>
+        </div>
       </form>
     );
   }

@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import ChannelIndex from "./channel_index";
 import { fetchAllChannels } from "../../../actions/channel_actions";
 import { deleteServer } from "../../../actions/server_actions";
+import { fetchServer } from "../../../actions/server_actions";
 
 const msp = ({ entities, session }) => {
   return {
@@ -14,7 +15,7 @@ const msp = ({ entities, session }) => {
 
 const mdp = dispatch => {
   return {
-    fetchAllChannels: serverId => dispatch(fetchAllChannels(serverId)),
+    fetchServer: serverId => dispatch(fetchServer(serverId)),
     deleteServer: serverId => dispatch(deleteServer(serverId)),
     leaveServer: serverId => dispatch(leaveServer(serverId))
   };

@@ -18,14 +18,14 @@ class ChannelIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchAllChannels(parseInt(this.props.match.params.serverId));
+    this.props.fetchServer(parseInt(this.props.match.params.serverId));
   }
 
-  // componentDidUpdate() {
-  //   if (this.state.currentServer !== this.props.match.params.serverId) {
-  //     this.setState({ dropDownOpen: false });
-  //   }
-  // }
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.serverId !== this.props.match.params.serverId) {
+      this.setState({ dropDownOpen: false });
+    }
+  }
 
   handleOpenModal() {
     this.setState({ dropDownOpen: false });

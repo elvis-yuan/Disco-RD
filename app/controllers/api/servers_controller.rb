@@ -25,17 +25,19 @@ class Api::ServersController < ApplicationController
   end
 
   def show
-    @server = Server.includes(:channels, :messages, :connected_users, :user_servers).find(params[:id])
+    @server = Server.includes(:channels, :connected_users, :user_servers).find(params[:id])
     @channels = @server.channels
-    @messages = @server.messages
+    @users = @server.connected_users
 
     render :show
   end
 
   def update
-    @server = Server.find(params[:id])
+    @server = Server.includes(:channels, :connected_users).find(params[:id])
     if @server.update(server_params)
       @channels = @server.channels
+      @users = @server.connected_users
+
       render :show
     else
       render json: @server.errors.full_messages, status: 422
@@ -43,7 +45,7 @@ class Api::ServersController < ApplicationController
   end
 
   def destroy
-    @server = Server.find(params[:id])
+    @server = Server.includes(:channels, :connected_users).find(params[:id])
     if @server.admin_id == current_user.id
       @server.destroy
       @servers = current_user.servers
@@ -59,10 +61,12 @@ class Api::ServersController < ApplicationController
     errors = []
     errors.concat(['empty'])if params[:server][:invitation_code] === ""
 
-    @server = Server.find_by(invitation_code: params[:server][:invitation_code])
+    @server = Server.includes(:channels).find_by(invitation_code: params[:server][:invitation_code])
     if @server
       @server.user_servers.create!(user_id: current_user.id, server_id: @server.id)
       @channels = @server.channels
+      @users = @server.connected_users
+
       render :show
     elsif errors.length > 0
       render json: errors, status: 422
