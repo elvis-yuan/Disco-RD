@@ -8,7 +8,7 @@ import DeleteServerContainer from "../mainapp/server_modals/delete_server_contai
 import LogoutModalContainer from "../mainapp/logout_modal/logout_modal_container";
 import EditChannelContainer from "../mainapp/channel_modals/edit_channel_modal_container";
 import DeleteChannelContainer from "../mainapp/channel_modals/delete_channel_modal_container";
-import LeaveServerContainer from "../mainapp/channels/leave_server_container";
+import LeaveServerContainer from "../mainapp/server_modals/leave_server_container";
 
 class Modal extends React.Component {
   constructor(props) {

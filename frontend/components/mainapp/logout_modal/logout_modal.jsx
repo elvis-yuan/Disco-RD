@@ -11,7 +11,7 @@ class LogoutModal extends React.Component {
     e.preventDefault();
     this.props.logoutUser();
     this.props.history.push("/");
-    this.props.closeModal;
+    this.props.closeModal();
   }
 
   render() {
