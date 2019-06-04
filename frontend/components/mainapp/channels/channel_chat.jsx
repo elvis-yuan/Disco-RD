@@ -70,14 +70,14 @@ class ChannelChat extends React.Component {
     const { channels, messages } = this.props;
     const allMessages = this.state.messages.map((message, index) => {
       return (
-        <>
-          <MessageFormatContainer key={index} message={message} />
+        <div key={index}>
+          <MessageFormatContainer message={message} />
           {/* <div key={index} className="message-text-container">
           {message.body}
           <div ref={this.bottom} />
         </div> */}
           <div ref={this.bottom} />
-        </>
+        </div>
       );
     });
 
@@ -96,10 +96,10 @@ class ChannelChat extends React.Component {
       !oldMessages.includes(undefined) &&
       !oldMessages.includes(null)
         ? oldMessages.map((message, index) => (
-            <>
-              <MessageFormatContainer key={index} message={message} />
+            <div key={index}>
+              <MessageFormatContainer message={message} />
               <div ref={this.bottom} />
-            </>
+            </div>
           ))
         : null;
 

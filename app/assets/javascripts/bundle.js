@@ -1594,8 +1594,9 @@ function (_React$Component) {
           channels = _this$props.channels,
           messages = _this$props.messages;
       var allMessages = this.state.messages.map(function (message, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_format_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          key: index,
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: index
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_format_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
           message: message
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           ref: _this4.bottom
@@ -1607,8 +1608,9 @@ function (_React$Component) {
       }) : null; // debugger;
 
       var history = oldMessages !== null && !oldMessages.includes(undefined) && !oldMessages.includes(null) ? oldMessages.map(function (message, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_format_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
-          key: index,
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          key: index
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_format_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
           message: message
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           ref: _this4.bottom
