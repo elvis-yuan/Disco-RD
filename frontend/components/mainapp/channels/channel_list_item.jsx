@@ -14,7 +14,6 @@ class ChannelListItem extends React.Component {
   }
 
   render() {
-    debugger;
     return (
       <NavLink
         activeClassName="current-channel-selected"

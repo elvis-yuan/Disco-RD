@@ -97,7 +97,7 @@ class ChannelChat extends React.Component {
   }
 
   render() {
-    debugger;
+
     const { channels, messages } = this.props;
     const allMessages = this.state.messages.map((message, index) => {
       return (

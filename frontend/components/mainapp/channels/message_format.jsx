@@ -5,12 +5,12 @@ class MessageFormat extends React.Component {
     const users = this.props.users
       ? Object.values(this.props.users).length
       : null;
-    // debugger;
+
     const userName =
       users && users > 1
         ? this.props.users[this.props.message.user_id].username
         : "loading";
-    debugger;
+
     return (
       <div className="message-block-wrapper">
         <div className="message-block-margin">

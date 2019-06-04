@@ -1624,7 +1624,6 @@ function (_React$Component) {
     value: function render() {
       var _this4 = this;
 
-      debugger;
       var _this$props = this.props,
           channels = _this$props.channels,
           messages = _this$props.messages;
@@ -2171,7 +2170,6 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         activeClassName: "current-channel-selected",
         to: "/servers/".concat(parseInt(this.props.match.params.serverId), "/").concat(this.props.channel.id),
@@ -2519,10 +2517,8 @@ function (_React$Component) {
   _createClass(MessageFormat, [{
     key: "render",
     value: function render() {
-      var users = this.props.users ? Object.values(this.props.users).length : null; // debugger;
-
+      var users = this.props.users ? Object.values(this.props.users).length : null;
       var userName = users && users > 1 ? this.props.users[this.props.message.user_id].username : "loading";
-      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-block-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

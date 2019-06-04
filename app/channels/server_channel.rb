@@ -7,7 +7,7 @@ class ServerChannel < ApplicationCable::Channel
     server = data['server_id']
     user = User.find(data['user_id'])
     socket = { type: "user", user: user }
-    debugger
+    
     ServerChannel.broadcast_to(server, socket)
   end
 
