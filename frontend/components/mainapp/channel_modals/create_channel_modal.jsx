@@ -1,6 +1,5 @@
 import React from "react";
 import { openModal, closeModal } from "../../../actions/modal_actions";
-import { deleteErrors } from "../../../actions/session_actions";
 
 class CreateChannelModal extends React.Component {
   constructor(props) {
@@ -15,9 +14,11 @@ class CreateChannelModal extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillUnmount() {
-    dispatch(deleteErrors());
-  }
+  // componentDidMount() {
+  //   if (this.props.errors.length > 0) {
+  //     this.props.deleteErrors;
+  //   }
+  // }
 
   handleSubmit(e) {
     e.preventDefault();
@@ -68,7 +69,7 @@ class CreateChannelModal extends React.Component {
           <div className="create-channel-button-wrapper">
             <span
               className="create-channel-cancel"
-              onClick={() => dispatch(closeModal())}
+              onClick={this.props.closeModal}
             >
               Cancel
             </span>

@@ -973,7 +973,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/session_actions */ "./frontend/actions/session_actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -997,7 +996,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-
 var CreateChannelModal =
 /*#__PURE__*/
 function (_React$Component) {
@@ -1016,14 +1014,14 @@ function (_React$Component) {
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
-  }
+  } // componentDidMount() {
+  //   if (this.props.errors.length > 0) {
+  //     this.props.deleteErrors;
+  //   }
+  // }
+
 
   _createClass(CreateChannelModal, [{
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["deleteErrors"])());
-    }
-  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       var _this2 = this;
@@ -1077,9 +1075,7 @@ function (_React$Component) {
         className: "create-channel-button-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "create-channel-cancel",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["closeModal"])());
-        }
+        onClick: this.props.closeModal
       }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "create-channel-button",
         type: "submit",
@@ -1109,6 +1105,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 /* harmony import */ var _create_channel_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./create_channel_modal */ "./frontend/components/mainapp/channel_modals/create_channel_modal.jsx");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/session_actions */ "./frontend/actions/session_actions.js");
+
 
 
 
@@ -1131,6 +1129,9 @@ var mdp = function mdp(dispatch) {
     },
     createChannel: function createChannel(channel) {
       return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["createChannel"])(channel));
+    },
+    deleteErrors: function deleteErrors() {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_5__["deleteErrors"])());
     }
   };
 };
@@ -1194,13 +1195,6 @@ function (_React$Component) {
   }
 
   _createClass(DeleteChannelModal, [{
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      if (this.props.errors.length > 0) {
-        dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["deleteErrors"])());
-      }
-    }
-  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
@@ -1209,9 +1203,7 @@ function (_React$Component) {
         this.props.history.push("/servers/".concat(this.currentServer));
       }
 
-      this.props.deleteChannel(this.props.currentChannel).then(function () {
-        return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
-      });
+      this.props.deleteChannel(this.props.currentChannel).then(this.props.closeModal);
     }
   }, {
     key: "handleChange",
@@ -1250,9 +1242,7 @@ function (_React$Component) {
         className: "edit-server-buttons"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "edit-server-cancel",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
-        }
+        onClick: this.props.closeModal
       }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "delete-server-button",
         type: "submit",
@@ -1372,17 +1362,10 @@ function (_React$Component) {
   }
 
   _createClass(EditChannel, [{
-    key: "componentWillUnmount",
-    value: function componentWillUnmount() {
-      dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["deleteErrors"])());
-    }
-  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      this.props.updateChannel(this.state).then(function () {
-        return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
-      });
+      this.props.updateChannel(this.state).then(this.props.closeModal);
     }
   }, {
     key: "handleChange",
@@ -1427,16 +1410,12 @@ function (_React$Component) {
         className: "edit-server-button-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "edit-server-delete-button",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("deleteChannel"));
-        }
+        onClick: this.props.deleteChannel
       }, "Delete Channel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "edit-server-buttons"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "edit-server-cancel",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
-        }
+        onClick: this.props.closeModal
       }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "edit-server-button",
         type: "submit",
@@ -1465,6 +1444,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _edit_channel_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit_channel_modal */ "./frontend/components/mainapp/channel_modals/edit_channel_modal.jsx");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
 
 
 
@@ -1485,6 +1466,12 @@ var mdp = function mdp(dispatch) {
   return {
     updateChannel: function updateChannel(channel) {
       return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__["updateChannel"])(channel));
+    },
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["closeModal"])());
+    },
+    deleteChannel: function deleteChannel() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["openModal"])("deleteChannel"));
     }
   };
 };
@@ -1556,11 +1543,11 @@ function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      this.props.fetchChannel(this.currentChannelId); // App.channel[this.props.match.params.channelId] =
-
+      this.props.fetchChannel(this.currentChannelId);
       App.cable.subscriptions.create({
         channel: "ChatChannel",
-        channel_id: this.props.match.params.channelId
+        channel_id: this.props.match.params.channelId,
+        user_id: this.props.currentUserId
       }, {
         received: function received(data) {
           if (data.type === "message") {
@@ -1572,10 +1559,11 @@ function (_React$Component) {
                 updated_at: data.message.updated_at
               })
             });
-          } // if (data.type === "user") {
-          //   dispatch(receiveUser(data.user));
-          // }
+          }
 
+          if (data.type === "user") {
+            _this2.props.fetchUser(data.user);
+          }
         },
         speak: function speak(data) {
           return this.perform("speak", data);
@@ -1583,9 +1571,7 @@ function (_React$Component) {
         findUser: function findUser(data) {
           return this.perform("findUser", data);
         }
-      }); // App.cable.subscriptions.subscriptions[0].findUser({
-      //   user_id: this.props.currentUserId
-      // });
+      });
     }
   }, {
     key: "componentDidUpdate",
@@ -1593,16 +1579,16 @@ function (_React$Component) {
       var _this3 = this;
 
       if (prevProps.match.params.channelId !== this.props.match.params.channelId) {
-        // App.cable.subscriptions.subscriptions[0].unsubscribe();
+        App.cable.subscriptions.subscriptions[0].unsubscribe();
         this.currentChannelId = this.props.match.params.channelId;
         this.setState({
           messages: []
         });
-        this.currentChannelId = this.props.fetchChannel(this.currentChannelId); // App.channel[this.props.match.params.channelId] =
-
+        this.currentChannelId = this.props.fetchChannel(this.currentChannelId);
         App.cable.subscriptions.create({
           channel: "ChatChannel",
-          channel_id: this.props.match.params.channelId
+          channel_id: this.props.match.params.channelId,
+          user_id: this.props.currentUserId
         }, {
           received: function received(data) {
             if (data.type === "message") {
@@ -1614,10 +1600,11 @@ function (_React$Component) {
                   updated_at: data.message.updated_at
                 })
               });
-            } // if (data.type === "user") {
-            //   dispatch(receiveUser(data.user));
-            // }
+            }
 
+            if (data.type === "user") {
+              _this3.props.fetchUser(data.user);
+            }
           },
           speak: function speak(data) {
             return this.perform("speak", data);
@@ -1625,9 +1612,6 @@ function (_React$Component) {
           findUser: function findUser(data) {
             return this.perform("findUser", data);
           }
-        });
-        App.cable.subscriptions.subscriptions[0].findUser({
-          user_id: this.props.currentUserId
         });
       }
 
@@ -1709,6 +1693,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _channel_chat__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./channel_chat */ "./frontend/components/mainapp/channels/channel_chat.jsx");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/user_actions */ "./frontend/actions/user_actions.js");
+
 
 
 
@@ -1729,6 +1715,9 @@ var mdp = function mdp(dispatch) {
   return {
     fetchChannel: function fetchChannel(id) {
       return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__["fetchChannel"])(id));
+    },
+    fetchUser: function fetchUser(userId) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_4__["receiveUser"])(userId));
     }
   };
 };
@@ -1866,9 +1855,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
-/* harmony import */ var _channel_list_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./channel_list_item */ "./frontend/components/mainapp/channels/channel_list_item.jsx");
-/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
-/* harmony import */ var _drop_down_menu__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./drop_down_menu */ "./frontend/components/mainapp/channels/drop_down_menu.jsx");
+/* harmony import */ var _channel_list_item_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./channel_list_item_container */ "./frontend/components/mainapp/channels/channel_list_item_container.js");
+/* harmony import */ var _drop_down_menu_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./drop_down_menu_container */ "./frontend/components/mainapp/channels/drop_down_menu_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1886,7 +1874,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 
@@ -1935,7 +1922,7 @@ function (_React$Component) {
       this.setState({
         dropDownOpen: false
       });
-      dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])("editServer"));
+      this.props.editServer;
     }
   }, {
     key: "dropDownAnimation",
@@ -1967,7 +1954,7 @@ function (_React$Component) {
       var currentServer = this.props.servers[parseInt(this.props.match.params.serverId)];
       var serverTitle = currentServer.title;
       var dropDownOpen = this.state.dropDownOpen ? "drop-down-open" : "";
-      var dropDownMenu = this.state.dropDownOpen ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_drop_down_menu__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      var dropDownMenu = this.state.dropDownOpen ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_drop_down_menu_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
         handleOpenModal: this.handleOpenMdal,
         currentServer: currentServer,
         deleteServer: this.deleteServer,
@@ -1979,7 +1966,7 @@ function (_React$Component) {
         return channels[id];
       }));
       var channelTitles = !channelNames.includes(undefined) ? channelNames.map(function (channel, index) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_channel_list_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_channel_list_item_container__WEBPACK_IMPORTED_MODULE_2__["default"], {
           channel: channel,
           match: _this2.props.match,
           key: index
@@ -2022,9 +2009,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-text-channel"
       }, "text channels", " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])("createChannel"));
-        },
+        onClick: this.props.createModal,
         className: "add-button-icon",
         "aria-hidden": "false",
         width: "18",
@@ -2048,13 +2033,7 @@ function (_React$Component) {
         className: "channel-conainner-user-information"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-user-username"
-      }, this.props.currentUser.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        onClick: function onClick() {
-          App.cable.subscriptions.subscriptions[0].findUser({
-            user_id: _this2.props.currentUserId
-          });
-        }
-      }, "find User")));
+      }, this.props.currentUser.username))));
     }
   }]);
 
@@ -2079,6 +2058,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _channel_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./channel_index */ "./frontend/components/mainapp/channels/channel_index.jsx");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 /* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/server_actions */ "./frontend/actions/server_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
 
 
 
@@ -2117,7 +2098,13 @@ var mdp = function mdp(dispatch) {
       return leaveServer;
     }(function (serverId) {
       return dispatch(leaveServer(serverId));
-    })
+    }),
+    createModal: function createModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModal"])("createChannel"));
+    },
+    editServer: function editServer() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModal"])("editServer"));
+    }
   };
 };
 
@@ -2178,15 +2165,18 @@ function (_React$Component) {
   _createClass(ChannelListItem, [{
     key: "handleClick",
     value: function handleClick() {
-      dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["editChannel"])(this.props.channel.id));
-      dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("editChannel"));
+      this.props.editChannel(this.props.channel.id);
+      this.props.editModal();
     }
   }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      debugger;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        activeClassName: "current-channel-selected",
+        to: "/servers/".concat(parseInt(this.props.match.params.serverId), "/").concat(this.props.channel.id),
         className: "channel-link-wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         to: "/servers/".concat(parseInt(this.props.match.params.serverId), "/").concat(this.props.channel.id),
         className: "channel-container-channel-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2223,7 +2213,44 @@ function (_React$Component) {
   return ChannelListItem;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(ChannelListItem));
+/* harmony default export */ __webpack_exports__["default"] = (ChannelListItem);
+
+/***/ }),
+
+/***/ "./frontend/components/mainapp/channels/channel_list_item_container.js":
+/*!*****************************************************************************!*\
+  !*** ./frontend/components/mainapp/channels/channel_list_item_container.js ***!
+  \*****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _channel_list_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./channel_list_item */ "./frontend/components/mainapp/channels/channel_list_item.jsx");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+
+
+
+
+
+var msp = function msp(state) {
+  return {};
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    editChannel: function editChannel(id) {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["editChannel"])(id));
+    },
+    editModal: function editModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["openModal"])("editChannel"));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_3__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(msp, mdp)(_channel_list_item__WEBPACK_IMPORTED_MODULE_2__["default"])));
 
 /***/ }),
 
@@ -2287,16 +2314,12 @@ function (_React$Component) {
         className: "px-margin-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "edit-server-button",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["openModal"])("editServer"));
-        }
+        onClick: this.props.editServer
       }, " ", "Edit Server", " ")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "px-margin-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "edit-server-button",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["openModal"])("leaveServer"));
-        }
+        onClick: this.props.leaveServer
       }, " ", "Leave Server", " "));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "drop-down-menu-wrapper"
@@ -2315,6 +2338,39 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (DropDownMenu);
+
+/***/ }),
+
+/***/ "./frontend/components/mainapp/channels/drop_down_menu_container.js":
+/*!**************************************************************************!*\
+  !*** ./frontend/components/mainapp/channels/drop_down_menu_container.js ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _drop_down_menu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./drop_down_menu */ "./frontend/components/mainapp/channels/drop_down_menu.jsx");
+
+
+
+
+
+var mdp = function mdp(dispatch) {
+  return {
+    editServer: function editServer() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("editServer"));
+    },
+    leaveServer: function leaveServer() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("leaveServer"));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mdp)(_drop_down_menu__WEBPACK_IMPORTED_MODULE_3__["default"])));
 
 /***/ }),
 
@@ -2727,7 +2783,7 @@ function (_React$Component) {
       e.preventDefault();
       this.props.logoutUser();
       this.props.history.push("/");
-      dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["closeModal"])());
+      this.props.closeModal;
     }
   }, {
     key: "render",
@@ -2754,9 +2810,7 @@ function (_React$Component) {
         className: "edit-server-buttons"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "edit-server-cancel",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["closeModal"])());
-        }
+        onClick: this.props.closeModal
       }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         onClick: this.handleSubmit,
         className: "delete-server-button",
@@ -2962,7 +3016,10 @@ var mdp = function mdp(dispatch) {
       return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_3__["createServer"])(server));
     },
     mainModal: function mainModal() {
-      return dispatch(openModal("main"));
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("main"));
+    },
+    openModal: function openModal(modal) {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])(modal));
     },
     closeModal: function closeModal() {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
@@ -3117,9 +3174,7 @@ function (_React$Component) {
         className: "create-server-btn-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-back-button",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["openModal"])("main"));
-        }
+        onClick: this.props.mainModal
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Back")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "server-create-btn",
         type: "submit",
@@ -3148,6 +3203,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _delete_server_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./delete_server_modal */ "./frontend/components/mainapp/server_modals/delete_server_modal.jsx");
 /* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/server_actions */ "./frontend/actions/server_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+
 
 
 
@@ -3164,6 +3223,12 @@ var mdp = function mdp(dispatch) {
   return {
     deleteServer: function deleteServer(serverId) {
       return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_3__["deleteServer"])(serverId));
+    },
+    deleteErrors: function deleteErrors() {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_4__["deleteErrors"])());
+    },
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["closeModal"])());
     }
   };
 };
@@ -3183,8 +3248,7 @@ var mdp = function mdp(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions/session_actions */ "./frontend/actions/session_actions.js");
-/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -3204,7 +3268,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 
@@ -3235,7 +3298,7 @@ function (_React$Component) {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       if (this.props.errors.length > 0) {
-        dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["deleteErrors"])());
+        this.props.deleteErrors();
       }
     }
   }, {
@@ -3245,9 +3308,7 @@ function (_React$Component) {
 
       if (this.state.title === this.currentTitle) {
         this.props.history.push("/servers");
-        this.props.deleteServer(this.currentServer).then(function () {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
-        });
+        this.props.deleteServer(this.currentServer).then(this.props.closeModal);
       } else {
         this.setState({
           errors: true
@@ -3306,9 +3367,7 @@ function (_React$Component) {
         className: "edit-server-buttons"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "edit-server-cancel",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
-        }
+        onClick: this.props.closeModal
       }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "delete-server-button",
         type: "submit",
@@ -3337,6 +3396,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _edit_server_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit_server_modal */ "./frontend/components/mainapp/server_modals/edit_server_modal.jsx");
 /* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/server_actions */ "./frontend/actions/server_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/session_actions */ "./frontend/actions/session_actions.js");
+
+
 
 
 
@@ -3353,6 +3416,15 @@ var mdp = function mdp(dispatch) {
   return {
     updateServer: function updateServer(server) {
       return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_3__["updateServer"])(server));
+    },
+    deleteServer: function deleteServer() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["openModal"])("deleteServer"));
+    },
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_4__["closeModal"])());
+    },
+    deleteErrors: function deleteErrors() {
+      return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_5__["deleteErrors"])());
     }
   };
 };
@@ -3422,15 +3494,13 @@ function (_React$Component) {
   _createClass(EditServerModal, [{
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_1__["deleteErrors"])());
+      this.props.deleteErrors;
     }
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      this.props.updateServer(this.state).then(function () {
-        return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
-      });
+      this.props.updateServer(this.state).then(this.props.closeModal);
     }
   }, {
     key: "handleChange",
@@ -3475,16 +3545,12 @@ function (_React$Component) {
         className: "edit-server-button-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "edit-server-delete-button",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("deleteServer"));
-        }
+        onClick: this.props.deleteServer
       }, "Delete Server"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "edit-server-buttons"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "edit-server-cancel",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
-        }
+        onClick: this.props.closeModal
       }, "Cancel"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "edit-server-button",
         type: "submit",
@@ -3537,7 +3603,7 @@ var mdp = function mdp(dispatch) {
       return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_4__["joinServer"])(server));
     },
     mainModal: function mainModal() {
-      return dispatch(openModal("main"));
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("main"));
     },
     closeModal: function closeModal() {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["closeModal"])());
@@ -3681,9 +3747,7 @@ function (_React$Component) {
         className: "create-server-btn-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-back-button",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["openModal"])("main"));
-        }
+        onClick: this.props.mainModal
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Back")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "server-join-btn",
         type: "submit",
@@ -3750,7 +3814,13 @@ var mdp = function mdp(dispatch) {
       return closeModal;
     }(function () {
       return dispatch(closeModal());
-    })
+    }),
+    createModal: function createModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("create"));
+    },
+    joinModal: function joinModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["openModal"])("join"));
+    }
   };
 };
 
@@ -3816,9 +3886,7 @@ function (_React$Component) {
         className: "server-form-actions"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "server-action-container server-create-container",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["openModal"])("create"));
-        }
+        onClick: this.props.createModal
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "server-container-header blue-text"
       }, "create"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -3829,9 +3897,7 @@ function (_React$Component) {
         className: "action-btns create-action-btn"
       }, "Create a server")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "server-action-container",
-        onClick: function onClick() {
-          return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["openModal"])("join"));
-        }
+        onClick: this.props.joinModal
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "server-container-header green-text"
       }, "join"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
@@ -4080,9 +4146,7 @@ function (_React$Component) {
           className: "server-margin-wrapper"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
           className: "btn-flex server-btn ".concat(selectedGreen),
-          onClick: function onClick() {
-            return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])("main"));
-          }
+          onClick: this.props.mainModal
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "server-selector ".concat(selectedServer)
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", {
@@ -4097,9 +4161,7 @@ function (_React$Component) {
           className: "server-margin-wrapper"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
           className: "server-btn",
-          onClick: function onClick() {
-            return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])("logoutUser"));
-          }
+          onClick: this.props.logoutModal
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "server-selector"
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
@@ -4162,6 +4224,12 @@ var mdp = function mdp(dispatch) {
     },
     logoutUser: function logoutUser() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["logoutUser"])());
+    },
+    mainModal: function mainModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModal"])("main"));
+    },
+    logoutModal: function logoutModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModal"])("logoutUser"));
     }
   };
 };
@@ -4741,13 +4809,13 @@ document.addEventListener("DOMContentLoaded", function () {
     delete window.currentUser;
   } else {
     store = Object(_store_store__WEBPACK_IMPORTED_MODULE_3__["default"])();
-  }
+  } // window.leaveServer = leaveServer;
+  // window.deleteServer = deleteServer;
+  // window.store = store;
+  // window.dispatch = store.dispatch;
+  // window.fetchAllServers = fetchAllServers;
 
-  window.leaveServer = _actions_server_actions__WEBPACK_IMPORTED_MODULE_4__["leaveServer"];
-  window.deleteServer = _actions_server_actions__WEBPACK_IMPORTED_MODULE_4__["deleteServer"];
-  window.store = store;
-  window.dispatch = store.dispatch;
-  window.fetchAllServers = _actions_server_actions__WEBPACK_IMPORTED_MODULE_4__["fetchAllServers"];
+
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_app__WEBPACK_IMPORTED_MODULE_2__["default"], {
     store: store
   }), root);
@@ -4765,7 +4833,9 @@ document.addEventListener("DOMContentLoaded", function () {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
-/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+
 
 
 
@@ -4778,10 +4848,9 @@ var serverErrorReducer = function serverErrorReducer() {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_ERRORS"]:
       return action.errors.responseJSON;
 
-    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_CHANNEL"]:
-      return [];
-
+    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_CHANNEL"]:
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_ERRORS"]:
+    case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["CLOSE_MODAL"]:
       return [];
 
     default:
@@ -5041,6 +5110,8 @@ var rootReducer = Object(redux__WEBPACK_IMPORTED_MODULE_3__["combineReducers"])(
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/server_actions */ "./frontend/actions/server_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
 
 
 
@@ -5054,9 +5125,8 @@ var serverErrorReducer = function serverErrorReducer() {
       return action.errors.responseJSON;
 
     case _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_SERVER"]:
-      return [];
-
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_ERRORS"]:
+    case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["CLOSE_MODAL"]:
       return [];
 
     default:

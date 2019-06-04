@@ -12,20 +12,14 @@ class DropDownMenu extends React.Component {
     const correctButton =
       this.props.currentServer.admin_id === currentUser.id ? (
         <div className="px-margin-wrapper">
-          <div
-            className="edit-server-button"
-            onClick={() => dispatch(openModal("editServer"))}
-          >
+          <div className="edit-server-button" onClick={this.props.editServer}>
             {" "}
             Edit Server{" "}
           </div>
         </div>
       ) : (
         <div className="px-margin-wrapper">
-          <div
-            className="edit-server-button"
-            onClick={() => dispatch(openModal("leaveServer"))}
-          >
+          <div className="edit-server-button" onClick={this.props.leaveServer}>
             {" "}
             Leave Server{" "}
           </div>

@@ -24,11 +24,11 @@ document.addEventListener("DOMContentLoaded", () => {
     store = configureStore();
   }
 
-  window.leaveServer = leaveServer;
-  window.deleteServer = deleteServer;
-  window.store = store;
-  window.dispatch = store.dispatch;
-  window.fetchAllServers = fetchAllServers;
+  // window.leaveServer = leaveServer;
+  // window.deleteServer = deleteServer;
+  // window.store = store;
+  // window.dispatch = store.dispatch;
+  // window.fetchAllServers = fetchAllServers;
 
   ReactDOM.render(<App store={store} />, root);
 });

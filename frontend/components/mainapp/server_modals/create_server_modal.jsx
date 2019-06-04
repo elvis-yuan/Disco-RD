@@ -91,7 +91,7 @@ class CreateServerModal extends React.Component {
               <div className="create-server-btn-container">
                 <div
                   className="form-back-button"
-                  onClick={() => dispatch(openModal("main"))}
+                  onClick={this.props.mainModal}
                 >
                   <div />
                   <p>Back</p>

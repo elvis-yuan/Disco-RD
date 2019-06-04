@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import ChannelChat from "./channel_chat";
 import { withRouter } from "react-router-dom";
 import { fetchChannel } from "../../../actions/channel_actions";
+import { receiveUser } from "../../../actions/user_actions";
 
 const msp = ({ entities, session }) => {
   return {
@@ -12,7 +13,8 @@ const msp = ({ entities, session }) => {
   };
 };
 const mdp = dispatch => ({
-  fetchChannel: id => dispatch(fetchChannel(id))
+  fetchChannel: id => dispatch(fetchChannel(id)),
+  fetchUser: userId => dispatch(receiveUser(userId))
 });
 
 export default withRouter(

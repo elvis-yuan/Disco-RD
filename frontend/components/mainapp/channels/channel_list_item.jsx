@@ -9,15 +9,21 @@ class ChannelListItem extends React.Component {
   }
 
   handleClick() {
-    dispatch(editChannel(this.props.channel.id));
-    dispatch(openModal("editChannel"));
+    this.props.editChannel(this.props.channel.id);
+    this.props.editModal();
   }
 
   render() {
-
+    debugger;
     return (
-      <div className="channel-link-wrapper">
-        <NavLink
+      <NavLink
+        activeClassName="current-channel-selected"
+        to={`/servers/${parseInt(this.props.match.params.serverId)}/${
+          this.props.channel.id
+        }`}
+        className="channel-link-wrapper"
+      >
+        <div
           to={`/servers/${parseInt(this.props.match.params.serverId)}/${
             this.props.channel.id
           }`}
@@ -34,7 +40,7 @@ class ChannelListItem extends React.Component {
             </svg>
             <h1 className="channel-name">{this.props.channel.title}</h1>
           </div>
-        </NavLink>
+        </div>
         <svg
           onClick={this.handleClick}
           name="Gear"
@@ -52,9 +58,9 @@ class ChannelListItem extends React.Component {
           />
         </svg>
         <p className="gear-icon-hover">Edit Channel</p>
-      </div>
+      </NavLink>
     );
   }
 }
 
-export default withRouter(ChannelListItem);
+export default ChannelListItem;

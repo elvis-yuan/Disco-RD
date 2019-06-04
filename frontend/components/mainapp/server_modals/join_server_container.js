@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { closeModal } from "../../../actions/modal_actions";
+import { closeModal, openModal } from "../../../actions/modal_actions";
 import JoinServerModal from "./join_server_modal";
 import { joinServer } from "../../../actions/server_actions";
 import { deleteErrors } from "../../../actions/session_actions";

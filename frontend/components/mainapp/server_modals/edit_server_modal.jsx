@@ -17,12 +17,12 @@ class EditServerModal extends React.Component {
   }
 
   componentWillUnmount() {
-    dispatch(deleteErrors());
+    this.props.deleteErrors;
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.updateServer(this.state).then(() => dispatch(closeModal()));
+    this.props.updateServer(this.state).then(this.props.closeModal);
   }
 
   handleChange(field) {
@@ -63,14 +63,14 @@ class EditServerModal extends React.Component {
           <div className="edit-server-button-wrapper">
             <span
               className="edit-server-delete-button"
-              onClick={() => dispatch(openModal("deleteServer"))}
+              onClick={this.props.deleteServer}
             >
               Delete Server
             </span>
             <div className="edit-server-buttons">
               <span
                 className="edit-server-cancel"
-                onClick={() => dispatch(closeModal())}
+                onClick={this.props.closeModal}
               >
                 Cancel
               </span>

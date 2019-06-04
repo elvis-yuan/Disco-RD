@@ -114,12 +114,29 @@
 .channel-link-wrapper:hover .channel-name {
   color: #dcddde;
 }
+
+.channel-link-wrapper.channel-channel-selected:hover {
+  background-color: #40444b;
+}
+
+.current-channel-selected {
+  background-color: #40444b;
+  cursor: none;
+}
+
+.current-channel-selected h1.channel-name {
+  color: #dcddde;
+}
+
+.current-channel-selected .gear-icon {
+  display: block;
+}
+
 .channel-container-channel-name {
   width: 100%;
   box-sizing: border-box;
   height: 32px;
   padding: 0 8px;
-  /* margin: 1px 0 1px 8px; */
   border-radius: 4px;
   display: flex;
   align-items: center;
@@ -343,6 +360,7 @@ p.plus-icon-hover::after {
   margin-left: 0px;
   border-width: 6px;
   border-style: solid;
+  z-index: 10;
   border-color: #000 transparent transparent transparent;
 }
 
@@ -419,4 +437,13 @@ p.plus-icon-hover::after {
   position: relative;
   cursor: pointer;
   text-decoration: none;
+}
+
+.current-channel-selected:hover {
+  background-color: #40444b;
+  cursor: default !important;
+}
+
+.current-channel-selected {
+  cursor: default !important;
 }

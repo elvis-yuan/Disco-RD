@@ -4,6 +4,7 @@ import ChannelIndex from "./channel_index";
 import { fetchAllChannels } from "../../../actions/channel_actions";
 import { deleteServer } from "../../../actions/server_actions";
 import { fetchServer } from "../../../actions/server_actions";
+import { openModal } from "../../../actions/modal_actions";
 
 const msp = ({ entities, session }) => {
   return {
@@ -18,7 +19,9 @@ const mdp = dispatch => {
   return {
     fetchServer: serverId => dispatch(fetchServer(serverId)),
     deleteServer: serverId => dispatch(deleteServer(serverId)),
-    leaveServer: serverId => dispatch(leaveServer(serverId))
+    leaveServer: serverId => dispatch(leaveServer(serverId)),
+    createModal: () => dispatch(openModal("createChannel")),
+    editServer: () => dispatch(openModal("editServer"))
   };
 };
 

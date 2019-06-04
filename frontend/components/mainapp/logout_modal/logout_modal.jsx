@@ -11,7 +11,7 @@ class LogoutModal extends React.Component {
     e.preventDefault();
     this.props.logoutUser();
     this.props.history.push("/");
-    dispatch(closeModal());
+    this.props.closeModal;
   }
 
   render() {
@@ -35,7 +35,7 @@ class LogoutModal extends React.Component {
             <div className="edit-server-buttons">
               <span
                 className="edit-server-cancel"
-                onClick={() => dispatch(closeModal())}
+                onClick={this.props.closeModal}
               >
                 Cancel
               </span>

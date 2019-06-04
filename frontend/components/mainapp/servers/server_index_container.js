@@ -16,7 +16,9 @@ const msp = ({ entities, session, ui }) => {
 const mdp = dispatch => ({
   fetchAllServers: userId => dispatch(fetchAllServers(userId)),
   fetchServer: id => dispatch(fetchServer(id)),
-  logoutUser: () => dispatch(logoutUser())
+  logoutUser: () => dispatch(logoutUser()),
+  mainModal: () => dispatch(openModal("main")),
+  logoutModal: () => dispatch(openModal("logoutUser"))
 });
 
 export default withRouter(

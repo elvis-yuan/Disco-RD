@@ -14,13 +14,9 @@ class EditChannel extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillUnmount() {
-    dispatch(deleteErrors());
-  }
-
   handleSubmit(e) {
     e.preventDefault();
-    this.props.updateChannel(this.state).then(() => dispatch(closeModal()));
+    this.props.updateChannel(this.state).then(this.props.closeModal);
   }
 
   handleChange(field) {
@@ -61,14 +57,14 @@ class EditChannel extends React.Component {
           <div className="edit-server-button-wrapper">
             <span
               className="edit-server-delete-button"
-              onClick={() => dispatch(openModal("deleteChannel"))}
+              onClick={this.props.deleteChannel}
             >
               Delete Channel
             </span>
             <div className="edit-server-buttons">
               <span
                 className="edit-server-cancel"
-                onClick={() => dispatch(closeModal())}
+                onClick={this.props.closeModal}
               >
                 Cancel
               </span>

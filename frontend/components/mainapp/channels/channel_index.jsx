@@ -1,8 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import ChannelListItem from "./channel_list_item";
-import { openModal } from "../../../actions/modal_actions";
-import DropDownMenu from "./drop_down_menu";
+import ChannelListItemContainer from "./channel_list_item_container";
+import DropDownMenuContainer from "./drop_down_menu_container";
 
 class ChannelIndex extends React.Component {
   constructor(props) {
@@ -29,7 +28,7 @@ class ChannelIndex extends React.Component {
 
   handleOpenModal() {
     this.setState({ dropDownOpen: false });
-    dispatch(openModal("editServer"));
+    this.props.editServer;
   }
 
   dropDownAnimation() {
@@ -57,7 +56,7 @@ class ChannelIndex extends React.Component {
     const dropDownOpen = this.state.dropDownOpen ? "drop-down-open" : "";
 
     const dropDownMenu = this.state.dropDownOpen ? (
-      <DropDownMenu
+      <DropDownMenuContainer
         handleOpenModal={this.handleOpenMdal}
         currentServer={currentServer}
         deleteServer={this.deleteServer}
@@ -73,7 +72,7 @@ class ChannelIndex extends React.Component {
     );
     let channelTitles = !channelNames.includes(undefined)
       ? channelNames.map((channel, index) => (
-          <ChannelListItem
+          <ChannelListItemContainer
             channel={channel}
             match={this.props.match}
             key={index}
@@ -122,7 +121,7 @@ class ChannelIndex extends React.Component {
             <div className="channel-text-channel">
               text channels{" "}
               <svg
-                onClick={() => dispatch(openModal("createChannel"))}
+                onClick={this.props.createModal}
                 className="add-button-icon"
                 aria-hidden="false"
                 width="18"
@@ -148,15 +147,6 @@ class ChannelIndex extends React.Component {
             <div className="channel-container-user-username">
               {this.props.currentUser.username}
             </div>
-          </div>
-          <div
-            onClick={() => {
-              App.cable.subscriptions.subscriptions[0].findUser({
-                user_id: this.props.currentUserId
-              });
-            }}
-          >
-            find User
           </div>
         </div>
       </div>

@@ -14,11 +14,12 @@ class ChannelChat extends React.Component {
 
   componentDidMount() {
     this.props.fetchChannel(this.currentChannelId);
-    // App.channel[this.props.match.params.channelId] =
+
     App.cable.subscriptions.create(
       {
         channel: "ChatChannel",
-        channel_id: this.props.match.params.channelId
+        channel_id: this.props.match.params.channelId,
+        user_id: this.props.currentUserId
       },
       {
         received: data => {
@@ -33,9 +34,9 @@ class ChannelChat extends React.Component {
             });
           }
 
-          // if (data.type === "user") {
-          //   dispatch(receiveUser(data.user));
-          // }
+          if (data.type === "user") {
+            this.props.fetchUser(data.user);
+          }
         },
         speak: function(data) {
           return this.perform("speak", data);
@@ -45,26 +46,23 @@ class ChannelChat extends React.Component {
         }
       }
     );
-    // App.cable.subscriptions.subscriptions[0].findUser({
-    //   user_id: this.props.currentUserId
-    // });
   }
 
   componentDidUpdate(prevProps) {
     if (
       prevProps.match.params.channelId !== this.props.match.params.channelId
     ) {
-      // App.cable.subscriptions.subscriptions[0].unsubscribe();
+      App.cable.subscriptions.subscriptions[0].unsubscribe();
 
       this.currentChannelId = this.props.match.params.channelId;
       this.setState({ messages: [] });
       this.currentChannelId = this.props.fetchChannel(this.currentChannelId);
 
-      // App.channel[this.props.match.params.channelId] =
       App.cable.subscriptions.create(
         {
           channel: "ChatChannel",
-          channel_id: this.props.match.params.channelId
+          channel_id: this.props.match.params.channelId,
+          user_id: this.props.currentUserId
         },
         {
           received: data => {
@@ -79,9 +77,9 @@ class ChannelChat extends React.Component {
               });
             }
 
-            // if (data.type === "user") {
-            //   dispatch(receiveUser(data.user));
-            // }
+            if (data.type === "user") {
+              this.props.fetchUser(data.user);
+            }
           },
           speak: function(data) {
             return this.perform("speak", data);
@@ -91,9 +89,6 @@ class ChannelChat extends React.Component {
           }
         }
       );
-      App.cable.subscriptions.subscriptions[0].findUser({
-        user_id: this.props.currentUserId
-      });
     }
 
     if (this.bottom.current !== null) {

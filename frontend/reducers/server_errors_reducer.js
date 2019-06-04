@@ -1,6 +1,7 @@
 import { RECEIVE_ERRORS, REMOVE_ERRORS } from "../actions/session_actions";
 
 import { RECEIVE_SERVER } from "../actions/server_actions";
+import { CLOSE_MODAL } from "../actions/modal_actions";
 
 const serverErrorReducer = (state = [], action) => {
   Object.freeze(state);
@@ -8,8 +9,8 @@ const serverErrorReducer = (state = [], action) => {
     case RECEIVE_ERRORS:
       return action.errors.responseJSON;
     case RECEIVE_SERVER:
-      return [];
     case REMOVE_ERRORS:
+    case CLOSE_MODAL:
       return [];
     default:
       return state;

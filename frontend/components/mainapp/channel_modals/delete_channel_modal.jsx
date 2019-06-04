@@ -12,12 +12,6 @@ class DeleteChannelModal extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentWillUnmount() {
-    if (this.props.errors.length > 0) {
-      dispatch(deleteErrors());
-    }
-  }
-
   handleSubmit(e) {
     e.preventDefault();
     if (
@@ -29,7 +23,7 @@ class DeleteChannelModal extends React.Component {
 
     this.props
       .deleteChannel(this.props.currentChannel)
-      .then(() => dispatch(closeModal()));
+      .then(this.props.closeModal);
   }
 
   handleChange(field) {
@@ -72,7 +66,7 @@ class DeleteChannelModal extends React.Component {
             <div className="edit-server-buttons">
               <span
                 className="edit-server-cancel"
-                onClick={() => dispatch(closeModal())}
+                onClick={this.props.closeModal}
               >
                 Cancel
               </span>

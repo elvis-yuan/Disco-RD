@@ -100,7 +100,6 @@
   padding: 6px 12px 8px 12px;
   text-align: center;
   white-space: nowrap;
-  z-index: 2;
 }
 
 p.server-btn-hover::before {
@@ -123,7 +122,7 @@ p.server-btn-hover::before {
 }
 
 .server-margin-wrapper + .server-btn-hover {
-  z-index: 2;
+  z-index: 4;
 }
 
 .server-btn:hover {

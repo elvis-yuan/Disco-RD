@@ -68,6 +68,8 @@ class Api::ServersController < ApplicationController
       @server.user_servers.create!(user_id: current_user.id, server_id: @server.id)
       @channels = @server.channels
       @users = @server.connected_users
+      
+
 
       render :show
     elsif errors.length > 0

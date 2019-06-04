@@ -66,7 +66,7 @@ class ServerIndex extends React.Component {
             <div className="server-margin-wrapper">
               <a
                 className={`btn-flex server-btn ${selectedGreen}`}
-                onClick={() => dispatch(openModal("main"))}
+                onClick={this.props.mainModal}
               >
                 <div className={`server-selector ${selectedServer}`} />
                 <h3 className="server-icon">+</h3>
@@ -77,10 +77,7 @@ class ServerIndex extends React.Component {
           <div className="logout-seperator" />
           <div className="server-icon-wrapper">
             <div className="server-margin-wrapper">
-              <a
-                className="server-btn"
-                onClick={() => dispatch(openModal("logoutUser"))}
-              >
+              <a className="server-btn" onClick={this.props.logoutModal}>
                 <div className="server-selector" />
                 <i className="fas fa-sign-out-alt" />
               </a>

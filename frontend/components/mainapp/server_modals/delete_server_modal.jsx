@@ -1,5 +1,5 @@
 import React from "react";
-import { deleteErrors } from "../../../actions/session_actions";
+
 import { closeModal } from "../../../actions/modal_actions";
 
 class DeleteServerModal extends React.Component {
@@ -19,7 +19,7 @@ class DeleteServerModal extends React.Component {
 
   componentWillUnmount() {
     if (this.props.errors.length > 0) {
-      dispatch(deleteErrors());
+      this.props.deleteErrors();
     }
   }
 
@@ -27,9 +27,7 @@ class DeleteServerModal extends React.Component {
     e.preventDefault();
     if (this.state.title === this.currentTitle) {
       this.props.history.push("/servers");
-      this.props
-        .deleteServer(this.currentServer)
-        .then(() => dispatch(closeModal()));
+      this.props.deleteServer(this.currentServer).then(this.props.closeModal);
     } else {
       this.setState({ errors: true });
     }
@@ -82,7 +80,7 @@ class DeleteServerModal extends React.Component {
             <div className="edit-server-buttons">
               <span
                 className="edit-server-cancel"
-                onClick={() => dispatch(closeModal())}
+                onClick={this.props.closeModal}
               >
                 Cancel
               </span>

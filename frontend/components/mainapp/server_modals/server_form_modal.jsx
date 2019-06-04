@@ -19,7 +19,7 @@ class ServerFormModal extends React.Component {
         <div className="server-form-actions">
           <div
             className="server-action-container server-create-container"
-            onClick={() => dispatch(openModal("create"))}
+            onClick={this.props.createModal}
           >
             <h1 className="server-container-header blue-text">create</h1>
             <p className="server-plain-text">
@@ -32,7 +32,7 @@ class ServerFormModal extends React.Component {
           </div>
           <div
             className="server-action-container"
-            onClick={() => dispatch(openModal("join"))}
+            onClick={this.props.joinModal}
           >
             <h1 className="server-container-header green-text">join</h1>
             <p className="server-plain-text">

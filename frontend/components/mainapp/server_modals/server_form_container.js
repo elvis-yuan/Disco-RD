@@ -17,7 +17,9 @@ const mdp = dispatch => ({
   joinForm: (
     <button onClick={() => dispatch(openModal("join"))}>Join a server</button>
   ),
-  closeModal: () => dispatch(closeModal())
+  closeModal: () => dispatch(closeModal()),
+  createModal: () => dispatch(openModal("create")),
+  joinModal: () => dispatch(openModal("join"))
 });
 
 export default connect(
