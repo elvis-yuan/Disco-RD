@@ -18,6 +18,8 @@ class Api::ServersController < ApplicationController
       @server.channels.create(title: "general")
       @server.user_servers.create(user_id: current_user.id)
       @channels = @server.channels
+      @users = @server.connected_users
+      
       render :show
     else
       render json: @server.errors.full_messages, status: 422

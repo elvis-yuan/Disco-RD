@@ -1535,7 +1535,8 @@ function (_React$Component) {
 
       this.props.fetchChannel(this.currentChannelId);
       App.cable.subscriptions.create({
-        channel: "ChatChannel"
+        channel: "ChatChannel",
+        server_id: this.props.match.params.serverId
       }, {
         received: function received(data) {
           _this2.setState({
@@ -1544,9 +1545,16 @@ function (_React$Component) {
               user_id: data.user_id
             })
           });
+
+          if (data.user) {
+            dispatch(receiveUser(data.user));
+          }
         },
         speak: function speak(data) {
           return this.perform("speak", data);
+        },
+        findUser: function findUser(data) {
+          return this.perform();
         }
       });
     }

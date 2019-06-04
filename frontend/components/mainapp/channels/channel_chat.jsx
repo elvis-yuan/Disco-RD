@@ -14,7 +14,7 @@ class ChannelChat extends React.Component {
   componentDidMount() {
     this.props.fetchChannel(this.currentChannelId);
     App.cable.subscriptions.create(
-      { channel: "ChatChannel" },
+      { channel: "ChatChannel", server_id: this.props.match.params.serverId },
       {
         received: data => {
           this.setState({
@@ -23,9 +23,15 @@ class ChannelChat extends React.Component {
               user_id: data.user_id
             })
           });
+          if (data.user) {
+            dispatch(receiveUser(data.user));
+          }
         },
         speak: function(data) {
           return this.perform("speak", data);
+        },
+        findUser: function(data) {
+          return this.perform();
         }
       }
     );
