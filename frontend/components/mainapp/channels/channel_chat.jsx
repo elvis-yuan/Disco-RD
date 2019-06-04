@@ -20,7 +20,7 @@ class ChannelChat extends React.Component {
           this.setState({
             messages: this.state.messages.concat({
               body: data.message,
-              user_id: data.username
+              user_id: data.user_id
             })
           });
         },
@@ -32,13 +32,15 @@ class ChannelChat extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    debugger;
     if (
       prevProps.match.params.channelId !== this.props.match.params.channelId
     ) {
+      App.cable.subscriptions.subscriptions[0].unsubscribe();
+
       this.currentChannelId = this.props.match.params.channelId;
-      // this.setState({ messages: [] });
+      this.setState({ messages: [] });
       this.currentChannelId = this.props.fetchChannel(this.currentChannelId);
+
       App.cable.subscriptions.create(
         { channel: "ChatChannel" },
         {
@@ -46,7 +48,9 @@ class ChannelChat extends React.Component {
             this.setState({
               messages: this.state.messages.concat({
                 body: data.message,
-                user_id: data.username
+                user_id: data.user_id,
+                created_at: data.created_at,
+                updated_at: data.updated_at
               })
             });
           },
@@ -77,7 +81,7 @@ class ChannelChat extends React.Component {
       );
     });
 
-    debugger;
+    // debugger;
     const oldMessages =
       Object.values(channels).length > 0 && Object.values(messages).length > 0
         ? channels[this.props.match.params.channelId].message_ids.map(
@@ -85,7 +89,7 @@ class ChannelChat extends React.Component {
           )
         : null;
 
-    debugger;
+    // debugger;
 
     const history =
       oldMessages !== null &&

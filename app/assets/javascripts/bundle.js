@@ -1541,7 +1541,7 @@ function (_React$Component) {
           _this2.setState({
             messages: _this2.state.messages.concat({
               body: data.message,
-              user_id: data.username
+              user_id: data.user_id
             })
           });
         },
@@ -1555,11 +1555,12 @@ function (_React$Component) {
     value: function componentDidUpdate(prevProps) {
       var _this3 = this;
 
-      debugger;
-
       if (prevProps.match.params.channelId !== this.props.match.params.channelId) {
-        this.currentChannelId = this.props.match.params.channelId; // this.setState({ messages: [] });
-
+        App.cable.subscriptions.subscriptions[0].unsubscribe();
+        this.currentChannelId = this.props.match.params.channelId;
+        this.setState({
+          messages: []
+        });
         this.currentChannelId = this.props.fetchChannel(this.currentChannelId);
         App.cable.subscriptions.create({
           channel: "ChatChannel"
@@ -1568,7 +1569,9 @@ function (_React$Component) {
             _this3.setState({
               messages: _this3.state.messages.concat({
                 body: data.message,
-                user_id: data.username
+                user_id: data.user_id,
+                created_at: data.created_at,
+                updated_at: data.updated_at
               })
             });
           },
@@ -1597,12 +1600,12 @@ function (_React$Component) {
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           ref: _this4.bottom
         }));
-      });
-      debugger;
+      }); // debugger;
+
       var oldMessages = Object.values(channels).length > 0 && Object.values(messages).length > 0 ? channels[this.props.match.params.channelId].message_ids.map(function (message_id) {
         return messages[message_id];
-      }) : null;
-      debugger;
+      }) : null; // debugger;
+
       var history = oldMessages !== null && !oldMessages.includes(undefined) && !oldMessages.includes(null) ? oldMessages.map(function (message, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_format_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
           key: index,
@@ -2399,9 +2402,10 @@ function (_React$Component) {
   _createClass(MessageFormat, [{
     key: "render",
     value: function render() {
-      var users = this.props.users ? Object.values(this.props.users).length : null;
-      var userName = users && users > 1 ? "test" : "";
-      debugger;
+      var users = this.props.users ? Object.values(this.props.users).length : null; // debugger;
+
+      var userName = users && users > 1 ? this.props.users[this.props.message.user_id].username : "loading"; // debugger;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-block-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2510,7 +2514,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(MessageInput).call(this, props));
     _this.state = {
       body: "",
-      channel_id: parseInt(_this.props.history.location.pathname.split("/")[3]),
+      channel_id: _this.props.match.params.channelId,
       user_id: _this.props.user_id
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
@@ -2527,8 +2531,18 @@ function (_React$Component) {
       };
     }
   }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.match.params.channelId !== this.props.match.params.channelId) {
+        this.setState({
+          channel_id: this.props.match.params.channelId
+        });
+      }
+    }
+  }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      // debugger;
       e.preventDefault();
       App.cable.subscriptions.subscriptions[0].speak(this.state);
       this.setState({

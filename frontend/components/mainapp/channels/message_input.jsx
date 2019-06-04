@@ -5,7 +5,7 @@ class MessageInput extends React.Component {
     super(props);
     this.state = {
       body: "",
-      channel_id: parseInt(this.props.history.location.pathname.split("/")[3]),
+      channel_id: this.props.match.params.channelId,
       user_id: this.props.user_id
     };
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,7 +17,16 @@ class MessageInput extends React.Component {
     };
   }
 
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.match.params.channelId !== this.props.match.params.channelId
+    ) {
+      this.setState({ channel_id: this.props.match.params.channelId });
+    }
+  }
+
   handleSubmit(e) {
+    // debugger;
     e.preventDefault();
     App.cable.subscriptions.subscriptions[0].speak(this.state);
     this.setState({ body: "" });
