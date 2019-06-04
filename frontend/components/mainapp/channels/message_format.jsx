@@ -10,7 +10,7 @@ class MessageFormat extends React.Component {
       users && users > 1
         ? this.props.users[this.props.message.user_id].username
         : "loading";
-    // debugger;
+    debugger;
     return (
       <div className="message-block-wrapper">
         <div className="message-block-margin">
@@ -20,7 +20,9 @@ class MessageFormat extends React.Component {
             </div>
             <h2 className="message-created-information">
               <span className="message-username">{userName}</span>
-              <time className="message-timestamp">Today at 10:45 PM</time>
+              <time className="message-timestamp">
+                {this.props.message.created_at}
+              </time>
             </h2>
           </div>
           <div className="message-icon-margin-wrapper">

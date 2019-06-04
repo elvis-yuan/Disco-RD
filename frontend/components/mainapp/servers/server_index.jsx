@@ -8,10 +8,24 @@ class ServerIndex extends React.Component {
     super(props);
   }
 
-  // componentDidMount() {
-  //   const { currentUser, fetchAllServers } = this.props;
-  //   fetchAllServers(currentUser.id);
-  // }
+  componentDidMount() {
+    // this.props.servers.forEach(server => {
+    //   App.cable.subscriptions.create(
+    //     {
+    //       channel: "ServerChannel",
+    //       server_id: this.props.match.params.serverId
+    //     },
+    //     {
+    //       received: data => {
+    //         dispatch(receiveUser(data.user));
+    //       },
+    //       findUser: function(data) {
+    //         return this.perform("findUser", data);
+    //       }
+    //     }
+    //   );
+    // });
+  }
 
   render() {
     const { servers, modalOpen, history, fetchServer } = this.props;
@@ -63,7 +77,10 @@ class ServerIndex extends React.Component {
           <div className="logout-seperator" />
           <div className="server-icon-wrapper">
             <div className="server-margin-wrapper">
-              <a className="server-btn" onClick={()=> dispatch(openModal('logoutUser'))}>
+              <a
+                className="server-btn"
+                onClick={() => dispatch(openModal("logoutUser"))}
+              >
                 <div className="server-selector" />
                 <i className="fas fa-sign-out-alt" />
               </a>

@@ -2,6 +2,7 @@ import React from "react";
 import MessageInputContainer from "./message_input_container";
 import ChannelHeadingContainer from "./channel_heading_container";
 import MessageFormatContainer from "./message_format_container";
+import { receiveUser } from "../../../actions/user_actions";
 
 class ChannelChat extends React.Component {
   constructor(props) {
@@ -13,58 +14,86 @@ class ChannelChat extends React.Component {
 
   componentDidMount() {
     this.props.fetchChannel(this.currentChannelId);
+    // App.channel[this.props.match.params.channelId] =
     App.cable.subscriptions.create(
-      { channel: "ChatChannel", server_id: this.props.match.params.serverId },
+      {
+        channel: "ChatChannel",
+        channel_id: this.props.match.params.channelId
+      },
       {
         received: data => {
-          this.setState({
-            messages: this.state.messages.concat({
-              body: data.message,
-              user_id: data.user_id
-            })
-          });
-          if (data.user) {
-            dispatch(receiveUser(data.user));
+          if (data.type === "message") {
+            this.setState({
+              messages: this.state.messages.concat({
+                body: data.message.body,
+                user_id: data.message.user_id,
+                created_at: data.message.created_at,
+                updated_at: data.message.updated_at
+              })
+            });
           }
+
+          // if (data.type === "user") {
+          //   dispatch(receiveUser(data.user));
+          // }
         },
         speak: function(data) {
           return this.perform("speak", data);
         },
         findUser: function(data) {
-          return this.perform();
+          return this.perform("findUser", data);
         }
       }
     );
+    // App.cable.subscriptions.subscriptions[0].findUser({
+    //   user_id: this.props.currentUserId
+    // });
   }
 
   componentDidUpdate(prevProps) {
     if (
       prevProps.match.params.channelId !== this.props.match.params.channelId
     ) {
-      App.cable.subscriptions.subscriptions[0].unsubscribe();
+      // App.cable.subscriptions.subscriptions[0].unsubscribe();
 
       this.currentChannelId = this.props.match.params.channelId;
       this.setState({ messages: [] });
       this.currentChannelId = this.props.fetchChannel(this.currentChannelId);
 
+      // App.channel[this.props.match.params.channelId] =
       App.cable.subscriptions.create(
-        { channel: "ChatChannel" },
+        {
+          channel: "ChatChannel",
+          channel_id: this.props.match.params.channelId
+        },
         {
           received: data => {
-            this.setState({
-              messages: this.state.messages.concat({
-                body: data.message,
-                user_id: data.user_id,
-                created_at: data.created_at,
-                updated_at: data.updated_at
-              })
-            });
+            if (data.type === "message") {
+              this.setState({
+                messages: this.state.messages.concat({
+                  body: data.message.body,
+                  user_id: data.message.user_id,
+                  created_at: data.message.created_at,
+                  updated_at: data.message.updated_at
+                })
+              });
+            }
+
+            // if (data.type === "user") {
+            //   dispatch(receiveUser(data.user));
+            // }
           },
           speak: function(data) {
             return this.perform("speak", data);
+          },
+          findUser: function(data) {
+            return this.perform("findUser", data);
           }
         }
       );
+      App.cable.subscriptions.subscriptions[0].findUser({
+        user_id: this.props.currentUserId
+      });
     }
 
     if (this.bottom.current !== null) {
@@ -73,6 +102,7 @@ class ChannelChat extends React.Component {
   }
 
   render() {
+    debugger;
     const { channels, messages } = this.props;
     const allMessages = this.state.messages.map((message, index) => {
       return (

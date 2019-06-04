@@ -423,6 +423,27 @@ var deleteErrors = function deleteErrors() {
 
 /***/ }),
 
+/***/ "./frontend/actions/user_actions.js":
+/*!******************************************!*\
+  !*** ./frontend/actions/user_actions.js ***!
+  \******************************************/
+/*! exports provided: RECEIVE_USER, receiveUser */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USER", function() { return RECEIVE_USER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
+var RECEIVE_USER = "RECEIVE_USER";
+var receiveUser = function receiveUser(user) {
+  return {
+    type: RECEIVE_USER,
+    user: user
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/app.jsx":
 /*!**************************!*\
   !*** ./frontend/app.jsx ***!
@@ -1486,6 +1507,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _message_input_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./message_input_container */ "./frontend/components/mainapp/channels/message_input_container.js");
 /* harmony import */ var _channel_heading_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./channel_heading_container */ "./frontend/components/mainapp/channels/channel_heading_container.js");
 /* harmony import */ var _message_format_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./message_format_container */ "./frontend/components/mainapp/channels/message_format_container.js");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/user_actions */ "./frontend/actions/user_actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1503,6 +1525,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -1533,30 +1556,36 @@ function (_React$Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      this.props.fetchChannel(this.currentChannelId);
+      this.props.fetchChannel(this.currentChannelId); // App.channel[this.props.match.params.channelId] =
+
       App.cable.subscriptions.create({
         channel: "ChatChannel",
-        server_id: this.props.match.params.serverId
+        channel_id: this.props.match.params.channelId
       }, {
         received: function received(data) {
-          _this2.setState({
-            messages: _this2.state.messages.concat({
-              body: data.message,
-              user_id: data.user_id
-            })
-          });
+          if (data.type === "message") {
+            _this2.setState({
+              messages: _this2.state.messages.concat({
+                body: data.message.body,
+                user_id: data.message.user_id,
+                created_at: data.message.created_at,
+                updated_at: data.message.updated_at
+              })
+            });
+          } // if (data.type === "user") {
+          //   dispatch(receiveUser(data.user));
+          // }
 
-          if (data.user) {
-            dispatch(receiveUser(data.user));
-          }
         },
         speak: function speak(data) {
           return this.perform("speak", data);
         },
         findUser: function findUser(data) {
-          return this.perform();
+          return this.perform("findUser", data);
         }
-      });
+      }); // App.cable.subscriptions.subscriptions[0].findUser({
+      //   user_id: this.props.currentUserId
+      // });
     }
   }, {
     key: "componentDidUpdate",
@@ -1564,28 +1593,41 @@ function (_React$Component) {
       var _this3 = this;
 
       if (prevProps.match.params.channelId !== this.props.match.params.channelId) {
-        App.cable.subscriptions.subscriptions[0].unsubscribe();
+        // App.cable.subscriptions.subscriptions[0].unsubscribe();
         this.currentChannelId = this.props.match.params.channelId;
         this.setState({
           messages: []
         });
-        this.currentChannelId = this.props.fetchChannel(this.currentChannelId);
+        this.currentChannelId = this.props.fetchChannel(this.currentChannelId); // App.channel[this.props.match.params.channelId] =
+
         App.cable.subscriptions.create({
-          channel: "ChatChannel"
+          channel: "ChatChannel",
+          channel_id: this.props.match.params.channelId
         }, {
           received: function received(data) {
-            _this3.setState({
-              messages: _this3.state.messages.concat({
-                body: data.message,
-                user_id: data.user_id,
-                created_at: data.created_at,
-                updated_at: data.updated_at
-              })
-            });
+            if (data.type === "message") {
+              _this3.setState({
+                messages: _this3.state.messages.concat({
+                  body: data.message.body,
+                  user_id: data.message.user_id,
+                  created_at: data.message.created_at,
+                  updated_at: data.message.updated_at
+                })
+              });
+            } // if (data.type === "user") {
+            //   dispatch(receiveUser(data.user));
+            // }
+
           },
           speak: function speak(data) {
             return this.perform("speak", data);
+          },
+          findUser: function findUser(data) {
+            return this.perform("findUser", data);
           }
+        });
+        App.cable.subscriptions.subscriptions[0].findUser({
+          user_id: this.props.currentUserId
         });
       }
 
@@ -1598,6 +1640,7 @@ function (_React$Component) {
     value: function render() {
       var _this4 = this;
 
+      debugger;
       var _this$props = this.props,
           channels = _this$props.channels,
           messages = _this$props.messages;
@@ -1677,6 +1720,7 @@ var msp = function msp(_ref) {
   return {
     channels: entities.channels,
     currentUser: entities.users[session.currentUser],
+    currentUserId: session.currentUser,
     messages: entities.messages
   };
 };
@@ -2004,7 +2048,13 @@ function (_React$Component) {
         className: "channel-conainner-user-information"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-user-username"
-      }, this.props.currentUser.username))));
+      }, this.props.currentUser.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        onClick: function onClick() {
+          App.cable.subscriptions.subscriptions[0].findUser({
+            user_id: _this2.props.currentUserId
+          });
+        }
+      }, "find User")));
     }
   }]);
 
@@ -2042,6 +2092,7 @@ var msp = function msp(_ref) {
   return {
     channels: entities.channels,
     currentUser: entities.users[session.currentUser],
+    currentUserId: session.currentUser,
     servers: entities.servers
   };
 };
@@ -2414,8 +2465,8 @@ function (_React$Component) {
     value: function render() {
       var users = this.props.users ? Object.values(this.props.users).length : null; // debugger;
 
-      var userName = users && users > 1 ? this.props.users[this.props.message.user_id].username : "loading"; // debugger;
-
+      var userName = users && users > 1 ? this.props.users[this.props.message.user_id].username : "loading";
+      debugger;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-block-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2433,7 +2484,7 @@ function (_React$Component) {
         className: "message-username"
       }, userName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("time", {
         className: "message-timestamp"
-      }, "Today at 10:45 PM"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.props.message.created_at))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-icon-margin-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-container"
@@ -3966,13 +4017,28 @@ function (_React$Component) {
     _classCallCheck(this, ServerIndex);
 
     return _possibleConstructorReturn(this, _getPrototypeOf(ServerIndex).call(this, props));
-  } // componentDidMount() {
-  //   const { currentUser, fetchAllServers } = this.props;
-  //   fetchAllServers(currentUser.id);
-  // }
-
+  }
 
   _createClass(ServerIndex, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {// this.props.servers.forEach(server => {
+      //   App.cable.subscriptions.create(
+      //     {
+      //       channel: "ServerChannel",
+      //       server_id: this.props.match.params.serverId
+      //     },
+      //     {
+      //       received: data => {
+      //         dispatch(receiveUser(data.user));
+      //       },
+      //       findUser: function(data) {
+      //         return this.perform("findUser", data);
+      //       }
+      //     }
+      //   );
+      // });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -4032,7 +4098,7 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
           className: "server-btn",
           onClick: function onClick() {
-            return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])('logoutUser'));
+            return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["openModal"])("logoutUser"));
           }
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           className: "server-selector"
@@ -5162,9 +5228,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/server_actions */ "./frontend/actions/server_actions.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -5173,15 +5241,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var usersReducer = function usersReducer() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var action = arguments.length > 1 ? arguments[1] : undefined;
-  Object.freeze(state); // debugger;
+  Object.freeze(state);
 
   switch (action.type) {
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_USER"]:
+      var user = action.user;
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state, _defineProperty({}, user.id, user));
+
     case _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_SERVER"]:
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, action.server.users);
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state, action.server.users);
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       var currentUser = action.currentUser;
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state, _defineProperty({}, currentUser.id, currentUser));
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state, _defineProperty({}, currentUser.id, currentUser));
 
     default:
       return state;

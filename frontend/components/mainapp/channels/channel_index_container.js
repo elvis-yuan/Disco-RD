@@ -9,6 +9,7 @@ const msp = ({ entities, session }) => {
   return {
     channels: entities.channels,
     currentUser: entities.users[session.currentUser],
+    currentUserId: session.currentUser,
     servers: entities.servers
   };
 };

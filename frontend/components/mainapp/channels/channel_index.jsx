@@ -149,7 +149,15 @@ class ChannelIndex extends React.Component {
               {this.props.currentUser.username}
             </div>
           </div>
-          {/* <div>buttons</div> */}
+          <div
+            onClick={() => {
+              App.cable.subscriptions.subscriptions[0].findUser({
+                user_id: this.props.currentUserId
+              });
+            }}
+          >
+            find User
+          </div>
         </div>
       </div>
     );
