@@ -14,7 +14,59 @@ class ChannelChat extends React.Component {
 
   componentDidMount() {
     this.props.fetchChannel(this.currentChannelId);
+    this.createSocketConnection();
+    // App.cable.subscriptions.create(
+    //   {
+    //     channel: "ChatChannel",
+    //     channel_id: this.props.match.params.channelId,
+    //     user_id: this.props.currentUserId
+    //   },
+    //   {
+    //     received: data => {
+    //       if (data.type === "message") {
+    //         this.setState({
+    //           messages: this.state.messages.concat({
+    //             body: data.message.body,
+    //             user_id: data.message.user_id,
+    //             created_at: data.message.created_at,
+    //             updated_at: data.message.updated_at
+    //           })
+    //         });
+    //       }
 
+    //       if (data.type === "user") {
+    //         this.props.fetchUser(data.user);
+    //       }
+    //     },
+    //     speak: function(data) {
+    //       return this.perform("speak", data);
+    //     },
+    //     findUser: function(data) {
+    //       return this.perform("findUser", data);
+    //     }
+    //   }
+    // );
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.match.params.channelId !== this.props.match.params.channelId
+    ) {
+      App.cable.subscriptions.subscriptions[0].unsubscribe();
+
+      this.currentChannelId = this.props.match.params.channelId;
+      this.setState({ messages: [] });
+      this.props.fetchChannel(this.currentChannelId);
+
+      this.createSocketConnection();
+
+      if (this.bottom.current !== null) {
+        this.bottom.current.scrollIntoView();
+      }
+    }
+  }
+
+  createSocketConnection() {
     App.cable.subscriptions.create(
       {
         channel: "ChatChannel",
@@ -48,56 +100,7 @@ class ChannelChat extends React.Component {
     );
   }
 
-  componentDidUpdate(prevProps) {
-    if (
-      prevProps.match.params.channelId !== this.props.match.params.channelId
-    ) {
-      App.cable.subscriptions.subscriptions[0].unsubscribe();
-
-      this.currentChannelId = this.props.match.params.channelId;
-      this.setState({ messages: [] });
-      this.currentChannelId = this.props.fetchChannel(this.currentChannelId);
-
-      App.cable.subscriptions.create(
-        {
-          channel: "ChatChannel",
-          channel_id: this.props.match.params.channelId,
-          user_id: this.props.currentUserId
-        },
-        {
-          received: data => {
-            if (data.type === "message") {
-              this.setState({
-                messages: this.state.messages.concat({
-                  body: data.message.body,
-                  user_id: data.message.user_id,
-                  created_at: data.message.created_at,
-                  updated_at: data.message.updated_at
-                })
-              });
-            }
-
-            if (data.type === "user") {
-              this.props.fetchUser(data.user);
-            }
-          },
-          speak: function(data) {
-            return this.perform("speak", data);
-          },
-          findUser: function(data) {
-            return this.perform("findUser", data);
-          }
-        }
-      );
-    }
-
-    if (this.bottom.current !== null) {
-      this.bottom.current.scrollIntoView();
-    }
-  }
-
   render() {
-
     const { channels, messages } = this.props;
     const allMessages = this.state.messages.map((message, index) => {
       return (

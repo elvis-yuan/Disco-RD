@@ -27,10 +27,12 @@ const quitServer = action => ({
   server: action
 });
 
-const receiveErrors = errors => ({
-  type: RECEIVE_ERRORS,
-  errors
-});
+const receiveErrors = errors => {
+  return {
+    type: RECEIVE_ERRORS,
+    errors
+  };
+};
 
 export const fetchAllServers = userId => dispatch =>
   ServerAPI.fetchAllServers(userId).then(servers => {

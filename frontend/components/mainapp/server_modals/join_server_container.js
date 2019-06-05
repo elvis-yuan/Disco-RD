@@ -6,7 +6,8 @@ import { joinServer } from "../../../actions/server_actions";
 import { deleteErrors } from "../../../actions/session_actions";
 import { fetchAllChannels } from "../../../actions/channel_actions";
 
-const msp = ({ errors }) => ({
+const msp = ({ errors, entities }) => ({
+  servers: entities.servers,
   errors: errors.server
 });
 

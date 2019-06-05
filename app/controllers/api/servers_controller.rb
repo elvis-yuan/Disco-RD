@@ -62,14 +62,15 @@ class Api::ServersController < ApplicationController
   def join
     errors = []
     errors.concat(['empty'])if params[:server][:invitation_code] === ""
+    
+    @server = Server.includes(:channels, :connected_users).find_by(invitation_code: params[:server][:invitation_code])
 
-    @server = Server.includes(:channels).find_by(invitation_code: params[:server][:invitation_code])
-    if @server
+    if @server.connected_users.include?(current_user)
+      render json: ['already joined the server'], status: 422
+    elsif @server 
       @server.user_servers.create!(user_id: current_user.id, server_id: @server.id)
       @channels = @server.channels
       @users = @server.connected_users
-      
-
 
       render :show
     elsif errors.length > 0
@@ -78,7 +79,7 @@ class Api::ServersController < ApplicationController
       errors.concat(['no server found']) 
       render json: errors, status: 422
     else
-      render json: @server.errors.full_messages, status: 422
+      render json: ['already joined the server'], status: 422
     end
   end
 

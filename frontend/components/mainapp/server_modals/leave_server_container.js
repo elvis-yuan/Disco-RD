@@ -5,10 +5,9 @@ import { deleteErrors } from "../../../actions/session_actions";
 import { closeModal } from "../../../actions/modal_actions";
 import LeaveServerModal from "./leave_server_modal";
 
-const msp = state => {
-  debugger;
+const msp = store => {
   return {
-    servers: state.entities.servers
+    servers: store.entities.servers
   };
 };
 

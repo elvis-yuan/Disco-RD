@@ -1,15 +1,17 @@
 import React from "react";
 
 class MessageFormat extends React.Component {
+  componentDidMount() {}
+
   render() {
     const users = this.props.users
       ? Object.values(this.props.users).length
       : null;
 
     const userName =
-      users && users > 1
+      users && this.props.users[this.props.message.user_id]
         ? this.props.users[this.props.message.user_id].username
-        : "loading";
+        : "User Left";
 
     return (
       <div className="message-block-wrapper">

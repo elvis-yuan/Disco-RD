@@ -1537,9 +1537,60 @@ function (_React$Component) {
   _createClass(ChannelChat, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      this.props.fetchChannel(this.currentChannelId);
+      this.createSocketConnection(); // App.cable.subscriptions.create(
+      //   {
+      //     channel: "ChatChannel",
+      //     channel_id: this.props.match.params.channelId,
+      //     user_id: this.props.currentUserId
+      //   },
+      //   {
+      //     received: data => {
+      //       if (data.type === "message") {
+      //         this.setState({
+      //           messages: this.state.messages.concat({
+      //             body: data.message.body,
+      //             user_id: data.message.user_id,
+      //             created_at: data.message.created_at,
+      //             updated_at: data.message.updated_at
+      //           })
+      //         });
+      //       }
+      //       if (data.type === "user") {
+      //         this.props.fetchUser(data.user);
+      //       }
+      //     },
+      //     speak: function(data) {
+      //       return this.perform("speak", data);
+      //     },
+      //     findUser: function(data) {
+      //       return this.perform("findUser", data);
+      //     }
+      //   }
+      // );
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      if (prevProps.match.params.channelId !== this.props.match.params.channelId) {
+        App.cable.subscriptions.subscriptions[0].unsubscribe();
+        this.currentChannelId = this.props.match.params.channelId;
+        this.setState({
+          messages: []
+        });
+        this.props.fetchChannel(this.currentChannelId);
+        this.createSocketConnection();
+
+        if (this.bottom.current !== null) {
+          this.bottom.current.scrollIntoView();
+        }
+      }
+    }
+  }, {
+    key: "createSocketConnection",
+    value: function createSocketConnection() {
       var _this2 = this;
 
-      this.props.fetchChannel(this.currentChannelId);
       App.cable.subscriptions.create({
         channel: "ChatChannel",
         channel_id: this.props.match.params.channelId,
@@ -1570,55 +1621,9 @@ function (_React$Component) {
       });
     }
   }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate(prevProps) {
-      var _this3 = this;
-
-      if (prevProps.match.params.channelId !== this.props.match.params.channelId) {
-        App.cable.subscriptions.subscriptions[0].unsubscribe();
-        this.currentChannelId = this.props.match.params.channelId;
-        this.setState({
-          messages: []
-        });
-        this.currentChannelId = this.props.fetchChannel(this.currentChannelId);
-        App.cable.subscriptions.create({
-          channel: "ChatChannel",
-          channel_id: this.props.match.params.channelId,
-          user_id: this.props.currentUserId
-        }, {
-          received: function received(data) {
-            if (data.type === "message") {
-              _this3.setState({
-                messages: _this3.state.messages.concat({
-                  body: data.message.body,
-                  user_id: data.message.user_id,
-                  created_at: data.message.created_at,
-                  updated_at: data.message.updated_at
-                })
-              });
-            }
-
-            if (data.type === "user") {
-              _this3.props.fetchUser(data.user);
-            }
-          },
-          speak: function speak(data) {
-            return this.perform("speak", data);
-          },
-          findUser: function findUser(data) {
-            return this.perform("findUser", data);
-          }
-        });
-      }
-
-      if (this.bottom.current !== null) {
-        this.bottom.current.scrollIntoView();
-      }
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this4 = this;
+      var _this3 = this;
 
       var _this$props = this.props,
           channels = _this$props.channels,
@@ -1629,7 +1634,7 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_format_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
           message: message
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          ref: _this4.bottom
+          ref: _this3.bottom
         }));
       }); // debugger;
 
@@ -1643,7 +1648,7 @@ function (_React$Component) {
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_format_container__WEBPACK_IMPORTED_MODULE_3__["default"], {
           message: message
         }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-          ref: _this4.bottom
+          ref: _this3.bottom
         }));
       }) : null;
       var title = Object.values(channels).length > 0 ? channels[this.props.match.params.channelId].title : "";
@@ -2411,10 +2416,13 @@ function (_React$Component) {
   }
 
   _createClass(MessageFormat, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {}
+  }, {
     key: "render",
     value: function render() {
       var users = this.props.users ? Object.values(this.props.users).length : null;
-      var userName = users && users > 1 ? this.props.users[this.props.message.user_id].username : "loading";
+      var userName = users && this.props.users[this.props.message.user_id] ? this.props.users[this.props.message.user_id].username : "User Left";
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-block-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2465,12 +2473,27 @@ __webpack_require__.r(__webpack_exports__);
 
 var msp = function msp(state) {
   return {
-    users: state.entities.users
+    users: state.entities.users,
+    currentUser: state.session.currentUser
   };
 };
 
 var mdp = function mdp(dispatch) {
-  return {};
+  return {
+    fetchUsers: function (_fetchUsers) {
+      function fetchUsers(_x) {
+        return _fetchUsers.apply(this, arguments);
+      }
+
+      fetchUsers.toString = function () {
+        return _fetchUsers.toString();
+      };
+
+      return fetchUsers;
+    }(function (serverId) {
+      return dispatch(fetchUsers(serverId));
+    })
+  };
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_message_format__WEBPACK_IMPORTED_MODULE_1__["default"]));
@@ -3486,8 +3509,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var msp = function msp(_ref) {
-  var errors = _ref.errors;
+  var errors = _ref.errors,
+      entities = _ref.entities;
   return {
+    servers: entities.servers,
     errors: errors.server
   };
 };
@@ -3607,10 +3632,13 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var errors = this.props.errors;
-      var serverError = errors.includes("no server found") ? "red-text" : "";
+      var serverError = errors.length > 0 ? "red-text" : "";
       var inviteError = errors.includes("empty") || errors.includes("no server found") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "red-text"
       }, "(The instant invite is invalid)") : "";
+      var alreadyJoined = errors.includes("already joined the server") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "red-text"
+      }, "(You are already in this server)") : "";
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "server-modal-form no-padding"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3636,9 +3664,8 @@ function (_React$Component) {
         type: "text",
         value: this.state.invitation_code,
         onChange: this.handleChange("invitation_code"),
-        className: "join-server-input ".concat(serverError) // autoFocus
-
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Enter an Instant Invite ", inviteError))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "join-server-input ".concat(serverError)
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", null, "Enter an Instant Invite ", inviteError, alreadyJoined))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "create-server-btn-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-back-button",
@@ -3680,10 +3707,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var msp = function msp(state) {
-  debugger;
+var msp = function msp(store) {
   return {
-    servers: state.entities.servers
+    servers: store.entities.servers
   };
 };
 
@@ -3745,7 +3771,6 @@ function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(LeaveSeverModal).call(this, props));
     _this.currentServer = parseInt(_this.props.history.location.pathname.split("/")[2]);
-    debugger;
     _this.currentTitle = _this.props.servers[_this.currentServer].title;
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;

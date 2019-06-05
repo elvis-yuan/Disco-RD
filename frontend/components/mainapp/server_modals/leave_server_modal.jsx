@@ -6,7 +6,7 @@ class LeaveSeverModal extends React.Component {
     this.currentServer = parseInt(
       this.props.history.location.pathname.split("/")[2]
     );
-    debugger;
+
     this.currentTitle = this.props.servers[this.currentServer].title;
     this.handleSubmit = this.handleSubmit.bind(this);
   }

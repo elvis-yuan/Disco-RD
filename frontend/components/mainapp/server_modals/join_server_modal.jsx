@@ -36,7 +36,7 @@ class JoinServerModal extends React.Component {
   render() {
     const { errors } = this.props;
 
-    const serverError = errors.includes("no server found") ? "red-text" : "";
+    const serverError = errors.length > 0 ? "red-text" : "";
 
     const inviteError =
       errors.includes("empty") || errors.includes("no server found") ? (
@@ -44,6 +44,12 @@ class JoinServerModal extends React.Component {
       ) : (
         ""
       );
+
+    const alreadyJoined = errors.includes("already joined the server") ? (
+      <span className="red-text">(You are already in this server)</span>
+    ) : (
+      ""
+    );
 
     return (
       <div className="server-modal-form no-padding">
@@ -67,9 +73,11 @@ class JoinServerModal extends React.Component {
                     value={this.state.invitation_code}
                     onChange={this.handleChange("invitation_code")}
                     className={`join-server-input ${serverError}`}
-                    // autoFocus
                   />
-                  <label>Enter an Instant Invite {inviteError}</label>
+                  <label>
+                    Enter an Instant Invite {inviteError}
+                    {alreadyJoined}
+                  </label>
                 </div>
               </div>
               <div className="create-server-btn-container">
