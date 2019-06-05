@@ -22,22 +22,20 @@ class Api::ChannelsController < ApplicationController
     if @channel.save
       @server = @channel.server
       @messages = @channel.messages
-      @user = User.all
       
-      render :show
+      render :create
     else
       render json: @channel.errors.full_messages, status: 422
     end
   end
 
   def update
-    @channel = Channel.includes(:servers, :messages).find(params[:id])
+    @channel = Channel.includes(:server, :messages).find(params[:id])
     if @channel.update(channel_params)
       @messages = @channel.messages
       @server = @channel.server
-      @user = User.all
 
-      render :show
+      render :create
     else
       render json: @channel.errors.full_messages, status: 422
     end
@@ -47,11 +45,10 @@ class Api::ChannelsController < ApplicationController
     @channel = Channel.includes(:server, :messages).find(params[:id])
     @server = @channel.server
     @messages = @channel.messages
-    @user = User.all
     @channel.destroy
     @channels = @server.channels
     
-    render :show
+    render :create
   end
 
   private
