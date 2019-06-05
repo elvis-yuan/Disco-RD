@@ -15,37 +15,6 @@ class ChannelChat extends React.Component {
   componentDidMount() {
     this.props.fetchChannel(this.currentChannelId);
     this.createSocketConnection();
-    // App.cable.subscriptions.create(
-    //   {
-    //     channel: "ChatChannel",
-    //     channel_id: this.props.match.params.channelId,
-    //     user_id: this.props.currentUserId
-    //   },
-    //   {
-    //     received: data => {
-    //       if (data.type === "message") {
-    //         this.setState({
-    //           messages: this.state.messages.concat({
-    //             body: data.message.body,
-    //             user_id: data.message.user_id,
-    //             created_at: data.message.created_at,
-    //             updated_at: data.message.updated_at
-    //           })
-    //         });
-    //       }
-
-    //       if (data.type === "user") {
-    //         this.props.fetchUser(data.user);
-    //       }
-    //     },
-    //     speak: function(data) {
-    //       return this.perform("speak", data);
-    //     },
-    //     findUser: function(data) {
-    //       return this.perform("findUser", data);
-    //     }
-    //   }
-    // );
   }
 
   componentDidUpdate(prevProps) {
@@ -59,10 +28,9 @@ class ChannelChat extends React.Component {
       this.props.fetchChannel(this.currentChannelId);
 
       this.createSocketConnection();
-
-      if (this.bottom.current !== null) {
-        this.bottom.current.scrollIntoView();
-      }
+    }
+    if (this.bottom.current !== null) {
+      this.bottom.current.scrollIntoView();
     }
   }
 
@@ -106,10 +74,6 @@ class ChannelChat extends React.Component {
       return (
         <div key={index}>
           <MessageFormatContainer message={message} />
-          {/* <div key={index} className="message-text-container">
-          {message.body}
-          <div ref={this.bottom} />
-        </div> */}
           <div ref={this.bottom} />
         </div>
       );
@@ -155,6 +119,7 @@ class ChannelChat extends React.Component {
             <MessageInputContainer
               currentId={this.currentChannelId}
               channels={this.props.channels}
+              channelTitle={title}
             />
           </div>
         </div>

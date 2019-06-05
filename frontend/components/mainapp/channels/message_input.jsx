@@ -26,7 +26,6 @@ class MessageInput extends React.Component {
   }
 
   handleSubmit(e) {
-
     e.preventDefault();
     App.cable.subscriptions.subscriptions[0].speak(this.state);
     this.setState({ body: "" });
@@ -43,7 +42,7 @@ class MessageInput extends React.Component {
                 type="text"
                 value={this.state.body}
                 onChange={this.handleChange("body")}
-                placeholder="type here"
+                placeholder={`Message #${this.props.channelTitle}`}
               />
               <input
                 className="text-submit-button"

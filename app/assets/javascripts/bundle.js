@@ -1538,36 +1538,7 @@ function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.props.fetchChannel(this.currentChannelId);
-      this.createSocketConnection(); // App.cable.subscriptions.create(
-      //   {
-      //     channel: "ChatChannel",
-      //     channel_id: this.props.match.params.channelId,
-      //     user_id: this.props.currentUserId
-      //   },
-      //   {
-      //     received: data => {
-      //       if (data.type === "message") {
-      //         this.setState({
-      //           messages: this.state.messages.concat({
-      //             body: data.message.body,
-      //             user_id: data.message.user_id,
-      //             created_at: data.message.created_at,
-      //             updated_at: data.message.updated_at
-      //           })
-      //         });
-      //       }
-      //       if (data.type === "user") {
-      //         this.props.fetchUser(data.user);
-      //       }
-      //     },
-      //     speak: function(data) {
-      //       return this.perform("speak", data);
-      //     },
-      //     findUser: function(data) {
-      //       return this.perform("findUser", data);
-      //     }
-      //   }
-      // );
+      this.createSocketConnection();
     }
   }, {
     key: "componentDidUpdate",
@@ -1580,10 +1551,10 @@ function (_React$Component) {
         });
         this.props.fetchChannel(this.currentChannelId);
         this.createSocketConnection();
+      }
 
-        if (this.bottom.current !== null) {
-          this.bottom.current.scrollIntoView();
-        }
+      if (this.bottom.current !== null) {
+        this.bottom.current.scrollIntoView();
       }
     }
   }, {
@@ -1666,7 +1637,8 @@ function (_React$Component) {
         className: "message-list"
       }, history, allMessages))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_input_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         currentId: this.currentChannelId,
-        channels: this.props.channels
+        channels: this.props.channels,
+        channelTitle: title
       }))));
     }
   }]);
@@ -2615,7 +2587,7 @@ function (_React$Component) {
         type: "text",
         value: this.state.body,
         onChange: this.handleChange("body"),
-        placeholder: "type here"
+        placeholder: "Message #".concat(this.props.channelTitle)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "text-submit-button",
         type: "submit",
