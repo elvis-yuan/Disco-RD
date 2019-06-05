@@ -8,7 +8,6 @@ class ServerChannel < ApplicationCable::Channel
   end
 
   def channelDisappeared(data)
-    debugger
     channel = {id: data['id'], server_id: data['server_id'], title: data['title']}
     socket = {type: "deletedChannel", channel: channel}
 
@@ -16,7 +15,7 @@ class ServerChannel < ApplicationCable::Channel
   end
 
   def channelAppeared(data)
-    debugger
+    # debugger
     channel = {id: data['id'], server_id: data['server_id'], title: data['title']}
     socket = {type: "newChannel", channel: channel}
 

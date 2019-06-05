@@ -21,7 +21,7 @@ class ChannelChat extends React.Component {
     if (
       prevProps.match.params.channelId !== this.props.match.params.channelId
     ) {
-      App.cable.subscriptions.subscriptions[0].unsubscribe();
+      App[prevProps.match.params.channelId].unsubscribe();
 
       this.currentChannelId = this.props.match.params.channelId;
       this.setState({ messages: [] });
@@ -35,11 +35,12 @@ class ChannelChat extends React.Component {
   }
 
   componentWillUnmount() {
-    App.cable.subscriptions.subscriptions[0].unsubscribe();
+    App[this.currentChannelId].unsubscribe();
   }
 
   createSocketConnection() {
-    App.cable.subscriptions.create(
+    debugger;
+    App[this.currentChannelId] = App.cable.subscriptions.create(
       {
         channel: "ChatChannel",
         channel_id: this.props.match.params.channelId,

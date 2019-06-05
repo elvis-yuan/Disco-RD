@@ -27,7 +27,7 @@ class MessageInput extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    App.cable.subscriptions.subscriptions[0].speak(this.state);
+    App[this.props.match.params.channelId].speak(this.state);
     this.setState({ body: "" });
   }
 

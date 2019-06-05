@@ -108,6 +108,9 @@
 }
 
 .message-window-scroller {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   overflow-y: scroll;
   flex: 1 1 auto;
 }

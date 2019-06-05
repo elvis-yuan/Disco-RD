@@ -14,13 +14,6 @@ class ChatChannel < ApplicationCable::Channel
     ChatChannel.broadcast_to(data['channel_id'], socket)
   end
 
-  # def findUser(data)
-  #   user = User.find(data['user_id'])
-  #   socket = { type: "user", user: user }
-  #   debugger
-  #   ChatChannel.broadcast_to('chat_channel', socket)
-  # end
-
   def unsubscribed
   end
 end

@@ -28,7 +28,9 @@ const serverReducer = (state = {}, action) => {
     case CHANNEL_APPEARED:
       let { id, server_id } = action.channel;
       let updatedServer = state[server_id];
-      updatedServer.channel_ids.push(id);
+      if (!updatedServer.channel_ids.includes(id)) {
+        updatedServer.channel_ids.push(id);
+      }
       return merge({}, state);
     case CHANNEL_DISAPPEARED:
       // let { id, server_id } = action.channel;

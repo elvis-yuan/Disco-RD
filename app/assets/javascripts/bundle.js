@@ -1574,7 +1574,7 @@ function (_React$Component) {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       if (prevProps.match.params.channelId !== this.props.match.params.channelId) {
-        App.cable.subscriptions.subscriptions[0].unsubscribe();
+        App[prevProps.match.params.channelId].unsubscribe();
         this.currentChannelId = this.props.match.params.channelId;
         this.setState({
           messages: []
@@ -1590,14 +1590,15 @@ function (_React$Component) {
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      App.cable.subscriptions.subscriptions[0].unsubscribe();
+      App[this.currentChannelId].unsubscribe();
     }
   }, {
     key: "createSocketConnection",
     value: function createSocketConnection() {
       var _this2 = this;
 
-      App.cable.subscriptions.create({
+      debugger;
+      App[this.currentChannelId] = App.cable.subscriptions.create({
         channel: "ChatChannel",
         channel_id: this.props.match.params.channelId,
         user_id: this.props.currentUserId
@@ -2600,7 +2601,7 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      App.cable.subscriptions.subscriptions[0].speak(this.state);
+      App[this.props.match.params.channelId].speak(this.state);
       this.setState({
         body: ""
       });
@@ -4299,6 +4300,9 @@ function (_React$Component) {
       var exisitingSockets = [];
       var deleteSockets = [];
       var newSockets = [];
+      var previousChannel = prevProps.match.params.channelId;
+      var currentChannel = this.props.match.params.channelId;
+      var history = this.props.history;
       prevSockets.forEach(function (server) {
         return currentSockets.includes(server) ? exisitingSockets.push(server) : deleteSockets.push(server);
       });
@@ -4324,8 +4328,11 @@ function (_React$Component) {
             }
 
             if (data.type === "deletedChannel") {
-              if (_this.props.match.params.channelId === data.channel.id) {
-                _this.props.history.push("/servers/".concat(data.channel.server_id));
+              debugger;
+
+              if (previousChannel === data.channel.id) {
+                debugger;
+                history.push("/servers/".concat(data.channel.server_id));
               }
 
               _this.props.channelDisappeared(data.channel);
@@ -4335,7 +4342,6 @@ function (_React$Component) {
             return this.perform("channelAppeared", data);
           },
           channelDisappeared: function channelDisappeared(data) {
-            debugger;
             return this.perform("channelDisappeared", data);
           }
         });
@@ -4368,7 +4374,6 @@ function (_React$Component) {
               return this.perform("channelAppeared", data);
             },
             channelDisappeared: function channelDisappeared(data) {
-              debugger;
               return this.perform("channelDisappeared", data);
             }
           });
@@ -5483,7 +5488,11 @@ var serverReducer = function serverReducer() {
           id = _action$channel.id,
           server_id = _action$channel.server_id;
       var updatedServer = state[server_id];
-      updatedServer.channel_ids.push(id);
+
+      if (!updatedServer.channel_ids.includes(id)) {
+        updatedServer.channel_ids.push(id);
+      }
+
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["CHANNEL_DISAPPEARED"]:

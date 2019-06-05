@@ -25,6 +25,10 @@ class ServerIndex extends React.Component {
     const deleteSockets = [];
     const newSockets = [];
 
+    const previousChannel = prevProps.match.params.channelId;
+    const currentChannel = this.props.match.params.channelId;
+    const history = this.props.history;
+
     prevSockets.forEach(server =>
       currentSockets.includes(server)
         ? exisitingSockets.push(server)
@@ -55,8 +59,10 @@ class ServerIndex extends React.Component {
               this.props.channelAppeared(data.channel);
             }
             if (data.type === "deletedChannel") {
-              if (this.props.match.params.channelId === data.channel.id) {
-                this.props.history.push(`/servers/${data.channel.server_id}`);
+              debugger;
+              if (previousChannel === data.channel.id) {
+                debugger;
+                history.push(`/servers/${data.channel.server_id}`);
               }
               this.props.channelDisappeared(data.channel);
             }
@@ -65,7 +71,6 @@ class ServerIndex extends React.Component {
             return this.perform("channelAppeared", data);
           },
           channelDisappeared: function(data) {
-            debugger;
             return this.perform("channelDisappeared", data);
           }
         }
@@ -96,7 +101,6 @@ class ServerIndex extends React.Component {
               return this.perform("channelAppeared", data);
             },
             channelDisappeared: function(data) {
-              debugger;
               return this.perform("channelDisappeared", data);
             }
           }
