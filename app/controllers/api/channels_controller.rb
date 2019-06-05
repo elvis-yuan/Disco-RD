@@ -9,8 +9,9 @@ class Api::ChannelsController < ApplicationController
 
   def show 
     @channel = Channel.includes(:messages, :server).find(params[:id])
-    @messages = @channel.messages
+    @messages = @channel.messages.limit(30).order(created_at: :desc)
     @server = @channel.server
+    @users = User.all
 
     render :show
   end
@@ -21,7 +22,8 @@ class Api::ChannelsController < ApplicationController
     if @channel.save
       @server = @channel.server
       @messages = @channel.messages
-
+      @user = User.all
+      
       render :show
     else
       render json: @channel.errors.full_messages, status: 422
@@ -33,6 +35,8 @@ class Api::ChannelsController < ApplicationController
     if @channel.update(channel_params)
       @messages = @channel.messages
       @server = @channel.server
+      @user = User.all
+
       render :show
     else
       render json: @channel.errors.full_messages, status: 422
@@ -43,6 +47,7 @@ class Api::ChannelsController < ApplicationController
     @channel = Channel.includes(:server, :messages).find(params[:id])
     @server = @channel.server
     @messages = @channel.messages
+    @user = User.all
     @channel.destroy
     @channels = @server.channels
     

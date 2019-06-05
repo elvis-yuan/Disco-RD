@@ -13,3 +13,16 @@ json.messages do
     end
   end
 end
+
+json.users do 
+  message_hash = Hash.new(0)
+  @messages.each {|message| message_hash[message.user_id] += 1}
+  user_hash = Hash.new(0)
+  @users.each {|user| user_hash[user.id] = user}
+  message_authors = message_hash.keys.map{|user_id| user_hash[user_id]}
+  message_authors.each do |user|
+    json.set! user.id do 
+      json.extract! user, :id, :username, :email
+    end
+  end
+end

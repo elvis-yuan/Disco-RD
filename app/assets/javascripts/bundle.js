@@ -2431,6 +2431,16 @@ function (_React$Component) {
     value: function render() {
       var users = this.props.users ? Object.values(this.props.users).length : null;
       var userName = users && this.props.users[this.props.message.user_id] ? this.props.users[this.props.message.user_id].username : "User Left";
+      var date = new Date(this.props.message.created_at);
+      var localTime = date.toLocaleTimeString("en-US", {
+        timeZone: "America/New_York"
+      });
+      var localDate = date.toLocaleDateString("en-US", {
+        timeZone: "America/New_York",
+        weekday: "short",
+        month: "short",
+        day: "2-digit"
+      });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-block-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -2448,7 +2458,7 @@ function (_React$Component) {
         className: "message-username"
       }, userName), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("time", {
         className: "message-timestamp"
-      }, this.props.message.created_at))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, localDate, " ", localTime))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-icon-margin-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-container"
@@ -3554,11 +3564,7 @@ function (_React$Component) {
         className: "invite-input",
         value: currentServer.invitation_code,
         disabled: true
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "invite-copy-button"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-        className: "input-copy-text"
-      }, "Copy"))))));
+      })))));
     }
   }]);
 
@@ -5491,9 +5497,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
 /* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/server_actions */ "./frontend/actions/server_actions.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/user_actions */ "./frontend/actions/user_actions.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
-/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_4__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -5508,14 +5516,18 @@ var usersReducer = function usersReducer() {
   switch (action.type) {
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_USER"]:
       var user = action.user;
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state, _defineProperty({}, user.id, user));
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_4__["merge"])({}, state, _defineProperty({}, user.id, user));
 
     case _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_SERVER"]:
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state, action.server.users);
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_4__["merge"])({}, state, action.server.users);
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       var currentUser = action.currentUser;
-      return Object(lodash__WEBPACK_IMPORTED_MODULE_3__["merge"])({}, state, _defineProperty({}, currentUser.id, currentUser));
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_4__["merge"])({}, state, _defineProperty({}, currentUser.id, currentUser));
+
+    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__["RECEIVE_CHANNEL"]:
+      var users = action.channel.users;
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_4__["merge"])({}, state, users);
 
     default:
       return state;

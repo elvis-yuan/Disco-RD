@@ -13,6 +13,18 @@ class MessageFormat extends React.Component {
         ? this.props.users[this.props.message.user_id].username
         : "User Left";
 
+    const date = new Date(this.props.message.created_at);
+    const localTime = date.toLocaleTimeString("en-US", {
+      timeZone: "America/New_York"
+    });
+
+    const localDate = date.toLocaleDateString("en-US", {
+      timeZone: "America/New_York",
+      weekday: "short",
+      month: "short",
+      day: "2-digit"
+    });
+
     return (
       <div className="message-block-wrapper">
         <div className="message-block-margin">
@@ -23,7 +35,7 @@ class MessageFormat extends React.Component {
             <h2 className="message-created-information">
               <span className="message-username">{userName}</span>
               <time className="message-timestamp">
-                {this.props.message.created_at}
+                {localDate} {localTime}
               </time>
             </h2>
           </div>

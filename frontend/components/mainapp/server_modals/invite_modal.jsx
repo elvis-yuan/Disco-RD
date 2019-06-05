@@ -28,9 +28,9 @@ class InviteModal extends React.Component {
                 value={currentServer.invitation_code}
                 disabled
               />
-              <button className="invite-copy-button">
+              {/* <button className="invite-copy-button">
                 <span className="input-copy-text">Copy</span>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>
