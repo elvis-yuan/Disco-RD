@@ -1,0 +1,135 @@
+.invite-modal-container {
+  background-color: #36393f;
+  box-shadow: 0 0 0 1px rgba(32, 34, 37, 0.6), 0 2px 10px 0 rgba(0, 0, 0, 0.2);
+  max-height: 455px;
+  min-height: 144px;
+  width: 440px;
+  position: relative;
+  border-radius: 5px;
+  display: flex;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  flex-direction: column;
+}
+
+.invite-modal-header {
+  transition: box-shadow 0.1s ease-out, -webkit-box-shadow 0.1s ease-out;
+  word-wrap: break-word;
+  flex: 0 0 auto;
+  position: relative;
+  flex: 0 0 auto;
+  padding: 20px;
+  z-index: 1;
+  overflow-x: hidden;
+  flex-wrap: nowrap;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.invite-modal-h1 {
+  color: #f6f6f7;
+  text-transform: uppercase;
+  flex: 1;
+  cursor: default;
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 20px;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.invite-input-container {
+  z-index: 0;
+  border-radius: 5px 5px 0 0;
+  position: relative;
+  flex: 1 1 auto;
+  display: flex;
+  height: 100%;
+  padding: 0 12px 0 20px;
+}
+
+.invite-input-box:hover {
+  border-color: black;
+}
+
+.invite-input-wrapper {
+  flex: 1 1 auto;
+  margin-bottom: 20px;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  display: flex;
+}
+
+.invite-subtext {
+  color: #b9bbbe;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.invite-input-box {
+  color: #f6f6f7;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  transition: background-color 0.15s ease, border 0.15s ease;
+  font-size: 16px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+.invite-input {
+  color: #f6f6f7;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-color: rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  height: 40px;
+  box-sizing: border-box;
+  width: 100%;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 3px;
+  transition: background-color 0.15s ease, border 0.15s ease;
+  font-size: 16px;
+  font-family: Whitney;
+}
+
+.invite-copy-button {
+  transition: background-color 0.17s ease, color 0.17s ease;
+  height: 32px;
+  min-width: 60px;
+  min-height: 32px;
+  margin-right: 4px;
+  width: 75px;
+  color: #fff;
+  background-color: #7289da;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 2px 16px;
+  user-select: none;
+  font-family: Whitney;
+}
+
+.invite-copy-button:hover {
+  background-color: #677bc4;
+}
+
+.input-copy-text {
+}

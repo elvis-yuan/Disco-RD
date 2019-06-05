@@ -36,7 +36,7 @@ class CreateServerModal extends React.Component {
   }
 
   render() {
-    // debugger;
+
     const { errors } = this.props;
 
     const redText = errors.length > 0 ? "red-text" : "";

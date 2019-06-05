@@ -115,15 +115,12 @@ class ChannelChat extends React.Component {
       );
     });
 
-    // debugger;
     const oldMessages =
       Object.values(channels).length > 0 && Object.values(messages).length > 0
         ? channels[this.props.match.params.channelId].message_ids.map(
             message_id => messages[message_id]
           )
         : null;
-
-    // debugger;
 
     const history =
       oldMessages !== null &&

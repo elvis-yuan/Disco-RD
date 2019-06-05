@@ -14,7 +14,7 @@ const mdp = dispatch => ({
   updateServer: server => dispatch(updateServer(server)),
   deleteServer: () => dispatch(openModal("deleteServer")),
   closeModal: () => dispatch(closeModal()),
-  deleteErrors: () => dispatch(deleteErrors())
+  deleteErrors: () => dispatch(deleteErrors()),
 });
 
 export default withRouter(

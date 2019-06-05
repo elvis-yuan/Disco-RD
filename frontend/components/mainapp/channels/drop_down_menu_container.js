@@ -5,7 +5,8 @@ import DropDownMenu from "./drop_down_menu";
 
 const mdp = dispatch => ({
   editServer: () => dispatch(openModal("editServer")),
-  leaveServer: () => dispatch(openModal("leaveServer"))
+  leaveServer: () => dispatch(openModal("leaveServer")),
+  inviteServer: () => dispatch(openModal("inviteToServer"))
 });
 
 export default withRouter(

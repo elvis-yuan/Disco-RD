@@ -249,11 +249,8 @@
   left: 10px;
   color: white;
   z-index: 3;
-  padding: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .invitation-code {
@@ -446,4 +443,78 @@ p.plus-icon-hover::after {
 
 .current-channel-selected {
   cursor: default !important;
+}
+
+.dropdown-item {
+  color: hsla(0, 0%, 100%, 0.6);
+  box-sizing: border-box;
+  display: flex;
+  padding: 10px 14px;
+  cursor: pointer;
+  margin: 0;
+  font-size: 15px;
+  line-height: 18px;
+  align-items: center;
+}
+
+.dropdown-item:hover {
+  background-color: #25282d;
+}
+
+.dropdown-item:hover .invite-button {
+  color: #677bc4;
+}
+
+.invite-button {
+  color: #7289da;
+}
+
+.invite-icon {
+  background-image: url("https://discordapp.com/assets/d4ff0d2af68cd1119f0d16ef79d1369c.svg");
+  width: 18px;
+  height: 18px;
+  background-position: 50%;
+  background-repeat: no-reapeat;
+  opacity: 0.8;
+  flex-shrink: 0;
+  margin-right: 14px;
+}
+
+.dropdown-invite-text {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.dropdown-separator {
+  border-bottom-color: hsla(0, 0%, 96.1%, 0.08);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  box-sizing: border-box;
+}
+
+.setting-icon {
+  background-image: url("https://discordapp.com/assets/9a93097ab591379729c68f15a17b26af.svg");
+  width: 18px;
+  height: 18px;
+  background-position: 50%;
+  background-repeat: no-reapeat;
+  opacity: 0.8;
+  flex-shrink: 0;
+  margin-right: 14px;
+}
+
+.leave-button {
+  color: #f04747;
+}
+
+.leave-icon {
+  background-image: url("https://discordapp.com/assets/00de6b3cbb5c4dbcec817c91262f5f5b.svg");
+  width: 18px;
+  height: 18px;
+  background-position: 50%;
+  background-repeat: no-reapeat;
+  opacity: 0.8;
+  flex-shrink: 0;
+  margin-right: 14px;
 }
