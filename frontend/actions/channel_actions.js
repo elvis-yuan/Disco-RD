@@ -4,6 +4,8 @@ import { RECEIVE_ERRORS } from "./session_actions";
 export const RECEIVE_ALL_CHANNELS = "RECEIEVE_ALL_CHANNELS";
 export const RECEIVE_CHANNEL = "RECEIVE_CHANNEL";
 export const REMOVE_CHANNEL = "REMOVE_CHANNEL";
+export const CHANNEL_APPEARED = "CHANNEL_APPEARED";
+export const CHANNEL_DISAPPEARED = "CHANNEL_DISAPPEARED";
 
 const receiveAllChannels = channels => ({
   type: RECEIVE_ALL_CHANNELS,
@@ -20,7 +22,17 @@ const receiveErrors = errors => ({
   errors
 });
 
-const removeChannel = channel => ({
+export const channelAppeared = channel => ({
+  type: CHANNEL_APPEARED,
+  channel
+});
+
+export const channelDisappeared = channel => ({
+  type: CHANNEL_DISAPPEARED,
+  channel
+});
+
+export const removeChannel = channel => ({
   type: REMOVE_CHANNEL,
   channel
 });

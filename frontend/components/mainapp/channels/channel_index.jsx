@@ -46,7 +46,6 @@ class ChannelIndex extends React.Component {
   }
 
   render() {
-
     const currentServer = this.props.servers[
       parseInt(this.props.match.params.serverId)
     ];

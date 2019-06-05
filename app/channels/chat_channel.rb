@@ -1,6 +1,5 @@
 class ChatChannel < ApplicationCable::Channel
   def subscribed
-
     user = User.find(params[:user_id])
     socket = { type: "user", user: user }
     ChatChannel.broadcast_to(params[:channel_id], socket)

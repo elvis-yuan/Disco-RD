@@ -4,12 +4,12 @@ import { openModal, closeModal } from "../../../actions/modal_actions";
 class CreateChannelModal extends React.Component {
   constructor(props) {
     super(props);
-    const currentServer = parseInt(
+    this.currentServer = parseInt(
       this.props.history.location.pathname.split("/")[2]
     );
     this.state = {
       title: "",
-      server_id: currentServer
+      server_id: this.currentServer
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -17,13 +17,16 @@ class CreateChannelModal extends React.Component {
   // componentDidMount() {
   //   if (this.props.errors.length > 0) {
   //     this.props.deleteErrors;
-  //   }
+  //   // }
   // }
 
   handleSubmit(e) {
+    const currentServer = this.currentServer;
     e.preventDefault();
-    this.props.createChannel(this.state).then(() => {
+    this.props.createChannel(this.state).then(action => {
       this.props.closeModal();
+      debugger;
+      App.server[currentServer].channelAppeared(action.channel.channel);
     });
   }
 

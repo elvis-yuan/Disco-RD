@@ -9,22 +9,100 @@ class ServerIndex extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.servers.forEach(server => {
-    //   App.cable.subscriptions.create(
-    //     {
-    //       channel: "ServerChannel",
-    //       server_id: this.props.match.params.serverId
-    //     },
-    //     {
-    //       received: data => {
-    //         dispatch(receiveUser(data.user));
-    //       },
-    //       findUser: function(data) {
-    //         return this.perform("findUser", data);
-    //       }
-    //     }
-    //   );
-    // });
+    this.createServerSockets();
+  }
+
+  componentDidUpdate(prevProps) {
+    const prevSockets = Object.values(prevProps.servers).map(
+      server => server.id
+    );
+
+    const currentSockets = Object.values(this.props.servers).map(
+      server => server.id
+    );
+
+    const exisitingSockets = [];
+    const deleteSockets = [];
+    const newSockets = [];
+
+    prevSockets.forEach(server =>
+      currentSockets.includes(server)
+        ? exisitingSockets.push(server)
+        : deleteSockets.push(server)
+    );
+
+    currentSockets.forEach(server => {
+      if (!prevSockets.includes(server)) newSockets.push(server);
+    });
+
+    deleteSockets.forEach(server_id => {
+      App.server[server_id].unsubscribe();
+    });
+
+    newSockets.forEach(server_id => {
+      App.server[server_id] = App.cable.subscriptions.create(
+        {
+          channel: "ServerChannel",
+          server_id: server_id,
+          user_id: this.props.currentUser
+        },
+        {
+          received: data => {
+            if (data.type === "user") {
+              this.props.receiveUser(data.user);
+            }
+            if (data.type === "newChannel") {
+              this.props.channelAppeared(data.channel);
+            }
+            if (data.type === "deletedChannel") {
+              if (this.props.match.params.channelId === data.channel.id) {
+                this.props.history.push(`/servers/${data.channel.server_id}`);
+              }
+              this.props.channelDisappeared(data.channel);
+            }
+          },
+          channelAppeared: function(data) {
+            return this.perform("channelAppeared", data);
+          },
+          channelDisappeared: function(data) {
+            debugger;
+            return this.perform("channelDisappeared", data);
+          }
+        }
+      );
+    });
+  }
+
+  createServerSockets() {
+    const serverList = Object.values(this.props.servers);
+    if (serverList.length > 0) {
+      serverList.forEach(server => {
+        App.server[server.id] = App.cable.subscriptions.create(
+          {
+            channel: "ServerChannel",
+            server_id: server.id,
+            user_id: this.props.currentUser
+          },
+          {
+            received: data => {
+              if (data.type === "user") {
+                this.props.receiveUser(data.user);
+              }
+              if (data.type === "newChannel") {
+                this.props.channelAppeared(data.channel);
+              }
+            },
+            channelAppeared: function(data) {
+              return this.perform("channelAppeared", data);
+            },
+            channelDisappeared: function(data) {
+              debugger;
+              return this.perform("channelDisappeared", data);
+            }
+          }
+        );
+      });
+    }
   }
 
   render() {

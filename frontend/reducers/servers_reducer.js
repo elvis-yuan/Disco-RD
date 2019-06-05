@@ -3,9 +3,15 @@ import {
   RECEIVE_ALL_SERVERS,
   RECEIVE_SERVER,
   REMOVE_SERVER,
-  LEAVE_SERVER
+  LEAVE_SERVER,
+  updateServer
 } from "../actions/server_actions";
-import { RECEIVE_CHANNEL, REMOVE_CHANNEL } from "../actions/channel_actions";
+import {
+  RECEIVE_CHANNEL,
+  REMOVE_CHANNEL,
+  CHANNEL_APPEARED,
+  CHANNEL_DISAPPEARED
+} from "../actions/channel_actions";
 
 const serverReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -17,7 +23,25 @@ const serverReducer = (state = {}, action) => {
       const newServer = { [server.id]: server };
       return merge({}, state, newServer);
     case REMOVE_SERVER:
+      // case LEAVE_SERVER:
       return action.servers;
+    case CHANNEL_APPEARED:
+      let { id, server_id } = action.channel;
+      let updatedServer = state[server_id];
+      updatedServer.channel_ids.push(id);
+      return merge({}, state);
+    case CHANNEL_DISAPPEARED:
+      // let { id, server_id } = action.channel;
+      // let updatedServer = state[server_id];
+      // updatedServer.channel_ids = updateServer.channel_ids.filter(
+      //   id => id !== action.channel.id
+      // );
+      let updatedState = merge({}, state);
+      updatedState[action.channel.server_id].channel_ids;
+      // updated[updatedServer.id]
+
+      debugger;
+      return merge({}, state);
     case RECEIVE_CHANNEL:
     case REMOVE_CHANNEL:
       const newState = merge({}, state);

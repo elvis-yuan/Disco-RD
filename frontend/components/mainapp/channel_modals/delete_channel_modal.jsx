@@ -11,6 +11,7 @@ class DeleteChannelModal extends React.Component {
   }
 
   handleSubmit(e) {
+    const currentServer = this.currentServer;
     e.preventDefault();
     if (
       parseInt(this.props.history.location.pathname.split("/")[3]) ===
@@ -19,9 +20,11 @@ class DeleteChannelModal extends React.Component {
       this.props.history.push(`/servers/${this.currentServer}`);
     }
 
-    this.props
-      .deleteChannel(this.props.currentChannel)
-      .then(this.props.closeModal);
+    this.props.deleteChannel(this.props.currentChannel).then(action => {
+      this.props.closeModal();
+      debugger;
+      App.server[currentServer].channelDisappeared(action.channel.channel);
+    });
   }
 
   handleChange(field) {

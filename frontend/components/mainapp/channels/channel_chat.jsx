@@ -34,6 +34,10 @@ class ChannelChat extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    App.cable.subscriptions.subscriptions[0].unsubscribe();
+  }
+
   createSocketConnection() {
     App.cable.subscriptions.create(
       {

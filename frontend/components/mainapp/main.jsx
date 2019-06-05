@@ -24,6 +24,8 @@ class Main extends React.Component {
   componentDidMount() {
     const { currentUser, fetchAllServers } = this.props;
     fetchAllServers(currentUser);
+    App.server = {};
+    App.channel = {};
   }
 
   render() {
@@ -51,13 +53,6 @@ class Main extends React.Component {
         />
       </div>
     );
-    // <Switch>
-    //   <ServerRoute
-    //     path="/servers/:serverId"
-    //     component={ChannelIndexContainer}
-    //   />
-    //   <ServerRoute pat/>
-    // </Switch>;
   }
 }
 

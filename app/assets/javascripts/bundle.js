@@ -90,7 +90,7 @@
 /*!*********************************************!*\
   !*** ./frontend/actions/channel_actions.js ***!
   \*********************************************/
-/*! exports provided: RECEIVE_ALL_CHANNELS, RECEIVE_CHANNEL, REMOVE_CHANNEL, fetchAllChannels, fetchChannel, createChannel, updateChannel, deleteChannel */
+/*! exports provided: RECEIVE_ALL_CHANNELS, RECEIVE_CHANNEL, REMOVE_CHANNEL, CHANNEL_APPEARED, CHANNEL_DISAPPEARED, channelAppeared, channelDisappeared, removeChannel, fetchAllChannels, fetchChannel, createChannel, updateChannel, deleteChannel */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -98,6 +98,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_ALL_CHANNELS", function() { return RECEIVE_ALL_CHANNELS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_CHANNEL", function() { return RECEIVE_CHANNEL; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_CHANNEL", function() { return REMOVE_CHANNEL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHANNEL_APPEARED", function() { return CHANNEL_APPEARED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHANNEL_DISAPPEARED", function() { return CHANNEL_DISAPPEARED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "channelAppeared", function() { return channelAppeared; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "channelDisappeared", function() { return channelDisappeared; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeChannel", function() { return removeChannel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllChannels", function() { return fetchAllChannels; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchChannel", function() { return fetchChannel; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createChannel", function() { return createChannel; });
@@ -110,6 +115,8 @@ __webpack_require__.r(__webpack_exports__);
 var RECEIVE_ALL_CHANNELS = "RECEIEVE_ALL_CHANNELS";
 var RECEIVE_CHANNEL = "RECEIVE_CHANNEL";
 var REMOVE_CHANNEL = "REMOVE_CHANNEL";
+var CHANNEL_APPEARED = "CHANNEL_APPEARED";
+var CHANNEL_DISAPPEARED = "CHANNEL_DISAPPEARED";
 
 var receiveAllChannels = function receiveAllChannels(channels) {
   return {
@@ -132,13 +139,24 @@ var receiveErrors = function receiveErrors(errors) {
   };
 };
 
+var channelAppeared = function channelAppeared(channel) {
+  return {
+    type: CHANNEL_APPEARED,
+    channel: channel
+  };
+};
+var channelDisappeared = function channelDisappeared(channel) {
+  return {
+    type: CHANNEL_DISAPPEARED,
+    channel: channel
+  };
+};
 var removeChannel = function removeChannel(channel) {
   return {
     type: REMOVE_CHANNEL,
     channel: channel
   };
 };
-
 var fetchAllChannels = function fetchAllChannels(serverId) {
   return function (dispatch) {
     return _util_channel_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchAllChannels"](serverId).then(function (channels) {
@@ -1007,17 +1025,17 @@ function (_React$Component) {
     _classCallCheck(this, CreateChannelModal);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(CreateChannelModal).call(this, props));
-    var currentServer = parseInt(_this.props.history.location.pathname.split("/")[2]);
+    _this.currentServer = parseInt(_this.props.history.location.pathname.split("/")[2]);
     _this.state = {
       title: "",
-      server_id: currentServer
+      server_id: _this.currentServer
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     return _this;
   } // componentDidMount() {
   //   if (this.props.errors.length > 0) {
   //     this.props.deleteErrors;
-  //   }
+  //   // }
   // }
 
 
@@ -1026,9 +1044,13 @@ function (_React$Component) {
     value: function handleSubmit(e) {
       var _this2 = this;
 
+      var currentServer = this.currentServer;
       e.preventDefault();
-      this.props.createChannel(this.state).then(function () {
+      this.props.createChannel(this.state).then(function (action) {
         _this2.props.closeModal();
+
+        debugger;
+        App.server[currentServer].channelAppeared(action.channel.channel);
       });
     }
   }, {
@@ -1193,21 +1215,29 @@ function (_React$Component) {
   _createClass(DeleteChannelModal, [{
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      var _this2 = this;
+
+      var currentServer = this.currentServer;
       e.preventDefault();
 
       if (parseInt(this.props.history.location.pathname.split("/")[3]) === this.props.currentChannel) {
         this.props.history.push("/servers/".concat(this.currentServer));
       }
 
-      this.props.deleteChannel(this.props.currentChannel).then(this.props.closeModal);
+      this.props.deleteChannel(this.props.currentChannel).then(function (action) {
+        _this2.props.closeModal();
+
+        debugger;
+        App.server[currentServer].channelDisappeared(action.channel.channel);
+      });
     }
   }, {
     key: "handleChange",
     value: function handleChange(field) {
-      var _this2 = this;
+      var _this3 = this;
 
       return function (e) {
-        _this2.setState(_defineProperty({}, field, e.target.value));
+        _this3.setState(_defineProperty({}, field, e.target.value));
       };
     }
   }, {
@@ -1556,6 +1586,11 @@ function (_React$Component) {
       if (this.bottom.current !== null) {
         this.bottom.current.scrollIntoView();
       }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      App.cable.subscriptions.subscriptions[0].unsubscribe();
     }
   }, {
     key: "createSocketConnection",
@@ -2853,6 +2888,8 @@ function (_React$Component) {
           currentUser = _this$props.currentUser,
           fetchAllServers = _this$props.fetchAllServers;
       fetchAllServers(currentUser);
+      App.server = {};
+      App.channel = {};
     }
   }, {
     key: "render",
@@ -2869,13 +2906,7 @@ function (_React$Component) {
         exact: true,
         path: "/servers/:serverId/:channelId",
         component: _channels_channel_chat_container__WEBPACK_IMPORTED_MODULE_7__["default"]
-      })); // <Switch>
-      //   <ServerRoute
-      //     path="/servers/:serverId"
-      //     component={ChannelIndexContainer}
-      //   />
-      //   <ServerRoute pat/>
-      // </Switch>;
+      }));
     }
   }]);
 
@@ -4251,22 +4282,98 @@ function (_React$Component) {
 
   _createClass(ServerIndex, [{
     key: "componentDidMount",
-    value: function componentDidMount() {// this.props.servers.forEach(server => {
-      //   App.cable.subscriptions.create(
-      //     {
-      //       channel: "ServerChannel",
-      //       server_id: this.props.match.params.serverId
-      //     },
-      //     {
-      //       received: data => {
-      //         dispatch(receiveUser(data.user));
-      //       },
-      //       findUser: function(data) {
-      //         return this.perform("findUser", data);
-      //       }
-      //     }
-      //   );
-      // });
+    value: function componentDidMount() {
+      this.createServerSockets();
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps) {
+      var _this = this;
+
+      var prevSockets = Object.values(prevProps.servers).map(function (server) {
+        return server.id;
+      });
+      var currentSockets = Object.values(this.props.servers).map(function (server) {
+        return server.id;
+      });
+      var exisitingSockets = [];
+      var deleteSockets = [];
+      var newSockets = [];
+      prevSockets.forEach(function (server) {
+        return currentSockets.includes(server) ? exisitingSockets.push(server) : deleteSockets.push(server);
+      });
+      currentSockets.forEach(function (server) {
+        if (!prevSockets.includes(server)) newSockets.push(server);
+      });
+      deleteSockets.forEach(function (server_id) {
+        App.server[server_id].unsubscribe();
+      });
+      newSockets.forEach(function (server_id) {
+        App.server[server_id] = App.cable.subscriptions.create({
+          channel: "ServerChannel",
+          server_id: server_id,
+          user_id: _this.props.currentUser
+        }, {
+          received: function received(data) {
+            if (data.type === "user") {
+              _this.props.receiveUser(data.user);
+            }
+
+            if (data.type === "newChannel") {
+              _this.props.channelAppeared(data.channel);
+            }
+
+            if (data.type === "deletedChannel") {
+              if (_this.props.match.params.channelId === data.channel.id) {
+                _this.props.history.push("/servers/".concat(data.channel.server_id));
+              }
+
+              _this.props.channelDisappeared(data.channel);
+            }
+          },
+          channelAppeared: function channelAppeared(data) {
+            return this.perform("channelAppeared", data);
+          },
+          channelDisappeared: function channelDisappeared(data) {
+            debugger;
+            return this.perform("channelDisappeared", data);
+          }
+        });
+      });
+    }
+  }, {
+    key: "createServerSockets",
+    value: function createServerSockets() {
+      var _this2 = this;
+
+      var serverList = Object.values(this.props.servers);
+
+      if (serverList.length > 0) {
+        serverList.forEach(function (server) {
+          App.server[server.id] = App.cable.subscriptions.create({
+            channel: "ServerChannel",
+            server_id: server.id,
+            user_id: _this2.props.currentUser
+          }, {
+            received: function received(data) {
+              if (data.type === "user") {
+                _this2.props.receiveUser(data.user);
+              }
+
+              if (data.type === "newChannel") {
+                _this2.props.channelAppeared(data.channel);
+              }
+            },
+            channelAppeared: function channelAppeared(data) {
+              return this.perform("channelAppeared", data);
+            },
+            channelDisappeared: function channelDisappeared(data) {
+              debugger;
+              return this.perform("channelDisappeared", data);
+            }
+          });
+        });
+      }
     }
   }, {
     key: "render",
@@ -4360,6 +4467,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _server_index__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./server_index */ "./frontend/components/mainapp/servers/server_index.jsx");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+
+
 
 
 
@@ -4385,6 +4496,18 @@ var mdp = function mdp(dispatch) {
     },
     fetchServer: function fetchServer(id) {
       return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["fetchServer"])(id));
+    },
+    receiveUser: function receiveUser(user) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_6__["receiveUser"])(user));
+    },
+    channelDisappeared: function channelDisappeared(channel) {
+      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_7__["channelDisappeared"])(channel));
+    },
+    channelAppeared: function channelAppeared(channel) {
+      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_7__["channelAppeared"])(channel));
+    },
+    removeChannel: function removeChannel(channel) {
+      return dispatch(Object(_actions_channel_actions__WEBPACK_IMPORTED_MODULE_7__["removeChannel"])(channel));
     },
     logoutUser: function logoutUser() {
       return dispatch(Object(_actions_session_actions__WEBPACK_IMPORTED_MODULE_2__["logoutUser"])());
@@ -5064,6 +5187,14 @@ var channelsReducer = function channelsReducer() {
       var channel = action.channel.channel;
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, _defineProperty({}, channel.id, channel));
 
+    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__["CHANNEL_DISAPPEARED"]:
+      var channelState = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
+      delete channelState[action.channel.id];
+      return channelState;
+
+    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_1__["CHANNEL_APPEARED"]:
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, _defineProperty({}, action.channel.id, action.channel));
+
     case _actions_server_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_SERVER"]:
       var channels = action.server.channels;
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, channels);
@@ -5344,7 +5475,28 @@ var serverReducer = function serverReducer() {
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, newServer);
 
     case _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["REMOVE_SERVER"]:
+      // case LEAVE_SERVER:
       return action.servers;
+
+    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["CHANNEL_APPEARED"]:
+      var _action$channel = action.channel,
+          id = _action$channel.id,
+          server_id = _action$channel.server_id;
+      var updatedServer = state[server_id];
+      updatedServer.channel_ids.push(id);
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
+
+    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["CHANNEL_DISAPPEARED"]:
+      // let { id, server_id } = action.channel;
+      // let updatedServer = state[server_id];
+      // updatedServer.channel_ids = updateServer.channel_ids.filter(
+      //   id => id !== action.channel.id
+      // );
+      var updatedState = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
+      updatedState[action.channel.server_id].channel_ids; // updated[updatedServer.id]
+
+      debugger;
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_CHANNEL"]:
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["REMOVE_CHANNEL"]:

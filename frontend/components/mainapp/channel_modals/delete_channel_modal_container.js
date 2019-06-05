@@ -12,7 +12,8 @@ const msp = ({ entities, errors, ui }) => ({
 
 const mdp = dispatch => ({
   closeModal: () => dispatch(closeModal()),
-  deleteChannel: channelId => dispatch(deleteChannel(channelId))
+  deleteChannel: channelId => dispatch(deleteChannel(channelId)),
+  
 });
 
 export default withRouter(
