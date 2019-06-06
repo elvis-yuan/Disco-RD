@@ -2454,7 +2454,9 @@ function (_React$Component) {
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-block-wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+        className: "message-divider"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-block-margin"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-creator-container"
@@ -2475,9 +2477,7 @@ function (_React$Component) {
         className: "message-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-text"
-      }, this.props.message.body)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
-        className: "message-divider"
-      }));
+      }, this.props.message.body)))));
     }
   }]);
 
@@ -4286,14 +4286,11 @@ function (_React$Component) {
     _classCallCheck(this, ServerIndex);
 
     return _possibleConstructorReturn(this, _getPrototypeOf(ServerIndex).call(this, props));
-  }
+  } // componentDidMount(prevProps) {
+  // }
+
 
   _createClass(ServerIndex, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      this.createServerSockets();
-    }
-  }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       var _this = this;
@@ -4310,9 +4307,19 @@ function (_React$Component) {
       var previousChannel = prevProps.match.params.channelId;
       var currentChannel = this.props.match.params.channelId;
       var history = this.props.history;
-      prevSockets.forEach(function (server) {
-        return currentSockets.includes(server) ? exisitingSockets.push(server) : deleteSockets.push(server);
-      });
+
+      if (prevSockets.length > 0) {
+        prevSockets.forEach(function (server) {
+          return currentSockets.includes(server) ? exisitingSockets.push(server) : deleteSockets.push(server);
+        });
+      }
+
+      if (this.props.prevUser !== this.props.currentUser) {
+        exisitingSockets = [];
+        deleteSockets = [];
+        newSockets = [];
+      }
+
       currentSockets.forEach(function (server) {
         if (!prevSockets.includes(server)) newSockets.push(server);
       });
@@ -4335,7 +4342,7 @@ function (_React$Component) {
             }
 
             if (data.type === "deletedChannel") {
-              if (previousChannel === data.channel.id) {
+              if (parseInt(history.location.pathname.split("/")[3]) === data.channel.id) {
                 history.push("/servers/".concat(data.channel.server_id));
               }
 
@@ -4352,10 +4359,24 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      debugger;
+
+      if (App.cable.subscriptions.subscriptions.length > 0) {
+        App.cable.subscriptions.subscriptions.forEach(function (sub) {
+          return sub.unsubscribe();
+        });
+      }
+    }
+  }, {
     key: "createServerSockets",
     value: function createServerSockets() {
       var _this2 = this;
 
+      var previousChannel = prevProps.match.params.channelId;
+      var currentChannel = this.props.match.params.channelId;
+      var history = this.props.history;
       var serverList = Object.values(this.props.servers);
 
       if (serverList.length > 0) {
@@ -4372,6 +4393,14 @@ function (_React$Component) {
 
               if (data.type === "newChannel") {
                 _this2.props.channelAppeared(data.channel);
+              }
+
+              if (data.type === "deletedChannel") {
+                if (previousChannel === data.channel.id) {
+                  history.push("/servers/".concat(data.channel.server_id));
+                }
+
+                _this2.props.channelDisappeared(data.channel);
               }
             },
             channelAppeared: function channelAppeared(data) {
@@ -4493,6 +4522,7 @@ var msp = function msp(_ref) {
       ui = _ref.ui;
   return {
     currentUser: session.currentUser,
+    prevUser: session.prevUser,
     servers: entities.servers,
     modalOpen: ui.modal ? ["join", "main", "create"].includes(ui.modal) : false
   };
@@ -5488,16 +5518,15 @@ var serverReducer = function serverReducer() {
       return action.servers;
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["CHANNEL_APPEARED"]:
-      var _action$channel = action.channel,
-          id = _action$channel.id,
-          server_id = _action$channel.server_id;
-      var updatedServer = state[server_id];
+      var channelAppeared = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
+      debugger;
 
-      if (!updatedServer.channel_ids.includes(id)) {
+      if (!channelAppeared.channel_ids.includes(id)) {
         updatedServer.channel_ids.push(id);
       }
 
-      return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
+      debugger;
+      return channelAppeared;
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["CHANNEL_DISAPPEARED"]:
       // let { id, server_id } = action.channel;
@@ -5505,9 +5534,9 @@ var serverReducer = function serverReducer() {
       // updatedServer.channel_ids = updateServer.channel_ids.filter(
       //   id => id !== action.channel.id
       // );
-      var updatedState = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
-      updatedState[action.channel.server_id].channel_ids; // updated[updatedServer.id]
-
+      // let updatedState = merge({}, state);
+      // updatedState[action.channel.server_id].channel_ids;
+      // updated[updatedServer.id]
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_CHANNEL"]:
@@ -5571,9 +5600,13 @@ var sessionErrorsReducer = function sessionErrorsReducer() {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+
 
 var _nullSession = {
-  currentUser: null
+  currentUser: null,
+  prevUser: null
 };
 
 var sessionReducer = function sessionReducer() {
@@ -5583,12 +5616,16 @@ var sessionReducer = function sessionReducer() {
 
   switch (action.type) {
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
-      return {
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, {
         currentUser: action.currentUser.id
-      };
+      });
 
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["LOGOUT"]:
-      return _nullSession;
+      var prevUser = state.currentUser;
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_1__["merge"])({}, state, {
+        currentUser: null,
+        prevUser: prevUser
+      });
 
     default:
       return state;

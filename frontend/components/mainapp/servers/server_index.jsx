@@ -8,9 +8,9 @@ class ServerIndex extends React.Component {
     super(props);
   }
 
-  componentDidMount() {
-    this.createServerSockets();
-  }
+  // componentDidMount(prevProps) {
+
+  // }
 
   componentDidUpdate(prevProps) {
     const prevSockets = Object.values(prevProps.servers).map(
@@ -21,19 +21,27 @@ class ServerIndex extends React.Component {
       server => server.id
     );
 
-    const exisitingSockets = [];
-    const deleteSockets = [];
-    const newSockets = [];
+    let exisitingSockets = [];
+    let deleteSockets = [];
+    let newSockets = [];
 
     const previousChannel = prevProps.match.params.channelId;
     const currentChannel = this.props.match.params.channelId;
     const history = this.props.history;
 
-    prevSockets.forEach(server =>
-      currentSockets.includes(server)
-        ? exisitingSockets.push(server)
-        : deleteSockets.push(server)
-    );
+    if (prevSockets.length > 0) {
+      prevSockets.forEach(server =>
+        currentSockets.includes(server)
+          ? exisitingSockets.push(server)
+          : deleteSockets.push(server)
+      );
+    }
+
+    if (this.props.prevUser !== this.props.currentUser) {
+      exisitingSockets = [];
+      deleteSockets = [];
+      newSockets = [];
+    }
 
     currentSockets.forEach(server => {
       if (!prevSockets.includes(server)) newSockets.push(server);
@@ -59,7 +67,10 @@ class ServerIndex extends React.Component {
               this.props.channelAppeared(data.channel);
             }
             if (data.type === "deletedChannel") {
-              if (previousChannel === data.channel.id) {
+              if (
+                parseInt(history.location.pathname.split("/")[3]) ===
+                data.channel.id
+              ) {
                 history.push(`/servers/${data.channel.server_id}`);
               }
               this.props.channelDisappeared(data.channel);
@@ -76,8 +87,19 @@ class ServerIndex extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    debugger;
+    if (App.cable.subscriptions.subscriptions.length > 0) {
+      App.cable.subscriptions.subscriptions.forEach(sub => sub.unsubscribe());
+    }
+  }
+
   createServerSockets() {
+    const previousChannel = prevProps.match.params.channelId;
+    const currentChannel = this.props.match.params.channelId;
+    const history = this.props.history;
     const serverList = Object.values(this.props.servers);
+
     if (serverList.length > 0) {
       serverList.forEach(server => {
         App.server[server.id] = App.cable.subscriptions.create(
@@ -93,6 +115,12 @@ class ServerIndex extends React.Component {
               }
               if (data.type === "newChannel") {
                 this.props.channelAppeared(data.channel);
+              }
+              if (data.type === "deletedChannel") {
+                if (previousChannel === data.channel.id) {
+                  history.push(`/servers/${data.channel.server_id}`);
+                }
+                this.props.channelDisappeared(data.channel);
               }
             },
             channelAppeared: function(data) {

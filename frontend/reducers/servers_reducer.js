@@ -26,20 +26,21 @@ const serverReducer = (state = {}, action) => {
       // case LEAVE_SERVER:
       return action.servers;
     case CHANNEL_APPEARED:
-      let { id, server_id } = action.channel;
-      let updatedServer = state[server_id];
-      if (!updatedServer.channel_ids.includes(id)) {
+      const channelAppeared = merge({}, state);
+      debugger;
+      if (!channelAppeared.channel_ids.includes(id)) {
         updatedServer.channel_ids.push(id);
       }
-      return merge({}, state);
+      debugger;
+      return channelAppeared;
     case CHANNEL_DISAPPEARED:
       // let { id, server_id } = action.channel;
       // let updatedServer = state[server_id];
       // updatedServer.channel_ids = updateServer.channel_ids.filter(
       //   id => id !== action.channel.id
       // );
-      let updatedState = merge({}, state);
-      updatedState[action.channel.server_id].channel_ids;
+      // let updatedState = merge({}, state);
+      // updatedState[action.channel.server_id].channel_ids;
       // updated[updatedServer.id]
 
       return merge({}, state);

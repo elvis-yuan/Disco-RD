@@ -27,6 +27,7 @@ class MessageFormat extends React.Component {
 
     return (
       <div className="message-block-wrapper">
+        <hr className="message-divider" />
         <div className="message-block-margin">
           <div className="message-creator-container">
             <div aria-hidden="true" className="message-creator-avatar">
@@ -45,7 +46,6 @@ class MessageFormat extends React.Component {
             </div>
           </div>
         </div>
-        <hr className="message-divider" />
       </div>
     );
   }

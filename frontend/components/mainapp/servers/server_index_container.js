@@ -15,6 +15,7 @@ import {
 const msp = ({ entities, session, ui }) => {
   return {
     currentUser: session.currentUser,
+    prevUser: session.prevUser,
     servers: entities.servers,
     modalOpen: ui.modal ? ["join", "main", "create"].includes(ui.modal) : false
   };

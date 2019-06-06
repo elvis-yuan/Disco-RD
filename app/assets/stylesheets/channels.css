@@ -569,6 +569,6 @@ p.plus-icon-hover::after {
 .message-divider {
   border-bottom-color: hsla(0, 0%, 100%, 0.04);
   border-bottom: 1px solid transparent;
-  margin: 20px 20px -20px;
+  margin: -20px 20px 20px;
   opacity: 0.1;
 }
