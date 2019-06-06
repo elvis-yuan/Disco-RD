@@ -4,7 +4,7 @@ import { logoutUser } from "../../../actions/session_actions";
 import { withRouter, Link } from "react-router-dom";
 import ServerIndex from "./server_index";
 import { openModal } from "../../../actions/modal_actions";
-import { receiveUser } from "../../../actions/user_actions";
+import { receiveUser, receiveData } from "../../../actions/user_actions";
 import {
   receiveChannel,
   removeChannel,
@@ -24,6 +24,7 @@ const msp = ({ entities, session, ui }) => {
 const mdp = dispatch => ({
   fetchAllServers: userId => dispatch(fetchAllServers(userId)),
   fetchServer: id => dispatch(fetchServer(id)),
+  receiveData: data => dispatch(receiveData(data)),
   receiveUser: user => dispatch(receiveUser(user)),
   channelDisappeared: channel => dispatch(channelDisappeared(channel)),
   channelAppeared: channel => dispatch(channelAppeared(channel)),

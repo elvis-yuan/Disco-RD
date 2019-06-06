@@ -3,6 +3,7 @@ import MessageInputContainer from "./message_input_container";
 import ChannelHeadingContainer from "./channel_heading_container";
 import MessageFormatContainer from "./message_format_container";
 import { receiveUser } from "../../../actions/user_actions";
+import ServerConnectedUsers from "../servers/server_connected_users_container";
 
 class ChannelChat extends React.Component {
   constructor(props) {
@@ -132,6 +133,7 @@ class ChannelChat extends React.Component {
               channelTitle={title}
             />
           </div>
+          <ServerConnectedUsers />
         </div>
       </div>
     );

@@ -12,6 +12,7 @@ import {
   CHANNEL_APPEARED,
   CHANNEL_DISAPPEARED
 } from "../actions/channel_actions";
+import { RECEIVE_USER, RECEIVE_DATA } from "../actions/user_actions";
 
 const serverReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -45,6 +46,18 @@ const serverReducer = (state = {}, action) => {
       return merge({}, newState, {
         [action.channel.server.id]: action.channel.server
       });
+    case RECEIVE_DATA:
+      const connectedUser = merge({}, state);
+      if (
+        !connectedUser[action.data.server_id].connected_user_ids.includes(
+          action.data.user.ids
+        )
+      ) {
+        connectedUser[action.data.server_id].connected_user_ids.push(
+          action.data.user.id
+        );
+      }
+      return connectedUser;
     default:
       return state;
   }

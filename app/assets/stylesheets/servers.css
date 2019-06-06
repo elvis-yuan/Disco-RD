@@ -330,3 +330,150 @@ p.server-btn-hover::before {
   text-align: center;
   margin-top: 8px;
 }
+
+.server-users-container {
+  min-width: 240px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+}
+
+.server-users-scroller {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  height: auto;
+}
+
+.server-users-wrapper {
+  max-width: 240px;
+  background-color: #f3f3f3;
+  padding: 0 0 20px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: #2f3136;
+}
+
+.server-users-wrapper::-webkit-scrollbar {
+  width: 0;
+}
+
+.server-users-member-section {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-transform: uppercase;
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #99aab5;
+  padding-right: 8px;
+  padding-left: 16px;
+  padding-top: 20px;
+  height: 40px;
+  letter-spacing: 0.08em;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  color: hsla(0, 0%, 100%, 0.4);
+}
+
+.server-user-list-icon {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  background-clip: padding-box;
+  background-size: 100% 100%;
+  background-color: none;
+  background-position: 50%;
+  border-radius: 50%;
+  background-image: url("https://discordapp.com/assets/0e291f67c9274a1abdddeb3fd919cbaa.png");
+}
+
+.server-user-list-item-container {
+  color: #b9bbbe;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: hidden;
+  height: 40px;
+  border-radius: 3px;
+  margin: 1px 0 1px 8px;
+}
+
+.server-user-list-content-wrapper {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 8px;
+}
+
+.server-user-list-icon-wrapper {
+  margin-right: 10px;
+}
+
+.server-user-list-name {
+  width: 170px;
+}
+
+.server-user-list-name-wrapper {
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  flex-wrap: nowrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  flex: 1 1 auto;
+}
+
+.server-user-list-inner {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  line-height: 17px;
+  vertical-align: middle;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.server-user-list-username {
+  font-weight: 500;
+  font-size: 16px;
+  min-width: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

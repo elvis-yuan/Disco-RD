@@ -61,7 +61,7 @@ class ServerIndex extends React.Component {
         {
           received: data => {
             if (data.type === "user") {
-              this.props.receiveUser(data.user);
+              this.props.receiveData(data);
             }
             if (data.type === "newChannel") {
               this.props.channelAppeared(data.channel);
@@ -109,6 +109,7 @@ class ServerIndex extends React.Component {
           },
           {
             received: data => {
+              debugger;
               if (data.type === "user") {
                 this.props.receiveUser(data.user);
               }

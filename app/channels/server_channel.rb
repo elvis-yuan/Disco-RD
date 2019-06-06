@@ -1,7 +1,8 @@
 class ServerChannel < ApplicationCable::Channel
   def subscribed
     user = User.find(params[:user_id])
-    socket = { type: "user", user: user }
+    socket = { type: "user", user: user, server_id: params[:server_id] }
+
     ServerChannel.broadcast_to(params[:server_id], socket)
 
     stream_for params[:server_id]

@@ -1,6 +1,6 @@
 import { RECEIVE_CURRENT_USER } from "../actions/session_actions";
 import { RECEIVE_SERVER } from "../actions/server_actions";
-import { RECEIVE_USER } from "../actions/user_actions";
+import { RECEIVE_USER, RECEIVE_DATA } from "../actions/user_actions";
 import { RECEIVE_CHANNEL } from "../actions/channel_actions";
 import { merge } from "lodash";
 
@@ -19,6 +19,8 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_CHANNEL:
       const { users } = action.channel;
       return merge({}, state, users);
+    case RECEIVE_DATA:
+      return merge({}, state, { [action.data.user.id]: action.data.user });
     default:
       return state;
   }
