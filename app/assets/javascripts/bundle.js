@@ -1670,7 +1670,7 @@ function (_React$Component) {
         className: "message-list"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-list-image"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Welcome to the beginning of the", " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "#channel-2"), " channel.")), history, allMessages))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_input_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Welcome to the beginning of the ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, title), " ", "channel.")), history, allMessages))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_input_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         currentId: this.currentChannelId,
         channels: this.props.channels,
         channelTitle: title
@@ -5651,8 +5651,8 @@ var serverErrorReducer = function serverErrorReducer() {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash/merge */ "./node_modules/lodash/merge.js");
-/* harmony import */ var lodash_merge__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash_merge__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/server_actions */ "./frontend/actions/server_actions.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -5675,14 +5675,14 @@ var serverReducer = function serverReducer() {
 
       var newServer = _defineProperty({}, server.id, server);
 
-      return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, newServer);
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state, newServer);
 
     case _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["REMOVE_SERVER"]:
       // case LEAVE_SERVER:
       return action.servers;
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["CHANNEL_APPEARED"]:
-      var channelAppeared = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
+      var channelAppeared = Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state);
 
       if (!channelAppeared.channel_ids.includes(id)) {
         updatedServer.channel_ids.push(id);
@@ -5691,21 +5691,17 @@ var serverReducer = function serverReducer() {
       return channelAppeared;
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["CHANNEL_DISAPPEARED"]:
-      // let { id, server_id } = action.channel;
-      // let updatedServer = state[server_id];
-      // updatedServer.channel_ids = updateServer.channel_ids.filter(
-      //   id => id !== action.channel.id
-      // );
-      // let updatedState = merge({}, state);
-      // updatedState[action.channel.server_id].channel_ids;
-      // updated[updatedServer.id]
-      return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
+      var channelDisappeared = Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state);
+      var index = channelDisappeared[action.channel.server_id].channel_ids.indexOf(action.channel.id);
+      channelDisappeared[action.channel.server_id].channel_ids.splice(index, 1);
+      return channelDisappeared;
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_CHANNEL"]:
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["REMOVE_CHANNEL"]:
-      var newState = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
+      var newState = Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state);
       delete newState[action.channel.server.id];
-      return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, newState, _defineProperty({}, action.channel.server.id, action.channel.server));
+      debugger;
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, newState, _defineProperty({}, action.channel.server.id, action.channel.server));
 
     default:
       return state;

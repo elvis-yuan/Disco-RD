@@ -117,8 +117,8 @@ class ChannelChat extends React.Component {
                 <div className="message-list">
                   <div className="message-list-image">
                     <h1>
-                      Welcome to the beginning of the{" "}
-                      <strong>#channel-2</strong> channel.
+                      Welcome to the beginning of the <strong>{title}</strong>{" "}
+                      channel.
                     </h1>
                   </div>
                   {history}

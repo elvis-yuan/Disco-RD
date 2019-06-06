@@ -1,4 +1,4 @@
-import merge from "lodash/merge";
+import { merge } from "lodash";
 import {
   RECEIVE_ALL_SERVERS,
   RECEIVE_SERVER,
@@ -32,20 +32,17 @@ const serverReducer = (state = {}, action) => {
       }
       return channelAppeared;
     case CHANNEL_DISAPPEARED:
-      // let { id, server_id } = action.channel;
-      // let updatedServer = state[server_id];
-      // updatedServer.channel_ids = updateServer.channel_ids.filter(
-      //   id => id !== action.channel.id
-      // );
-      // let updatedState = merge({}, state);
-      // updatedState[action.channel.server_id].channel_ids;
-      // updated[updatedServer.id]
-
-      return merge({}, state);
+      const channelDisappeared = merge({}, state);
+      const index = channelDisappeared[
+        action.channel.server_id
+      ].channel_ids.indexOf(action.channel.id);
+      channelDisappeared[action.channel.server_id].channel_ids.splice(index, 1);
+      return channelDisappeared;
     case RECEIVE_CHANNEL:
     case REMOVE_CHANNEL:
       const newState = merge({}, state);
       delete newState[action.channel.server.id];
+      debugger;
       return merge({}, newState, {
         [action.channel.server.id]: action.channel.server
       });
