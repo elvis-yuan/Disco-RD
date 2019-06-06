@@ -42,7 +42,6 @@ const serverReducer = (state = {}, action) => {
     case REMOVE_CHANNEL:
       const newState = merge({}, state);
       delete newState[action.channel.server.id];
-      debugger;
       return merge({}, newState, {
         [action.channel.server.id]: action.channel.server
       });

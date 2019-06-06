@@ -5700,7 +5700,6 @@ var serverReducer = function serverReducer() {
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["REMOVE_CHANNEL"]:
       var newState = Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state);
       delete newState[action.channel.server.id];
-      debugger;
       return Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, newState, _defineProperty({}, action.channel.server.id, action.channel.server));
 
     default:
