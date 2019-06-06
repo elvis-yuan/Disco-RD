@@ -4664,8 +4664,6 @@ function (_React$Component) {
             user_id: _this2.props.currentUser
           }, {
             received: function received(data) {
-              debugger;
-
               if (data.type === "user") {
                 _this2.props.receiveUser(data.user);
               }

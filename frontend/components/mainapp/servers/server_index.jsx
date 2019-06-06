@@ -109,7 +109,6 @@ class ServerIndex extends React.Component {
           },
           {
             received: data => {
-              debugger;
               if (data.type === "user") {
                 this.props.receiveUser(data.user);
               }
