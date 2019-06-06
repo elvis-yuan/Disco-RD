@@ -445,17 +445,20 @@ var deleteErrors = function deleteErrors() {
 /*!******************************************!*\
   !*** ./frontend/actions/user_actions.js ***!
   \******************************************/
-/*! exports provided: RECEIVE_USER, RECEIVE_DATA, receiveUser, receiveData */
+/*! exports provided: RECEIVE_USER, RECEIVE_DATA, REMOVE_DATA, receiveUser, receiveData, removeData */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_USER", function() { return RECEIVE_USER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_DATA", function() { return RECEIVE_DATA; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_DATA", function() { return REMOVE_DATA; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveUser", function() { return receiveUser; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveData", function() { return receiveData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeData", function() { return removeData; });
 var RECEIVE_USER = "RECEIVE_USER";
 var RECEIVE_DATA = "RECEIVE_DATA";
+var REMOVE_DATA = "REMOVE_DATA";
 var receiveUser = function receiveUser(user) {
   return {
     type: RECEIVE_USER,
@@ -465,6 +468,12 @@ var receiveUser = function receiveUser(user) {
 var receiveData = function receiveData(data) {
   return {
     type: RECEIVE_DATA,
+    data: data
+  };
+};
+var removeData = function removeData(data) {
+  return {
+    type: REMOVE_DATA,
     data: data
   };
 };
@@ -2824,9 +2833,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var msp = function msp(_ref) {
-  var session = _ref.session;
+  var entities = _ref.entities,
+      session = _ref.session;
   return {
-    currentUser: session.currentUser
+    currentUser: session.currentUser,
+    user: entities.users[session.currentUser]
   };
 };
 
@@ -3894,9 +3905,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var msp = function msp(store) {
+var msp = function msp(_ref) {
+  var entities = _ref.entities,
+      session = _ref.session;
   return {
-    servers: store.entities.servers
+    servers: entities.servers,
+    user: entities.users[session.currentUser],
+    currentUser: session.currentUser
   };
 };
 
@@ -3967,6 +3982,11 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
+      var serverId = parseInt(this.props.history.location.pathname.split("/")[2]);
+      App.server[serverId].deleteUser({
+        user: this.props.user,
+        server_id: serverId
+      });
       this.props.closeModal();
       this.props.history.push("/servers");
       this.props.leaveServer(this.props.leaveServer(this.currentServer));
@@ -4350,9 +4370,9 @@ function (_React$Component) {
     value: function render() {
       var _this = this;
 
-      var users = this.props.servers.connected_user_ids.sort().map(function (user_id) {
+      var users = this.props.servers.connected_user_ids.sort().map(function (user_id, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_server_user_list_item__WEBPACK_IMPORTED_MODULE_1__["default"], {
-          key: user_id,
+          key: index,
           username: _this.props.users[user_id].username
         });
       });
@@ -4616,6 +4636,10 @@ function (_React$Component) {
               _this.props.receiveData(data);
             }
 
+            if (data.type === "deleteUser") {
+              _this.props.removeData(data);
+            }
+
             if (data.type === "newChannel") {
               _this.props.channelAppeared(data.channel);
             }
@@ -4633,6 +4657,9 @@ function (_React$Component) {
           },
           channelDisappeared: function channelDisappeared(data) {
             return this.perform("channelDisappeared", data);
+          },
+          deleteUser: function deleteUser(data) {
+            return this.perform("deleteUser", data);
           }
         });
       });
@@ -4645,51 +4672,46 @@ function (_React$Component) {
           return sub.unsubscribe();
         });
       }
-    }
-  }, {
-    key: "createServerSockets",
-    value: function createServerSockets() {
-      var _this2 = this;
+    } // createServerSockets() {
+    //   const previousChannel = prevProps.match.params.channelId;
+    //   const currentChannel = this.props.match.params.channelId;
+    //   const history = this.props.history;
+    //   const serverList = Object.values(this.props.servers);
+    //   if (serverList.length > 0) {
+    //     serverList.forEach(server => {
+    //       App.server[server.id] = App.cable.subscriptions.create(
+    //         {
+    //           channel: "ServerChannel",
+    //           server_id: server.id,
+    //           user_id: this.props.currentUser
+    //         },
+    //         {
+    //           received: data => {
+    //             if (data.type === "user") {
+    //               this.props.receiveUser(data.user);
+    //             }
+    //             if (data.type === "newChannel") {
+    //               this.props.channelAppeared(data.channel);
+    //             }
+    //             if (data.type === "deletedChannel") {
+    //               if (previousChannel === data.channel.id) {
+    //                 history.push(`/servers/${data.channel.server_id}`);
+    //               }
+    //               this.props.channelDisappeared(data.channel);
+    //             }
+    //           },
+    //           channelAppeared: function(data) {
+    //             return this.perform("channelAppeared", data);
+    //           },
+    //           channelDisappeared: function(data) {
+    //             return this.perform("channelDisappeared", data);
+    //           }
+    //         }
+    //       );
+    //     });
+    //   }
+    // }
 
-      var previousChannel = prevProps.match.params.channelId;
-      var currentChannel = this.props.match.params.channelId;
-      var history = this.props.history;
-      var serverList = Object.values(this.props.servers);
-
-      if (serverList.length > 0) {
-        serverList.forEach(function (server) {
-          App.server[server.id] = App.cable.subscriptions.create({
-            channel: "ServerChannel",
-            server_id: server.id,
-            user_id: _this2.props.currentUser
-          }, {
-            received: function received(data) {
-              if (data.type === "user") {
-                _this2.props.receiveUser(data.user);
-              }
-
-              if (data.type === "newChannel") {
-                _this2.props.channelAppeared(data.channel);
-              }
-
-              if (data.type === "deletedChannel") {
-                if (previousChannel === data.channel.id) {
-                  history.push("/servers/".concat(data.channel.server_id));
-                }
-
-                _this2.props.channelDisappeared(data.channel);
-              }
-            },
-            channelAppeared: function channelAppeared(data) {
-              return this.perform("channelAppeared", data);
-            },
-            channelDisappeared: function channelDisappeared(data) {
-              return this.perform("channelDisappeared", data);
-            }
-          });
-        });
-      }
-    }
   }, {
     key: "render",
     value: function render() {
@@ -4816,6 +4838,9 @@ var mdp = function mdp(dispatch) {
     },
     receiveData: function receiveData(data) {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_6__["receiveData"])(data));
+    },
+    removeData: function removeData(data) {
+      return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_6__["removeData"])(data));
     },
     receiveUser: function receiveUser(user) {
       return dispatch(Object(_actions_user_actions__WEBPACK_IMPORTED_MODULE_6__["receiveUser"])(user));
@@ -5901,6 +5926,12 @@ var serverReducer = function serverReducer() {
       }
 
       return connectedUser;
+
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["REMOVE_DATA"]:
+      var disconnectedUser = Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state);
+      var userIndex = disconnectedUser[action.data.server_id].connected_user_ids.indexOf(action.data.user.id);
+      disconnectedUser[action.data.server_id].connected_user_ids.splice(userIndex, 1);
+      return disconnectedUser;
 
     default:
       return state;

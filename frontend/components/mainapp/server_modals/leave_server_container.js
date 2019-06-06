@@ -5,9 +5,11 @@ import { deleteErrors } from "../../../actions/session_actions";
 import { closeModal } from "../../../actions/modal_actions";
 import LeaveServerModal from "./leave_server_modal";
 
-const msp = store => {
+const msp = ({ entities, session }) => {
   return {
-    servers: store.entities.servers
+    servers: entities.servers,
+    user: entities.users[session.currentUser],
+    currentUser: session.currentUser
   };
 };
 

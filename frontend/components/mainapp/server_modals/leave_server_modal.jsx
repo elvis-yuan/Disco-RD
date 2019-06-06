@@ -13,6 +13,13 @@ class LeaveSeverModal extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    const serverId = parseInt(
+      this.props.history.location.pathname.split("/")[2]
+    );
+    App.server[serverId].deleteUser({
+      user: this.props.user,
+      server_id: serverId
+    });
     this.props.closeModal();
     this.props.history.push("/servers");
     this.props.leaveServer(this.props.leaveServer(this.currentServer));

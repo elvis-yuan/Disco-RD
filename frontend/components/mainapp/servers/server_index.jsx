@@ -63,6 +63,9 @@ class ServerIndex extends React.Component {
             if (data.type === "user") {
               this.props.receiveData(data);
             }
+            if (data.type === "deleteUser") {
+              this.props.removeData(data);
+            }
             if (data.type === "newChannel") {
               this.props.channelAppeared(data.channel);
             }
@@ -81,6 +84,9 @@ class ServerIndex extends React.Component {
           },
           channelDisappeared: function(data) {
             return this.perform("channelDisappeared", data);
+          },
+          deleteUser: function(data) {
+            return this.perform("deleteUser", data);
           }
         }
       );
@@ -93,46 +99,46 @@ class ServerIndex extends React.Component {
     }
   }
 
-  createServerSockets() {
-    const previousChannel = prevProps.match.params.channelId;
-    const currentChannel = this.props.match.params.channelId;
-    const history = this.props.history;
-    const serverList = Object.values(this.props.servers);
+  // createServerSockets() {
+  //   const previousChannel = prevProps.match.params.channelId;
+  //   const currentChannel = this.props.match.params.channelId;
+  //   const history = this.props.history;
+  //   const serverList = Object.values(this.props.servers);
 
-    if (serverList.length > 0) {
-      serverList.forEach(server => {
-        App.server[server.id] = App.cable.subscriptions.create(
-          {
-            channel: "ServerChannel",
-            server_id: server.id,
-            user_id: this.props.currentUser
-          },
-          {
-            received: data => {
-              if (data.type === "user") {
-                this.props.receiveUser(data.user);
-              }
-              if (data.type === "newChannel") {
-                this.props.channelAppeared(data.channel);
-              }
-              if (data.type === "deletedChannel") {
-                if (previousChannel === data.channel.id) {
-                  history.push(`/servers/${data.channel.server_id}`);
-                }
-                this.props.channelDisappeared(data.channel);
-              }
-            },
-            channelAppeared: function(data) {
-              return this.perform("channelAppeared", data);
-            },
-            channelDisappeared: function(data) {
-              return this.perform("channelDisappeared", data);
-            }
-          }
-        );
-      });
-    }
-  }
+  //   if (serverList.length > 0) {
+  //     serverList.forEach(server => {
+  //       App.server[server.id] = App.cable.subscriptions.create(
+  //         {
+  //           channel: "ServerChannel",
+  //           server_id: server.id,
+  //           user_id: this.props.currentUser
+  //         },
+  //         {
+  //           received: data => {
+  //             if (data.type === "user") {
+  //               this.props.receiveUser(data.user);
+  //             }
+  //             if (data.type === "newChannel") {
+  //               this.props.channelAppeared(data.channel);
+  //             }
+  //             if (data.type === "deletedChannel") {
+  //               if (previousChannel === data.channel.id) {
+  //                 history.push(`/servers/${data.channel.server_id}`);
+  //               }
+  //               this.props.channelDisappeared(data.channel);
+  //             }
+  //           },
+  //           channelAppeared: function(data) {
+  //             return this.perform("channelAppeared", data);
+  //           },
+  //           channelDisappeared: function(data) {
+  //             return this.perform("channelDisappeared", data);
+  //           }
+  //         }
+  //       );
+  //     });
+  //   }
+  // }
 
   render() {
     const { servers, modalOpen, history, fetchServer } = this.props;

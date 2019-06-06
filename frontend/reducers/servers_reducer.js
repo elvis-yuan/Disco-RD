@@ -12,7 +12,11 @@ import {
   CHANNEL_APPEARED,
   CHANNEL_DISAPPEARED
 } from "../actions/channel_actions";
-import { RECEIVE_USER, RECEIVE_DATA } from "../actions/user_actions";
+import {
+  RECEIVE_USER,
+  RECEIVE_DATA,
+  REMOVE_DATA
+} from "../actions/user_actions";
 
 const serverReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -58,6 +62,16 @@ const serverReducer = (state = {}, action) => {
         );
       }
       return connectedUser;
+    case REMOVE_DATA:
+      const disconnectedUser = merge({}, state);
+      const userIndex = disconnectedUser[
+        action.data.server_id
+      ].connected_user_ids.indexOf(action.data.user.id);
+      disconnectedUser[action.data.server_id].connected_user_ids.splice(
+        userIndex,
+        1
+      );
+      return disconnectedUser;
     default:
       return state;
   }

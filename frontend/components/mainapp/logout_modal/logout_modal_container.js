@@ -4,8 +4,9 @@ import { logoutUser } from "../../../actions/session_actions";
 import LogoutModal from "./logout_modal";
 import { closeModal } from "../../../actions/modal_actions";
 
-const msp = ({ session }) => ({
-  currentUser: session.currentUser
+const msp = ({ entities, session }) => ({
+  currentUser: session.currentUser,
+  user: entities.users[session.currentUser]
 });
 
 const mdp = dispatch => ({

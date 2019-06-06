@@ -9,9 +9,9 @@ class ServerConnectedUsers extends React.Component {
   render() {
     const users = this.props.servers.connected_user_ids
       .sort()
-      .map(user_id => (
+      .map((user_id, index) => (
         <ServerUserListItem
-          key={user_id}
+          key={index}
           username={this.props.users[user_id].username}
         />
       ));
