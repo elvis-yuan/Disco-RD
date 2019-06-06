@@ -21,9 +21,23 @@ class ChannelIndex extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.match.params.serverId !== this.props.match.params.serverId) {
+    const { history, servers, match } = this.props;
+    const path = history.location.pathname.split("/");
+    if (prevProps.match.params.serverId !== match.params.serverId) {
       this.setState({ dropDownOpen: false });
+      this.props.fetchServer(parseInt(this.props.match.params.serverId));
     }
+    // debugger;
+    // if (
+    //   (path[3] === "" || path[3] === undefined) &&
+    //   // match.params.channelId !== prevProps.match.params.channelId &&
+    //   servers[match.params.serverId].channel_ids.length > 0
+    // ) {
+    //   debugger;
+    //   const channels = servers[match.params.serverId].channel_ids.sort();
+    //   const firstChannel = channels[0];
+    //   history.push(`/servers/${match.params.serverId}/${firstChannel}`);
+    // }
   }
 
   handleOpenModal() {

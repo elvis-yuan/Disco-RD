@@ -115,6 +115,12 @@ class ChannelChat extends React.Component {
             <div className="message-window">
               <div className="message-window-scroller">
                 <div className="message-list">
+                  <div className="message-list-image">
+                    <h1>
+                      Welcome to the beginning of the{" "}
+                      <strong>#channel-2</strong> channel.
+                    </h1>
+                  </div>
                   {history}
                   {allMessages}
                 </div>

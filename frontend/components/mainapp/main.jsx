@@ -47,7 +47,7 @@ class Main extends React.Component {
         <div className="wompus-wrapper">
           <div className="wompus-container">
             <div className="wompus-image" />
-            <div className='wompus-text'>
+            <div className="wompus-text">
               Welcome To Disco-RD. This is a clone of Discord. Enjoy your stay!
             </div>
           </div>
@@ -57,11 +57,19 @@ class Main extends React.Component {
       <div className="main-app">
         <ServerIndexContainer />
         {servercomp}
-        <ChannelRoute
-          exact
-          path="/servers/:serverId/:channelId"
-          component={ChannelChatContainer}
-        />
+        {this.props.history.location.pathname.split("/")[3] === undefined ? (
+          <div className="no-channel">
+            <div className="no-channel-image-wrapper">
+              <div className="no-channel-image" />
+            </div>
+          </div>
+        ) : (
+          <ChannelRoute
+            exact
+            path="/servers/:serverId/:channelId"
+            component={ChannelChatContainer}
+          />
+        )}
       </div>
     );
   }

@@ -1668,7 +1668,9 @@ function (_React$Component) {
         className: "message-window-scroller"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-list"
-      }, history, allMessages))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_input_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "message-list-image"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "Welcome to the beginning of the", " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, "#channel-2"), " channel.")), history, allMessages))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_message_input_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         currentId: this.currentChannelId,
         channels: this.props.channels,
         channelTitle: title
@@ -1913,11 +1915,29 @@ function (_React$Component) {
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
-      if (prevProps.match.params.serverId !== this.props.match.params.serverId) {
+      var _this$props = this.props,
+          history = _this$props.history,
+          servers = _this$props.servers,
+          match = _this$props.match;
+      var path = history.location.pathname.split("/");
+
+      if (prevProps.match.params.serverId !== match.params.serverId) {
         this.setState({
           dropDownOpen: false
         });
-      }
+        this.props.fetchServer(parseInt(this.props.match.params.serverId));
+      } // debugger;
+      // if (
+      //   (path[3] === "" || path[3] === undefined) &&
+      //   // match.params.channelId !== prevProps.match.params.channelId &&
+      //   servers[match.params.serverId].channel_ids.length > 0
+      // ) {
+      //   debugger;
+      //   const channels = servers[match.params.serverId].channel_ids.sort();
+      //   const firstChannel = channels[0];
+      //   history.push(`/servers/${match.params.serverId}/${firstChannel}`);
+      // }
+
     }
   }, {
     key: "handleOpenModal",
@@ -2920,7 +2940,13 @@ function (_React$Component) {
         className: "wompus-text"
       }, "Welcome To Disco-RD. This is a clone of Discord. Enjoy your stay!")))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-app"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_servers_server_index_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), servercomp, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_channel_route_util__WEBPACK_IMPORTED_MODULE_8__["ChannelRoute"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_servers_server_index_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), servercomp, this.props.history.location.pathname.split("/")[3] === undefined ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "no-channel"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "no-channel-image-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "no-channel-image"
+      }))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_channel_route_util__WEBPACK_IMPORTED_MODULE_8__["ChannelRoute"], {
         exact: true,
         path: "/servers/:serverId/:channelId",
         component: _channels_channel_chat_container__WEBPACK_IMPORTED_MODULE_7__["default"]
@@ -4500,8 +4526,6 @@ function (_React$Component) {
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      debugger;
-
       if (App.cable.subscriptions.subscriptions.length > 0) {
         App.cable.subscriptions.subscriptions.forEach(function (sub) {
           return sub.unsubscribe();
@@ -5659,13 +5683,11 @@ var serverReducer = function serverReducer() {
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["CHANNEL_APPEARED"]:
       var channelAppeared = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
-      debugger;
 
       if (!channelAppeared.channel_ids.includes(id)) {
         updatedServer.channel_ids.push(id);
       }
 
-      debugger;
       return channelAppeared;
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["CHANNEL_DISAPPEARED"]:

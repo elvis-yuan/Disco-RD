@@ -88,7 +88,6 @@ class ServerIndex extends React.Component {
   }
 
   componentWillUnmount() {
-    debugger;
     if (App.cable.subscriptions.subscriptions.length > 0) {
       App.cable.subscriptions.subscriptions.forEach(sub => sub.unsubscribe());
     }

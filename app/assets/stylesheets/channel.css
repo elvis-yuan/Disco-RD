@@ -281,3 +281,42 @@
 .text-submit-button {
   display: none;
 }
+
+.message-list-image {
+  padding-bottom: 14px;
+  height: 95px;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border-bottom-style: solid;
+  border-width: 0 0 1px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  background-position: 0 100%, 100% 100%;
+  background-size: 192px 80px, 216px 64px;
+  background-repeat: no-repeat, no-repeat;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-color: hsla(0, 0%, 100%, 0.02);
+  background-image: url("https://discordapp.com/assets/5eed3f20bc3c75fd5ff63c60df8f679d.png"),
+    url("https://discordapp.com/assets/129bf63f677720a34bc7ffeb74468a0e.png");
+}
+
+.message-list-image > h1 {
+  color: #949494;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 16px;
+  margin: 0;
+}
+
+.message-list-image > h1 > strong {
+  font-weight: 700;
+}

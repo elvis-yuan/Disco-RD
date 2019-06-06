@@ -25,3 +25,32 @@
 .main-app {
   overflow: hidden;
 }
+
+.no-channel {
+  background: #36393f;
+  flex: 1 1 auto;
+  position: relative;
+}
+
+.no-channel-image-wrapper {
+  width: 100%;
+  height: 100%;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-channel-image {
+  flex: 0 1 auto;
+  width: 272px;
+  height: 222px;
+  background-image: url("https://discordapp.com/assets/94b5558353f1d01035a874f6eddf6d70.svg");
+  background-size: 100% 100%;
+  margin-bottom: 40px;
+}
