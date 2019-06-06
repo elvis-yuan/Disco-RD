@@ -2032,10 +2032,16 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-user-icon"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "channel-conainner-user-information"
+        className: "channel-username-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-user-username"
-      }, this.props.currentUser.username))));
+      }, this.props.currentUser.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "channel-button-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "mute-button channel-communication-buttons"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "defen-button channel-communication-buttons"
+      }))));
     }
   }]);
 
@@ -2469,7 +2475,9 @@ function (_React$Component) {
         className: "message-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-text"
-      }, this.props.message.body)))));
+      }, this.props.message.body)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", {
+        className: "message-divider"
+      }));
     }
   }]);
 
@@ -5771,12 +5779,13 @@ var Channel = function Channel(_ref) {
       exact = _ref.exact,
       connectedServer = _ref.connectedServer,
       connectedChannel = _ref.connectedChannel,
+      serverId = _ref.serverId,
       history = _ref.history;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: path,
     exact: exact,
     render: function render(props) {
-      return connectedServer && connectedChannel ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props) : history.push("/servers");
+      return connectedServer && connectedChannel ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props) : history.push("/servers/".concat(serverId));
     }
   });
 };
@@ -5790,6 +5799,8 @@ var msp = function msp(state, ownProps) {
     connectedServer: Object.values(state.entities.servers).map(function (server) {
       return server.id;
     }).includes(serverId) || empty,
+    serverId: serverId,
+    channelId: channelId,
     connectedChannel: state.entities.servers[serverId] ? state.entities.servers[serverId].channel_ids.includes(channelId) || emptyCh : false
   };
 };

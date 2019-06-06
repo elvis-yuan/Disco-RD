@@ -45,6 +45,7 @@ class MessageFormat extends React.Component {
             </div>
           </div>
         </div>
+        <hr className="message-divider" />
       </div>
     );
   }

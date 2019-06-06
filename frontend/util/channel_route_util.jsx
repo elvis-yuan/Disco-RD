@@ -8,6 +8,7 @@ const Channel = ({
   exact,
   connectedServer,
   connectedChannel,
+  serverId,
   history
 }) => {
   return (
@@ -18,7 +19,7 @@ const Channel = ({
         connectedServer && connectedChannel ? (
           <Component {...props} />
         ) : (
-          history.push("/servers")
+          history.push(`/servers/${serverId}`)
         )
       }
     />
@@ -36,6 +37,9 @@ const msp = (state, ownProps) => {
       Object.values(state.entities.servers)
         .map(server => server.id)
         .includes(serverId) || empty,
+
+    serverId: serverId,
+    channelId: channelId,
 
     connectedChannel: state.entities.servers[serverId]
       ? state.entities.servers[serverId].channel_ids.includes(channelId) ||

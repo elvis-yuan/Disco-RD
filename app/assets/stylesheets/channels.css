@@ -6,6 +6,10 @@
   flex-direction: column;
 }
 
+.channel-username-container {
+  width: 100%;
+}
+
 .channel-name-links {
   margin-bottom: 7px;
   display: flex;
@@ -517,4 +521,54 @@ p.plus-icon-hover::after {
   opacity: 0.8;
   flex-shrink: 0;
   margin-right: 14px;
+}
+
+.channel-button-container {
+  flex: 0 1 auto;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  display: flex;
+}
+
+.mute-button {
+  background-image: url("https://discordapp.com/assets/896770bf2d6ed0358ed0adefdbe96a24.svg");
+}
+
+.channel-communication-buttons {
+  background-color: transparent;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: no-repeat 50% 50%;
+  background-size: 18px 18px;
+  position: relative;
+  opacity: 0.6;
+  border: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-radius: 3px;
+}
+
+.defen-button {
+  background-image: url("https://discordapp.com/assets/c8845c514bbf3f1e5bea064c1e40b08d.svg");
+}
+
+.mute-button {
+  background-image: url("https://discordapp.com/assets/896770bf2d6ed0358ed0adefdbe96a24.svg");
+}
+
+.message-divider {
+  border-bottom-color: hsla(0, 0%, 100%, 0.04);
+  border-bottom: 1px solid transparent;
+  margin: 20px 20px -20px;
+  opacity: 0.1;
 }
