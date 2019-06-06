@@ -1049,7 +1049,6 @@ function (_React$Component) {
       this.props.createChannel(this.state).then(function (action) {
         _this2.props.closeModal();
 
-        debugger;
         App.server[currentServer].channelAppeared(action.channel.channel);
       });
     }
@@ -1227,7 +1226,6 @@ function (_React$Component) {
       this.props.deleteChannel(this.props.currentChannel).then(function (action) {
         _this2.props.closeModal();
 
-        debugger;
         App.server[currentServer].channelDisappeared(action.channel.channel);
       });
     }
@@ -1597,7 +1595,6 @@ function (_React$Component) {
     value: function createSocketConnection() {
       var _this2 = this;
 
-      debugger;
       App[this.currentChannelId] = App.cable.subscriptions.create({
         channel: "ChatChannel",
         channel_id: this.props.match.params.channelId,
@@ -1967,7 +1964,7 @@ function (_React$Component) {
         currentUser: this.props.currentUser
       }) : null;
       var channels = this.props.channels;
-      var channelNames = Object.values(currentServer.channel_ids.map(function (id) {
+      var channelNames = Object.values(currentServer.channel_ids.sort().map(function (id) {
         return channels[id];
       }));
       var channelTitles = !channelNames.includes(undefined) ? channelNames.map(function (channel, index) {
@@ -5503,7 +5500,6 @@ var serverReducer = function serverReducer() {
       var updatedState = lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
       updatedState[action.channel.server_id].channel_ids; // updated[updatedServer.id]
 
-      debugger;
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state);
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_CHANNEL"]:
@@ -5786,7 +5782,6 @@ var Channel = function Channel(_ref) {
 };
 
 var msp = function msp(state, ownProps) {
-  debugger;
   var empty = ownProps.location.pathname.slice(9) === "";
   var serverId = parseInt(ownProps.location.pathname.slice(9));
   var emptyCh = ownProps.location.pathname.split("/")[3] === undefined;
@@ -5871,7 +5866,6 @@ var Server = function Server(_ref3) {
 };
 
 var msp = function msp(state, ownProps) {
-  debugger;
   var empty = ownProps.location.pathname.slice(9) === "";
   var path = parseInt(ownProps.location.pathname.slice(9));
   return {

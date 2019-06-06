@@ -22,7 +22,6 @@ class DeleteChannelModal extends React.Component {
 
     this.props.deleteChannel(this.props.currentChannel).then(action => {
       this.props.closeModal();
-      debugger;
       App.server[currentServer].channelDisappeared(action.channel.channel);
     });
   }

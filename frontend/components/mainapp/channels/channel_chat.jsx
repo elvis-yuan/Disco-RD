@@ -39,7 +39,6 @@ class ChannelChat extends React.Component {
   }
 
   createSocketConnection() {
-    debugger;
     App[this.currentChannelId] = App.cable.subscriptions.create(
       {
         channel: "ChatChannel",

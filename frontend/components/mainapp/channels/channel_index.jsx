@@ -67,7 +67,7 @@ class ChannelIndex extends React.Component {
     let { channels } = this.props;
 
     let channelNames = Object.values(
-      currentServer.channel_ids.map(id => channels[id])
+      currentServer.channel_ids.sort().map(id => channels[id])
     );
     let channelTitles = !channelNames.includes(undefined)
       ? channelNames.map((channel, index) => (

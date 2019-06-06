@@ -25,7 +25,6 @@ class CreateChannelModal extends React.Component {
     e.preventDefault();
     this.props.createChannel(this.state).then(action => {
       this.props.closeModal();
-      debugger;
       App.server[currentServer].channelAppeared(action.channel.channel);
     });
   }

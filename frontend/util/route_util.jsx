@@ -41,7 +41,6 @@ const Server = ({
 };
 
 const msp = (state, ownProps) => {
-  debugger;
   const empty = ownProps.location.pathname.slice(9) === "";
   const path = parseInt(ownProps.location.pathname.slice(9));
   return {

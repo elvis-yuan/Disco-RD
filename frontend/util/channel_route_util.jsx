@@ -26,7 +26,6 @@ const Channel = ({
 };
 
 const msp = (state, ownProps) => {
-  debugger;
   const empty = ownProps.location.pathname.slice(9) === "";
   const serverId = parseInt(ownProps.location.pathname.slice(9));
   const emptyCh = ownProps.location.pathname.split("/")[3] === undefined;
