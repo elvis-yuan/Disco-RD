@@ -7,6 +7,7 @@ import { connect } from "react-redux";
 import { fetchAllServers, fetchServer } from "../../actions/server_actions";
 import ChannelChatContainer from "./channels/channel_chat_container";
 import { ChannelRoute } from "../../util/channel_route_util";
+import ServerOnlineContainer from "./servers/activity_container";
 
 const msp = ({ entities, session }) => ({
   currentUser: session.currentUser,
@@ -42,6 +43,15 @@ class Main extends React.Component {
       <div className="main-app">
         <ServerIndexContainer />
         {/* // <Route path="/:serverId/:channelId" component={ChannelIndex} /> */}
+        <ServerOnlineContainer />
+        <div className="wompus-wrapper">
+          <div className="wompus-container">
+            <div className="wompus-image" />
+            <div className='wompus-text'>
+              Welcome To Disco-RD. This is a clone of Discord. Enjoy your stay!
+            </div>
+          </div>
+        </div>
       </div>
     ) : (
       <div className="main-app">

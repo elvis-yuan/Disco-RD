@@ -154,47 +154,48 @@ class ServerIndex extends React.Component {
     return (
       // <div className="server-index-wrapper">
       <div className="server-index-container">
-        <div className="server-margin-wrapper">
-          <NavLink
-            className="button-flex server-btn blue-btn"
-            to={`/servers`}
-            activeClassName={selected}
-          >
-            <img
-              className="default-icon"
-              src="https://i.ibb.co/42kLm6j/discord.png"
-            />
-            <div className="server-selector" />
-          </NavLink>
+        <div className="server-index-scroller-wrapper">
+          <div className="server-margin-wrapper">
+            <NavLink
+              className="button-flex server-btn blue-btn"
+              to={`/servers`}
+              activeClassName={selected}
+            >
+              <img
+                className="default-icon"
+                src="https://i.ibb.co/42kLm6j/discord.png"
+              />
+              <div className="server-selector" />
+            </NavLink>
+          </div>
+          <div className="server-seperator" />
+          <ul className="server-ul">
+            {serverList}
+            <div className="server-icon-wrapper">
+              <div className="server-margin-wrapper">
+                <a
+                  className={`btn-flex server-btn ${selectedGreen}`}
+                  onClick={this.props.mainModal}
+                >
+                  <div className={`server-selector ${selectedServer}`} />
+                  <h3 className="server-icon">+</h3>
+                </a>
+              </div>
+              <p className="server-btn-hover">Add a Server</p>
+            </div>
+            <div className="logout-seperator" />
+            <div className="server-icon-wrapper">
+              <div className="server-margin-wrapper">
+                <a className="server-btn" onClick={this.props.logoutModal}>
+                  <div className="server-selector" />
+                  <i className="fas fa-sign-out-alt" />
+                </a>
+              </div>
+              <p className="server-btn-hover">Logout</p>
+            </div>
+          </ul>
         </div>
-        <div className="server-seperator" />
-        <ul className="server-ul">
-          {serverList}
-          <div className="server-icon-wrapper">
-            <div className="server-margin-wrapper">
-              <a
-                className={`btn-flex server-btn ${selectedGreen}`}
-                onClick={this.props.mainModal}
-              >
-                <div className={`server-selector ${selectedServer}`} />
-                <h3 className="server-icon">+</h3>
-              </a>
-            </div>
-            <p className="server-btn-hover">Add a Server</p>
-          </div>
-          <div className="logout-seperator" />
-          <div className="server-icon-wrapper">
-            <div className="server-margin-wrapper">
-              <a className="server-btn" onClick={this.props.logoutModal}>
-                <div className="server-selector" />
-                <i className="fas fa-sign-out-alt" />
-              </a>
-            </div>
-            <p className="server-btn-hover">Logout</p>
-          </div>
-        </ul>
       </div>
-      // </div>
     );
   }
 }

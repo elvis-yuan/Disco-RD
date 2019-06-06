@@ -6,11 +6,24 @@
   background-color: #1f2124;
   padding-top: 12px;
   width: 72px;
+  position: relative;
   /* overflow-y: scroll; */
 }
 
-.server-index-wrapper {
-  overflow-x: visible;
+.server-index-scroller-wrapper {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1f2124;
+  /* padding-top: 12px; */
+  width: 72px;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.server-index-scroller-wrapper::-webkit-scrollbar {
+  width: 0 !important;
 }
 
 .server-index-container::-webkit-scrollbar {
@@ -79,7 +92,7 @@
 }
 
 .server-icon-wrapper {
-  position: relative;
+  /* position: relative; */
 }
 
 .server-margin-wrapper {
@@ -88,9 +101,10 @@
 
 .server-btn-hover {
   display: none;
+  margin: -46px 1px 1px 1px;
   position: absolute;
-  left: 56px;
-  bottom: 17px;
+  left: 68px;
+  /* bottom: 17px; */
   border-radius: 5px;
   color: white;
   background-color: black;
@@ -121,6 +135,10 @@ p.server-btn-hover::before {
   transform: translateY(1px);
 }
 
+.server-btn:active .server-selector {
+  left: -12px;
+}
+
 .server-margin-wrapper + .server-btn-hover {
   z-index: 4;
 }
@@ -134,8 +152,7 @@ p.server-btn-hover::before {
 }
 
 .server-btn:hover > .server-selector {
-  display: block;
-  height: 50%;
+  height: 20px;
   opacity: 0.75;
   transition: opacity 0.45s ease;
 }
@@ -160,16 +177,15 @@ p.server-btn-hover::before {
 }
 
 .server-selector {
-  opacity: 0;
   height: 40px;
   color: white;
   position: absolute;
   left: -12px;
-  display: block;
   width: 8px;
   background-color: #fff;
   border-radius: 0 4px 4px 0;
   margin-left: -4px;
+  opacity: 0;
 }
 
 .selected {
@@ -222,4 +238,95 @@ p.server-btn-hover::before {
 .fa-sign-out-alt:before {
   content: "\f2f5";
   font-size: 20px;
+}
+
+.activity-container-header {
+  position: relative;
+  color: #fff;
+  font-weight: 500;
+  padding: 0 16px;
+  height: 48px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  z-index: 3;
+  transition: background-color 0.15s ease;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 1.5px 0 rgba(0, 0, 0, 0.05),
+    0 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.activity-header {
+  position: relative;
+}
+
+.activity-link-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 34px;
+  /* overflow: hidden; */
+  position: relative;
+  text-decoration: none;
+}
+
+.activity-container-channel-wrapper {
+  width: 100%;
+  height: 34px;
+  position: relative;
+  text-decoration: none;
+}
+
+.activity-container-channel-name {
+  width: 100%;
+  box-sizing: border-box;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.wompus-wrapper {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.wompus-container {
+  width: 100%;
+  height: 100%;
+  max-width: 440px;
+  margin-left: auto;
+  margin-right: auto;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.wompus-image {
+  flex: 0 1 auto;
+  width: 433px;
+  height: 232px;
+  background-image: url("https://discordapp.com/assets/8c998f8fb62016fcfb4901e424ff378b.svg");
+  margin-bottom: 40px;
+  background-size: 100% 100%;
+}
+
+.wompus-text {
+  color: #72767d;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  margin-top: 8px;
 }
