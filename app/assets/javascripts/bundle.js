@@ -2827,6 +2827,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../actions/server_actions */ "./frontend/actions/server_actions.js");
 /* harmony import */ var _channels_channel_chat_container__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./channels/channel_chat_container */ "./frontend/components/mainapp/channels/channel_chat_container.js");
+/* harmony import */ var _util_channel_route_util__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../util/channel_route_util */ "./frontend/util/channel_route_util.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2844,6 +2845,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -2903,7 +2905,7 @@ function (_React$Component) {
         className: "main-app"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_servers_server_index_container__WEBPACK_IMPORTED_MODULE_1__["default"], null)) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-app"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_servers_server_index_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), servercomp, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_servers_server_index_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), servercomp, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_util_channel_route_util__WEBPACK_IMPORTED_MODULE_8__["ChannelRoute"], {
         exact: true,
         path: "/servers/:serverId/:channelId",
         component: _channels_channel_chat_container__WEBPACK_IMPORTED_MODULE_7__["default"]
@@ -4328,10 +4330,7 @@ function (_React$Component) {
             }
 
             if (data.type === "deletedChannel") {
-              debugger;
-
               if (previousChannel === data.channel.id) {
-                debugger;
                 history.push("/servers/".concat(data.channel.server_id));
               }
 
@@ -5752,6 +5751,58 @@ var updateChannel = function updateChannel(channel) {
 
 /***/ }),
 
+/***/ "./frontend/util/channel_route_util.jsx":
+/*!**********************************************!*\
+  !*** ./frontend/util/channel_route_util.jsx ***!
+  \**********************************************/
+/*! exports provided: ChannelRoute */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ChannelRoute", function() { return ChannelRoute; });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+
+
+
+
+var Channel = function Channel(_ref) {
+  var Component = _ref.component,
+      path = _ref.path,
+      exact = _ref.exact,
+      connectedServer = _ref.connectedServer,
+      connectedChannel = _ref.connectedChannel,
+      history = _ref.history;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: path,
+    exact: exact,
+    render: function render(props) {
+      return connectedServer && connectedChannel ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props) : history.push("/servers");
+    }
+  });
+};
+
+var msp = function msp(state, ownProps) {
+  debugger;
+  var empty = ownProps.location.pathname.slice(9) === "";
+  var serverId = parseInt(ownProps.location.pathname.slice(9));
+  var emptyCh = ownProps.location.pathname.split("/")[3] === undefined;
+  var channelId = parseInt(ownProps.location.pathname.split("/")[3]);
+  return {
+    connectedServer: Object.values(state.entities.servers).map(function (server) {
+      return server.id;
+    }).includes(serverId) || empty,
+    connectedChannel: state.entities.servers[serverId] ? state.entities.servers[serverId].channel_ids.includes(channelId) || emptyCh : false
+  };
+};
+
+var ChannelRoute = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(msp)(Channel));
+
+/***/ }),
+
 /***/ "./frontend/util/route_util.jsx":
 /*!**************************************!*\
   !*** ./frontend/util/route_util.jsx ***!
@@ -5768,8 +5819,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _components_mainapp_channels_channel_index__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/mainapp/channels/channel_index */ "./frontend/components/mainapp/channels/channel_index.jsx");
-
 
 
 
@@ -5822,6 +5871,7 @@ var Server = function Server(_ref3) {
 };
 
 var msp = function msp(state, ownProps) {
+  debugger;
   var empty = ownProps.location.pathname.slice(9) === "";
   var path = parseInt(ownProps.location.pathname.slice(9));
   return {

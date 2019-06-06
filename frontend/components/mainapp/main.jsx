@@ -6,6 +6,7 @@ import { ServerRoute, CustomRoute } from "../../util/route_util";
 import { connect } from "react-redux";
 import { fetchAllServers, fetchServer } from "../../actions/server_actions";
 import ChannelChatContainer from "./channels/channel_chat_container";
+import { ChannelRoute } from "../../util/channel_route_util";
 
 const msp = ({ entities, session }) => ({
   currentUser: session.currentUser,
@@ -46,7 +47,7 @@ class Main extends React.Component {
       <div className="main-app">
         <ServerIndexContainer />
         {servercomp}
-        <Route
+        <ChannelRoute
           exact
           path="/servers/:serverId/:channelId"
           component={ChannelChatContainer}

@@ -59,9 +59,7 @@ class ServerIndex extends React.Component {
               this.props.channelAppeared(data.channel);
             }
             if (data.type === "deletedChannel") {
-              debugger;
               if (previousChannel === data.channel.id) {
-                debugger;
                 history.push(`/servers/${data.channel.server_id}`);
               }
               this.props.channelDisappeared(data.channel);
