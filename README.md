@@ -38,7 +38,6 @@ class ServerChannel < ApplicationCable::Channel
   end
  ```
 Before the user creates a websocket connection to the ServerChannel, they make broadcast to all currently online users to update their state to include the new user. This forces everyone to rerender their user list to include the new user. 
--Credit to Adam Liang for the idea
 
 ## COMING SOON!
 * Direct messaging
