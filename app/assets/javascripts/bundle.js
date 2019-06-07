@@ -5868,9 +5868,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/server_actions */ "./frontend/actions/server_actions.js");
-/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/channel_actions */ "./frontend/actions/channel_actions.js");
-/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/user_actions */ "./frontend/actions/user_actions.js");
+/* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../actions/user_actions */ "./frontend/actions/user_actions.js");
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 
 
 
@@ -5894,40 +5896,43 @@ var serverReducer = function serverReducer() {
       return Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state, newServer);
 
     case _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["REMOVE_SERVER"]:
-      // case LEAVE_SERVER:
+    case _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["LEAVE_SERVER"]:
       return action.servers;
 
-    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["CHANNEL_APPEARED"]:
+    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__["CHANNEL_APPEARED"]:
       var channelAppeared = Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state);
 
-      if (!channelAppeared.channel_ids.includes(id)) {
-        updatedServer.channel_ids.push(id);
+      if (!channelAppeared[action.channel.server_id].channel_ids.includes(action.channel.id)) {
+        channelAppeared[action.channel.server_id].channel_ids.push(action.channel.id);
       }
 
       return channelAppeared;
+    // case LOGOUT:
+    //   debugger;
+    //   return {};
 
-    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["CHANNEL_DISAPPEARED"]:
+    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__["CHANNEL_DISAPPEARED"]:
       var channelDisappeared = Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state);
       var index = channelDisappeared[action.channel.server_id].channel_ids.indexOf(action.channel.id);
       channelDisappeared[action.channel.server_id].channel_ids.splice(index, 1);
       return channelDisappeared;
 
-    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_CHANNEL"]:
-    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["REMOVE_CHANNEL"]:
+    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__["RECEIVE_CHANNEL"]:
+    case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__["REMOVE_CHANNEL"]:
       var newState = Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state);
       delete newState[action.channel.server.id];
       return Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, newState, _defineProperty({}, action.channel.server.id, action.channel.server));
 
-    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["RECEIVE_DATA"]:
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_4__["RECEIVE_DATA"]:
       var connectedUser = Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state);
 
-      if (!connectedUser[action.data.server_id].connected_user_ids.includes(action.data.user.ids)) {
+      if (!connectedUser[action.data.server_id].connected_user_ids.includes(action.data.user.id)) {
         connectedUser[action.data.server_id].connected_user_ids.push(action.data.user.id);
       }
 
       return connectedUser;
 
-    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_3__["REMOVE_DATA"]:
+    case _actions_user_actions__WEBPACK_IMPORTED_MODULE_4__["REMOVE_DATA"]:
       var disconnectedUser = Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state);
       var userIndex = disconnectedUser[action.data.server_id].connected_user_ids.indexOf(action.data.user.id);
       disconnectedUser[action.data.server_id].connected_user_ids.splice(userIndex, 1);

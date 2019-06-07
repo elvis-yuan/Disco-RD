@@ -6,6 +6,9 @@ import {
   LEAVE_SERVER,
   updateServer
 } from "../actions/server_actions";
+
+import { LOGOUT } from "../actions/session_actions";
+
 import {
   RECEIVE_CHANNEL,
   REMOVE_CHANNEL,
@@ -28,14 +31,24 @@ const serverReducer = (state = {}, action) => {
       const newServer = { [server.id]: server };
       return merge({}, state, newServer);
     case REMOVE_SERVER:
-      // case LEAVE_SERVER:
+    case LEAVE_SERVER:
       return action.servers;
     case CHANNEL_APPEARED:
       const channelAppeared = merge({}, state);
-      if (!channelAppeared.channel_ids.includes(id)) {
-        updatedServer.channel_ids.push(id);
+
+      if (
+        !channelAppeared[action.channel.server_id].channel_ids.includes(
+          action.channel.id
+        )
+      ) {
+        channelAppeared[action.channel.server_id].channel_ids.push(
+          action.channel.id
+        );
       }
       return channelAppeared;
+    // case LOGOUT:
+    //   debugger;
+    //   return {};
     case CHANNEL_DISAPPEARED:
       const channelDisappeared = merge({}, state);
       const index = channelDisappeared[
@@ -54,7 +67,7 @@ const serverReducer = (state = {}, action) => {
       const connectedUser = merge({}, state);
       if (
         !connectedUser[action.data.server_id].connected_user_ids.includes(
-          action.data.user.ids
+          action.data.user.id
         )
       ) {
         connectedUser[action.data.server_id].connected_user_ids.push(
