@@ -23,7 +23,7 @@ Disco-rd is a fullstack app which is a pixel perfect clone of [Discord](https://
 * Live chat in channels
 
 ## COOL BITS OF CODE
-A cool bit of code that handles when a new user joins a server, adding them to all currently online user's  Server User list.
+A cool bit of code that handles when a new user joins a server, adding them to all currently online users'  Server User list.
 
 ```js 
 class ServerChannel < ApplicationCable::Channel
