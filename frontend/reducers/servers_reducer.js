@@ -54,7 +54,12 @@ const serverReducer = (state = {}, action) => {
       const index = channelDisappeared[
         action.channel.server_id
       ].channel_ids.indexOf(action.channel.id);
-      channelDisappeared[action.channel.server_id].channel_ids.splice(index, 1);
+      if (index !== -1) {
+        channelDisappeared[action.channel.server_id].channel_ids.splice(
+          index,
+          1
+        );
+      }
       return channelDisappeared;
     case RECEIVE_CHANNEL:
     case REMOVE_CHANNEL:

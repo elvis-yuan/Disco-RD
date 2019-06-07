@@ -1,7 +1,7 @@
 import {
   RECEIVE_ERRORS,
-  RECEIVE_CURRENT_USER,
-  REMOVE_ERRORS
+  REMOVE_ERRORS,
+  RECEIVE_CURRENT_USER
 } from "../actions/session_actions";
 
 const sessionErrorsReducer = (state = [], action) => {

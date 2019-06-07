@@ -5561,6 +5561,7 @@ var serverErrorReducer = function serverErrorReducer() {
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_CHANNEL"]:
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_ERRORS"]:
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["CLOSE_MODAL"]:
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       return [];
 
     default:
@@ -5845,6 +5846,7 @@ var serverErrorReducer = function serverErrorReducer() {
     case _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_SERVER"]:
     case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["REMOVE_ERRORS"]:
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["CLOSE_MODAL"]:
+    case _actions_session_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_CURRENT_USER"]:
       return [];
 
     default:
@@ -5914,7 +5916,11 @@ var serverReducer = function serverReducer() {
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__["CHANNEL_DISAPPEARED"]:
       var channelDisappeared = Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state);
       var index = channelDisappeared[action.channel.server_id].channel_ids.indexOf(action.channel.id);
-      channelDisappeared[action.channel.server_id].channel_ids.splice(index, 1);
+
+      if (index !== -1) {
+        channelDisappeared[action.channel.server_id].channel_ids.splice(index, 1);
+      }
+
       return channelDisappeared;
 
     case _actions_channel_actions__WEBPACK_IMPORTED_MODULE_3__["RECEIVE_CHANNEL"]:
