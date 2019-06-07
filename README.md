@@ -1,7 +1,9 @@
 ## README
 
 ## DISCO-RD
-[Live Site](https://disco-rd.herokuapp.com/)
+[Live Site](https://disco-rd.herokuapp.com/)  
+    
+![](https://media.giphy.com/media/L3uqKa9D502WI4Qcqr/giphy.gif)
 
 ## OVERVIEW
 Disco-rd is a fullstack app which is a pixel perfect clone of [Discord](https://discordapp.com/). Disco-rd is a chat application where users can invite friends to their servers and create a community through the use of text channels.
@@ -17,7 +19,8 @@ Disco-rd is a fullstack app which is a pixel perfect clone of [Discord](https://
 
 ## FEATURES
 * User authentication
-* Custom errors
+* Custom errors  
+![](https://media.giphy.com/media/SvWuOOUuzqe43cRFz2/giphy.gif)
 * Servers and channels CRUD
 * Tracking of all users connected to a server
 * Live chat in channels
