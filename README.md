@@ -1,24 +1,28 @@
-# README
+## README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## DISCO-RD
+[Live Site](https://disco-rd.herokuapp.com/)
 
-Things you may want to cover:
+## OVERVIEW
+Disco-rd is a fullstack app which is a pixel perfect clone of [Discord](https://discordapp.com/). Disco-rd is a chat application where users can invite friends to their servers and create a community through the use of text channels.
 
-* Ruby version
+## TECHNOLOGIES
+* PostgreSQL database
+* Jbuilder
+* Webpack
+* Ruby on Rails backend framework
+* Ruby on Rails Action Cables - websockets for chat and notifications
+* jQuery - Ajax requests
+* React.js with Redux.js
 
-* System dependencies
+## FEATURES
+* User authentication
+* Servers and channels CRUD
+* Live chat in channels
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## COMING SOON!
+* Direct messaging
+* Voice over IP
+* User presence tracker
+* User aliasing
+* AWS for image uplading for icons
