@@ -22,6 +22,7 @@ Disco-rd is a fullstack app which is a pixel perfect clone of [Discord](https://
 
 ## COMING SOON!
 * Direct messaging
+* Voice over IP
 * User presence tracker
 * User aliasing
 * AWS for image uplading for icons
