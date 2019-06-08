@@ -22,7 +22,7 @@ json.users do
   message_authors = message_hash.keys.map{|user_id| user_hash[user_id]}
   message_authors.each do |user|
     json.set! user.id do 
-      json.extract! user, :id, :username, :email
+      json.extract! user, :id, :username, :email, :user_icon_url, :direct_message_id
     end
   end
 end

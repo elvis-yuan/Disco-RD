@@ -4585,11 +4585,14 @@ function (_React$Component) {
     _classCallCheck(this, ServerIndex);
 
     return _possibleConstructorReturn(this, _getPrototypeOf(ServerIndex).call(this, props));
-  } // componentDidMount(prevProps) {
-  // }
-
+  }
 
   _createClass(ServerIndex, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.createServerSockets();
+    }
+  }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps) {
       var _this = this;
@@ -4651,6 +4654,12 @@ function (_React$Component) {
 
               _this.props.channelDisappeared(data.channel);
             }
+
+            if (data.type === "deleteServer") {
+              if (parseInt(history.location.pathname.split("/")[2]) === data.server.id) {
+                history.push("/servers");
+              }
+            }
           },
           channelAppeared: function channelAppeared(data) {
             return this.perform("channelAppeared", data);
@@ -4660,6 +4669,9 @@ function (_React$Component) {
           },
           deleteUser: function deleteUser(data) {
             return this.perform("deleteUser", data);
+          },
+          deleteServer: function deleteServer(data) {
+            return this.perform("deleteServer", data);
           }
         });
       });
@@ -4672,46 +4684,42 @@ function (_React$Component) {
           return sub.unsubscribe();
         });
       }
-    } // createServerSockets() {
-    //   const previousChannel = prevProps.match.params.channelId;
-    //   const currentChannel = this.props.match.params.channelId;
-    //   const history = this.props.history;
-    //   const serverList = Object.values(this.props.servers);
-    //   if (serverList.length > 0) {
-    //     serverList.forEach(server => {
-    //       App.server[server.id] = App.cable.subscriptions.create(
-    //         {
-    //           channel: "ServerChannel",
-    //           server_id: server.id,
-    //           user_id: this.props.currentUser
-    //         },
-    //         {
-    //           received: data => {
-    //             if (data.type === "user") {
-    //               this.props.receiveUser(data.user);
-    //             }
-    //             if (data.type === "newChannel") {
-    //               this.props.channelAppeared(data.channel);
-    //             }
-    //             if (data.type === "deletedChannel") {
-    //               if (previousChannel === data.channel.id) {
-    //                 history.push(`/servers/${data.channel.server_id}`);
-    //               }
-    //               this.props.channelDisappeared(data.channel);
-    //             }
-    //           },
-    //           channelAppeared: function(data) {
-    //             return this.perform("channelAppeared", data);
-    //           },
-    //           channelDisappeared: function(data) {
-    //             return this.perform("channelDisappeared", data);
-    //           }
-    //         }
-    //       );
-    //     });
-    //   }
-    // }
+    }
+  }, {
+    key: "createServerSockets",
+    value: function createServerSockets() {
+      var _this2 = this;
 
+      App.cable.subscriptions.create({
+        channel: "ServerChannel",
+        server_id: this.props.directMessageId,
+        user_id: this.props.currentUser
+      }, {
+        received: function received(data) {
+          if (data.type === "user") {
+            _this2.props.receiveUser(data.user);
+          }
+
+          if (data.type === "newChannel") {
+            _this2.props.channelAppeared(data.channel);
+          }
+
+          if (data.type === "deletedChannel") {
+            if (previousChannel === data.channel.id) {
+              history.push("/servers/".concat(data.channel.server_id));
+            }
+
+            _this2.props.channelDisappeared(data.channel);
+          }
+        },
+        channelAppeared: function channelAppeared(data) {
+          return this.perform("channelAppeared", data);
+        },
+        channelDisappeared: function channelDisappeared(data) {
+          return this.perform("channelDisappeared", data);
+        }
+      });
+    }
   }, {
     key: "render",
     value: function render() {
@@ -4821,6 +4829,7 @@ var msp = function msp(_ref) {
       session = _ref.session,
       ui = _ref.ui;
   return {
+    directMessageId: entities.users[session.currentUser].direct_message_id,
     currentUser: session.currentUser,
     prevUser: session.prevUser,
     servers: entities.servers,
