@@ -17,4 +17,9 @@ class Server < ApplicationRecord
   has_many :messages,
     through: :channels,
     source: :messages
+
+  has_many :dms,
+    foreign_key: :dm_id,
+    class_name: "Channel"
+
 end
