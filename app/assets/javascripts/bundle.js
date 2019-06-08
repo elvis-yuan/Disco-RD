@@ -3989,7 +3989,7 @@ function (_React$Component) {
       });
       this.props.closeModal();
       this.props.history.push("/servers");
-      this.props.leaveServer(this.props.leaveServer(this.currentServer));
+      this.props.leaveServer(this.currentServer);
     }
   }, {
     key: "render",
@@ -52784,7 +52784,7 @@ function warning(message) {
 /*!***************************************************************!*\
   !*** ./node_modules/react-router-dom/esm/react-router-dom.js ***!
   \***************************************************************/
-/*! exports provided: BrowserRouter, HashRouter, Link, NavLink, MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext */
+/*! exports provided: MemoryRouter, Prompt, Redirect, Route, Router, StaticRouter, Switch, generatePath, matchPath, withRouter, __RouterContext, BrowserRouter, HashRouter, Link, NavLink */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";

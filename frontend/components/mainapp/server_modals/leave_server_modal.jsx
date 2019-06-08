@@ -22,7 +22,7 @@ class LeaveSeverModal extends React.Component {
     });
     this.props.closeModal();
     this.props.history.push("/servers");
-    this.props.leaveServer(this.props.leaveServer(this.currentServer));
+    this.props.leaveServer(this.currentServer);
   }
 
   render() {
