@@ -51,6 +51,11 @@ class Api::ChannelsController < ApplicationController
     render :create
   end
 
+  def directmessage
+    @channel = Channel.new(channel_params)
+
+  end
+
   private
   def channel_params
     params.require(:channel).permit(:title, :server_id, :dm_id)

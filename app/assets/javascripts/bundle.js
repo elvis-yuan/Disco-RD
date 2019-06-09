@@ -243,7 +243,7 @@ var editChannel = function editChannel(id) {
 /*!********************************************!*\
   !*** ./frontend/actions/server_actions.js ***!
   \********************************************/
-/*! exports provided: RECEIVE_ALL_SERVERS, RECEIVE_SERVER, REMOVE_SERVER, LEAVE_SERVER, fetchAllServers, fetchServer, createServer, updateServer, deleteServer, joinServer, leaveServer */
+/*! exports provided: RECEIVE_ALL_SERVERS, RECEIVE_SERVER, REMOVE_SERVER, LEAVE_SERVER, RECEIVE_DM, fetchDm, fetchAllServers, fetchServer, createServer, updateServer, deleteServer, joinServer, leaveServer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -252,6 +252,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_SERVER", function() { return RECEIVE_SERVER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_SERVER", function() { return REMOVE_SERVER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LEAVE_SERVER", function() { return LEAVE_SERVER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_DM", function() { return RECEIVE_DM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchDm", function() { return fetchDm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllServers", function() { return fetchAllServers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchServer", function() { return fetchServer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createServer", function() { return createServer; });
@@ -268,6 +270,7 @@ var RECEIVE_ALL_SERVERS = "RECEIVE_ALL_SERVERS";
 var RECEIVE_SERVER = "RECEIVE_SERVER";
 var REMOVE_SERVER = "REMOVE_SERVER";
 var LEAVE_SERVER = "LEAVE_SERVER";
+var RECEIVE_DM = "RECEIVE_DM";
 
 var receiveAllServers = function receiveAllServers(servers) {
   return {
@@ -290,13 +293,6 @@ var removeServer = function removeServer(action) {
   };
 };
 
-var quitServer = function quitServer(action) {
-  return {
-    type: LEAVE_SERVER,
-    server: action
-  };
-};
-
 var receiveErrors = function receiveErrors(errors) {
   return {
     type: _session_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_ERRORS"],
@@ -304,6 +300,20 @@ var receiveErrors = function receiveErrors(errors) {
   };
 };
 
+var receiveDm = function receiveDm(server) {
+  return {
+    type: RECEIVE_DM,
+    server: server
+  };
+};
+
+var fetchDm = function fetchDm() {
+  return function (dispatch) {
+    return _util_server_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchDm"]().then(function (server) {
+      return dispatch(receiveDm(server));
+    });
+  };
+};
 var fetchAllServers = function fetchAllServers(userId) {
   return function (dispatch) {
     return _util_server_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchAllServers"](userId).then(function (servers) {
@@ -2952,7 +2962,7 @@ function (_React$Component) {
         path: "/servers/:serverId",
         component: _channels_channel_index_container__WEBPACK_IMPORTED_MODULE_3__["default"]
       });
-      return this.props.location.pathname === "/servers" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      return this.props.location.pathname === "/servers/@me" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-app"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_servers_server_index_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_servers_activity_container__WEBPACK_IMPORTED_MODULE_9__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wompus-wrapper"
@@ -4235,8 +4245,50 @@ function (_React$Component) {
   }
 
   _createClass(ActivityContainer, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.props.fetchDm();
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this = this;
+
+      var _this$props = this.props,
+          dmChannels = _this$props.dmChannels,
+          dmIds = _this$props.dmIds,
+          users = _this$props.users,
+          currentUser = _this$props.currentUser;
+      var dms = dmChannels !== undefined && dmIds !== undefined ? dmChannels.concat(dmIds) : null;
+      var channels = dms ? dms.map(function (channel_id) {
+        return _this.props.channels[channel_id];
+      }) : null;
+      var serverIds = {};
+      channels ? channels.forEach(function (channel) {
+        if (channel.server_id !== currentUser.direct_message_id) {
+          serverIds[channel.server_id] = channel;
+        } else {
+          serverIds[channel.dm_id] = channel;
+        }
+      }) : null;
+      var titles = Object.values(users).filter(function (user) {
+        return user !== currentUser;
+      }).map(function (user, index) {
+        if (serverIds[user.direct_message_id] !== undefined) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+            key: index
+          }, user.username, " #", serverIds[user.direct_message_id].id);
+        }
+      });
+      debugger; // debugger;
+      // const dmsTitle = channels
+      //   ? channels.map((channel, index) => {
+      //       if (channel.server_id !== currentUser.direct_message_id) {
+      //         return <h1 key={index}>{users}</h1>;
+      //       }
+      //     })
+      //   : null;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-index-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -4263,7 +4315,9 @@ function (_React$Component) {
         className: "activity-container-channel-name"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "channel-name"
-      }, "Direct Messages"))))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Direct Messages")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "channel-list-container"
+      }, titles)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-user-information"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-user-icon-container"
@@ -4302,6 +4356,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var _activity__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./activity */ "./frontend/components/mainapp/servers/activity.jsx");
+/* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/server_actions */ "./frontend/actions/server_actions.js");
+
 
 
 
@@ -4313,11 +4369,22 @@ var msp = function msp(_ref) {
     channels: entities.channels,
     currentUser: entities.users[session.currentUser],
     currentUserId: session.currentUser,
-    servers: entities.servers
+    users: entities.users,
+    servers: entities.servers,
+    dmChannels: entities.directmessages.channel_ids,
+    dmIds: entities.directmessages.dm_ids
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, null)(_activity__WEBPACK_IMPORTED_MODULE_2__["default"])));
+var mdp = function mdp(dispatch) {
+  return {
+    fetchDm: function fetchDm() {
+      return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_3__["fetchDm"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_activity__WEBPACK_IMPORTED_MODULE_2__["default"])));
 
 /***/ }),
 
@@ -4747,7 +4814,7 @@ function (_React$Component) {
           className: "server-margin-wrapper"
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
           className: "button-flex server-btn blue-btn",
-          to: "/servers",
+          to: "/servers/@me",
           activeClassName: selected
         }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
           className: "default-icon",
@@ -5331,7 +5398,7 @@ function (_React$Component) {
       e.preventDefault();
       var user = Object.assign({}, this.state);
       this.props.processForm(user).then(function () {
-        return _this2.props.history.push("/servers");
+        return _this2.props.history.push("/servers/@me");
       });
     }
   }, {
@@ -5636,12 +5703,48 @@ var channelsReducer = function channelsReducer() {
       delete newState[action.channel.channel.id];
       return newState;
 
+    case _actions_server_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_DM"]:
+      return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, action.server.channels);
+
     default:
       return state;
   }
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (channelsReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/direct_messages_reducer.js":
+/*!******************************************************!*\
+  !*** ./frontend/reducers/direct_messages_reducer.js ***!
+  \******************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_server_actions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/server_actions */ "./frontend/actions/server_actions.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_1__);
+
+
+
+var directMessageReducer = function directMessageReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_server_actions__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_DM"]:
+      return action.server.server;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (directMessageReducer);
 
 /***/ }),
 
@@ -5690,6 +5793,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _servers_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./servers_reducer */ "./frontend/reducers/servers_reducer.js");
 /* harmony import */ var _channels_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./channels_reducer */ "./frontend/reducers/channels_reducer.js");
 /* harmony import */ var _messages_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./messages_reducer */ "./frontend/reducers/messages_reducer.js");
+/* harmony import */ var _direct_messages_reducer__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./direct_messages_reducer */ "./frontend/reducers/direct_messages_reducer.js");
+
 
 
 
@@ -5699,7 +5804,8 @@ __webpack_require__.r(__webpack_exports__);
   users: _users_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   servers: _servers_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
   channels: _channels_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
-  messages: _messages_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
+  messages: _messages_reducer__WEBPACK_IMPORTED_MODULE_4__["default"],
+  directmessages: _direct_messages_reducer__WEBPACK_IMPORTED_MODULE_6__["default"]
 }));
 
 /***/ }),
@@ -6113,6 +6219,9 @@ var usersReducer = function usersReducer() {
     case _actions_user_actions__WEBPACK_IMPORTED_MODULE_2__["RECEIVE_DATA"]:
       return Object(lodash__WEBPACK_IMPORTED_MODULE_4__["merge"])({}, state, _defineProperty({}, action.data.user.id, action.data.user));
 
+    case _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_DM"]:
+      return Object(lodash__WEBPACK_IMPORTED_MODULE_4__["merge"])({}, state, action.server.users);
+
     default:
       return state;
   }
@@ -6287,7 +6396,7 @@ var Auth = function Auth(_ref) {
     exact: exact,
     render: function render(props) {
       return !loggedIn ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Redirect"], {
-        to: "/servers"
+        to: "/servers/@me"
       });
     }
   });
@@ -6319,7 +6428,7 @@ var Server = function Server(_ref3) {
     path: path,
     exact: exact,
     render: function render(props) {
-      return connectedServer ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props) : history.push("/servers");
+      return connectedServer ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Component, props) : history.push("/servers/@me");
     }
   });
 };
@@ -6350,7 +6459,7 @@ var ServerRoute = Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRout
 /*!******************************************!*\
   !*** ./frontend/util/server_api_util.js ***!
   \******************************************/
-/*! exports provided: fetchAllServers, fetchServer, createServer, updateServer, joinServer, leaveServer, deleteServer */
+/*! exports provided: fetchAllServers, fetchServer, createServer, updateServer, joinServer, leaveServer, deleteServer, fetchDm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6362,6 +6471,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "joinServer", function() { return joinServer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "leaveServer", function() { return leaveServer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deleteServer", function() { return deleteServer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchDm", function() { return fetchDm; });
 var fetchAllServers = function fetchAllServers(userId) {
   return $.ajax({
     method: "GET",
@@ -6414,6 +6524,12 @@ var deleteServer = function deleteServer(serverId) {
   return $.ajax({
     method: "DELETE",
     url: "api/servers/".concat(serverId)
+  });
+};
+var fetchDm = function fetchDm() {
+  return $.ajax({
+    method: "GET",
+    url: "api/servers/directmessages"
   });
 };
 

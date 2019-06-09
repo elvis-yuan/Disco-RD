@@ -165,7 +165,7 @@ class ServerIndex extends React.Component {
           <div className="server-margin-wrapper">
             <NavLink
               className="button-flex server-btn blue-btn"
-              to={`/servers`}
+              to={`/servers/@me`}
               activeClassName={selected}
             >
               <img

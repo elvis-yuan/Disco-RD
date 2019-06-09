@@ -44,3 +44,9 @@ export const deleteServer = serverId =>
     method: "DELETE",
     url: `api/servers/${serverId}`
   });
+
+export const fetchDm = () =>
+  $.ajax({
+    method: "GET",
+    url: `api/servers/directmessages`
+  });

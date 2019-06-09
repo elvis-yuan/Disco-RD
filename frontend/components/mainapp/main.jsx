@@ -40,7 +40,7 @@ class Main extends React.Component {
         />
       );
 
-    return this.props.location.pathname === "/servers" ? (
+    return this.props.location.pathname === "/servers/@me" ? (
       <div className="main-app">
         <ServerIndexContainer />
         {/* // <Route path="/:serverId/:channelId" component={ChannelIndex} /> */}

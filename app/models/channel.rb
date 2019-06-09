@@ -10,7 +10,7 @@ class Channel < ApplicationRecord
 
   belongs_to :dm_server,
     foreign_key: :dm_id,
-    class: "Server",
+    class_name: "Server",
     optional: true
 
 end

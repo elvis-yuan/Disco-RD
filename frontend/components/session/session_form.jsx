@@ -22,7 +22,7 @@ class SessionForm extends React.Component {
     const user = Object.assign({}, this.state);
     this.props
       .processForm(user)
-      .then(() => this.props.history.push("/servers"));
+      .then(() => this.props.history.push("/servers/@me"));
   }
 
   handleChange(field) {

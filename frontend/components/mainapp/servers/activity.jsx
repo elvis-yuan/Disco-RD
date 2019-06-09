@@ -5,7 +5,55 @@ class ActivityContainer extends React.Component {
     super(props);
   }
 
+  componentDidMount() {
+    this.props.fetchDm();
+  }
+
   render() {
+    const { dmChannels, dmIds, users, currentUser } = this.props;
+    const dms =
+      dmChannels !== undefined && dmIds !== undefined
+        ? dmChannels.concat(dmIds)
+        : null;
+
+    const channels = dms
+      ? dms.map(channel_id => this.props.channels[channel_id])
+      : null;
+
+    const serverIds = {};
+
+    channels
+      ? channels.forEach(channel => {
+          if (channel.server_id !== currentUser.direct_message_id) {
+            serverIds[channel.server_id] = channel;
+          } else {
+            serverIds[channel.dm_id] = channel;
+          }
+        })
+      : null;
+
+    const titles = Object.values(users)
+      .filter(user => user !== currentUser)
+      .map((user, index) => {
+        if (serverIds[user.direct_message_id] !== undefined) {
+          return (
+            <h1 key={index}>
+              {user.username} #{serverIds[user.direct_message_id].id}
+            </h1>
+          );
+        }
+      });
+
+    debugger;
+    // debugger;
+    // const dmsTitle = channels
+    //   ? channels.map((channel, index) => {
+    //       if (channel.server_id !== currentUser.direct_message_id) {
+    //         return <h1 key={index}>{users}</h1>;
+    //       }
+    //     })
+    //   : null;
+
     return (
       <div className="channel-index-container">
         <div className="channel-name-links">
@@ -31,6 +79,7 @@ class ActivityContainer extends React.Component {
               </div>
             </div>
           </div>
+          <div className="channel-list-container">{titles}</div>
         </div>
         <div className="channel-container-user-information">
           <div className="channel-container-user-icon-container">

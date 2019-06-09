@@ -7,7 +7,7 @@ const Auth = ({ component: Component, path, loggedIn, exact }) => (
     path={path}
     exact={exact}
     render={props =>
-      !loggedIn ? <Component {...props} /> : <Redirect to="/servers" />
+      !loggedIn ? <Component {...props} /> : <Redirect to="/servers/@me" />
     }
   />
 );
@@ -34,7 +34,7 @@ const Server = ({
       path={path}
       exact={exact}
       render={props =>
-        connectedServer ? <Component {...props} /> : history.push("/servers")
+        connectedServer ? <Component {...props} /> : history.push("/servers/@me")
       }
     />
   );
