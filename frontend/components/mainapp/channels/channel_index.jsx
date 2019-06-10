@@ -162,8 +162,8 @@ class ChannelIndex extends React.Component {
             </div>
           </div>
           <div className="channel-button-container">
-            <div className="mute-button channel-communication-buttons" />
-            <div className="defen-button channel-communication-buttons" />
+            {/* <div className="mute-button channel-communication-buttons" />
+            <div className="defen-button channel-communication-buttons" /> */}
           </div>
         </div>
       </div>

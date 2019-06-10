@@ -2077,11 +2077,7 @@ function (_React$Component) {
         className: "channel-container-user-username"
       }, this.props.currentUser.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-button-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "mute-button channel-communication-buttons"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "defen-button channel-communication-buttons"
-      }))));
+      })));
     }
   }]);
 
@@ -2646,10 +2642,13 @@ function (_React$Component) {
     key: "handleSubmit",
     value: function handleSubmit(e) {
       e.preventDefault();
-      App[this.props.match.params.channelId].speak(this.state);
-      this.setState({
-        body: ""
-      });
+
+      if (this.state.body.split(" ").join("") !== "" && this.state.body.length > 0) {
+        App[this.props.match.params.channelId].speak(this.state);
+        this.setState({
+          body: ""
+        });
+      }
     }
   }, {
     key: "render",

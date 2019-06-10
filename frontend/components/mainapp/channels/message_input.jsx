@@ -27,8 +27,13 @@ class MessageInput extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    App[this.props.match.params.channelId].speak(this.state);
-    this.setState({ body: "" });
+    if (
+      this.state.body.split(" ").join("") !== "" &&
+      this.state.body.length > 0
+    ) {
+      App[this.props.match.params.channelId].speak(this.state);
+      this.setState({ body: "" });
+    }
   }
 
   render() {
