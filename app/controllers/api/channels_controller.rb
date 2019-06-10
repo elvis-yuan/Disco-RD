@@ -56,6 +56,13 @@ class Api::ChannelsController < ApplicationController
 
   end
 
+  def getMessages
+    @channel = Channel.includes(:messages.find(params[:id])
+    @messages = @channel.messages.limit(30).order(created_at: :desc)
+
+    render :show
+  end
+
   private
   def channel_params
     params.require(:channel).permit(:title, :server_id, :dm_id)

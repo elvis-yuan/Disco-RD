@@ -9,9 +9,7 @@ import Modal from "./components/modal/modal_container";
 
 const App = ({ store }) => (
   <Provider store={store}>
-    <div>
-      
-    </div>
+    <div />
     <HashRouter>
       <Modal />
       <Switch>

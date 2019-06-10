@@ -1,4 +1,5 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 class ActivityContainer extends React.Component {
   constructor(props) {
@@ -37,9 +38,12 @@ class ActivityContainer extends React.Component {
       .map((user, index) => {
         if (serverIds[user.direct_message_id] !== undefined) {
           return (
-            <h1 key={index}>
-              {user.username} #{serverIds[user.direct_message_id].id}
-            </h1>
+            <NavLink
+              to={`/servers/@me/${serverIds[user.direct_message_id].id}`}
+              key={index}
+            >
+              {user.username}
+            </NavLink>
           );
         }
       });
