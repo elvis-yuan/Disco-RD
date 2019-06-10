@@ -4274,11 +4274,7 @@ function (_React$Component) {
         className: "channel-container-user-username"
       }, this.props.currentUser.username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-button-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "mute-button channel-communication-buttons"
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "defen-button channel-communication-buttons"
-      }))));
+      })));
     }
   }]);
 
