@@ -4280,15 +4280,6 @@ function (_React$Component) {
           }, user.username, " #", serverIds[user.direct_message_id].id);
         }
       });
-      debugger; // debugger;
-      // const dmsTitle = channels
-      //   ? channels.map((channel, index) => {
-      //       if (channel.server_id !== currentUser.direct_message_id) {
-      //         return <h1 key={index}>{users}</h1>;
-      //       }
-      //     })
-      //   : null;
-
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-index-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

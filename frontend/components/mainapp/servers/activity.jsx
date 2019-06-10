@@ -44,16 +44,6 @@ class ActivityContainer extends React.Component {
         }
       });
 
-    debugger;
-    // debugger;
-    // const dmsTitle = channels
-    //   ? channels.map((channel, index) => {
-    //       if (channel.server_id !== currentUser.direct_message_id) {
-    //         return <h1 key={index}>{users}</h1>;
-    //       }
-    //     })
-    //   : null;
-
     return (
       <div className="channel-index-container">
         <div className="channel-name-links">
