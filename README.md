@@ -28,7 +28,7 @@ Disco-rd is a fullstack app which is a pixel perfect clone of [Discord](https://
 ## COOL BITS OF CODE
 A cool bit of code that handles when a new user joins a server, adding them to all currently online users'  Server User list.
 
-```js 
+```ruby
 class ServerChannel < ApplicationCable::Channel
   def subscribed
     user = User.find(params[:user_id])
