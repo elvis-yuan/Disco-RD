@@ -2061,7 +2061,7 @@ function (_React$Component) {
         className: "channel-text-channel-catagory"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-text-channel"
-      }, "text channels", " ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
+      }, "text channels", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("svg", {
         onClick: this.props.createModal,
         className: "add-button-icon",
         "aria-hidden": "false",
@@ -2235,7 +2235,6 @@ function (_React$Component) {
         to: "/servers/".concat(parseInt(this.props.match.params.serverId), "/").concat(this.props.channel.id),
         className: "channel-link-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        to: "/servers/".concat(parseInt(this.props.match.params.serverId), "/").concat(this.props.channel.id),
         className: "channel-container-channel-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-channel-name"
@@ -2953,6 +2952,81 @@ var mdp = function mdp(dispatch) {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_direct_message__WEBPACK_IMPORTED_MODULE_1__["default"])));
+
+/***/ }),
+
+/***/ "./frontend/components/mainapp/direct_message/direct_message_list_item.js":
+/*!********************************************************************************!*\
+  !*** ./frontend/components/mainapp/direct_message/direct_message_list_item.js ***!
+  \********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var DirectMessageListItem =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(DirectMessageListItem, _React$Component);
+
+  function DirectMessageListItem() {
+    _classCallCheck(this, DirectMessageListItem);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(DirectMessageListItem).apply(this, arguments));
+  }
+
+  _createClass(DirectMessageListItem, [{
+    key: "render",
+    value: function render() {
+      var _this$props = this.props,
+          username = _this$props.username,
+          server_id = _this$props.server_id;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
+        activeClassName: "current-channel-selected",
+        to: "/servers/@me/".concat(server_id),
+        className: "channel-link-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "channel-container-channel-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "channel-container-channel-name"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "channel-container-user-icon-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "channel-container-user-icon"
+      })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "channel-name"
+      }, username))));
+    }
+  }]);
+
+  return DirectMessageListItem;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (DirectMessageListItem);
 
 /***/ }),
 
@@ -4443,6 +4517,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _direct_message_direct_message_list_item__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../direct_message/direct_message_list_item */ "./frontend/components/mainapp/direct_message/direct_message_list_item.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -4460,6 +4535,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -4506,10 +4582,11 @@ function (_React$Component) {
         return user !== currentUser;
       }).map(function (user, index) {
         if (serverIds[user.direct_message_id] !== undefined) {
-          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
-            to: "/servers/@me/".concat(serverIds[user.direct_message_id].id),
-            key: index
-          }, user.username);
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_direct_message_direct_message_list_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
+            key: index,
+            server_id: serverIds[user.direct_message_id].id,
+            username: user.username
+          });
         }
       });
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -4522,23 +4599,17 @@ function (_React$Component) {
         className: "activity-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "activity-container-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "direct-message-button"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "channel-container-server-name"
-      }, " ", this.props.currentUser.username))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Start a conversation")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-list-container-scroll"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-text-channel-catagory"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-text-channel"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "activity-link-wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "activity-container-channel-wrapper"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "activity-container-channel-name"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
-        className: "channel-name"
-      }, "Direct Messages")))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "Direct Messages")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-list-container"
       }, titles)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-user-information"
@@ -4601,6 +4672,19 @@ var msp = function msp(_ref) {
 
 var mdp = function mdp(dispatch) {
   return {
+    createDm: function (_createDm) {
+      function createDm(_x) {
+        return _createDm.apply(this, arguments);
+      }
+
+      createDm.toString = function () {
+        return _createDm.toString();
+      };
+
+      return createDm;
+    }(function (dm) {
+      return dispatch(createDm(dm));
+    }),
     fetchDm: function fetchDm() {
       return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_3__["fetchDm"])());
     }

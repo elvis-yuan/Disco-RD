@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import DirectMessageListItem from "../direct_message/direct_message_list_item";
 
 class ActivityContainer extends React.Component {
   constructor(props) {
@@ -38,12 +39,11 @@ class ActivityContainer extends React.Component {
       .map((user, index) => {
         if (serverIds[user.direct_message_id] !== undefined) {
           return (
-            <NavLink
-              to={`/servers/@me/${serverIds[user.direct_message_id].id}`}
+            <DirectMessageListItem
               key={index}
-            >
-              {user.username}
-            </NavLink>
+              server_id={serverIds[user.direct_message_id].id}
+              username={user.username}
+            />
           );
         }
       });
@@ -54,24 +54,21 @@ class ActivityContainer extends React.Component {
           <div className="channel-container-server-information">
             <div className="activity-header">
               <div className="activity-container-header">
-                <span className="channel-container-server-name">
-                  {/* {serverTitle} */} {this.props.currentUser.username}
-                </span>
+                <div className="direct-message-button">
+                  <span className="channel-container-server-name">
+                    Start a conversation
+                  </span>
+                </div>
+                {/* <span className="channel-container-server-name">
+                  {serverTitle} {this.props.currentUser.username}
+                </span> */}
               </div>
             </div>
           </div>
         </div>
         <div className="channel-list-container-scroll">
           <div className="channel-text-channel-catagory">
-            <div className="channel-text-channel">
-              <div className="activity-link-wrapper">
-                <div className="activity-container-channel-wrapper">
-                  <div className="activity-container-channel-name">
-                    <h1 className="channel-name">Direct Messages</h1>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <div className="channel-text-channel">Direct Messages</div>
           </div>
           <div className="channel-list-container">{titles}</div>
         </div>

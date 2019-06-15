@@ -22,12 +22,7 @@ class ChannelListItem extends React.Component {
         }`}
         className="channel-link-wrapper"
       >
-        <div
-          to={`/servers/${parseInt(this.props.match.params.serverId)}/${
-            this.props.channel.id
-          }`}
-          className="channel-container-channel-wrapper"
-        >
+        <div className="channel-container-channel-wrapper">
           <div className="channel-container-channel-name">
             <svg viewBox="0 0 24 24" className="channel-icon">
               <path

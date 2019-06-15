@@ -17,6 +17,7 @@ const msp = ({ entities, session }) => {
 
 const mdp = dispatch => {
   return {
+    createDm: dm => dispatch(createDm(dm)),
     fetchDm: () => dispatch(fetchDm())
   };
 };
