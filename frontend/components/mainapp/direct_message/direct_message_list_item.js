@@ -3,11 +3,11 @@ import { NavLink } from "react-router-dom";
 
 class DirectMessageListItem extends React.Component {
   render() {
-    const { username, server_id } = this.props;
+    const { username, channel_id } = this.props;
     return (
       <NavLink
         activeClassName="current-channel-selected"
-        to={`/servers/@me/${server_id}`}
+        to={`/servers/@me/${channel_id}`}
         className="channel-link-wrapper"
       >
         <div className="channel-container-channel-wrapper">

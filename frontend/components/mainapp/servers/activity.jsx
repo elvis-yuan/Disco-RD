@@ -41,7 +41,7 @@ class ActivityContainer extends React.Component {
           return (
             <DirectMessageListItem
               key={index}
-              server_id={serverIds[user.direct_message_id].id}
+              channel_id={serverIds[user.direct_message_id].id}
               username={user.username}
             />
           );

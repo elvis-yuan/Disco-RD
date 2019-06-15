@@ -152,8 +152,9 @@ class ServerIndex extends React.Component {
             <ServerIconContainer server={server} key={index} />
           ))
         : null;
-    const selected =
-      history.location.pathname === "/servers/@me" ? "selected" : "";
+    const selected = history.location.pathname.includes("/servers/@me")
+      ? "selected"
+      : "";
 
     const selectedServer = modalOpen ? "selected-server-green-icon" : "";
 

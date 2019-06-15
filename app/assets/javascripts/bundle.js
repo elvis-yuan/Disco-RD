@@ -3004,10 +3004,10 @@ function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           username = _this$props.username,
-          server_id = _this$props.server_id;
+          channel_id = _this$props.channel_id;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         activeClassName: "current-channel-selected",
-        to: "/servers/@me/".concat(server_id),
+        to: "/servers/@me/".concat(channel_id),
         className: "channel-link-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-channel-wrapper"
@@ -4584,7 +4584,7 @@ function (_React$Component) {
         if (serverIds[user.direct_message_id] !== undefined) {
           return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_direct_message_direct_message_list_item__WEBPACK_IMPORTED_MODULE_2__["default"], {
             key: index,
-            server_id: serverIds[user.direct_message_id].id,
+            channel_id: serverIds[user.direct_message_id].id,
             username: user.username
           });
         }
@@ -5109,7 +5109,7 @@ function (_React$Component) {
           key: index
         });
       }) : null;
-      var selected = history.location.pathname === "/servers/@me" ? "selected" : "";
+      var selected = history.location.pathname.includes("/servers/@me") ? "selected" : "";
       var selectedServer = modalOpen ? "selected-server-green-icon" : "";
       var selectedGreen = modalOpen ? "selected-green" : "";
       return (// <div className="server-index-wrapper">
