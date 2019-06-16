@@ -8,14 +8,14 @@ class DirectMessageListItem extends React.Component {
       <NavLink
         activeClassName="current-channel-selected"
         to={`/servers/@me/${channel_id}`}
-        className="channel-link-wrapper"
+        className="direct-message-link-wrapper"
       >
-        <div className="channel-container-channel-wrapper">
+        <div className="direct-container-channel-wrapper">
           <div className="channel-container-channel-name">
             <div className="channel-container-user-icon-container">
               <div className="channel-container-user-icon" />
             </div>
-            <h1 className="channel-name">{username}</h1>
+            <h1 className="direct-message-name">{username}</h1>
           </div>
         </div>
       </NavLink>

@@ -68,7 +68,7 @@ class ActivityContainer extends React.Component {
         </div>
         <div className="channel-list-container-scroll">
           <div className="channel-text-channel-catagory">
-            <div className="channel-text-channel">Direct Messages</div>
+            <div className="direct-message-text-channel">Direct Messages</div>
           </div>
           <div className="channel-list-container">{titles}</div>
         </div>

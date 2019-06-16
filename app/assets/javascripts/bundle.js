@@ -3008,9 +3008,9 @@ function (_React$Component) {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         activeClassName: "current-channel-selected",
         to: "/servers/@me/".concat(channel_id),
-        className: "channel-link-wrapper"
+        className: "direct-message-link-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "channel-container-channel-wrapper"
+        className: "direct-container-channel-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-channel-name"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3018,7 +3018,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-container-user-icon"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
-        className: "channel-name"
+        className: "direct-message-name"
       }, username))));
     }
   }]);
@@ -4608,7 +4608,7 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-text-channel-catagory"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "channel-text-channel"
+        className: "direct-message-text-channel"
       }, "Direct Messages")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-list-container"
       }, titles)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
