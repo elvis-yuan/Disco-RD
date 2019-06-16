@@ -45,18 +45,22 @@ class Main extends React.Component {
       <div className="main-app">
         <ServerIndexContainer />
         <ServerOnlineContainer />
-        <Route
-          path="/servers/@me/:channelId"
-          component={DirectMessageContainer}
-        />
-        {/* <div className="wompus-wrapper">
-          <div className="wompus-container">
-            <div className="wompus-image" />
-            <div className="wompus-text">
-              Welcome To Disco-RD. This is a clone of Discord. Enjoy your stay!
+        {this.props.location.pathname === "/servers/@me" ? (
+          <div className="wompus-wrapper">
+            <div className="wompus-container">
+              <div className="wompus-image" />
+              <div className="wompus-text">
+                Welcome To Disco-RD. This is a clone of Discord. Enjoy your
+                stay!
+              </div>
             </div>
           </div>
-        </div> */}
+        ) : (
+          <Route
+            path="/servers/@me/:channelId"
+            component={DirectMessageContainer}
+          />
+        )}
       </div>
     ) : (
       <div className="main-app">

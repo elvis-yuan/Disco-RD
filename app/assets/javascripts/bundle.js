@@ -3272,7 +3272,15 @@ function (_React$Component) {
       });
       return this.props.location.pathname.includes("/servers/@me") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "main-app"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_servers_server_index_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_servers_activity_container__WEBPACK_IMPORTED_MODULE_9__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_servers_server_index_container__WEBPACK_IMPORTED_MODULE_1__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_servers_activity_container__WEBPACK_IMPORTED_MODULE_9__["default"], null), this.props.location.pathname === "/servers/@me" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wompus-wrapper"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wompus-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wompus-image"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "wompus-text"
+      }, "Welcome To Disco-RD. This is a clone of Discord. Enjoy your stay!"))) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
         path: "/servers/@me/:channelId",
         component: _direct_message_direct_message_container__WEBPACK_IMPORTED_MODULE_11__["default"]
       })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
