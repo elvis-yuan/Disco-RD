@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import DirectMessageListItem from "../direct_message/direct_message_list_item";
+import DirectMessageListItemContainer from "../direct_message/direct_message_list_item_container";
 
 class ActivityContainer extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class ActivityContainer extends React.Component {
   }
 
   render() {
-    const { dmChannels, dmIds, users, currentUser } = this.props;
+    const { dmChannels, dmIds, users, currentUser, openModal } = this.props;
     const dms =
       dmChannels !== undefined && dmIds !== undefined
         ? dmChannels.concat(dmIds)
@@ -39,10 +39,11 @@ class ActivityContainer extends React.Component {
       .map((user, index) => {
         if (serverIds[user.direct_message_id] !== undefined) {
           return (
-            <DirectMessageListItem
+            <DirectMessageListItemContainer
               key={index}
               channel_id={serverIds[user.direct_message_id].id}
               username={user.username}
+              dm_id={serverIds[user.direct_message_id].id}
             />
           );
         }
@@ -52,7 +53,7 @@ class ActivityContainer extends React.Component {
       <div className="channel-index-container">
         <div className="channel-name-links">
           <div className="channel-container-server-information">
-            <div className="activity-header">
+            <div className="activity-header" onClick={openModal}>
               <div className="activity-container-header">
                 <div className="direct-message-button">
                   <span className="channel-container-server-name">
@@ -82,8 +83,8 @@ class ActivityContainer extends React.Component {
             </div>
           </div>
           <div className="channel-button-container">
-            <div className="mute-button channel-communication-buttons" />
-            <div className="defen-button channel-communication-buttons" />
+            {/* <div className="mute-button channel-communication-buttons" />
+            <div className="defen-button channel-communication-buttons" /> */}
           </div>
         </div>
       </div>

@@ -1,7 +1,9 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import { currentDm } from "../../../actions/modal_actions";
 import Activity from "./activity";
 import { fetchDm } from "../../../actions/server_actions";
+import { openModal } from "../../../actions/modal_actions";
 
 const msp = ({ entities, session }) => {
   return {
@@ -18,7 +20,9 @@ const msp = ({ entities, session }) => {
 const mdp = dispatch => {
   return {
     createDm: dm => dispatch(createDm(dm)),
-    fetchDm: () => dispatch(fetchDm())
+    fetchDm: () => dispatch(fetchDm()),
+    currentDm: username => dispatch(currentDm(username)),
+    openModal: () => dispatch(openModal("createDM"))
   };
 };
 

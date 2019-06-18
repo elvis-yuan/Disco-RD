@@ -10,6 +10,7 @@ import EditChannelContainer from "../mainapp/channel_modals/edit_channel_modal_c
 import DeleteChannelContainer from "../mainapp/channel_modals/delete_channel_modal_container";
 import LeaveServerContainer from "../mainapp/server_modals/leave_server_container";
 import InviteContainer from "../mainapp/server_modals/invite_modal_container";
+import CreateDMContainer from "../mainapp/direct_message/direct_message_modal_container";
 
 class Modal extends React.Component {
   constructor(props) {
@@ -54,6 +55,9 @@ class Modal extends React.Component {
         break;
       case "inviteToServer":
         component = <InviteContainer />;
+        break;
+      case "createDM":
+        component = <CreateDMContainer />;
         break;
       default:
         return null;

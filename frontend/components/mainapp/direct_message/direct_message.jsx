@@ -1,5 +1,5 @@
 import React from "react";
-import MessageInputContainer from "../channels/message_input_container";
+import DirectMessageInputContainer from "../direct_message/direct_message_input_container";
 import ChannelHeadingContainer from "../channels/channel_heading_container";
 import MessageFormatContainer from "../channels/message_format_container";
 import { receiveUser } from "../../../actions/user_actions";
@@ -15,6 +15,7 @@ class DirectMessage extends React.Component {
 
   componentDidMount() {
     // this.props.fetchChannel(this.currentChannelId);
+    this.props.fetchMessages(this.props.match.params.channelId);
     this.createSocketConnection();
   }
 
@@ -22,6 +23,7 @@ class DirectMessage extends React.Component {
     if (
       prevProps.match.params.channelId !== this.props.match.params.channelId
     ) {
+      this.props.fetchMessages(this.props.match.params.channelId);
       App[prevProps.match.params.channelId].unsubscribe();
 
       this.currentChannelId = this.props.match.params.channelId;
@@ -74,7 +76,13 @@ class DirectMessage extends React.Component {
   }
 
   render() {
-    const { channels, messages } = this.props;
+    const {
+      channels,
+      messages,
+      currentUser,
+      currentUserId,
+      currentDm
+    } = this.props;
     const allMessages = this.state.messages.map((message, index) => {
       return (
         <div key={index}>
@@ -105,7 +113,13 @@ class DirectMessage extends React.Component {
 
     return (
       <div className="chat-component-container">
-        <ChannelHeadingContainer channelTitle="hello" />
+        <div className="channel-heading-wrapper">
+          <div className="channel-heading-channel-title">
+            <div className="channel-icon-wrapper" role="button">
+              <h2 className="channel-header-channel-title" />
+            </div>
+          </div>
+        </div>
         <div className="chatroom-container">
           <div className="chat-box-component">
             <div className="message-window">
@@ -121,7 +135,7 @@ class DirectMessage extends React.Component {
                 </div>
               </div>
             </div>
-            <MessageInputContainer
+            <DirectMessageInputContainer
               currentId={this.currentChannelId}
               channels={this.props.channels}
               channelTitle="title"

@@ -11,6 +11,8 @@ import {
   REMOVE_SERVER,
   RECEIVE_DM
 } from "../actions/server_actions";
+import { RECEIVE_MESSAGES } from "../actions/message_actions";
+import { RECEIVE_DIRECTMESSAGE } from "../actions/directmessage_action";
 
 const channelsReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -39,6 +41,14 @@ const channelsReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_DM:
       return merge({}, state, action.server.channels);
+    case RECEIVE_MESSAGES:
+      return merge({}, state, {
+        [action.payload.channel.id]: action.payload.channel
+      });
+    case RECEIVE_DIRECTMESSAGE:
+      return merge({}, state, {
+        [action.payload.channel.id]: action.payload.channel
+      });
     default:
       return state;
   }
