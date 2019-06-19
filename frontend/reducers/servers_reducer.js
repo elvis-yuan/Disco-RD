@@ -91,7 +91,6 @@ const serverReducer = (state = {}, action) => {
       );
       return disconnectedUser;
     case DELETE_SERVER:
-      debugger;
       const deletedState = merge({}, state);
       delete deletedState[action.server.id];
       return deletedState;
