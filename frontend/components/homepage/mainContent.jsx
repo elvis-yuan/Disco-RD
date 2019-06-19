@@ -21,7 +21,7 @@ class MainContent extends React.Component {
 
   handleClick() {
     const user = { username: "DemoUser", password: "Password" };
-    this.props.signin(user).then(() => this.props.history.push("/servers"));
+    this.props.signin(user).then(() => this.props.history.push("/servers/@me"));
   }
 
   clickHandler() {
@@ -30,7 +30,7 @@ class MainContent extends React.Component {
 
   render() {
     const button = this.props.currentUser ? (
-      <Link to="/servers" className="signup-button fade-in">
+      <Link to="/servers/@me" className="signup-button fade-in">
         Open
       </Link>
     ) : (

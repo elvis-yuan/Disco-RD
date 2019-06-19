@@ -8,9 +8,9 @@ class ServerIndex extends React.Component {
     super(props);
   }
 
-  // componentDidMount(prevProps) {
-
-  // }
+  componentDidMount() {
+    this.createServerSockets();
+  }
 
   componentDidUpdate(prevProps) {
     const prevSockets = Object.values(prevProps.servers).map(
@@ -78,6 +78,14 @@ class ServerIndex extends React.Component {
               }
               this.props.channelDisappeared(data.channel);
             }
+            if (data.type === "deleteServer") {
+              if (
+                parseInt(history.location.pathname.split("/")[2]) ===
+                data.server.id
+              ) {
+                history.push("/servers");
+              }
+            }
           },
           channelAppeared: function(data) {
             return this.perform("channelAppeared", data);
@@ -87,6 +95,9 @@ class ServerIndex extends React.Component {
           },
           deleteUser: function(data) {
             return this.perform("deleteUser", data);
+          },
+          deleteServer: function(data) {
+            return this.perform("deleteServer", data);
           }
         }
       );
@@ -99,46 +110,37 @@ class ServerIndex extends React.Component {
     }
   }
 
-  // createServerSockets() {
-  //   const previousChannel = prevProps.match.params.channelId;
-  //   const currentChannel = this.props.match.params.channelId;
-  //   const history = this.props.history;
-  //   const serverList = Object.values(this.props.servers);
-
-  //   if (serverList.length > 0) {
-  //     serverList.forEach(server => {
-  //       App.server[server.id] = App.cable.subscriptions.create(
-  //         {
-  //           channel: "ServerChannel",
-  //           server_id: server.id,
-  //           user_id: this.props.currentUser
-  //         },
-  //         {
-  //           received: data => {
-  //             if (data.type === "user") {
-  //               this.props.receiveUser(data.user);
-  //             }
-  //             if (data.type === "newChannel") {
-  //               this.props.channelAppeared(data.channel);
-  //             }
-  //             if (data.type === "deletedChannel") {
-  //               if (previousChannel === data.channel.id) {
-  //                 history.push(`/servers/${data.channel.server_id}`);
-  //               }
-  //               this.props.channelDisappeared(data.channel);
-  //             }
-  //           },
-  //           channelAppeared: function(data) {
-  //             return this.perform("channelAppeared", data);
-  //           },
-  //           channelDisappeared: function(data) {
-  //             return this.perform("channelDisappeared", data);
-  //           }
-  //         }
-  //       );
-  //     });
-  //   }
-  // }
+  createServerSockets() {
+    App.cable.subscriptions.create(
+      {
+        channel: "ServerChannel",
+        server_id: this.props.directMessageId,
+        user_id: this.props.currentUser
+      },
+      {
+        received: data => {
+          if (data.type === "user") {
+            this.props.receiveUser(data.user);
+          }
+          if (data.type === "newChannel") {
+            this.props.channelAppeared(data.channel);
+          }
+          if (data.type === "deletedChannel") {
+            if (previousChannel === data.channel.id) {
+              history.push(`/servers/${data.channel.server_id}`);
+            }
+            this.props.channelDisappeared(data.channel);
+          }
+        },
+        channelAppeared: function(data) {
+          return this.perform("channelAppeared", data);
+        },
+        channelDisappeared: function(data) {
+          return this.perform("channelDisappeared", data);
+        }
+      }
+    );
+  }
 
   render() {
     const { servers, modalOpen, history, fetchServer } = this.props;
@@ -150,7 +152,9 @@ class ServerIndex extends React.Component {
             <ServerIconContainer server={server} key={index} />
           ))
         : null;
-    const selected = history.location.pathname === "/servers" ? "selected" : "";
+    const selected = history.location.pathname.includes("/servers/@me")
+      ? "selected"
+      : "";
 
     const selectedServer = modalOpen ? "selected-server-green-icon" : "";
 
@@ -163,7 +167,7 @@ class ServerIndex extends React.Component {
           <div className="server-margin-wrapper">
             <NavLink
               className="button-flex server-btn blue-btn"
-              to={`/servers`}
+              to={`/servers/@me`}
               activeClassName={selected}
             >
               <img

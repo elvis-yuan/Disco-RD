@@ -31,6 +31,13 @@ class ServerChannel < ApplicationCable::Channel
     ServerChannel.broadcast_to(data['server_id'], socket)
   end
 
+  def deleteServer(data)
+    server = data['server']
+    socket = {type: 'deleteServer', server: server}
+
+    ServerChannel.broadcast_to(server.id, socket)
+  end
+
   def unsubscribed
   end
 end 

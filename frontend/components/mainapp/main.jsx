@@ -9,6 +9,7 @@ import ChannelChatContainer from "./channels/channel_chat_container";
 import { ChannelRoute } from "../../util/channel_route_util";
 import ServerOnlineContainer from "./servers/activity_container";
 import ServerConnectedUsers from "./servers/server_connected_users_container";
+import DirectMessageContainer from "./direct_message/direct_message_container";
 
 const msp = ({ entities, session }) => ({
   currentUser: session.currentUser,
@@ -40,19 +41,26 @@ class Main extends React.Component {
         />
       );
 
-    return this.props.location.pathname === "/servers" ? (
+    return this.props.location.pathname.includes("/servers/@me") ? (
       <div className="main-app">
         <ServerIndexContainer />
-        {/* // <Route path="/:serverId/:channelId" component={ChannelIndex} /> */}
         <ServerOnlineContainer />
-        <div className="wompus-wrapper">
-          <div className="wompus-container">
-            <div className="wompus-image" />
-            <div className="wompus-text">
-              Welcome To Disco-RD. This is a clone of Discord. Enjoy your stay!
+        {this.props.location.pathname === "/servers/@me" ? (
+          <div className="wompus-wrapper">
+            <div className="wompus-container">
+              <div className="wompus-image" />
+              <div className="wompus-text">
+                Welcome To Disco-RD. This is a clone of Discord. Enjoy your
+                stay!
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <Route
+            path="/servers/@me/:channelId"
+            component={DirectMessageContainer}
+          />
+        )}
       </div>
     ) : (
       <div className="main-app">

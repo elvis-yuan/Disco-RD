@@ -132,7 +132,7 @@ class ChannelIndex extends React.Component {
         <div className="channel-list-container-scroll">
           <div className="channel-text-channel-catagory">
             <div className="channel-text-channel">
-              text channels{" "}
+              text channels
               <svg
                 onClick={this.props.createModal}
                 className="add-button-icon"

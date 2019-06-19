@@ -13,11 +13,14 @@ Rails.application.routes.draw do
     resources :servers, only: [:show, :create, :update, :destroy] do
       collection do 
         post "join"
-      end
-      collection do 
         delete "leave"
+        get "directmessages"
       end
-      resources :channels, only: [:index, :create]
+      resources :channels, only: [:index, :create] do 
+        collection do 
+          post "directmessage"
+        end
+      end
     end
     resources :channels, only: [:show, :destroy, :update] do 
       resources :messages, only: [:index, :create]

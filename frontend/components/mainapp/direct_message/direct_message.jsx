@@ -1,11 +1,11 @@
 import React from "react";
-import MessageInputContainer from "./message_input_container";
-import ChannelHeadingContainer from "./channel_heading_container";
-import MessageFormatContainer from "./message_format_container";
+import DirectMessageInputContainer from "../direct_message/direct_message_input_container";
+import ChannelHeadingContainer from "../channels/channel_heading_container";
+import MessageFormatContainer from "../channels/message_format_container";
 import { receiveUser } from "../../../actions/user_actions";
 import ServerConnectedUsers from "../servers/server_connected_users_container";
 
-class ChannelChat extends React.Component {
+class DirectMessage extends React.Component {
   constructor(props) {
     super(props);
     this.currentChannelId = this.props.match.params.channelId;
@@ -14,7 +14,8 @@ class ChannelChat extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchChannel(this.currentChannelId);
+    // this.props.fetchChannel(this.currentChannelId);
+    this.props.fetchMessages(this.props.match.params.channelId);
     this.createSocketConnection();
   }
 
@@ -22,11 +23,12 @@ class ChannelChat extends React.Component {
     if (
       prevProps.match.params.channelId !== this.props.match.params.channelId
     ) {
+      this.props.fetchMessages(this.props.match.params.channelId);
       App[prevProps.match.params.channelId].unsubscribe();
 
       this.currentChannelId = this.props.match.params.channelId;
       this.setState({ messages: [] });
-      this.props.fetchChannel(this.currentChannelId);
+      // this.props.fetchChannel(this.currentChannelId);
 
       this.createSocketConnection();
     }
@@ -74,7 +76,13 @@ class ChannelChat extends React.Component {
   }
 
   render() {
-    const { channels, messages } = this.props;
+    const {
+      channels,
+      messages,
+      currentUser,
+      currentUserId,
+      currentDm
+    } = this.props;
     const allMessages = this.state.messages.map((message, index) => {
       return (
         <div key={index}>
@@ -103,20 +111,15 @@ class ChannelChat extends React.Component {
           ))
         : null;
 
-    const title =
-      Object.values(channels).length > 0
-        ? channels[this.props.match.params.channelId].title
-        : "";
-
-    const connectedUsers = this.props.history.location.pathname.includes(
-      "/servers/@me"
-    ) ? null : (
-      <ServerConnectedUsers />
-    );
-
     return (
       <div className="chat-component-container">
-        <ChannelHeadingContainer channelTitle={title} />
+        <div className="channel-heading-wrapper">
+          <div className="channel-heading-channel-title">
+            <div className="channel-icon-wrapper" role="button">
+              <h2 className="channel-header-channel-title" />
+            </div>
+          </div>
+        </div>
         <div className="chatroom-container">
           <div className="chat-box-component">
             <div className="message-window">
@@ -124,8 +127,7 @@ class ChannelChat extends React.Component {
                 <div className="message-list">
                   <div className="message-list-image">
                     <h1>
-                      Welcome to the beginning of the <strong>{title}</strong>{" "}
-                      channel.
+                      This is the beginning of your direct message history
                     </h1>
                   </div>
                   {history}
@@ -133,18 +135,16 @@ class ChannelChat extends React.Component {
                 </div>
               </div>
             </div>
-            <MessageInputContainer
+            <DirectMessageInputContainer
               currentId={this.currentChannelId}
               channels={this.props.channels}
-              channelTitle={title}
+              channelTitle="title"
             />
           </div>
-          {/* <ServerConnectedUsers /> */}
-          {connectedUsers}
         </div>
       </div>
     );
   }
 }
 
-export default ChannelChat;
+export default DirectMessage;

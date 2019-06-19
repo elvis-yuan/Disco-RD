@@ -1,0 +1,69 @@
+.direct-message-text-channel {
+  font-size: 12px;
+  color: #fff;
+  opacity: 0.3;
+  text-transform: uppercase;
+  font-weight: 500;
+  -webkit-transition: opacity 0.15s ease;
+  transition: opacity 0.15s ease;
+  padding: 0 20px 9px 20px;
+  display: block;
+  cursor: default;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.direct-message-link-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 42px;
+  /* overflow: hidden; */
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  margin: 1px 0 1px 8px;
+  border-radius: 5px;
+}
+
+.direct-container-channel-wrapper {
+  width: 100%;
+  height: 42px;
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.direct-message-name {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: 500;
+  color: #72767d;
+}
+
+.direct-container-channel-wrapper:hover .direct-message-name {
+  color: white;
+}
+
+.direct-container-channel-wrapper:hover {
+  background-color: #292b2f;
+}
+
+.direct-message-link-wrapper.current-channel-selected:hover
+  > .direct-container-channel-wrapper {
+  background-color: #40444b;
+}
+
+.current-channel-selected h1.direct-message-name {
+  color: white;
+}

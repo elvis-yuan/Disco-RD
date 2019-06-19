@@ -18,6 +18,7 @@ import {
 
 const msp = ({ entities, session, ui }) => {
   return {
+    directMessageId: entities.users[session.currentUser].direct_message_id,
     currentUser: session.currentUser,
     prevUser: session.prevUser,
     servers: entities.servers,

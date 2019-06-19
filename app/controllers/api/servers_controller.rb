@@ -93,6 +93,14 @@ class Api::ServersController < ApplicationController
     render :index
   end
 
+  def directmessages
+    @server = Server.includes(:channels, :dms).find(current_user.direct_message_id)
+    @channels = @server.channels + @server.dms
+    @users = User.all
+
+    render :directmessage
+  end
+
   private 
   def server_params
     params.require(:server).permit(:title, :icon_url, :public, :invitation_code)

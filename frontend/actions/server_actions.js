@@ -6,6 +6,7 @@ export const RECEIVE_ALL_SERVERS = "RECEIVE_ALL_SERVERS";
 export const RECEIVE_SERVER = "RECEIVE_SERVER";
 export const REMOVE_SERVER = "REMOVE_SERVER";
 export const LEAVE_SERVER = "LEAVE_SERVER";
+export const RECEIVE_DM = "RECEIVE_DM";
 
 const receiveAllServers = servers => ({
   type: RECEIVE_ALL_SERVERS,
@@ -22,17 +23,20 @@ const removeServer = action => ({
   servers: action
 });
 
-const quitServer = action => ({
-  type: LEAVE_SERVER,
-  server: action
-});
-
 const receiveErrors = errors => {
   return {
     type: RECEIVE_ERRORS,
     errors
   };
 };
+
+const receiveDm = server => ({
+  type: RECEIVE_DM,
+  server
+});
+
+export const fetchDm = () => dispatch =>
+  ServerAPI.fetchDm().then(server => dispatch(receiveDm(server)));
 
 export const fetchAllServers = userId => dispatch =>
   ServerAPI.fetchAllServers(userId).then(servers => {

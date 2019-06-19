@@ -8,4 +8,9 @@ class Channel < ApplicationRecord
     through: :messages,
     source: :user
 
+  belongs_to :dm_server,
+    foreign_key: :dm_id,
+    class_name: "Server",
+    optional: true
+
 end

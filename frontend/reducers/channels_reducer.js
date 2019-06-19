@@ -6,7 +6,13 @@ import {
   CHANNEL_APPEARED,
   CHANNEL_DISAPPEARED
 } from "../actions/channel_actions";
-import { RECEIVE_SERVER, REMOVE_SERVER } from "../actions/server_actions";
+import {
+  RECEIVE_SERVER,
+  REMOVE_SERVER,
+  RECEIVE_DM
+} from "../actions/server_actions";
+import { RECEIVE_MESSAGES } from "../actions/message_actions";
+import { RECEIVE_DIRECTMESSAGE } from "../actions/directmessage_action";
 
 const channelsReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -33,6 +39,16 @@ const channelsReducer = (state = {}, action) => {
       const newState = merge({}, state);
       delete newState[action.channel.channel.id];
       return newState;
+    case RECEIVE_DM:
+      return merge({}, state, action.server.channels);
+    case RECEIVE_MESSAGES:
+      return merge({}, state, {
+        [action.payload.channel.id]: action.payload.channel
+      });
+    case RECEIVE_DIRECTMESSAGE:
+      return merge({}, state, {
+        [action.payload.channel.id]: action.payload.channel
+      });
     default:
       return state;
   }

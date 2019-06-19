@@ -51,8 +51,30 @@ class Api::ChannelsController < ApplicationController
     render :create
   end
 
+  def directmessage
+    @user = User.find_by(username: params[:username])
+    if @user
+      @channel = Channel.new(title: current_user.username, server_id: current_user.direct_message_id, dm_id: @user.direct_message_id)
+      if @channel.save
+        @server = Server.find(current_user.direct_message_id)
+        render :direct_message
+    # @channel = Channel.new(channel_params)
+    # @channel.server_id = params[:server_id]
+    # @channel.dm_id = params[:dm_id]
+      end
+    end
+
+  end
+
+  def getMessages
+    @channel = Channel.includes(:messages.find(params[:id]))
+    @messages = @channel.messages.limit(30).order(created_at: :desc)
+
+    render :show
+  end
+
   private
   def channel_params
-    params.require(:channel).permit(:title, :server_id)
+    params.require(:channel).permit(:title, :server_id, :dm_id)
   end
 end

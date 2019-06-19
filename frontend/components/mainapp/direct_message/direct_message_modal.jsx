@@ -1,26 +1,20 @@
 import React from "react";
-import { openModal, closeModal } from "../../../actions/modal_actions";
 
-class CreateChannelModal extends React.Component {
+class DirectMessageModal extends React.Component {
   constructor(props) {
     super(props);
-    this.currentServer = parseInt(
-      this.props.history.location.pathname.split("/")[2]
-    );
     this.state = {
-      title: "",
-      server_id: this.currentServer
+      username: "",
+      server_id: this.props.server_id
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(e) {
-    const currentServer = this.currentServer;
     e.preventDefault();
-    this.props.createChannel(this.state).then(action => {
-      this.props.closeModal();
-      App.server[currentServer].channelAppeared(action.channel.channel);
-    });
+    if (this.state.username !== "") {
+      this.props.createDm(this.state).then(this.props.closeModal());
+    }
   }
 
   handleChange(field) {
@@ -28,9 +22,7 @@ class CreateChannelModal extends React.Component {
       this.setState({ [field]: e.target.value });
     };
   }
-
   render() {
-    const title = this.props.servers[this.state.server_id].title;
     const { errors } = this.props;
     const errorText =
       errors.length > 0 ? (
@@ -38,7 +30,6 @@ class CreateChannelModal extends React.Component {
       ) : null;
 
     const redText = errors.length > 0 ? "red-text" : "";
-
     return (
       <div className="create-channel-modal-wrapper">
         <form
@@ -47,19 +38,19 @@ class CreateChannelModal extends React.Component {
         >
           <div className="create-channel-header">
             <div className="create-channel-wrapper">
-              <h4 className="create-channel-h4">Create Text channel</h4>
-              <p className="create-channel-subtitle">in {title}</p>
+              <h4 className="create-channel-h4">Create a Direct Message</h4>
+              <p className="create-channel-subtitle" />
             </div>
           </div>
           <div className="create-channel-input-wrapper">
             <label className={`create-channel-label ${redText}`}>
-              CHANNEL NAME {errorText}
+              USERNAME {errorText}
             </label>
             <input
               className="create-channel-input"
               type="text"
-              value={this.state.title}
-              onChange={this.handleChange("title")}
+              value={this.state.username}
+              onChange={this.handleChange("username")}
             />
           </div>
           <div className="create-channel-button-wrapper">
@@ -72,7 +63,7 @@ class CreateChannelModal extends React.Component {
             <input
               className="create-channel-button"
               type="submit"
-              value="Create Channel"
+              value="Create Direct Message"
             />
           </div>
         </form>
@@ -81,4 +72,4 @@ class CreateChannelModal extends React.Component {
   }
 }
 
-export default CreateChannelModal;
+export default DirectMessageModal;

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_31_135345) do
+ActiveRecord::Schema.define(version: 2019_06_09_125020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,18 @@ ActiveRecord::Schema.define(version: 2019_05_31_135345) do
     t.integer "server_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "dm_id"
     t.index ["server_id"], name: "index_channels_on_server_id"
+  end
+
+  create_table "direct_messages", force: :cascade do |t|
+    t.integer "dmer_id", null: false
+    t.integer "dmee_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dmee_id"], name: "index_direct_messages_on_dmee_id"
+    t.index ["dmer_id", "dmee_id"], name: "index_direct_messages_on_dmer_id_and_dmee_id"
+    t.index ["dmer_id"], name: "index_direct_messages_on_dmer_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -61,6 +72,7 @@ ActiveRecord::Schema.define(version: 2019_05_31_135345) do
     t.string "password_digest", null: false
     t.string "session_token", null: false
     t.string "user_icon_url"
+    t.integer "direct_message_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
