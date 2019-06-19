@@ -83,9 +83,9 @@ class ServerIndex extends React.Component {
                 parseInt(history.location.pathname.split("/")[2]) ===
                 data.server.id
               ) {
-                this.props.serverDisappeared(data.server);
                 history.push("/servers/@me");
               }
+              this.props.serverDisappeared(data.server);
             }
           },
           channelAppeared: function(data) {

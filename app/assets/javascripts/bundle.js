@@ -5495,10 +5495,10 @@ function (_React$Component) {
 
             if (data.type === "deleteServer") {
               if (parseInt(history.location.pathname.split("/")[2]) === data.server.id) {
-                _this.props.serverDisappeared(data.server);
-
                 history.push("/servers/@me");
               }
+
+              _this.props.serverDisappeared(data.server);
             }
           },
           channelAppeared: function channelAppeared(data) {
