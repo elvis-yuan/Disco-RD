@@ -52,16 +52,30 @@ class Api::ChannelsController < ApplicationController
   end
 
   def directmessage
+    errors = []
+    errors << 'yourself' if params[:username] == current_user.username
     @user = User.find_by(username: params[:username])
-    if @user
-      @channel = Channel.new(title: current_user.username, server_id: current_user.direct_message_id, dm_id: @user.direct_message_id)
-      if @channel.save
-        @server = Server.find(current_user.direct_message_id)
-        render :direct_message
-    # @channel = Channel.new(channel_params)
-    # @channel.server_id = params[:server_id]
-    # @channel.dm_id = params[:dm_id]
+
+    if !errors.empty?
+      render json: errors, status: 422
+    elsif @user
+      @oldchannel = Channel.find_by(server_id: current_user.direct_message_id, dm_id: @user.direct_message_id) || 
+      Channel.find_by(server_id: @user.direct_message_id, dm_id: current_user.direct_message_id)
+
+      if @oldchannel
+        render json: ['already exists'], status: 422
+      else 
+        @channel = Channel.new(title: current_user.username, server_id: current_user.direct_message_id, dm_id: @user.direct_message_id)
+        if @channel.save
+          @server = Server.find(current_user.direct_message_id)
+          render :direct_message
+      # @channel = Channel.new(channel_params)
+      # @channel.server_id = params[:server_id]
+      # @channel.dm_id = params[:dm_id]
+        end
       end
+    else
+      render json: ['no user'], status: 422
     end
 
   end
