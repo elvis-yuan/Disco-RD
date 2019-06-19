@@ -12,8 +12,8 @@ class DirectMessageModal extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    if (this.state.username !== "") {
-      this.props.createDm(this.state).then(this.props.closeModal());
+    if (this.state.username.split(" ") !== "") {
+      this.props.createDm(this.state).then(this.props.closeModal);
     }
   }
 
@@ -24,10 +24,22 @@ class DirectMessageModal extends React.Component {
   }
   render() {
     const { errors } = this.props;
-    const errorText =
-      errors.length > 0 ? (
-        <span className="server-create-error">- This field is required</span>
-      ) : null;
+
+    const errorText = errors.includes("yourself") ? (
+      <span className="server-create-error">
+        - Cannot direct message yourself
+      </span>
+    ) : null;
+
+    const noUser = errors.includes("no user") ? (
+      <span className="server-create-error">- User does not exist</span>
+    ) : null;
+
+    const alreadyExist = errors.includes("already exists") ? (
+      <span className="server-create-error">
+        - Direct message already exists
+      </span>
+    ) : null;
 
     const redText = errors.length > 0 ? "red-text" : "";
     return (
@@ -44,7 +56,7 @@ class DirectMessageModal extends React.Component {
           </div>
           <div className="create-channel-input-wrapper">
             <label className={`create-channel-label ${redText}`}>
-              USERNAME {errorText}
+              USERNAME {errorText} {noUser} {alreadyExist}
             </label>
             <input
               className="create-channel-input"

@@ -6,7 +6,6 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :password_digest, null: false
       t.string :session_token, null: false
       t.string :user_icon_url
-      t.integer :direct_message_id
 
       t.timestamps
     end

@@ -6,7 +6,7 @@ import DirectMessageModal from "./direct_message_modal";
 
 const msp = state => ({
   server_id: state.entities.directmessages.id,
-  errors: state.errors
+  errors: state.errors.directMessage
 });
 
 const mdp = dispatch => ({

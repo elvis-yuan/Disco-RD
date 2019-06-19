@@ -205,16 +205,25 @@ var deleteChannel = function deleteChannel(channelId) {
 /*!**************************************************!*\
   !*** ./frontend/actions/directmessage_action.js ***!
   \**************************************************/
-/*! exports provided: RECEIVE_DIRECTMESSAGE, createDm */
+/*! exports provided: RECEIVE_DIRECTMESSAGE, DIRECT_MESSAGE_ERROR, createDm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_DIRECTMESSAGE", function() { return RECEIVE_DIRECTMESSAGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DIRECT_MESSAGE_ERROR", function() { return DIRECT_MESSAGE_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createDm", function() { return createDm; });
 /* harmony import */ var _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/message_api_util */ "./frontend/util/message_api_util.js");
-var RECEIVE_DIRECTMESSAGE = "RECEIVE_DIRECTMESSAGE";
 
+var RECEIVE_DIRECTMESSAGE = "RECEIVE_DIRECTMESSAGE";
+var DIRECT_MESSAGE_ERROR = "DIRECT_MESSAGE_ERROR";
+
+var directMessageError = function directMessageError(errors) {
+  return {
+    type: DIRECT_MESSAGE_ERROR,
+    errors: errors
+  };
+};
 
 var receiveDM = function receiveDM(payload) {
   return {
@@ -227,6 +236,8 @@ var createDm = function createDm(data) {
   return function (dispatch) {
     return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__["createDm"](data).then(function (payload) {
       return dispatch(receiveDM(payload));
+    }, function (errors) {
+      return dispatch(directMessageError(errors));
     });
   };
 };
@@ -3343,8 +3354,8 @@ function (_React$Component) {
     value: function handleSubmit(e) {
       e.preventDefault();
 
-      if (this.state.username !== "") {
-        this.props.createDm(this.state).then(this.props.closeModal());
+      if (this.state.username.split(" ") !== "") {
+        this.props.createDm(this.state).then(this.props.closeModal);
       }
     }
   }, {
@@ -3360,9 +3371,15 @@ function (_React$Component) {
     key: "render",
     value: function render() {
       var errors = this.props.errors;
-      var errorText = errors.length > 0 ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+      var errorText = errors.includes("yourself") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "server-create-error"
-      }, "- This field is required") : null;
+      }, "- Cannot direct message yourself") : null;
+      var noUser = errors.includes("no user") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "server-create-error"
+      }, "- User does not exist") : null;
+      var alreadyExist = errors.includes("already exists") ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "server-create-error"
+      }, "- Direct message already exists") : null;
       var redText = errors.length > 0 ? "red-text" : "";
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "create-channel-modal-wrapper"
@@ -3381,7 +3398,7 @@ function (_React$Component) {
         className: "create-channel-input-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
         className: "create-channel-label ".concat(redText)
-      }, "USERNAME ", errorText), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+      }, "USERNAME ", errorText, " ", noUser, " ", alreadyExist), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "create-channel-input",
         type: "text",
         value: this.state.username,
@@ -3429,7 +3446,7 @@ __webpack_require__.r(__webpack_exports__);
 var msp = function msp(state) {
   return {
     server_id: state.entities.directmessages.id,
-    errors: state.errors
+    errors: state.errors.directMessage
   };
 };
 
@@ -6502,6 +6519,42 @@ var currentDm = function currentDm() {
 
 /***/ }),
 
+/***/ "./frontend/reducers/direct_message_errors_reducer.js":
+/*!************************************************************!*\
+  !*** ./frontend/reducers/direct_message_errors_reducer.js ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _actions_directmessage_action__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../actions/directmessage_action */ "./frontend/actions/directmessage_action.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+
+
+var directMessageErrorReducer = function directMessageErrorReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_directmessage_action__WEBPACK_IMPORTED_MODULE_0__["DIRECT_MESSAGE_ERROR"]:
+      return action.errors.responseJSON;
+
+    case _actions_directmessage_action__WEBPACK_IMPORTED_MODULE_0__["RECEIVE_DIRECTMESSAGE"]:
+    case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__["CLOSE_MODAL"]:
+      return [];
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (directMessageErrorReducer);
+
+/***/ }),
+
 /***/ "./frontend/reducers/direct_messages_reducer.js":
 /*!******************************************************!*\
   !*** ./frontend/reducers/direct_messages_reducer.js ***!
@@ -6615,6 +6668,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./session_errors_reducer */ "./frontend/reducers/session_errors_reducer.js");
 /* harmony import */ var _server_errors_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./server_errors_reducer */ "./frontend/reducers/server_errors_reducer.js");
 /* harmony import */ var _channel_errors_reducer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./channel_errors_reducer */ "./frontend/reducers/channel_errors_reducer.js");
+/* harmony import */ var _direct_message_errors_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./direct_message_errors_reducer */ "./frontend/reducers/direct_message_errors_reducer.js");
+
 
 
 
@@ -6622,7 +6677,8 @@ __webpack_require__.r(__webpack_exports__);
 var errorsReducer = Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   session: _session_errors_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   server: _server_errors_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
-  channel: _channel_errors_reducer__WEBPACK_IMPORTED_MODULE_3__["default"]
+  channel: _channel_errors_reducer__WEBPACK_IMPORTED_MODULE_3__["default"],
+  directMessage: _direct_message_errors_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 });
 /* harmony default export */ __webpack_exports__["default"] = (errorsReducer);
 
