@@ -14,9 +14,6 @@
   overflow: hidden;
 }
 
-.direct-message-channel-title {
-}
-
 .direct-message-link-wrapper {
   display: flex;
   justify-content: space-between;
@@ -38,6 +35,7 @@
   text-decoration: none;
   display: flex;
   align-items: center;
+  border-radius: 5px;
 }
 
 .direct-message-name {
@@ -53,8 +51,12 @@
   color: #72767d;
 }
 
-.channel-container-channel-name:hover > .direct-message-name {
+.direct-container-channel-wrapper:hover .direct-message-name {
   color: white;
+}
+
+.direct-container-channel-wrapper:hover {
+  background-color: #292b2f;
 }
 
 .current-channel-selected h1.direct-message-name {
