@@ -4,7 +4,7 @@ import {
   RECEIVE_SERVER,
   REMOVE_SERVER,
   LEAVE_SERVER,
-  updateServer
+  DELETE_SERVER
 } from "../actions/server_actions";
 
 import { LOGOUT } from "../actions/session_actions";
@@ -90,6 +90,11 @@ const serverReducer = (state = {}, action) => {
         1
       );
       return disconnectedUser;
+    case DELETE_SERVER:
+      debugger;
+      const deletedState = merge({}, state);
+      delete deletedState[action.server.id];
+      return deletedState;
     default:
       return state;
   }

@@ -32,7 +32,7 @@ class ServerChannel < ApplicationCable::Channel
   end
 
   def deleteServer(data)
-    server = data['server']
+    server = Server.find(data['server_id'])
     socket = {type: 'deleteServer', server: server}
 
     ServerChannel.broadcast_to(server.id, socket)

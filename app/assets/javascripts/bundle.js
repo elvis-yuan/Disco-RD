@@ -327,7 +327,7 @@ var currentDm = function currentDm(username) {
 /*!********************************************!*\
   !*** ./frontend/actions/server_actions.js ***!
   \********************************************/
-/*! exports provided: RECEIVE_ALL_SERVERS, RECEIVE_SERVER, REMOVE_SERVER, LEAVE_SERVER, RECEIVE_DM, fetchDm, fetchAllServers, fetchServer, createServer, updateServer, deleteServer, joinServer, leaveServer */
+/*! exports provided: RECEIVE_ALL_SERVERS, RECEIVE_SERVER, REMOVE_SERVER, LEAVE_SERVER, RECEIVE_DM, DELETE_SERVER, serverDisappeared, fetchDm, fetchAllServers, fetchServer, createServer, updateServer, deleteServer, joinServer, leaveServer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -337,6 +337,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_SERVER", function() { return REMOVE_SERVER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LEAVE_SERVER", function() { return LEAVE_SERVER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_DM", function() { return RECEIVE_DM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_SERVER", function() { return DELETE_SERVER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "serverDisappeared", function() { return serverDisappeared; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchDm", function() { return fetchDm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllServers", function() { return fetchAllServers; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchServer", function() { return fetchServer; });
@@ -355,6 +357,7 @@ var RECEIVE_SERVER = "RECEIVE_SERVER";
 var REMOVE_SERVER = "REMOVE_SERVER";
 var LEAVE_SERVER = "LEAVE_SERVER";
 var RECEIVE_DM = "RECEIVE_DM";
+var DELETE_SERVER = "DELETE_SERVER";
 
 var receiveAllServers = function receiveAllServers(servers) {
   return {
@@ -363,17 +366,17 @@ var receiveAllServers = function receiveAllServers(servers) {
   };
 };
 
-var receiveServer = function receiveServer(action) {
+var receiveServer = function receiveServer(payload) {
   return {
     type: RECEIVE_SERVER,
-    server: action
+    server: payload
   };
 };
 
-var removeServer = function removeServer(action) {
+var removeServer = function removeServer(payload) {
   return {
     type: REMOVE_SERVER,
-    servers: action
+    servers: payload
   };
 };
 
@@ -391,6 +394,12 @@ var receiveDm = function receiveDm(server) {
   };
 };
 
+var serverDisappeared = function serverDisappeared(server) {
+  return {
+    type: DELETE_SERVER,
+    server: server
+  };
+};
 var fetchDm = function fetchDm() {
   return function (dispatch) {
     return _util_server_api_util__WEBPACK_IMPORTED_MODULE_0__["fetchDm"]().then(function (server) {
@@ -4065,11 +4074,15 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      var currentServer = this.currentServer;
       e.preventDefault();
 
       if (this.state.title === this.currentTitle) {
-        this.props.history.push("/servers");
-        this.props.deleteServer(this.currentServer).then(this.props.closeModal);
+        this.props.history.push("/servers/@me");
+        App.server[currentServer].deleteServer({
+          server_id: currentServer
+        });
+        this.props.deleteServer(this.currentServer).then(this.props.closeModal());
       } else {
         this.setState({
           errors: true
@@ -5482,7 +5495,9 @@ function (_React$Component) {
 
             if (data.type === "deleteServer") {
               if (parseInt(history.location.pathname.split("/")[2]) === data.server.id) {
-                history.push("/servers");
+                _this.props.serverDisappeared(data.server);
+
+                history.push("/servers/@me");
               }
             }
           },
@@ -5536,12 +5551,26 @@ function (_React$Component) {
 
             _this2.props.channelDisappeared(data.channel);
           }
+
+          if (data.type === "deleteServer") {
+            if (parseInt(history.location.pathname.split("/")[2]) === data.server.id) {
+              _this2.props.serverDisappeared(data.server);
+
+              history.push("/servers/@me");
+            }
+          }
         },
         channelAppeared: function channelAppeared(data) {
           return this.perform("channelAppeared", data);
         },
         channelDisappeared: function channelDisappeared(data) {
           return this.perform("channelDisappeared", data);
+        },
+        deleteServer: function deleteServer(data) {
+          return this.perform("deleteServer", data);
+        },
+        deleteUser: function deleteUser(data) {
+          return this.perform("deleteUser", data);
         }
       });
     }
@@ -5649,6 +5678,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var msp = function msp(_ref) {
   var entities = _ref.entities,
       session = _ref.session,
@@ -5696,6 +5726,9 @@ var mdp = function mdp(dispatch) {
     },
     logoutModal: function logoutModal() {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModal"])("logoutUser"));
+    },
+    serverDisappeared: function serverDisappeared(server) {
+      return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["serverDisappeared"])(server));
     }
   };
 };
@@ -6910,6 +6943,12 @@ var serverReducer = function serverReducer() {
       var userIndex = disconnectedUser[action.data.server_id].connected_user_ids.indexOf(action.data.user.id);
       disconnectedUser[action.data.server_id].connected_user_ids.splice(userIndex, 1);
       return disconnectedUser;
+
+    case _actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["DELETE_SERVER"]:
+      debugger;
+      var deletedState = Object(lodash__WEBPACK_IMPORTED_MODULE_0__["merge"])({}, state);
+      delete deletedState[action.server.id];
+      return deletedState;
 
     default:
       return state;

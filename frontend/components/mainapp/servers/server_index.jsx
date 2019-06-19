@@ -83,7 +83,8 @@ class ServerIndex extends React.Component {
                 parseInt(history.location.pathname.split("/")[2]) ===
                 data.server.id
               ) {
-                history.push("/servers");
+                this.props.serverDisappeared(data.server);
+                history.push("/servers/@me");
               }
             }
           },
@@ -131,12 +132,27 @@ class ServerIndex extends React.Component {
             }
             this.props.channelDisappeared(data.channel);
           }
+          if (data.type === "deleteServer") {
+            if (
+              parseInt(history.location.pathname.split("/")[2]) ===
+              data.server.id
+            ) {
+              this.props.serverDisappeared(data.server);
+              history.push("/servers/@me");
+            }
+          }
         },
         channelAppeared: function(data) {
           return this.perform("channelAppeared", data);
         },
         channelDisappeared: function(data) {
           return this.perform("channelDisappeared", data);
+        },
+        deleteServer: function(data) {
+          return this.perform("deleteServer", data);
+        },
+        deleteUser: function(data) {
+          return this.perform("deleteUser", data);
         }
       }
     );

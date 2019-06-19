@@ -15,6 +15,7 @@ import {
   channelAppeared,
   channelDisappeared
 } from "../../../actions/channel_actions";
+import { serverDisappeared } from "../../../actions/server_actions";
 
 const msp = ({ entities, session, ui }) => {
   return {
@@ -37,7 +38,8 @@ const mdp = dispatch => ({
   removeChannel: channel => dispatch(removeChannel(channel)),
   logoutUser: () => dispatch(logoutUser()),
   mainModal: () => dispatch(openModal("main")),
-  logoutModal: () => dispatch(openModal("logoutUser"))
+  logoutModal: () => dispatch(openModal("logoutUser")),
+  serverDisappeared: server => dispatch(serverDisappeared(server))
 });
 
 export default withRouter(

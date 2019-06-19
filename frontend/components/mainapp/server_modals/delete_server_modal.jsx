@@ -24,10 +24,12 @@ class DeleteServerModal extends React.Component {
   }
 
   handleSubmit(e) {
+    const currentServer = this.currentServer;
     e.preventDefault();
     if (this.state.title === this.currentTitle) {
-      this.props.history.push("/servers");
-      this.props.deleteServer(this.currentServer).then(this.props.closeModal);
+      this.props.history.push("/servers/@me");
+      App.server[currentServer].deleteServer({ server_id: currentServer });
+      this.props.deleteServer(this.currentServer).then(this.props.closeModal());
     } else {
       this.setState({ errors: true });
     }
