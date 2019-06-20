@@ -38,6 +38,16 @@ class ServerChannel < ApplicationCable::Channel
     ServerChannel.broadcast_to(server.id, socket)
   end
 
+  def newDirectMessage(data)
+    channel = data['channel']
+    user_id = data['server']['admin_id']
+    user = User.find(user_id)
+    newUser = {id: user.id, username: user.username, email: user.email, direct_message_id: user.direct_message_id}
+    socket = {type: 'newDirectMessage', channel: channel, user: newUser}
+
+    ServerChannel.broadcast_to(channel["dm_id"], socket)
+  end
+
   def unsubscribed
   end
 end 

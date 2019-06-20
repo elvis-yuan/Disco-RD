@@ -12,7 +12,7 @@ import {
   RECEIVE_DM
 } from "../actions/server_actions";
 import { RECEIVE_MESSAGES } from "../actions/message_actions";
-import { RECEIVE_DIRECTMESSAGE } from "../actions/directmessage_action";
+import { RECEIVE_DIRECTMESSAGE, NEW_DM } from "../actions/directmessage_action";
 
 const channelsReducer = (state = {}, action) => {
   Object.freeze(state);
@@ -46,9 +46,11 @@ const channelsReducer = (state = {}, action) => {
         [action.payload.channel.id]: action.payload.channel
       });
     case RECEIVE_DIRECTMESSAGE:
+    case NEW_DM:
       return merge({}, state, {
         [action.payload.channel.id]: action.payload.channel
       });
+    // return merge({}, state, { [action.channel.id]: action.channel });
     default:
       return state;
   }

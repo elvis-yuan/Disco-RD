@@ -205,18 +205,21 @@ var deleteChannel = function deleteChannel(channelId) {
 /*!**************************************************!*\
   !*** ./frontend/actions/directmessage_action.js ***!
   \**************************************************/
-/*! exports provided: RECEIVE_DIRECTMESSAGE, DIRECT_MESSAGE_ERROR, createDm */
+/*! exports provided: RECEIVE_DIRECTMESSAGE, DIRECT_MESSAGE_ERROR, NEW_DM, newDM, createDm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_DIRECTMESSAGE", function() { return RECEIVE_DIRECTMESSAGE; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DIRECT_MESSAGE_ERROR", function() { return DIRECT_MESSAGE_ERROR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NEW_DM", function() { return NEW_DM; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "newDM", function() { return newDM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createDm", function() { return createDm; });
 /* harmony import */ var _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../util/message_api_util */ "./frontend/util/message_api_util.js");
 
 var RECEIVE_DIRECTMESSAGE = "RECEIVE_DIRECTMESSAGE";
 var DIRECT_MESSAGE_ERROR = "DIRECT_MESSAGE_ERROR";
+var NEW_DM = "NEW_DM";
 
 var directMessageError = function directMessageError(errors) {
   return {
@@ -232,6 +235,12 @@ var receiveDM = function receiveDM(payload) {
   };
 };
 
+var newDM = function newDM(payload) {
+  return {
+    type: NEW_DM,
+    payload: payload
+  };
+};
 var createDm = function createDm(data) {
   return function (dispatch) {
     return _util_message_api_util__WEBPACK_IMPORTED_MODULE_0__["createDm"](data).then(function (payload) {
@@ -3361,19 +3370,26 @@ function (_React$Component) {
   _createClass(DirectMessageModal, [{
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      var _this2 = this;
+
+      var server_id = this.props.server_id;
       e.preventDefault();
 
       if (this.state.username.split(" ") !== "") {
-        this.props.createDm(this.state).then(this.props.closeModal);
+        this.props.createDm(this.state).then(function (action) {
+          App.server[server_id].newDirectMessage(action.payload);
+
+          _this2.props.closeModal();
+        });
       }
     }
   }, {
     key: "handleChange",
     value: function handleChange(field) {
-      var _this2 = this;
+      var _this3 = this;
 
       return function (e) {
-        _this2.setState(_defineProperty({}, field, e.target.value));
+        _this3.setState(_defineProperty({}, field, e.target.value));
       };
     }
   }, {
@@ -3692,9 +3708,14 @@ function (_React$Component) {
   _inherits(Main, _React$Component);
 
   function Main(props) {
+    var _this;
+
     _classCallCheck(this, Main);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(Main).call(this, props));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Main).call(this, props));
+    App.server = {};
+    App.channel = {};
+    return _this;
   }
 
   _createClass(Main, [{
@@ -3704,8 +3725,6 @@ function (_React$Component) {
           currentUser = _this$props.currentUser,
           fetchAllServers = _this$props.fetchAllServers;
       fetchAllServers(currentUser);
-      App.server = {};
-      App.channel = {};
     }
   }, {
     key: "render",
@@ -5530,7 +5549,7 @@ function (_React$Component) {
     value: function createServerSockets() {
       var _this2 = this;
 
-      App.cable.subscriptions.create({
+      App.server[this.props.directMessageId] = App.cable.subscriptions.create({
         channel: "ServerChannel",
         server_id: this.props.directMessageId,
         user_id: this.props.currentUser
@@ -5559,6 +5578,10 @@ function (_React$Component) {
               history.push("/servers/@me");
             }
           }
+
+          if (data.type === "newDirectMessage") {
+            _this2.props.newDM(data);
+          }
         },
         channelAppeared: function channelAppeared(data) {
           return this.perform("channelAppeared", data);
@@ -5571,6 +5594,9 @@ function (_React$Component) {
         },
         deleteUser: function deleteUser(data) {
           return this.perform("deleteUser", data);
+        },
+        newDirectMessage: function newDirectMessage(data) {
+          return this.perform("newDirectMessage", data);
         }
       });
     }
@@ -5669,6 +5695,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
+/* harmony import */ var _actions_directmessage_action__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../actions/directmessage_action */ "./frontend/actions/directmessage_action.js");
+
 
 
 
@@ -5726,6 +5754,9 @@ var mdp = function mdp(dispatch) {
     },
     logoutModal: function logoutModal() {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModal"])("logoutUser"));
+    },
+    newDM: function newDM(channel) {
+      return dispatch(Object(_actions_directmessage_action__WEBPACK_IMPORTED_MODULE_8__["newDM"])(channel));
     },
     serverDisappeared: function serverDisappeared(server) {
       return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["serverDisappeared"])(server));
@@ -6511,7 +6542,9 @@ var channelsReducer = function channelsReducer() {
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, _defineProperty({}, action.payload.channel.id, action.payload.channel));
 
     case _actions_directmessage_action__WEBPACK_IMPORTED_MODULE_4__["RECEIVE_DIRECTMESSAGE"]:
+    case _actions_directmessage_action__WEBPACK_IMPORTED_MODULE_4__["NEW_DM"]:
       return lodash_merge__WEBPACK_IMPORTED_MODULE_0___default()({}, state, _defineProperty({}, action.payload.channel.id, action.payload.channel));
+    // return merge({}, state, { [action.channel.id]: action.channel });
 
     default:
       return state;
@@ -6616,6 +6649,11 @@ var directMessageReducer = function directMessageReducer() {
 
     case _actions_directmessage_action__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_DIRECTMESSAGE"]:
       return action.payload.server;
+
+    case _actions_directmessage_action__WEBPACK_IMPORTED_MODULE_1__["NEW_DM"]:
+      var newState = Object(lodash__WEBPACK_IMPORTED_MODULE_2__["merge"])({}, state);
+      newState.dm_ids.push(action.payload.channel.id);
+      return newState;
 
     default:
       return state;
@@ -7118,6 +7156,7 @@ var usersReducer = function usersReducer() {
       return Object(lodash__WEBPACK_IMPORTED_MODULE_5__["merge"])({}, state, action.server.users);
 
     case _actions_directmessage_action__WEBPACK_IMPORTED_MODULE_4__["RECEIVE_DIRECTMESSAGE"]:
+    case _actions_directmessage_action__WEBPACK_IMPORTED_MODULE_4__["NEW_DM"]:
       return Object(lodash__WEBPACK_IMPORTED_MODULE_5__["merge"])({}, state, _defineProperty({}, action.payload.user.id, action.payload.user));
 
     default:

@@ -23,13 +23,13 @@ const mdp = dispatch => ({
 class Main extends React.Component {
   constructor(props) {
     super(props);
+    App.server = {};
+    App.channel = {};
   }
 
   componentDidMount() {
     const { currentUser, fetchAllServers } = this.props;
     fetchAllServers(currentUser);
-    App.server = {};
-    App.channel = {};
   }
 
   render() {

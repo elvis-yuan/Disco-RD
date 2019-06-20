@@ -112,7 +112,7 @@ class ServerIndex extends React.Component {
   }
 
   createServerSockets() {
-    App.cable.subscriptions.create(
+    App.server[this.props.directMessageId] = App.cable.subscriptions.create(
       {
         channel: "ServerChannel",
         server_id: this.props.directMessageId,
@@ -141,6 +141,9 @@ class ServerIndex extends React.Component {
               history.push("/servers/@me");
             }
           }
+          if (data.type === "newDirectMessage") {
+            this.props.newDM(data);
+          }
         },
         channelAppeared: function(data) {
           return this.perform("channelAppeared", data);
@@ -153,6 +156,9 @@ class ServerIndex extends React.Component {
         },
         deleteUser: function(data) {
           return this.perform("deleteUser", data);
+        },
+        newDirectMessage: function(data) {
+          return this.perform("newDirectMessage", data);
         }
       }
     );

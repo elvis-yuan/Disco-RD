@@ -11,9 +11,13 @@ class DirectMessageModal extends React.Component {
   }
 
   handleSubmit(e) {
+    const server_id = this.props.server_id;
     e.preventDefault();
     if (this.state.username.split(" ") !== "") {
-      this.props.createDm(this.state).then(this.props.closeModal);
+      this.props.createDm(this.state).then(action => {
+        App.server[server_id].newDirectMessage(action.payload);
+        this.props.closeModal();
+      });
     }
   }
 

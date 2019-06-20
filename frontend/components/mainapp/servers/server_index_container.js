@@ -16,6 +16,7 @@ import {
   channelDisappeared
 } from "../../../actions/channel_actions";
 import { serverDisappeared } from "../../../actions/server_actions";
+import { newDM } from "../../../actions/directmessage_action";
 
 const msp = ({ entities, session, ui }) => {
   return {
@@ -39,6 +40,7 @@ const mdp = dispatch => ({
   logoutUser: () => dispatch(logoutUser()),
   mainModal: () => dispatch(openModal("main")),
   logoutModal: () => dispatch(openModal("logoutUser")),
+  newDM: channel => dispatch(newDM(channel)),
   serverDisappeared: server => dispatch(serverDisappeared(server))
 });
 
