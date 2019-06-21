@@ -2899,7 +2899,6 @@ function (_React$Component) {
   _createClass(DirectMessage, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      // this.props.fetchChannel(this.currentChannelId);
       this.props.fetchMessages(this.props.match.params.channelId);
       this.createSocketConnection();
     }
@@ -2912,8 +2911,7 @@ function (_React$Component) {
         this.currentChannelId = this.props.match.params.channelId;
         this.setState({
           messages: []
-        }); // this.props.fetchChannel(this.currentChannelId);
-
+        });
         this.createSocketConnection();
       }
 
@@ -3517,7 +3515,6 @@ var mdp = function mdp(dispatch) {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3535,7 +3532,6 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
 
 
 
@@ -3901,8 +3897,7 @@ function (_React$Component) {
   _createClass(CreateServerModal, [{
     key: "handleCloseModal",
     value: function handleCloseModal(action) {
-      this.props.closeModal(); // this.props.fetchAllChannels(action.server.id);
-
+      this.props.closeModal();
       this.props.history.push("/servers/".concat(action.server.server.id));
     }
   }, {

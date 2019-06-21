@@ -24,6 +24,7 @@ Disco-rd is a fullstack app which is a pixel perfect clone of [Discord](https://
 * Servers and channels CRUD
 * Tracking of all users connected to a server
 * Live chat in channels
+* Direct Messaging
 
 ## COOL BITS OF CODE
 A cool bit of code that handles when a new user joins a server, adding them to all currently online users'  Server User list.
@@ -43,7 +44,6 @@ class ServerChannel < ApplicationCable::Channel
 Before the user creates a websocket connection to the ServerChannel, they make broadcast to all currently online users to update their state to include the new user. This forces everyone to rerender their user list to include the new user. 
 
 ## COMING SOON!
-* Direct messaging
 * Voice over IP
 * User presence tracker
 * User aliasing

@@ -1,5 +1,4 @@
 import React from "react";
-import { closeModal } from "../../../actions/modal_actions";
 
 class LogoutModal extends React.Component {
   constructor(props) {

@@ -14,7 +14,6 @@ class DirectMessage extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.fetchChannel(this.currentChannelId);
     this.props.fetchMessages(this.props.match.params.channelId);
     this.createSocketConnection();
   }
@@ -28,7 +27,6 @@ class DirectMessage extends React.Component {
 
       this.currentChannelId = this.props.match.params.channelId;
       this.setState({ messages: [] });
-      // this.props.fetchChannel(this.currentChannelId);
 
       this.createSocketConnection();
     }
