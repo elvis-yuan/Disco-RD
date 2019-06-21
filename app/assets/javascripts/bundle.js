@@ -1060,7 +1060,23 @@ function (_React$Component) {
         src: "https://res.cloudinary.com/divtvpzuc/image/upload/v1559268535/disco-rd_logo_with_reflection.png"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
         className: "right-nav"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, button)))));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-icon"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://www.linkedin.com/in/elvis-yuan-a47a9a158/",
+        target: "new",
+        className: "linkedin-icon"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fab fa-linkedin"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+        className: "nav-icon"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "https://github.com/elvis-yuan/Disco-RD",
+        className: "github-icon",
+        target: "new"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        className: "fab fa-github"
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", null, button)))));
     }
   }]);
 
