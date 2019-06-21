@@ -13,7 +13,8 @@ const msp = ({ entities, session, ui }) => {
     currentUser: entities.users[session.currentUser],
     currentUserId: session.currentUser,
     messages: entities.messages,
-    currentDm: ui.currentDm
+    currentDm: ui.currentDm,
+    servers: entities.servers
   };
 };
 const mdp = dispatch => ({

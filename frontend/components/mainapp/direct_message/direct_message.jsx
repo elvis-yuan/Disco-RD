@@ -79,8 +79,24 @@ class DirectMessage extends React.Component {
       messages,
       currentUser,
       currentUserId,
+      users,
       currentDm
     } = this.props;
+
+    const current_channel = channels[this.currentChannelId];
+    const dm_id = current_channel
+      ? current_channel.server_id === currentUser.direct_message_id
+        ? current_channel.dm_id
+        : current_channel.server_id
+      : null;
+
+    const user =
+      Object.values(users).length > 0
+        ? Object.values(users).filter(user => user.direct_message_id === dm_id)
+        : null;
+
+    const username = user.length > 0 ? user[0].username : null;
+
     const allMessages = this.state.messages.map((message, index) => {
       return (
         <div key={index}>
@@ -114,7 +130,7 @@ class DirectMessage extends React.Component {
         <div className="channel-heading-wrapper">
           <div className="channel-heading-channel-title">
             <div className="channel-icon-wrapper" role="button">
-              <h2 className="channel-header-channel-title" />
+              <h2 className="channel-header-channel-title">{username}</h2>
             </div>
           </div>
         </div>
@@ -125,7 +141,8 @@ class DirectMessage extends React.Component {
                 <div className="message-list">
                   <div className="message-list-image">
                     <h1>
-                      This is the beginning of your direct message history
+                      This is the beginning of your direct message history with{" "}
+                      {username}
                     </h1>
                   </div>
                   {history}
@@ -136,7 +153,7 @@ class DirectMessage extends React.Component {
             <DirectMessageInputContainer
               currentId={this.currentChannelId}
               channels={this.props.channels}
-              channelTitle="title"
+              channelTitle={username}
             />
           </div>
         </div>

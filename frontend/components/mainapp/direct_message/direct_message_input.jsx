@@ -47,7 +47,7 @@ class DirectMessageInput extends React.Component {
                 type="text"
                 value={this.state.body}
                 onChange={this.handleChange("body")}
-                placeholder={`Message`}
+                placeholder={`Message @${this.props.channelTitle}`}
               />
               <input
                 className="text-submit-button"

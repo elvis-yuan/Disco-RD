@@ -2968,7 +2968,14 @@ function (_React$Component) {
           messages = _this$props.messages,
           currentUser = _this$props.currentUser,
           currentUserId = _this$props.currentUserId,
+          users = _this$props.users,
           currentDm = _this$props.currentDm;
+      var current_channel = channels[this.currentChannelId];
+      var dm_id = current_channel ? current_channel.server_id === currentUser.direct_message_id ? current_channel.dm_id : current_channel.server_id : null;
+      var user = Object.values(users).length > 0 ? Object.values(users).filter(function (user) {
+        return user.direct_message_id === dm_id;
+      }) : null;
+      var username = user.length > 0 ? user[0].username : null;
       var allMessages = this.state.messages.map(function (message, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: index
@@ -3001,7 +3008,7 @@ function (_React$Component) {
         role: "button"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: "channel-header-channel-title"
-      })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, username)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chatroom-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chat-box-component"
@@ -3013,10 +3020,10 @@ function (_React$Component) {
         className: "message-list"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "message-list-image"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "This is the beginning of your direct message history")), history, allMessages))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_direct_message_direct_message_input_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "This is the beginning of your direct message history with", " ", username)), history, allMessages))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_direct_message_direct_message_input_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
         currentId: this.currentChannelId,
         channels: this.props.channels,
-        channelTitle: "title"
+        channelTitle: username
       }))));
     }
   }]);
@@ -3062,7 +3069,8 @@ var msp = function msp(_ref) {
     currentUser: entities.users[session.currentUser],
     currentUserId: session.currentUser,
     messages: entities.messages,
-    currentDm: ui.currentDm
+    currentDm: ui.currentDm,
+    servers: entities.servers
   };
 };
 
@@ -3184,7 +3192,7 @@ function (_React$Component) {
         type: "text",
         value: this.state.body,
         onChange: this.handleChange("body"),
-        placeholder: "Message"
+        placeholder: "Message @".concat(this.props.channelTitle)
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "text-submit-button",
         type: "submit",
@@ -7200,7 +7208,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"]));
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_2___default.a));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);
