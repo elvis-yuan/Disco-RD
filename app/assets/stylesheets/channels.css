@@ -117,6 +117,7 @@
 
 .channel-link-wrapper:hover .channel-name {
   color: #dcddde;
+  width: 150px;
 }
 
 .channel-link-wrapper.channel-channel-selected:hover {
@@ -130,6 +131,7 @@
 
 .current-channel-selected h1.channel-name {
   color: #dcddde;
+  width: 150px;
 }
 
 .current-channel-selected .gear-icon {
