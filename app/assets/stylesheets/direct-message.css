@@ -67,3 +67,27 @@
 .current-channel-selected h1.direct-message-name {
   color: white;
 }
+
+.message-list-image span.username {
+  font-weight: bold;
+}
+
+.direct-message-at {
+  position: relative;
+  height: 24px;
+  width: auto;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  margin: 0 8px;
+  box-sizing: border-box;
+}
+
+.at-symbol {
+  display: block;
+  width: 24px;
+  height: 24px;
+  -webkit-app-region: no-drag;
+  color: #72767d;
+  box-sizing: border-box;
+}
