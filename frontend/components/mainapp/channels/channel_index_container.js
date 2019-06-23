@@ -4,14 +4,16 @@ import ChannelIndex from "./channel_index";
 import { fetchAllChannels } from "../../../actions/channel_actions";
 import { deleteServer } from "../../../actions/server_actions";
 import { fetchServer } from "../../../actions/server_actions";
-import { openModal } from "../../../actions/modal_actions";
+import { openModal, closeModal } from "../../../actions/modal_actions";
 
-const msp = ({ entities, session }) => {
+const msp = ({ entities, session, ui }) => {
   return {
     channels: entities.channels,
     currentUser: entities.users[session.currentUser],
     currentUserId: session.currentUser,
-    servers: entities.servers
+    servers: entities.servers,
+    currentChannel: ui.channel,
+    modal: ui.modal
   };
 };
 
@@ -21,7 +23,8 @@ const mdp = dispatch => {
     deleteServer: serverId => dispatch(deleteServer(serverId)),
     leaveServer: serverId => dispatch(leaveServer(serverId)),
     createModal: () => dispatch(openModal("createChannel")),
-    editServer: () => dispatch(openModal("editServer"))
+    editServer: () => dispatch(openModal("editServer")),
+    closeModal: () => dispatch(closeModal())
   };
 };
 

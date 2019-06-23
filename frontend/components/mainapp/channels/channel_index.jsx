@@ -10,6 +10,7 @@ class ChannelIndex extends React.Component {
       currentServer: this.props.match.params.serverId,
       dropDownOpen: false
     };
+    this.serverId = parseInt(this.props.match.params.serverId);
     this.dropDownAnimation = this.dropDownAnimation.bind(this);
     this.deleteServer = this.deleteServer.bind(this);
     this.handleOpenModal = this.handleOpenModal.bind(this);
@@ -17,17 +18,46 @@ class ChannelIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.fetchServer(parseInt(this.props.match.params.serverId));
+    this.props.fetchServer(this.serverId);
   }
 
   componentDidUpdate(prevProps) {
-    const { history, servers, match } = this.props;
-    const path = history.location.pathname.split("/");
+    const { history, servers, match, currentChannel, modal } = this.props;
     if (prevProps.match.params.serverId !== match.params.serverId) {
       this.setState({ dropDownOpen: false });
-      this.props.fetchServer(parseInt(this.props.match.params.serverId));
+      this.props.fetchServer(this.serverId);
     }
-    // debugger;
+
+    if (
+      history.location.pathname.split("/")[3] === undefined &&
+      servers[this.serverId].channel_ids.length > 0
+    ) {
+      const channel =
+        currentChannel !== null
+          ? servers[this.serverId].channel_ids.filter(
+              id => id !== currentChannel
+            )
+          : null;
+
+      if (channel && channel.length > 0) {
+        history.push(`/servers/${this.serverId}/${channel[0]}`);
+        this.props.closeModal();
+      } else if (
+        currentChannel === null &&
+        servers[this.serverId].channel_ids.length > 0
+      ) {
+        history.push(
+          `/servers/${this.serverId}/${servers[this.serverId].channel_ids[0]}`
+        );
+        if (modal) {
+          this.props.closeModal();
+        }
+      } else if (channel && channel.length === 0) {
+        history.push(`/servers/${this.serverId}/`);
+        if (modal) this.props.closeModal();
+      }
+    }
+
     // if (
     //   (path[3] === "" || path[3] === undefined) &&
     //   // match.params.channelId !== prevProps.match.params.channelId &&

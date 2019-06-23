@@ -13,17 +13,17 @@ class DeleteChannelModal extends React.Component {
   handleSubmit(e) {
     const currentServer = this.currentServer;
     e.preventDefault();
+    this.props.deleteChannel(this.props.currentChannel).then(action => {
+      App.server[currentServer].channelDisappeared(action.channel.channel);
+      if (this.props.history.location.pathname.split("/")[3] === "")
+        this.props.history.push(`/servers/${this.currentServer}`);
+    });
     if (
       parseInt(this.props.history.location.pathname.split("/")[3]) ===
       this.props.currentChannel
     ) {
       this.props.history.push(`/servers/${this.currentServer}`);
     }
-
-    this.props.deleteChannel(this.props.currentChannel).then(action => {
-      this.props.closeModal();
-      App.server[currentServer].channelDisappeared(action.channel.channel);
-    });
   }
 
   handleChange(field) {

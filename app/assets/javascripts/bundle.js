@@ -1359,16 +1359,14 @@ function (_React$Component) {
 
       var currentServer = this.currentServer;
       e.preventDefault();
+      this.props.deleteChannel(this.props.currentChannel).then(function (action) {
+        App.server[currentServer].channelDisappeared(action.channel.channel);
+        if (_this2.props.history.location.pathname.split("/")[3] === "") _this2.props.history.push("/servers/".concat(_this2.currentServer));
+      });
 
       if (parseInt(this.props.history.location.pathname.split("/")[3]) === this.props.currentChannel) {
         this.props.history.push("/servers/".concat(this.currentServer));
       }
-
-      this.props.deleteChannel(this.props.currentChannel).then(function (action) {
-        _this2.props.closeModal();
-
-        App.server[currentServer].channelDisappeared(action.channel.channel);
-      });
     }
   }, {
     key: "handleChange",
@@ -2044,6 +2042,7 @@ function (_React$Component) {
       currentServer: _this.props.match.params.serverId,
       dropDownOpen: false
     };
+    _this.serverId = parseInt(_this.props.match.params.serverId);
     _this.dropDownAnimation = _this.dropDownAnimation.bind(_assertThisInitialized(_this));
     _this.deleteServer = _this.deleteServer.bind(_assertThisInitialized(_this));
     _this.handleOpenModal = _this.handleOpenModal.bind(_assertThisInitialized(_this));
@@ -2054,7 +2053,7 @@ function (_React$Component) {
   _createClass(ChannelIndex, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.props.fetchServer(parseInt(this.props.match.params.serverId));
+      this.props.fetchServer(this.serverId);
     }
   }, {
     key: "componentDidUpdate",
@@ -2062,16 +2061,36 @@ function (_React$Component) {
       var _this$props = this.props,
           history = _this$props.history,
           servers = _this$props.servers,
-          match = _this$props.match;
-      var path = history.location.pathname.split("/");
+          match = _this$props.match,
+          currentChannel = _this$props.currentChannel,
+          modal = _this$props.modal;
 
       if (prevProps.match.params.serverId !== match.params.serverId) {
         this.setState({
           dropDownOpen: false
         });
-        this.props.fetchServer(parseInt(this.props.match.params.serverId));
-      } // debugger;
-      // if (
+        this.props.fetchServer(this.serverId);
+      }
+
+      if (history.location.pathname.split("/")[3] === undefined && servers[this.serverId].channel_ids.length > 0) {
+        var channel = currentChannel !== null ? servers[this.serverId].channel_ids.filter(function (id) {
+          return id !== currentChannel;
+        }) : null;
+
+        if (channel && channel.length > 0) {
+          history.push("/servers/".concat(this.serverId, "/").concat(channel[0]));
+          this.props.closeModal();
+        } else if (currentChannel === null && servers[this.serverId].channel_ids.length > 0) {
+          history.push("/servers/".concat(this.serverId, "/").concat(servers[this.serverId].channel_ids[0]));
+
+          if (modal) {
+            this.props.closeModal();
+          }
+        } else if (channel && channel.length === 0) {
+          history.push("/servers/".concat(this.serverId, "/"));
+          if (modal) this.props.closeModal();
+        }
+      } // if (
       //   (path[3] === "" || path[3] === undefined) &&
       //   // match.params.channelId !== prevProps.match.params.channelId &&
       //   servers[match.params.serverId].channel_ids.length > 0
@@ -2237,12 +2256,15 @@ __webpack_require__.r(__webpack_exports__);
 
 var msp = function msp(_ref) {
   var entities = _ref.entities,
-      session = _ref.session;
+      session = _ref.session,
+      ui = _ref.ui;
   return {
     channels: entities.channels,
     currentUser: entities.users[session.currentUser],
     currentUserId: session.currentUser,
-    servers: entities.servers
+    servers: entities.servers,
+    currentChannel: ui.channel,
+    modal: ui.modal
   };
 };
 
@@ -2272,6 +2294,9 @@ var mdp = function mdp(dispatch) {
     },
     editServer: function editServer() {
       return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModal"])("editServer"));
+    },
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["closeModal"])());
     }
   };
 };
@@ -7237,7 +7262,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"]));
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_2___default.a));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);
