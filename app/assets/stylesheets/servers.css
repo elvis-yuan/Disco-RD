@@ -482,3 +482,14 @@ p.server-btn-hover::before {
   text-overflow: ellipsis;
   overflow: hidden;
 }
+
+.server-admin-crown {
+  color: #faa61a;
+  margin-left: 4px;
+  position: relative;
+  top: 1px;
+  width: 14px;
+  height: 14px;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}

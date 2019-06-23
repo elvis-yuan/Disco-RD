@@ -7,12 +7,13 @@ class ServerConnectedUsers extends React.Component {
   }
 
   render() {
-    const users = this.props.servers.connected_user_ids
+    const users = this.props.server.connected_user_ids
       .sort()
       .map((user_id, index) => (
         <ServerUserListItem
           key={index}
           username={this.props.users[user_id].username}
+          admin={this.props.users[user_id].id === this.props.server.admin_id}
         />
       ));
 
