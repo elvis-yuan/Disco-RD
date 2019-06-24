@@ -17,6 +17,7 @@ class DeleteChannelModal extends React.Component {
       App.server[currentServer].channelDisappeared(action.channel.channel);
       if (this.props.history.location.pathname.split("/")[3] === "")
         this.props.history.push(`/servers/${this.currentServer}`);
+      if (this.props.modal) this.props.closeModal();
     });
     if (
       parseInt(this.props.history.location.pathname.split("/")[3]) ===

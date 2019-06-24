@@ -7,7 +7,8 @@ import { withRouter } from "react-router-dom";
 const msp = ({ entities, errors, ui }) => ({
   channels: entities.channels,
   errors: errors.channel,
-  currentChannel: ui.channel
+  currentChannel: ui.channel,
+  modal: ui.modal
 });
 
 const mdp = dispatch => ({
