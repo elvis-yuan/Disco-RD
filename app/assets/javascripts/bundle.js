@@ -1782,7 +1782,7 @@ function (_React$Component) {
           ref: _this3.bottom
         }));
       });
-      var oldMessages = Object.values(channels).length > 0 && Object.values(messages).length > 0 ? channels[this.props.match.params.channelId].message_ids.map(function (message_id) {
+      var oldMessages = Object.values(channels).length > 0 && Object.values(messages).length > 0 && channels[this.props.match.params.channelId] !== undefined ? channels[this.props.match.params.channelId].message_ids.map(function (message_id) {
         return messages[message_id];
       }) : null;
       var history = oldMessages !== null && !oldMessages.includes(undefined) && !oldMessages.includes(null) ? oldMessages.map(function (message, index) {
@@ -1794,7 +1794,7 @@ function (_React$Component) {
           ref: _this3.bottom
         }));
       }) : null;
-      var title = Object.values(channels).length > 0 ? channels[this.props.match.params.channelId].title : "";
+      var title = Object.values(channels).length > 0 && channels[this.props.match.params.channelId] !== undefined ? channels[this.props.match.params.channelId].title : "";
       var connectedUsers = this.props.history.location.pathname.includes("/servers/@me") ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_servers_server_connected_users_container__WEBPACK_IMPORTED_MODULE_5__["default"], null);
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chat-component-container"
@@ -2069,6 +2069,7 @@ function (_React$Component) {
         this.setState({
           dropDownOpen: false
         });
+        this.serverId = parseInt(match.params.serverId);
         this.props.fetchServer(this.serverId);
       }
 
@@ -2090,17 +2091,7 @@ function (_React$Component) {
           history.push("/servers/".concat(this.serverId, "/"));
           if (modal) this.props.closeModal();
         }
-      } // if (
-      //   (path[3] === "" || path[3] === undefined) &&
-      //   // match.params.channelId !== prevProps.match.params.channelId &&
-      //   servers[match.params.serverId].channel_ids.length > 0
-      // ) {
-      //   debugger;
-      //   const channels = servers[match.params.serverId].channel_ids.sort();
-      //   const firstChannel = channels[0];
-      //   history.push(`/servers/${match.params.serverId}/${firstChannel}`);
-      // }
-
+      }
     }
   }, {
     key: "handleOpenModal",

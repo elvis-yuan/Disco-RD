@@ -25,6 +25,7 @@ class ChannelIndex extends React.Component {
     const { history, servers, match, currentChannel, modal } = this.props;
     if (prevProps.match.params.serverId !== match.params.serverId) {
       this.setState({ dropDownOpen: false });
+      this.serverId = parseInt(match.params.serverId);
       this.props.fetchServer(this.serverId);
     }
 
@@ -57,17 +58,6 @@ class ChannelIndex extends React.Component {
         if (modal) this.props.closeModal();
       }
     }
-
-    // if (
-    //   (path[3] === "" || path[3] === undefined) &&
-    //   // match.params.channelId !== prevProps.match.params.channelId &&
-    //   servers[match.params.serverId].channel_ids.length > 0
-    // ) {
-    //   debugger;
-    //   const channels = servers[match.params.serverId].channel_ids.sort();
-    //   const firstChannel = channels[0];
-    //   history.push(`/servers/${match.params.serverId}/${firstChannel}`);
-    // }
   }
 
   handleOpenModal() {
