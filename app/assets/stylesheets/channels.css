@@ -2,8 +2,8 @@
   background-color: #2f3136;
   width: 240px;
   flex-shrink: 0;
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
 }
 
 .channel-username-container {
@@ -97,12 +97,16 @@
   margin-bottom: 1px;
   background: rgba(32, 34, 37, 0.3);
   flex-shrink: 0;
+  width: 240px;
+  position: absolute;
+  bottom: 0px;
+  box-sizing: border-box;
 }
 
 .channel-list-container-scroll {
   position: relative;
   display: flex;
-  height: 100%;
+  /* height: 100%; */
   flex: 1 1 auto;
   flex-direction: column;
 }
@@ -167,6 +171,7 @@
   white-space: nowrap;
   overflow: hidden;
   color: #8e9297;
+  width: 190px;
   flex: 1 1 auto;
 }
 
@@ -595,3 +600,9 @@ p.plus-icon-hover::after {
 .current-channel-selected + .gear-icon-wrapper > .gear-icon {
   display: block;
 }
+
+/* .channel-list-section {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+} */

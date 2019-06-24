@@ -149,6 +149,7 @@ class ChannelIndex extends React.Component {
             </div>
           </div>
         </div>
+        {/* <section className="channel-list-section"> */}
         <div className="channel-list-container-scroll">
           <div className="channel-text-channel-catagory">
             <div className="channel-text-channel">
@@ -186,6 +187,7 @@ class ChannelIndex extends React.Component {
             <div className="defen-button channel-communication-buttons" /> */}
           </div>
         </div>
+        {/* </section> */}
       </div>
     );
   }
