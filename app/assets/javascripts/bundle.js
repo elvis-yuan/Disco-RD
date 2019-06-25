@@ -1043,7 +1043,7 @@ function (_React$Component) {
       var currentUser = this.props.currentUser;
       var button = currentUser ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "login-button",
-        to: "/servers"
+        to: "/servers/@me"
       }, "Open") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Link"], {
         className: "login-button",
         to: "/login"
@@ -3658,6 +3658,7 @@ function (_React$Component) {
       })["catch"](function (error) {
         console.log(error);
       });
+      this.joinCall();
     }
   }, {
     key: "componentWillUnmount",
