@@ -16,6 +16,7 @@ class Video extends React.Component {
     this.joinCall = this.joinCall.bind(this);
     this.leaveCall = this.leaveCall.bind(this);
   }
+
   componentDidMount() {
     this.remoteVideoContainer = document.getElementById(
       "remote-video-container"
@@ -30,7 +31,6 @@ class Video extends React.Component {
       .catch(error => {
         console.log(error);
       });
-    this.joinCall();
   }
 
   componentWillUnmount() {
@@ -214,7 +214,7 @@ class Video extends React.Component {
               Leave Call
             </button>
           ) : (
-            <button className="join-call-button" onClick={this.joinCall}>
+            <button className="leave-call-button join-call-button" onClick={this.joinCall}>
               Join Call
             </button>
           )}

@@ -743,3 +743,11 @@ p.direct-hovers::before {
 .video-icon-svg:hover + .direct-hovers {
   display: block;
 }
+
+.join-call-button {
+  background-color: #43b581;
+}
+
+.join-call-button:hover {
+  background-color: #3ca374;
+}

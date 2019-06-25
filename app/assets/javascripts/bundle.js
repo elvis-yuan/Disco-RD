@@ -3658,7 +3658,6 @@ function (_React$Component) {
       })["catch"](function (error) {
         console.log(error);
       });
-      this.joinCall();
     }
   }, {
     key: "componentWillUnmount",
@@ -3883,7 +3882,7 @@ function (_React$Component) {
         className: "leave-call-button",
         onClick: this.leaveCall
       }, "Leave Call") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-        className: "join-call-button",
+        className: "leave-call-button join-call-button",
         onClick: this.joinCall
       }, "Join Call")));
     }
