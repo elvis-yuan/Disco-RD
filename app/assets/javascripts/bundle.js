@@ -3663,12 +3663,15 @@ function (_React$Component) {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
       this.localStream.getTracks()[0].stop();
-      App.video[this.userId].unsubscribe();
-      this.remoteVideoContainer.innerHTML = "";
-      Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
-        type: _util_video_util__WEBPACK_IMPORTED_MODULE_1__["LEAVE_CALL"],
-        from: this.userId
-      });
+
+      if (App.video[this.userId]) {
+        App.video[this.userId].unsubscribe();
+        this.remoteVideoContainer.innerHTML = "";
+        Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
+          type: _util_video_util__WEBPACK_IMPORTED_MODULE_1__["LEAVE_CALL"],
+          from: this.userId
+        });
+      }
     }
   }, {
     key: "join",

@@ -35,9 +35,11 @@ class Video extends React.Component {
 
   componentWillUnmount() {
     this.localStream.getTracks()[0].stop();
-    App.video[this.userId].unsubscribe();
-    this.remoteVideoContainer.innerHTML = "";
-    broadcastData({ type: LEAVE_CALL, from: this.userId });
+    if (App.video[this.userId]) {
+      App.video[this.userId].unsubscribe();
+      this.remoteVideoContainer.innerHTML = "";
+      broadcastData({ type: LEAVE_CALL, from: this.userId });
+    }
   }
 
   join(data) {
@@ -214,7 +216,10 @@ class Video extends React.Component {
               Leave Call
             </button>
           ) : (
-            <button className="leave-call-button join-call-button" onClick={this.joinCall}>
+            <button
+              className="leave-call-button join-call-button"
+              onClick={this.joinCall}
+            >
               Join Call
             </button>
           )}
