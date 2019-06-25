@@ -4,13 +4,15 @@ import ChannelHeadingContainer from "../channels/channel_heading_container";
 import MessageFormatContainer from "../channels/message_format_container";
 import { receiveUser } from "../../../actions/user_actions";
 import ServerConnectedUsers from "../servers/server_connected_users_container";
+import Video from "./video";
 
 class DirectMessage extends React.Component {
   constructor(props) {
     super(props);
     this.currentChannelId = this.props.match.params.channelId;
-    this.state = { messages: [] };
+    this.state = { messages: [], video: false };
     this.bottom = React.createRef();
+    this.startVoice = this.startVoice.bind(this);
   }
 
   componentDidMount() {
@@ -73,6 +75,11 @@ class DirectMessage extends React.Component {
     );
   }
 
+  startVoice() {
+    const newVideo = this.state.video ? false : true;
+    this.setState({ video: newVideo });
+  }
+
   render() {
     const {
       channels,
@@ -127,6 +134,13 @@ class DirectMessage extends React.Component {
 
     return (
       <div className="chat-component-container">
+        {this.state.video ? (
+          <Video
+            user_id={currentUserId}
+            toggleVideo={this.startVoice}
+            currentChannelId={this.props.match.params.channelId}
+          />
+        ) : null}
         <div className="channel-heading-wrapper">
           <div className="channel-heading-channel-title">
             <div className="channel-icon-wrapper">
@@ -148,6 +162,11 @@ class DirectMessage extends React.Component {
                 </svg>
               </div>
               <h2 className="channel-header-channel-title">{username}</h2>
+            </div>
+            <div>
+              <div className="video-icon" onClick={this.startVoice}>
+                Video Call
+              </div>
             </div>
           </div>
         </div>

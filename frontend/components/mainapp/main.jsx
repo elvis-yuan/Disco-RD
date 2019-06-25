@@ -25,6 +25,7 @@ class Main extends React.Component {
     super(props);
     App.server = {};
     App.channel = {};
+    App.video = {};
   }
 
   componentDidMount() {

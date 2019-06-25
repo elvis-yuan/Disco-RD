@@ -2875,6 +2875,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _channels_message_format_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../channels/message_format_container */ "./frontend/components/mainapp/channels/message_format_container.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _servers_server_connected_users_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../servers/server_connected_users_container */ "./frontend/components/mainapp/servers/server_connected_users_container.js");
+/* harmony import */ var _video__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./video */ "./frontend/components/mainapp/direct_message/video.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2885,13 +2886,14 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -2913,9 +2915,11 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(DirectMessage).call(this, props));
     _this.currentChannelId = _this.props.match.params.channelId;
     _this.state = {
-      messages: []
+      messages: [],
+      video: false
     };
     _this.bottom = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+    _this.startVoice = _this.startVoice.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -2982,6 +2986,14 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "startVoice",
+    value: function startVoice() {
+      var newVideo = this.state.video ? false : true;
+      this.setState({
+        video: newVideo
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this3 = this;
@@ -3022,7 +3034,11 @@ function (_React$Component) {
       }) : null;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chat-component-container"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, this.state.video ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_video__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        user_id: currentUserId,
+        toggleVideo: this.startVoice,
+        currentChannelId: this.props.match.params.channelId
+      }) : null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-heading-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "channel-heading-channel-title"
@@ -3044,7 +3060,10 @@ function (_React$Component) {
         d: "M12 2C6.486 2 2 6.486 2 12C2 17.515 6.486 22 12 22C14.039 22 15.993 21.398 17.652 20.259L16.521 18.611C15.195 19.519 13.633 20 12 20C7.589 20 4 16.411 4 12C4 7.589 7.589 4 12 4C16.411 4 20 7.589 20 12V12.782C20 14.17 19.402 15 18.4 15L18.398 15.018C18.338 15.005 18.273 15 18.209 15H18C17.437 15 16.6 14.182 16.6 13.631V12C16.6 9.464 14.537 7.4 12 7.4C9.463 7.4 7.4 9.463 7.4 12C7.4 14.537 9.463 16.6 12 16.6C13.234 16.6 14.35 16.106 15.177 15.313C15.826 16.269 16.93 17 18 17L18.002 16.981C18.064 16.994 18.129 17 18.195 17H18.4C20.552 17 22 15.306 22 12.782V12C22 6.486 17.514 2 12 2ZM12 14.599C10.566 14.599 9.4 13.433 9.4 11.999C9.4 10.565 10.566 9.399 12 9.399C13.434 9.399 14.6 10.565 14.6 11.999C14.6 13.433 13.434 14.599 12 14.599Z"
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
         className: "channel-header-channel-title"
-      }, username)))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, username)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "video-icon",
+        onClick: this.startVoice
+      }, "Video Call")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chatroom-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chat-box-component"
@@ -3550,6 +3569,287 @@ var mdp = function mdp(dispatch) {
 
 /***/ }),
 
+/***/ "./frontend/components/mainapp/direct_message/video.jsx":
+/*!**************************************************************!*\
+  !*** ./frontend/components/mainapp/direct_message/video.jsx ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _util_video_util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../util/video_util */ "./frontend/util/video_util.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+
+var Video =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(Video, _React$Component);
+
+  function Video(props) {
+    var _this;
+
+    _classCallCheck(this, Video);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Video).call(this, props));
+    _this.state = {
+      joined: false
+    };
+    _this.pcPeers = {};
+    _this.userId = _this.props.user_id;
+    _this.joinCall = _this.joinCall.bind(_assertThisInitialized(_this));
+    _this.leaveCall = _this.leaveCall.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Video, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      this.remoteVideoContainer = document.getElementById("remote-video-container");
+      this.localVideo = document.getElementById("local-video");
+      navigator.mediaDevices.getUserMedia({
+        audio: false,
+        video: true
+      }).then(function (stream) {
+        _this2.localStream = stream;
+        _this2.localVideo.srcObject = stream;
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      this.localStream.getTracks()[0].stop();
+      App.video[this.userId].unsubscribe();
+      this.remoteVideoContainer.innerHTML = "";
+      Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
+        type: _util_video_util__WEBPACK_IMPORTED_MODULE_1__["LEAVE_CALL"],
+        from: this.userId
+      });
+    }
+  }, {
+    key: "join",
+    value: function join(data) {
+      this.createPC(data.from, true);
+    }
+  }, {
+    key: "joinCall",
+    value: function joinCall(e) {
+      var _this3 = this;
+
+      this.setState({
+        joined: true
+      });
+      App.video[this.userId] = App.cable.subscriptions.create({
+        channel: "CallChannel",
+        channel_id: this.props.currentChannelId
+      }, {
+        connected: function connected() {
+          Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
+            type: _util_video_util__WEBPACK_IMPORTED_MODULE_1__["JOIN_CALL"],
+            from: _this3.userId
+          });
+        },
+        received: function received(data) {
+          console.log("RECEIVED: ", data);
+          if (data.from === _this3.userId) return;
+
+          switch (data.type) {
+            case _util_video_util__WEBPACK_IMPORTED_MODULE_1__["JOIN_CALL"]:
+              return _this3.join(data);
+
+            case _util_video_util__WEBPACK_IMPORTED_MODULE_1__["EXCHANGE"]:
+              if (data.to !== _this3.userId) return;
+              return _this3.exchange(data);
+
+            case _util_video_util__WEBPACK_IMPORTED_MODULE_1__["LEAVE_CALL"]:
+              return _this3.removeUser(data);
+
+            default:
+              return;
+          }
+        }
+      });
+    }
+  }, {
+    key: "createPC",
+    value: function createPC(userId, offerBool) {
+      var _this4 = this;
+
+      var pc = new RTCPeerConnection(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["ice"]);
+      this.pcPeers[userId] = pc;
+      this.localStream.getTracks().forEach(function (track) {
+        return pc.addTrack(track, _this4.localStream);
+      });
+
+      if (offerBool) {
+        pc.createOffer().then(function (offer) {
+          pc.setLocalDescription(offer).then(function () {
+            setTimeout(function () {
+              Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
+                type: _util_video_util__WEBPACK_IMPORTED_MODULE_1__["EXCHANGE"],
+                from: _this4.userId,
+                to: userId,
+                sdp: JSON.stringify(pc.localDescription)
+              });
+            }, 0);
+          });
+        });
+      }
+
+      pc.onicecandidate = function (e) {
+        Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
+          type: _util_video_util__WEBPACK_IMPORTED_MODULE_1__["EXCHANGE"],
+          from: _this4.userId,
+          to: userId,
+          sdp: JSON.stringify(e.candidate)
+        });
+      };
+
+      pc.ontrack = function (e) {
+        var remoteVid = document.createElement("video");
+        remoteVid.id = "remoteVideoContainer";
+        remoteVid.autoplay = "autoplay";
+        remoteVid.srcObject = e.streams[0];
+
+        _this4.remoteVideoContainer.appendChild(remoteVid);
+      };
+
+      pc.oniceconnectionstatechange = function (e) {
+        if (pc.iceConnectionState === "disconnected") {
+          Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
+            type: _util_video_util__WEBPACK_IMPORTED_MODULE_1__["LEAVE_CALL"],
+            from: userId
+          });
+        }
+      };
+
+      return pc;
+    }
+  }, {
+    key: "exchange",
+    value: function exchange(data) {
+      var _this5 = this;
+
+      var pc;
+
+      if (this.pcPeers[data.from]) {
+        pc = this.pcPeers[data.from];
+      } else {
+        pc = this.createPC(data.from, false);
+      }
+
+      if (data.candidate) {
+        var candidate = JSON.parse(data.candidate);
+        pc.addIceCandidate(new RTCIceCandidate(candidate));
+      }
+
+      if (data.sdp) {
+        var sdp = JSON.parse(data.sdp);
+
+        if (sdp && !sdp.candidate) {
+          pc.setRemoteDescription(sdp).then(function () {
+            if (sdp.type === "offer") {
+              pc.createAnswer().then(function (answer) {
+                pc.setLocalDescription(answer).then(function () {
+                  Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
+                    type: _util_video_util__WEBPACK_IMPORTED_MODULE_1__["EXCHANGE"],
+                    from: _this5.userId,
+                    to: data.from,
+                    sdp: JSON.stringify(pc.localDescription)
+                  });
+                });
+              });
+            }
+          });
+        }
+      }
+    }
+  }, {
+    key: "leaveCall",
+    value: function leaveCall(e) {
+      this.props.toggleVideo();
+      var pcKeys = Object.keys(this.pcPeers);
+
+      for (var i = 0; i < pcKeys.length; i++) {
+        this.pcPeers[pcKeys[i]].close();
+      }
+
+      this.pcPeers = {};
+
+      if (this.localVideo) {
+        this.localVideo.srcObject.getTracks().forEach(function (track) {
+          track.stop();
+        });
+      }
+
+      if (this.localVideo) this.localVideo.srcObject = null;
+      App.video[this.userId].unsubscribe();
+      this.remoteVideoContainer.innerHTML = "";
+      Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
+        type: _util_video_util__WEBPACK_IMPORTED_MODULE_1__["LEAVE_CALL"],
+        from: this.userId
+      });
+    }
+  }, {
+    key: "removeUser",
+    value: function removeUser(data) {
+      var video = document.getElementById("remoteVideoContainer");
+      video && this.props.toggleVideo();
+      var peers = this.pcPeers;
+      delete peers[data.from];
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "video-chat-component"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "video-chat-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "remote-video-container"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("video", {
+        id: "local-video",
+        autoPlay: true
+      })), this.state.joined ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.leaveCall
+      }, "Leave Call") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        onClick: this.joinCall
+      }, "Join Call"));
+    }
+  }]);
+
+  return Video;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Video);
+
+/***/ }),
+
 /***/ "./frontend/components/mainapp/logout_modal/logout_modal.jsx":
 /*!*******************************************************************!*\
   !*** ./frontend/components/mainapp/logout_modal/logout_modal.jsx ***!
@@ -3773,6 +4073,7 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Main).call(this, props));
     App.server = {};
     App.channel = {};
+    App.video = {};
     return _this;
   }
 
@@ -7606,6 +7907,40 @@ var logout = function logout() {
   return $.ajax({
     method: "DELETE",
     url: "/api/session"
+  });
+};
+
+/***/ }),
+
+/***/ "./frontend/util/video_util.js":
+/*!*************************************!*\
+  !*** ./frontend/util/video_util.js ***!
+  \*************************************/
+/*! exports provided: JOIN_CALL, EXCHANGE, LEAVE_CALL, ice, broadcastData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "JOIN_CALL", function() { return JOIN_CALL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "EXCHANGE", function() { return EXCHANGE; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LEAVE_CALL", function() { return LEAVE_CALL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ice", function() { return ice; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "broadcastData", function() { return broadcastData; });
+var JOIN_CALL = "JOIN_CALL";
+var EXCHANGE = "EXCHANGE";
+var LEAVE_CALL = "LEAVE_CALL";
+var ice = {
+  iceServers: [{
+    urls: "stun:stun2.l.google.com:19302"
+  }]
+};
+var broadcastData = function broadcastData(data) {
+  fetch("api/calls", {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "content-type": "application/json"
+    }
   });
 };
 

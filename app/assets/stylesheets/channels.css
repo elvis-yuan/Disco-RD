@@ -607,3 +607,33 @@ p.plus-icon-hover::after {
   justify-content: space-between;
   flex-direction: column;
 } */
+.video-chat-component {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.video-chat-container {
+  padding: 15px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#local-video {
+  /* margin-right: 25px; */
+  width: 25%;
+}
+
+#remoteVideoContainer {
+  max-height: 40%;
+  margin-right: 25px;
+}
+
+#remote-video-container {
+  max-height: 50%;
+  max-width: 50%;
+}
