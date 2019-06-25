@@ -359,6 +359,7 @@ p.gear-icon-hover::after {
   border-width: 6px;
   border-style: solid;
   border-color: #000 transparent transparent transparent;
+  pointer-events: none;
 }
 
 p.plus-icon-hover::after {
@@ -371,13 +372,14 @@ p.plus-icon-hover::after {
   border-style: solid;
   z-index: 10;
   border-color: #000 transparent transparent transparent;
+  pointer-events: none;
 }
 
 .plus-icon-hover {
   display: none;
   position: absolute;
   left: 159px;
-  bottom: 34px;
+  bottom: 30px;
   border-radius: 5px;
   color: #cececf;
   background-color: black;
@@ -612,12 +614,13 @@ p.plus-icon-hover::after {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #18191c;
 }
 
 .video-chat-container {
   padding: 15px 15px;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   width: 100%;
   box-sizing: border-box;
@@ -625,15 +628,118 @@ p.plus-icon-hover::after {
 
 #local-video {
   /* margin-right: 25px; */
-  width: 25%;
+  max-width: 15%;
+  margin-bottom: 4px;
 }
 
 #remoteVideoContainer {
-  max-height: 40%;
   margin-right: 25px;
+}
+
+video {
+  max-height: 300px;
 }
 
 #remote-video-container {
   max-height: 50%;
   max-width: 50%;
+}
+
+.background-black {
+  background-color: #18191c;
+  box-shadow: none;
+}
+
+.video-icon {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.video-icon-svg:hover {
+  color: white;
+}
+
+.video-button-container {
+  box-sizing: border-box;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.leave-call-button {
+  font-family: Whitney;
+  text-transform: uppercase;
+  margin-left: 12px;
+  margin-right: 12px;
+  color: #fff;
+  background-color: #f04747;
+  cursor: pointer;
+  width: auto;
+  border: none;
+  outline: none;
+  height: 32px;
+  min-width: 60px;
+  min-height: 32px;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 2px 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.call-icon-container {
+  width: 100px;
+}
+
+.leave-call-button:hover {
+  background-color: #d84040;
+}
+
+.direct-hovers {
+  position: absolute;
+  background: black;
+  display: none;
+  padding: 5px 10px;
+  top: 40px;
+  right: 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+}
+
+p.direct-hovers::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 48px;
+  margin-left: 0px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent black transparent;
+  display: block;
+  pointer-events: none;
+}
+
+.video-icon-svg:hover + .direct-hovers {
+  display: block;
 }

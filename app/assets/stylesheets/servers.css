@@ -125,6 +125,7 @@ p.server-btn-hover::before {
   border-width: 5px;
   border-style: solid;
   border-color: transparent black transparent transparent;
+  pointer-events: none;
 }
 
 .server-margin-wrapper:hover + .server-btn-hover {
