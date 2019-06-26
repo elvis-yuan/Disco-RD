@@ -9,9 +9,13 @@ class VideoCall extends React.Component {
 
   handleJoin() {
     const { history, videoCall, closeModal } = this.props;
-    if (history.location.pathname !== `/servers/@me/${videoCall.channel_id}`)
+    if (history.location.pathname !== `/servers/@me/${videoCall.channel_id}`) {
       history.push(`/servers/@me/${videoCall.channel_id}`);
-    document.getElementsByClassName("video-icon")[0].click();
+    }
+    setTimeout(
+      () => document.getElementsByClassName("video-icon")[0].click(),
+      0
+    );
     closeModal();
   }
 

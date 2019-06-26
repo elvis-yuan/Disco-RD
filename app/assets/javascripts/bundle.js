@@ -4019,8 +4019,14 @@ function (_React$Component) {
           history = _this$props.history,
           videoCall = _this$props.videoCall,
           closeModal = _this$props.closeModal;
-      if (history.location.pathname !== "/servers/@me/".concat(videoCall.channel_id)) history.push("/servers/@me/".concat(videoCall.channel_id));
-      document.getElementsByClassName("video-icon")[0].click();
+
+      if (history.location.pathname !== "/servers/@me/".concat(videoCall.channel_id)) {
+        history.push("/servers/@me/".concat(videoCall.channel_id));
+      }
+
+      setTimeout(function () {
+        return document.getElementsByClassName("video-icon")[0].click();
+      }, 0);
       closeModal();
     }
   }, {
