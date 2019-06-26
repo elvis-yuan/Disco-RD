@@ -3663,7 +3663,7 @@ function (_React$Component) {
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      this.localStream.getTracks()[0].stop();
+      if (this.localStream) this.localStream.getTracks()[0].stop();
 
       if (App.video[this.userId]) {
         App.video[this.userId].unsubscribe();

@@ -35,7 +35,7 @@ class Video extends React.Component {
   }
 
   componentWillUnmount() {
-    this.localStream.getTracks()[0].stop();
+    if (this.localStream) this.localStream.getTracks()[0].stop();
     if (App.video[this.userId]) {
       App.video[this.userId].unsubscribe();
       this.remoteVideoContainer.innerHTML = "";
