@@ -3692,7 +3692,7 @@ function (_React$Component) {
       })["catch"](function (error) {
         console.log(error);
       });
-      this.joinCall();
+      setTimeout(this.joinCall(), 0);
     }
   }, {
     key: "componentWillUnmount",
