@@ -15,6 +15,15 @@ class Video extends React.Component {
     this.userId = this.props.user_id;
     this.joinCall = this.joinCall.bind(this);
     this.leaveCall = this.leaveCall.bind(this);
+    navigator.mediaDevices
+      .getUserMedia({ audio: true, video: true })
+      .then(stream => {
+        this.localStream = stream;
+        this.localVideo.srcObject = stream;
+      })
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   componentDidMount() {
@@ -25,16 +34,17 @@ class Video extends React.Component {
       "remote-audio-container"
     );
     this.localVideo = document.getElementById("local-video");
-    navigator.mediaDevices
-      .getUserMedia({ audio: true, video: true })
-      .then(stream => {
-        this.localStream = stream;
-        this.localVideo.srcObject = stream;
-      })
-      .catch(error => {
-        console.log(error);
-      });
-    setTimeout(this.joinCall(), 0);
+    // navigator.mediaDevices
+    //   .getUserMedia({ audio: true, video: true })
+    //   .then(stream => {
+    //     this.localStream = stream;
+    //     this.localVideo.srcObject = stream;
+    //   })
+    //   .catch(error => {
+    //     console.log(error);
+    //   });
+    // setTimeout(this.joinCall(), 0);
+    this.joinCall();
   }
 
   componentWillUnmount() {
