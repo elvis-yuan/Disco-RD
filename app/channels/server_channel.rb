@@ -48,6 +48,11 @@ class ServerChannel < ApplicationCable::Channel
     ServerChannel.broadcast_to(channel["dm_id"], socket)
   end
 
+  def videoCall(data)
+    socket = {type: 'videoCall', payload: {username: data['username'], channel_id: data['channel_id']}}
+    ServerChannel.broadcast_to(data['server_id'], socket)
+  end
+
   def unsubscribed
   end
 end 

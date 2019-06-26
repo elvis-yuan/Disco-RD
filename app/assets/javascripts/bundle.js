@@ -592,6 +592,35 @@ var removeData = function removeData(data) {
 
 /***/ }),
 
+/***/ "./frontend/actions/video_call_actions.js":
+/*!************************************************!*\
+  !*** ./frontend/actions/video_call_actions.js ***!
+  \************************************************/
+/*! exports provided: RECEIVE_VIDEO_CALL, REMOVE_VIDEO_CALL, receiveVideoCall, removeVideoCall */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_VIDEO_CALL", function() { return RECEIVE_VIDEO_CALL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "REMOVE_VIDEO_CALL", function() { return REMOVE_VIDEO_CALL; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveVideoCall", function() { return receiveVideoCall; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "removeVideoCall", function() { return removeVideoCall; });
+var RECEIVE_VIDEO_CALL = "RECEIVE_VIDEO_CALL";
+var REMOVE_VIDEO_CALL = "REMOVE_VIDEO_CALL";
+var receiveVideoCall = function receiveVideoCall(payload) {
+  return {
+    type: RECEIVE_VIDEO_CALL,
+    payload: payload
+  };
+};
+var removeVideoCall = function removeVideoCall() {
+  return {
+    type: REMOVE_VIDEO_CALL
+  };
+};
+
+/***/ }),
+
 /***/ "./frontend/app.jsx":
 /*!**************************!*\
   !*** ./frontend/app.jsx ***!
@@ -2875,7 +2904,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _channels_message_format_container__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../channels/message_format_container */ "./frontend/components/mainapp/channels/message_format_container.js");
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _servers_server_connected_users_container__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../servers/server_connected_users_container */ "./frontend/components/mainapp/servers/server_connected_users_container.js");
-/* harmony import */ var _video__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./video */ "./frontend/components/mainapp/direct_message/video.jsx");
+/* harmony import */ var _video_container__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./video_container */ "./frontend/components/mainapp/direct_message/video_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -3014,6 +3043,7 @@ function (_React$Component) {
         return user.direct_message_id === dm_id;
       }) : null;
       var username = user.length > 0 ? user[0].username : null;
+      var server_id = user.length > 0 ? user[0].direct_message_id : null;
       var allMessages = this.state.messages.map(function (message, index) {
         return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
           key: index
@@ -3037,9 +3067,11 @@ function (_React$Component) {
       }) : null;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "chat-component-container"
-      }, this.state.video ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_video__WEBPACK_IMPORTED_MODULE_6__["default"], {
+      }, this.state.video ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_video_container__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        server_id: server_id,
         username: username,
         user_id: currentUserId,
+        currentUser: this.props.currentUser,
         toggleVideo: this.startVoice,
         currentChannelId: this.props.match.params.channelId
       }) : null, this.state.video ? null : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -3127,6 +3159,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
 /* harmony import */ var _actions_message_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../actions/message_actions */ "./frontend/actions/message_actions.js");
+
 
 
 
@@ -3676,6 +3709,8 @@ function (_React$Component) {
           from: this.userId
         });
       }
+
+      this.props.removeVideoCall();
     }
   }, {
     key: "join",
@@ -3687,12 +3722,27 @@ function (_React$Component) {
     value: function joinCall(e) {
       var _this3 = this;
 
+      var _this$props = this.props,
+          server_id = _this$props.server_id,
+          username = _this$props.username,
+          currentChannelId = _this$props.currentChannelId,
+          currentUser = _this$props.currentUser;
       this.setState({
         joined: true
       });
+      this.props.receiveVideoCall({
+        username: username,
+        server_id: server_id,
+        channel_id: currentChannelId
+      });
+      App.server[currentUser.direct_message_id].videoCall({
+        username: currentUser.username,
+        server_id: server_id,
+        channel_id: currentChannelId
+      });
       App.video[this.userId] = App.cable.subscriptions.create({
         channel: "CallChannel",
-        channel_id: this.props.currentChannelId
+        channel_id: currentChannelId
       }, {
         connected: function connected() {
           Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
@@ -3912,6 +3962,171 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Video);
+
+/***/ }),
+
+/***/ "./frontend/components/mainapp/direct_message/video_call.jsx":
+/*!*******************************************************************!*\
+  !*** ./frontend/components/mainapp/direct_message/video_call.jsx ***!
+  \*******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var VideoCall =
+/*#__PURE__*/
+function (_React$Component) {
+  _inherits(VideoCall, _React$Component);
+
+  function VideoCall(props) {
+    var _this;
+
+    _classCallCheck(this, VideoCall);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(VideoCall).call(this, props));
+    _this.handleJoin = _this.handleJoin.bind(_assertThisInitialized(_this));
+    _this.handleDecline = _this.handleDecline.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(VideoCall, [{
+    key: "handleJoin",
+    value: function handleJoin() {
+      var _this$props = this.props,
+          history = _this$props.history,
+          videoCall = _this$props.videoCall,
+          closeModal = _this$props.closeModal;
+      if (history.location.pathname !== "/servers/@me/".concat(videoCall.channel_id)) history.push("/servers/@me/".concat(videoCall.channel_id));
+      document.getElementsByClassName("video-icon")[0].click();
+      closeModal();
+    }
+  }, {
+    key: "handleDecline",
+    value: function handleDecline() {
+      this.props.closeModal();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var username = this.props.videoCall.username;
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "video-call-modal-container"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+        src: "https://discordapp.com/assets/0e291f67c9274a1abdddeb3fd919cbaa.png",
+        alt: "",
+        className: "video-caller-img"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "video-call-modal-header"
+      }, username), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "video-call-text"
+      }, "incoming video call"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "video-call-modal-buttons"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        onClick: this.handleJoin,
+        className: "video-call-modal-join"
+      }, "Join Call"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        onClick: this.handleDecline,
+        className: "video-call-modal-decline"
+      }, "Decline")));
+    }
+  }]);
+
+  return VideoCall;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (VideoCall);
+
+/***/ }),
+
+/***/ "./frontend/components/mainapp/direct_message/video_call_container.js":
+/*!****************************************************************************!*\
+  !*** ./frontend/components/mainapp/direct_message/video_call_container.js ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
+/* harmony import */ var _video_call__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./video_call */ "./frontend/components/mainapp/direct_message/video_call.jsx");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+
+
+
+
+var msp = function msp(_ref) {
+  var entities = _ref.entities,
+      ui = _ref.ui;
+  return {
+    videoCall: ui.videoCall
+  };
+};
+
+var mdp = function mdp(dispatch) {
+  return {
+    closeModal: function closeModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_3__["closeModal"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(msp, mdp)(_video_call__WEBPACK_IMPORTED_MODULE_2__["default"])));
+
+/***/ }),
+
+/***/ "./frontend/components/mainapp/direct_message/video_container.js":
+/*!***********************************************************************!*\
+  !*** ./frontend/components/mainapp/direct_message/video_container.js ***!
+  \***********************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _video__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./video */ "./frontend/components/mainapp/direct_message/video.jsx");
+/* harmony import */ var _actions_video_call_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../actions/video_call_actions */ "./frontend/actions/video_call_actions.js");
+
+
+
+
+var mdp = function mdp(dispatch) {
+  return {
+    receiveVideoCall: function receiveVideoCall(payload) {
+      return dispatch(Object(_actions_video_call_actions__WEBPACK_IMPORTED_MODULE_2__["receiveVideoCall"])(payload));
+    },
+    removeVideoCall: function removeVideoCall() {
+      return dispatch(Object(_actions_video_call_actions__WEBPACK_IMPORTED_MODULE_2__["removeVideoCall"])());
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_0__["connect"])(null, mdp)(_video__WEBPACK_IMPORTED_MODULE_1__["default"]));
 
 /***/ }),
 
@@ -6006,6 +6221,14 @@ function (_React$Component) {
           if (data.type === "newDirectMessage") {
             _this2.props.newDM(data);
           }
+
+          if (data.type === "videoCall") {
+            if (!_this2.props.videoCall) {
+              _this2.props.receiveVideoCall(data.payload);
+
+              _this2.props.openModal();
+            }
+          }
         },
         channelAppeared: function channelAppeared(data) {
           return this.perform("channelAppeared", data);
@@ -6021,6 +6244,9 @@ function (_React$Component) {
         },
         newDirectMessage: function newDirectMessage(data) {
           return this.perform("newDirectMessage", data);
+        },
+        videoCall: function videoCall(data) {
+          return this.perform("videoCall", data);
         }
       });
     }
@@ -6120,6 +6346,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _actions_user_actions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../actions/user_actions */ "./frontend/actions/user_actions.js");
 /* harmony import */ var _actions_channel_actions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../actions/channel_actions */ "./frontend/actions/channel_actions.js");
 /* harmony import */ var _actions_directmessage_action__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../../actions/directmessage_action */ "./frontend/actions/directmessage_action.js");
+/* harmony import */ var _actions_video_call_actions__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../../actions/video_call_actions */ "./frontend/actions/video_call_actions.js");
+
 
 
 
@@ -6140,6 +6368,7 @@ var msp = function msp(_ref) {
     currentUser: session.currentUser,
     prevUser: session.prevUser,
     servers: entities.servers,
+    videoCall: ui.videoCall,
     modalOpen: ui.modal ? ["join", "main", "create"].includes(ui.modal) : false
   };
 };
@@ -6184,6 +6413,12 @@ var mdp = function mdp(dispatch) {
     },
     serverDisappeared: function serverDisappeared(server) {
       return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["serverDisappeared"])(server));
+    },
+    openModal: function openModal() {
+      return dispatch(Object(_actions_modal_actions__WEBPACK_IMPORTED_MODULE_5__["openModal"])("videoCall"));
+    },
+    receiveVideoCall: function receiveVideoCall(payload) {
+      return dispatch(Object(_actions_video_call_actions__WEBPACK_IMPORTED_MODULE_9__["receiveVideoCall"])(payload));
     }
   };
 };
@@ -6300,6 +6535,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _mainapp_server_modals_leave_server_container__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../mainapp/server_modals/leave_server_container */ "./frontend/components/mainapp/server_modals/leave_server_container.js");
 /* harmony import */ var _mainapp_server_modals_invite_modal_container__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../mainapp/server_modals/invite_modal_container */ "./frontend/components/mainapp/server_modals/invite_modal_container.js");
 /* harmony import */ var _mainapp_direct_message_direct_message_modal_container__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../mainapp/direct_message/direct_message_modal_container */ "./frontend/components/mainapp/direct_message/direct_message_modal_container.js");
+/* harmony import */ var _mainapp_direct_message_video_call_container__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../mainapp/direct_message/video_call_container */ "./frontend/components/mainapp/direct_message/video_call_container.js");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -6317,6 +6553,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -6399,6 +6636,10 @@ function (_React$Component) {
 
         case "createDM":
           component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mainapp_direct_message_direct_message_modal_container__WEBPACK_IMPORTED_MODULE_12__["default"], null);
+          break;
+
+        case "videoCall":
+          component = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mainapp_direct_message_video_call_container__WEBPACK_IMPORTED_MODULE_13__["default"], null);
           break;
 
         default:
@@ -7528,6 +7769,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modal_reducer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modal_reducer */ "./frontend/reducers/modal_reducer.js");
 /* harmony import */ var _edit_channel_reducer__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit_channel_reducer */ "./frontend/reducers/edit_channel_reducer.js");
 /* harmony import */ var _current_dm__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./current_dm */ "./frontend/reducers/current_dm.js");
+/* harmony import */ var _video_call_reducer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./video_call_reducer */ "./frontend/reducers/video_call_reducer.js");
+
 
 
 
@@ -7535,7 +7778,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
   modal: _modal_reducer__WEBPACK_IMPORTED_MODULE_1__["default"],
   channel: _edit_channel_reducer__WEBPACK_IMPORTED_MODULE_2__["default"],
-  currentDm: _current_dm__WEBPACK_IMPORTED_MODULE_3__["default"]
+  currentDm: _current_dm__WEBPACK_IMPORTED_MODULE_3__["default"],
+  videoCall: _video_call_reducer__WEBPACK_IMPORTED_MODULE_4__["default"]
 }));
 
 /***/ }),
@@ -7602,6 +7846,45 @@ var usersReducer = function usersReducer() {
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (usersReducer);
+
+/***/ }),
+
+/***/ "./frontend/reducers/video_call_reducer.js":
+/*!*************************************************!*\
+  !*** ./frontend/reducers/video_call_reducer.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+/* harmony import */ var lodash__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(lodash__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_video_call_actions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/video_call_actions */ "./frontend/actions/video_call_actions.js");
+/* harmony import */ var _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../actions/modal_actions */ "./frontend/actions/modal_actions.js");
+
+
+
+
+var videoCallReducer = function videoCallReducer() {
+  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+  var action = arguments.length > 1 ? arguments[1] : undefined;
+  Object.freeze(state);
+
+  switch (action.type) {
+    case _actions_video_call_actions__WEBPACK_IMPORTED_MODULE_1__["RECEIVE_VIDEO_CALL"]:
+      return action.payload;
+
+    case _actions_video_call_actions__WEBPACK_IMPORTED_MODULE_1__["REMOVE_VIDEO_CALL"]:
+    case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_2__["CLOSE_MODAL"]:
+      return null;
+
+    default:
+      return state;
+  }
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (videoCallReducer);
 
 /***/ }),
 

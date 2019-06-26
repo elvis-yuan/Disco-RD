@@ -45,6 +45,7 @@ class Video extends React.Component {
       this.remoteVideoContainer.innerHTML = "";
       broadcastData({ type: LEAVE_CALL, from: this.userId });
     }
+    this.props.removeVideoCall();
   }
 
   join(data) {
@@ -52,11 +53,22 @@ class Video extends React.Component {
   }
 
   joinCall(e) {
+    const { server_id, username, currentChannelId, currentUser } = this.props;
     this.setState({ joined: true });
+    this.props.receiveVideoCall({
+      username: username,
+      server_id: server_id,
+      channel_id: currentChannelId
+    });
+    App.server[currentUser.direct_message_id].videoCall({
+      username: currentUser.username,
+      server_id: server_id,
+      channel_id: currentChannelId
+    });
     App.video[this.userId] = App.cable.subscriptions.create(
       {
         channel: "CallChannel",
-        channel_id: this.props.currentChannelId
+        channel_id: currentChannelId
       },
       {
         connected: () => {

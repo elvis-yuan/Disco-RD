@@ -91,3 +91,119 @@
   color: #72767d;
   box-sizing: border-box;
 }
+
+.video-call-modal-container {
+  border-radius: 5px;
+  border: 1px solid;
+  text-align: center;
+  padding: 20px 10px 10px;
+  background: #202225;
+  border-color: #18191c;
+  width: 215px;
+}
+
+.video-call-modal-header {
+  color: white;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 1.25rem;
+  font-size: 1.25rem;
+  margin-top: 20px;
+}
+
+.video-caller-img {
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+}
+
+.video-call-text {
+  font-size: 0.875rem;
+  color: #72767d;
+  margin-top: 8px;
+}
+
+.video-call-modal-buttons {
+  text-transform: uppercase;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.video-call-modal-join {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: none;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 2px 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #fff;
+  margin-top: 4px;
+  width: 100%;
+  height: 38px;
+  transition: background-color 0.17s ease, color 0.17s ease;
+  min-height: 38px;
+  background-color: #43b581;
+  cursor: pointer;
+}
+
+.video-call-modal-join:hover {
+  background-color: #3ca374;
+}
+
+.video-call-modal-decline {
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background: none;
+  border: none;
+  border-radius: 3px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 16px;
+  padding: 2px 16px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #fff;
+  margin-top: 4px;
+  width: 100%;
+  height: 38px;
+  transition: background-color 0.17s ease, color 0.17s ease;
+  min-height: 38px;
+  color: #f6f6f7;
+  background-color: hsla(0, 0%, 100%, 0.1);
+  cursor: pointer;
+}
+
+.video-call-modal-decline:hover {
+  background-color: hsla(0, 0%, 100%, 0.05);
+}

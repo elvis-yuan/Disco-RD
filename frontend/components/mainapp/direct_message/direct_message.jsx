@@ -4,7 +4,7 @@ import ChannelHeadingContainer from "../channels/channel_heading_container";
 import MessageFormatContainer from "../channels/message_format_container";
 import { receiveUser } from "../../../actions/user_actions";
 import ServerConnectedUsers from "../servers/server_connected_users_container";
-import Video from "./video";
+import VideoContainer from "./video_container";
 
 class DirectMessage extends React.Component {
   constructor(props) {
@@ -104,6 +104,7 @@ class DirectMessage extends React.Component {
         : null;
 
     const username = user.length > 0 ? user[0].username : null;
+    const server_id = user.length > 0 ? user[0].direct_message_id : null;
 
     const allMessages = this.state.messages.map((message, index) => {
       return (
@@ -136,9 +137,11 @@ class DirectMessage extends React.Component {
     return (
       <div className="chat-component-container">
         {this.state.video ? (
-          <Video
+          <VideoContainer
+            server_id={server_id}
             username={username}
             user_id={currentUserId}
+            currentUser={this.props.currentUser}
             toggleVideo={this.startVoice}
             currentChannelId={this.props.match.params.channelId}
           />

@@ -17,6 +17,7 @@ import {
 } from "../../../actions/channel_actions";
 import { serverDisappeared } from "../../../actions/server_actions";
 import { newDM } from "../../../actions/directmessage_action";
+import { receiveVideoCall } from "../../../actions/video_call_actions";
 
 const msp = ({ entities, session, ui }) => {
   return {
@@ -24,6 +25,7 @@ const msp = ({ entities, session, ui }) => {
     currentUser: session.currentUser,
     prevUser: session.prevUser,
     servers: entities.servers,
+    videoCall: ui.videoCall,
     modalOpen: ui.modal ? ["join", "main", "create"].includes(ui.modal) : false
   };
 };
@@ -41,7 +43,9 @@ const mdp = dispatch => ({
   mainModal: () => dispatch(openModal("main")),
   logoutModal: () => dispatch(openModal("logoutUser")),
   newDM: channel => dispatch(newDM(channel)),
-  serverDisappeared: server => dispatch(serverDisappeared(server))
+  serverDisappeared: server => dispatch(serverDisappeared(server)),
+  openModal: () => dispatch(openModal("videoCall")),
+  receiveVideoCall: payload => dispatch(receiveVideoCall(payload))
 });
 
 export default withRouter(

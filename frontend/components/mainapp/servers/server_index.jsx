@@ -144,6 +144,12 @@ class ServerIndex extends React.Component {
           if (data.type === "newDirectMessage") {
             this.props.newDM(data);
           }
+          if (data.type === "videoCall") {
+            if (!this.props.videoCall) {
+              this.props.receiveVideoCall(data.payload);
+              this.props.openModal();
+            }
+          }
         },
         channelAppeared: function(data) {
           return this.perform("channelAppeared", data);
@@ -159,6 +165,9 @@ class ServerIndex extends React.Component {
         },
         newDirectMessage: function(data) {
           return this.perform("newDirectMessage", data);
+        },
+        videoCall: function(data) {
+          return this.perform("videoCall", data);
         }
       }
     );

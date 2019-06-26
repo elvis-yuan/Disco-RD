@@ -5,6 +5,7 @@ import { fetchChannel } from "../../../actions/channel_actions";
 import { receiveUser } from "../../../actions/user_actions";
 import { currentDm } from "../../../actions/modal_actions";
 import { fetchMessages } from "../../../actions/message_actions";
+import { openModal } from "../../../actions/modal_actions";
 
 const msp = ({ entities, session, ui }) => {
   return {
