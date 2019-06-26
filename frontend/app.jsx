@@ -16,7 +16,7 @@ const App = ({ store }) => (
         <AuthRoute path="/login" component={Formpage} />
         <AuthRoute path="/signup" component={Formpage} />
         <ProtectedRoute path="/servers" component={Main} />
-        <Route exact path="/" component={Homepage} />
+        <Route path="/" component={Homepage} />
       </Switch>
     </HashRouter>
   </Provider>

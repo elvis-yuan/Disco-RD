@@ -662,7 +662,6 @@ var App = function App(_ref) {
     path: "/servers",
     component: _components_mainapp_main__WEBPACK_IMPORTED_MODULE_6__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Route"], {
-    exact: true,
     path: "/",
     component: _components_homepage_homepage__WEBPACK_IMPORTED_MODULE_3__["default"]
   }))));
