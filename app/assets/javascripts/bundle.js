@@ -3764,14 +3764,14 @@ function (_React$Component) {
           remoteVid.srcObject = e.streams[0];
 
           _this4.remoteVideoContainer.appendChild(remoteVid);
-        } else {
-          var remoteAudio = document.createElement("audio");
-          remoteAudio.id = "remoteAudioContainer";
-          remoteAudio.autoplay = "autoplay";
-          remoteAudio.srcObject = e.streams[0];
+        } // else {
+        //   const remoteAudio = document.createElement("audio");
+        //   remoteAudio.id = `remoteAudioContainer`;
+        //   remoteAudio.autoplay = `autoplay`;
+        //   remoteAudio.srcObject = e.streams[0];
+        //   this.remoteAudioContainer.appendChild(remoteAudio);
+        // }
 
-          _this4.remoteAudioContainer.appendChild(remoteAudio);
-        }
       };
 
       pc.oniceconnectionstatechange = function (e) {
@@ -3897,7 +3897,7 @@ function (_React$Component) {
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "video-button-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "remote-audio-container"
+        id: "remote-audio-container"
       }), this.state.joined ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "leave-call-button",
         onClick: this.leaveCall

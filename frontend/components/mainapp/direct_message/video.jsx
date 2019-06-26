@@ -116,13 +116,14 @@ class Video extends React.Component {
         remoteVid.autoplay = "autoplay";
         remoteVid.srcObject = e.streams[0];
         this.remoteVideoContainer.appendChild(remoteVid);
-      } else {
-        const remoteAudio = document.createElement("audio");
-        remoteAudio.id = `remoteAudioContainer`;
-        remoteAudio.autoplay = `autoplay`;
-        remoteAudio.srcObject = e.streams[0];
-        this.remoteAudioContainer.appendChild(remoteAudio);
       }
+      // else {
+      //   const remoteAudio = document.createElement("audio");
+      //   remoteAudio.id = `remoteAudioContainer`;
+      //   remoteAudio.autoplay = `autoplay`;
+      //   remoteAudio.srcObject = e.streams[0];
+      //   this.remoteAudioContainer.appendChild(remoteAudio);
+      // }
     };
     pc.oniceconnectionstatechange = e => {
       if (pc.iceConnectionState === "disconnected") {
@@ -224,7 +225,7 @@ class Video extends React.Component {
           <video id="local-video" autoPlay volume="0" muted="muted" />
         </div>
         <div className="video-button-container">
-          <div className="remote-audio-container" />
+          <div id="remote-audio-container" />
           {this.state.joined ? (
             <button className="leave-call-button" onClick={this.leaveCall}>
               Leave Call
