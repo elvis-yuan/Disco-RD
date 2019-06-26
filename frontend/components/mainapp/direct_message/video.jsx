@@ -34,17 +34,16 @@ class Video extends React.Component {
       "remote-audio-container"
     );
     this.localVideo = document.getElementById("local-video");
-    // navigator.mediaDevices
-    //   .getUserMedia({ audio: true, video: true })
-    //   .then(stream => {
-    //     this.localStream = stream;
-    //     this.localVideo.srcObject = stream;
-    //   })
-    //   .catch(error => {
-    //     console.log(error);
-    //   });
+    navigator.mediaDevices
+      .getUserMedia({ audio: true, video: true })
+      .then(stream => {
+        this.localStream = stream;
+        this.localVideo.srcObject = stream;
+      })
+      .catch(error => {
+        console.log(error);
+      });
     // setTimeout(this.joinCall(), 0);
-    this.joinCall();
   }
 
   componentWillUnmount() {
@@ -139,13 +138,6 @@ class Video extends React.Component {
         remoteVid.srcObject = e.streams[0];
         this.remoteVideoContainer.appendChild(remoteVid);
       }
-      // else {
-      //   const remoteAudio = document.createElement("audio");
-      //   remoteAudio.id = `remoteAudioContainer`;
-      //   remoteAudio.autoplay = `autoplay`;
-      //   remoteAudio.srcObject = e.streams[0];
-      //   this.remoteAudioContainer.appendChild(remoteAudio);
-      // }
     };
     pc.oniceconnectionstatechange = e => {
       if (pc.iceConnectionState === "disconnected") {

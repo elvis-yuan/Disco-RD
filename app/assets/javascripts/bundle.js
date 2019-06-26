@@ -3687,20 +3687,20 @@ function (_React$Component) {
   _createClass(Video, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var _this2 = this;
+
       this.remoteVideoContainer = document.getElementById("remote-video-container");
       this.remoteAudioContainer = document.getElementById("remote-audio-container");
-      this.localVideo = document.getElementById("local-video"); // navigator.mediaDevices
-      //   .getUserMedia({ audio: true, video: true })
-      //   .then(stream => {
-      //     this.localStream = stream;
-      //     this.localVideo.srcObject = stream;
-      //   })
-      //   .catch(error => {
-      //     console.log(error);
-      //   });
-      // setTimeout(this.joinCall(), 0);
-
-      this.joinCall();
+      this.localVideo = document.getElementById("local-video");
+      navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true
+      }).then(function (stream) {
+        _this2.localStream = stream;
+        _this2.localVideo.srcObject = stream;
+      })["catch"](function (error) {
+        console.log(error);
+      }); // setTimeout(this.joinCall(), 0);
     }
   }, {
     key: "componentWillUnmount",
@@ -3728,7 +3728,7 @@ function (_React$Component) {
   }, {
     key: "joinCall",
     value: function joinCall(e) {
-      var _this2 = this;
+      var _this3 = this;
 
       var _this$props = this.props,
           server_id = _this$props.server_id,
@@ -3755,23 +3755,23 @@ function (_React$Component) {
         connected: function connected() {
           Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
             type: _util_video_util__WEBPACK_IMPORTED_MODULE_1__["JOIN_CALL"],
-            from: _this2.userId
+            from: _this3.userId
           });
         },
         received: function received(data) {
           // console.log("RECEIVED: ", data);
-          if (data.from === _this2.userId) return;
+          if (data.from === _this3.userId) return;
 
           switch (data.type) {
             case _util_video_util__WEBPACK_IMPORTED_MODULE_1__["JOIN_CALL"]:
-              return _this2.join(data);
+              return _this3.join(data);
 
             case _util_video_util__WEBPACK_IMPORTED_MODULE_1__["EXCHANGE"]:
-              if (data.to !== _this2.userId) return;
-              return _this2.exchange(data);
+              if (data.to !== _this3.userId) return;
+              return _this3.exchange(data);
 
             case _util_video_util__WEBPACK_IMPORTED_MODULE_1__["LEAVE_CALL"]:
-              return _this2.removeUser(data);
+              return _this3.removeUser(data);
 
             default:
               return;
@@ -3782,12 +3782,12 @@ function (_React$Component) {
   }, {
     key: "createPC",
     value: function createPC(userId, offerBool) {
-      var _this3 = this;
+      var _this4 = this;
 
       var pc = new RTCPeerConnection(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["ice"]);
       this.pcPeers[userId] = pc;
       this.localStream.getTracks().forEach(function (track) {
-        return pc.addTrack(track, _this3.localStream);
+        return pc.addTrack(track, _this4.localStream);
       });
 
       if (offerBool) {
@@ -3796,7 +3796,7 @@ function (_React$Component) {
             setTimeout(function () {
               Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
                 type: _util_video_util__WEBPACK_IMPORTED_MODULE_1__["EXCHANGE"],
-                from: _this3.userId,
+                from: _this4.userId,
                 to: userId,
                 sdp: JSON.stringify(pc.localDescription)
               });
@@ -3808,7 +3808,7 @@ function (_React$Component) {
       pc.onicecandidate = function (e) {
         Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
           type: _util_video_util__WEBPACK_IMPORTED_MODULE_1__["EXCHANGE"],
-          from: _this3.userId,
+          from: _this4.userId,
           to: userId,
           sdp: JSON.stringify(e.candidate)
         });
@@ -3821,15 +3821,8 @@ function (_React$Component) {
           remoteVid.autoplay = "autoplay";
           remoteVid.srcObject = e.streams[0];
 
-          _this3.remoteVideoContainer.appendChild(remoteVid);
-        } // else {
-        //   const remoteAudio = document.createElement("audio");
-        //   remoteAudio.id = `remoteAudioContainer`;
-        //   remoteAudio.autoplay = `autoplay`;
-        //   remoteAudio.srcObject = e.streams[0];
-        //   this.remoteAudioContainer.appendChild(remoteAudio);
-        // }
-
+          _this4.remoteVideoContainer.appendChild(remoteVid);
+        }
       };
 
       pc.oniceconnectionstatechange = function (e) {
@@ -3846,7 +3839,7 @@ function (_React$Component) {
   }, {
     key: "exchange",
     value: function exchange(data) {
-      var _this4 = this;
+      var _this5 = this;
 
       var pc;
 
@@ -3871,7 +3864,7 @@ function (_React$Component) {
                 pc.setLocalDescription(answer).then(function () {
                   Object(_util_video_util__WEBPACK_IMPORTED_MODULE_1__["broadcastData"])({
                     type: _util_video_util__WEBPACK_IMPORTED_MODULE_1__["EXCHANGE"],
-                    from: _this4.userId,
+                    from: _this5.userId,
                     to: data.from,
                     sdp: JSON.stringify(pc.localDescription)
                   });
