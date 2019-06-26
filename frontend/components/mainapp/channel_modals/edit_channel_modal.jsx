@@ -6,7 +6,6 @@ class EditChannel extends React.Component {
   constructor(props) {
     super(props);
     this.currentTitle = this.props.channels[this.props.currentChannel].title;
-
     this.state = {
       title: this.currentTitle,
       id: this.props.currentChannel
@@ -16,7 +15,13 @@ class EditChannel extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.updateChannel(this.state).then(this.props.closeModal);
+    const currentServer = parseInt(
+      this.props.history.location.pathname.split("/")[2]
+    );
+    this.props.updateChannel(this.state).then(action => {
+      this.props.closeModal();
+      App.server[currentServer].channelAppeared(action.channel.channel);
+    });
   }
 
   handleChange(field) {

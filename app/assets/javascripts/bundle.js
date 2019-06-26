@@ -1558,16 +1558,23 @@ function (_React$Component) {
   _createClass(EditChannel, [{
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      var _this2 = this;
+
       e.preventDefault();
-      this.props.updateChannel(this.state).then(this.props.closeModal);
+      var currentServer = parseInt(this.props.history.location.pathname.split("/")[2]);
+      this.props.updateChannel(this.state).then(function (action) {
+        _this2.props.closeModal();
+
+        App.server[currentServer].channelAppeared(action.channel.channel);
+      });
     }
   }, {
     key: "handleChange",
     value: function handleChange(field) {
-      var _this2 = this;
+      var _this3 = this;
 
       return function (e) {
-        _this2.setState(_defineProperty({}, field, e.target.value));
+        _this3.setState(_defineProperty({}, field, e.target.value));
       };
     }
   }, {
@@ -3672,15 +3679,6 @@ function (_React$Component) {
     _this.userId = _this.props.user_id;
     _this.joinCall = _this.joinCall.bind(_assertThisInitialized(_this));
     _this.leaveCall = _this.leaveCall.bind(_assertThisInitialized(_this));
-    navigator.mediaDevices.getUserMedia({
-      audio: true,
-      video: true
-    }).then(function (stream) {
-      _this.localStream = stream;
-      _this.localVideo.srcObject = stream;
-    })["catch"](function (error) {
-      console.log(error);
-    });
     return _this;
   }
 
@@ -3889,7 +3887,7 @@ function (_React$Component) {
 
       if (this.localVideo) {
         this.localVideo.srcObject.getTracks().forEach(function (track) {
-          track.stop();
+          return track.stop();
         });
       }
 

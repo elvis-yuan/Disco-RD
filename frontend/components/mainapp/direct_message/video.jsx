@@ -15,15 +15,6 @@ class Video extends React.Component {
     this.userId = this.props.user_id;
     this.joinCall = this.joinCall.bind(this);
     this.leaveCall = this.leaveCall.bind(this);
-    navigator.mediaDevices
-      .getUserMedia({ audio: true, video: true })
-      .then(stream => {
-        this.localStream = stream;
-        this.localVideo.srcObject = stream;
-      })
-      .catch(error => {
-        console.log(error);
-      });
   }
 
   componentDidMount() {
@@ -187,9 +178,7 @@ class Video extends React.Component {
     }
     this.pcPeers = {};
     if (this.localVideo) {
-      this.localVideo.srcObject.getTracks().forEach(function(track) {
-        track.stop();
-      });
+      this.localVideo.srcObject.getTracks().forEach(track => track.stop());
     }
 
     if (this.localVideo) this.localVideo.srcObject = null;
