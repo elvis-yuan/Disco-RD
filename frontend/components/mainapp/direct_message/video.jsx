@@ -21,9 +21,12 @@ class Video extends React.Component {
     this.remoteVideoContainer = document.getElementById(
       "remote-video-container"
     );
+    this.remoteAudioContainer = document.getElementById(
+      "remote-audio-container"
+    );
     this.localVideo = document.getElementById("local-video");
     navigator.mediaDevices
-      .getUserMedia({ audio: false, video: true })
+      .getUserMedia({ audio: true, video: true })
       .then(stream => {
         this.localStream = stream;
         this.localVideo.srcObject = stream;
@@ -35,7 +38,8 @@ class Video extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.localStream) this.localStream.getTracks()[0].stop();
+    if (this.localStream)
+      this.localStream.getTracks().forEach(track => track.stop());
     if (App.video[this.userId]) {
       App.video[this.userId].unsubscribe();
       this.remoteVideoContainer.innerHTML = "";
@@ -59,7 +63,7 @@ class Video extends React.Component {
           broadcastData({ type: JOIN_CALL, from: this.userId });
         },
         received: data => {
-          console.log("RECEIVED: ", data);
+          // console.log("RECEIVED: ", data);
           if (data.from === this.userId) return;
           switch (data.type) {
             case JOIN_CALL:
@@ -106,11 +110,19 @@ class Video extends React.Component {
       });
     };
     pc.ontrack = e => {
-      const remoteVid = document.createElement("video");
-      remoteVid.id = `remoteVideoContainer`;
-      remoteVid.autoplay = "autoplay";
-      remoteVid.srcObject = e.streams[0];
-      this.remoteVideoContainer.appendChild(remoteVid);
+      if (e.track.kind === "video") {
+        const remoteVid = document.createElement("video");
+        remoteVid.id = `remoteVideoContainer`;
+        remoteVid.autoplay = "autoplay";
+        remoteVid.srcObject = e.streams[0];
+        this.remoteVideoContainer.appendChild(remoteVid);
+      } else {
+        const remoteAudio = document.createElement("audio");
+        remoteAudio.id = `remoteAudioContainer`;
+        remoteAudio.autoplay = `autoplay`;
+        remoteAudio.srcObject = e.streams[0];
+        this.remoteAudioContainer.appendChild(remoteAudio);
+      }
     };
     pc.oniceconnectionstatechange = e => {
       if (pc.iceConnectionState === "disconnected") {
@@ -209,9 +221,10 @@ class Video extends React.Component {
         </div>
         <div className="video-chat-container">
           <div id="remote-video-container" />
-          <video id="local-video" autoPlay />
+          <video id="local-video" autoPlay volume="0" muted="muted" />
         </div>
         <div className="video-button-container">
+          <div className="remote-audio-container" />
           {this.state.joined ? (
             <button className="leave-call-button" onClick={this.leaveCall}>
               Leave Call

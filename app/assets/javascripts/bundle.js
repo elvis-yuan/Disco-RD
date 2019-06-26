@@ -3648,9 +3648,10 @@ function (_React$Component) {
       var _this2 = this;
 
       this.remoteVideoContainer = document.getElementById("remote-video-container");
+      this.remoteAudioContainer = document.getElementById("remote-audio-container");
       this.localVideo = document.getElementById("local-video");
       navigator.mediaDevices.getUserMedia({
-        audio: false,
+        audio: true,
         video: true
       }).then(function (stream) {
         _this2.localStream = stream;
@@ -3663,7 +3664,9 @@ function (_React$Component) {
   }, {
     key: "componentWillUnmount",
     value: function componentWillUnmount() {
-      if (this.localStream) this.localStream.getTracks()[0].stop();
+      if (this.localStream) this.localStream.getTracks().forEach(function (track) {
+        return track.stop();
+      });
 
       if (App.video[this.userId]) {
         App.video[this.userId].unsubscribe();
@@ -3698,7 +3701,7 @@ function (_React$Component) {
           });
         },
         received: function received(data) {
-          console.log("RECEIVED: ", data);
+          // console.log("RECEIVED: ", data);
           if (data.from === _this3.userId) return;
 
           switch (data.type) {
@@ -3754,12 +3757,21 @@ function (_React$Component) {
       };
 
       pc.ontrack = function (e) {
-        var remoteVid = document.createElement("video");
-        remoteVid.id = "remoteVideoContainer";
-        remoteVid.autoplay = "autoplay";
-        remoteVid.srcObject = e.streams[0];
+        if (e.track.kind === "video") {
+          var remoteVid = document.createElement("video");
+          remoteVid.id = "remoteVideoContainer";
+          remoteVid.autoplay = "autoplay";
+          remoteVid.srcObject = e.streams[0];
 
-        _this4.remoteVideoContainer.appendChild(remoteVid);
+          _this4.remoteVideoContainer.appendChild(remoteVid);
+        } else {
+          var remoteAudio = document.createElement("audio");
+          remoteAudio.id = "remoteAudioContainer";
+          remoteAudio.autoplay = "autoplay";
+          remoteAudio.srcObject = e.streams[0];
+
+          _this4.remoteAudioContainer.appendChild(remoteAudio);
+        }
       };
 
       pc.oniceconnectionstatechange = function (e) {
@@ -3879,10 +3891,14 @@ function (_React$Component) {
         id: "remote-video-container"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("video", {
         id: "local-video",
-        autoPlay: true
+        autoPlay: true,
+        volume: "0",
+        muted: "muted"
       })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "video-button-container"
-      }, this.state.joined ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "remote-audio-container"
+      }), this.state.joined ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "leave-call-button",
         onClick: this.leaveCall
       }, "Leave Call") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
