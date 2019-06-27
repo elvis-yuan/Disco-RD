@@ -22,7 +22,13 @@ class EditServerModal extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.updateServer(this.state).then(this.props.closeModal);
+    this.props.updateServer(this.state).then(action => {
+      App.server[this.currentServer].updateServer({
+        payload: action.server,
+        server_id: this.currentServer
+      });
+      this.props.closeModal();
+    });
   }
 
   handleChange(field) {

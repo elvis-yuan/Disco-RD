@@ -53,6 +53,11 @@ class ServerChannel < ApplicationCable::Channel
     ServerChannel.broadcast_to(data['server_id'], socket)
   end
 
+  def updateServer(data)
+    socket = {type: 'updateServer', payload: data['payload']}
+    ServerChannel.broadcast_to(data['server_id'], socket)
+  end
+
   def unsubscribed
   end
 end 

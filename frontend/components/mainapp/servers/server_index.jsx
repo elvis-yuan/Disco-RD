@@ -87,6 +87,9 @@ class ServerIndex extends React.Component {
               }
               this.props.serverDisappeared(data.server);
             }
+            if (data.type === "updateServer") {
+              this.props.receiveServer(data.payload);
+            }
           },
           channelAppeared: function(data) {
             return this.perform("channelAppeared", data);
@@ -99,6 +102,9 @@ class ServerIndex extends React.Component {
           },
           deleteServer: function(data) {
             return this.perform("deleteServer", data);
+          },
+          updateServer: function(data) {
+            return this.perform("updateServer", data);
           }
         }
       );

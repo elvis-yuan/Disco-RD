@@ -1,5 +1,9 @@
 import { connect } from "react-redux";
-import { fetchAllServers, fetchServer } from "../../../actions/server_actions";
+import {
+  fetchAllServers,
+  fetchServer,
+  receiveServer
+} from "../../../actions/server_actions";
 import { logoutUser } from "../../../actions/session_actions";
 import { withRouter, Link } from "react-router-dom";
 import ServerIndex from "./server_index";
@@ -45,7 +49,8 @@ const mdp = dispatch => ({
   newDM: channel => dispatch(newDM(channel)),
   serverDisappeared: server => dispatch(serverDisappeared(server)),
   openModal: () => dispatch(openModal("videoCall")),
-  receiveVideoCall: payload => dispatch(receiveVideoCall(payload))
+  receiveVideoCall: payload => dispatch(receiveVideoCall(payload)),
+  receiveServer: payload => dispatch(receiveServer(payload))
 });
 
 export default withRouter(

@@ -14,7 +14,7 @@ const receiveAllServers = servers => ({
   servers
 });
 
-const receiveServer = payload => ({
+export const receiveServer = payload => ({
   type: RECEIVE_SERVER,
   server: payload
 });

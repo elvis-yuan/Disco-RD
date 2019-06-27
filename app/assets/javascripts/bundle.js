@@ -336,7 +336,7 @@ var currentDm = function currentDm(username) {
 /*!********************************************!*\
   !*** ./frontend/actions/server_actions.js ***!
   \********************************************/
-/*! exports provided: RECEIVE_ALL_SERVERS, RECEIVE_SERVER, REMOVE_SERVER, LEAVE_SERVER, RECEIVE_DM, DELETE_SERVER, serverDisappeared, fetchDm, fetchAllServers, fetchServer, createServer, updateServer, deleteServer, joinServer, leaveServer */
+/*! exports provided: RECEIVE_ALL_SERVERS, RECEIVE_SERVER, REMOVE_SERVER, LEAVE_SERVER, RECEIVE_DM, DELETE_SERVER, receiveServer, serverDisappeared, fetchDm, fetchAllServers, fetchServer, createServer, updateServer, deleteServer, joinServer, leaveServer */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -347,6 +347,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LEAVE_SERVER", function() { return LEAVE_SERVER; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RECEIVE_DM", function() { return RECEIVE_DM; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "DELETE_SERVER", function() { return DELETE_SERVER; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "receiveServer", function() { return receiveServer; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "serverDisappeared", function() { return serverDisappeared; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchDm", function() { return fetchDm; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "fetchAllServers", function() { return fetchAllServers; });
@@ -4934,16 +4935,25 @@ function (_React$Component) {
   }, {
     key: "handleSubmit",
     value: function handleSubmit(e) {
+      var _this2 = this;
+
       e.preventDefault();
-      this.props.updateServer(this.state).then(this.props.closeModal);
+      this.props.updateServer(this.state).then(function (action) {
+        App.server[_this2.currentServer].updateServer({
+          payload: action.server,
+          server_id: _this2.currentServer
+        });
+
+        _this2.props.closeModal();
+      });
     }
   }, {
     key: "handleChange",
     value: function handleChange(field) {
-      var _this2 = this;
+      var _this3 = this;
 
       return function (e) {
-        _this2.setState(_defineProperty({}, field, e.target.value));
+        _this3.setState(_defineProperty({}, field, e.target.value));
       };
     }
   }, {
@@ -6163,6 +6173,10 @@ function (_React$Component) {
 
               _this.props.serverDisappeared(data.server);
             }
+
+            if (data.type === "updateServer") {
+              _this.props.receiveServer(data.payload);
+            }
           },
           channelAppeared: function channelAppeared(data) {
             return this.perform("channelAppeared", data);
@@ -6175,6 +6189,9 @@ function (_React$Component) {
           },
           deleteServer: function deleteServer(data) {
             return this.perform("deleteServer", data);
+          },
+          updateServer: function updateServer(data) {
+            return this.perform("updateServer", data);
           }
         });
       });
@@ -6424,6 +6441,9 @@ var mdp = function mdp(dispatch) {
     },
     receiveVideoCall: function receiveVideoCall(payload) {
       return dispatch(Object(_actions_video_call_actions__WEBPACK_IMPORTED_MODULE_9__["receiveVideoCall"])(payload));
+    },
+    receiveServer: function receiveServer(payload) {
+      return dispatch(Object(_actions_server_actions__WEBPACK_IMPORTED_MODULE_1__["receiveServer"])(payload));
     }
   };
 };
