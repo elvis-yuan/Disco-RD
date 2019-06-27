@@ -34,7 +34,7 @@ class Video extends React.Component {
       .catch(error => {
         console.log(error);
       });
-    // setTimeout(this.joinCall(), 0);
+    document.getElementsByClassName("join-call-button")[0].click();
   }
 
   componentWillUnmount() {

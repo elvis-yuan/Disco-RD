@@ -12,10 +12,9 @@ class VideoCall extends React.Component {
     if (history.location.pathname !== `/servers/@me/${videoCall.channel_id}`) {
       history.push(`/servers/@me/${videoCall.channel_id}`);
     }
-    setTimeout(
-      () => document.getElementsByClassName("video-icon")[0].click(),
-      0
-    );
+    setTimeout(() => {
+      document.getElementsByClassName("video-icon")[0].click();
+    }, 0);
     closeModal();
   }
 

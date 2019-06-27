@@ -3697,7 +3697,8 @@ function (_React$Component) {
         _this2.localVideo.srcObject = stream;
       })["catch"](function (error) {
         console.log(error);
-      }); // setTimeout(this.joinCall(), 0);
+      });
+      document.getElementsByClassName("join-call-button")[0].click();
     }
   }, {
     key: "componentWillUnmount",
@@ -4023,7 +4024,7 @@ function (_React$Component) {
       }
 
       setTimeout(function () {
-        return document.getElementsByClassName("video-icon")[0].click();
+        document.getElementsByClassName("video-icon")[0].click();
       }, 0);
       closeModal();
     }
