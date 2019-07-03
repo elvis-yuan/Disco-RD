@@ -16,6 +16,7 @@ Disco-rd is a fullstack app which is a pixel perfect clone of [Discord](https://
 * Ruby on Rails Action Cables - websockets for chat and notifications
 * jQuery - Ajax requests
 * React.js with Redux.js
+* WebRTC
 
 ## FEATURES
 * User authentication
@@ -25,6 +26,7 @@ Disco-rd is a fullstack app which is a pixel perfect clone of [Discord](https://
 * Tracking of all users connected to a server
 * Live chat in channels
 * Direct Messaging
+* Video Chat
 
 ## COOL BITS OF CODE
 A cool bit of code that handles when a new user joins a server, adding them to all currently online users'  Server User list.
