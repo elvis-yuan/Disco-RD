@@ -35,7 +35,25 @@ class navbar extends React.Component {
             <ul className="right-nav">
               <li className="nav-icon">
                 <a
-                  href="https://www.linkedin.com/in/elvis-yuan-a47a9a158/"
+                  href="https://elvis-yuan.github.io/"
+                  target="new"
+                  className="linkedin-icon"
+                >
+                  <i class="fas fa-portrait" />
+                </a>
+              </li>
+              <li className="nav-icon">
+                <a
+                  href="https://angel.co/elvis-yuan-1"
+                  target="new"
+                  className="linkedin-icon"
+                >
+                  <i class="fab fa-angellist" />
+                </a>
+              </li>
+              <li className="nav-icon">
+                <a
+                  href="https://www.linkedin.com/in/elvis-yuan/"
                   target="new"
                   className="linkedin-icon"
                 >
