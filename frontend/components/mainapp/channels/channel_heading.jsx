@@ -5,14 +5,6 @@ class ChannelHeading extends React.Component {
     super(props);
   }
 
-  // componentDidMount() {
-  //   this.props.fetchChannel(this.props.currentId);
-  // }
-
-  // componentDidUpdate(prevProps) {
-
-  // }
-
   render() {
     const { channelTitle } = this.props;
 

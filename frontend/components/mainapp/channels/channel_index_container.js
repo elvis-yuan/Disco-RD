@@ -1,7 +1,6 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import ChannelIndex from "./channel_index";
-import { fetchAllChannels } from "../../../actions/channel_actions";
 import { deleteServer } from "../../../actions/server_actions";
 import { fetchServer } from "../../../actions/server_actions";
 import { openModal, closeModal } from "../../../actions/modal_actions";

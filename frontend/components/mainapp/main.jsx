@@ -8,7 +8,6 @@ import { fetchAllServers, fetchServer } from "../../actions/server_actions";
 import ChannelChatContainer from "./channels/channel_chat_container";
 import { ChannelRoute } from "../../util/channel_route_util";
 import ServerOnlineContainer from "./servers/activity_container";
-import ServerConnectedUsers from "./servers/server_connected_users_container";
 import DirectMessageContainer from "./direct_message/direct_message_container";
 
 const msp = ({ entities, session }) => ({

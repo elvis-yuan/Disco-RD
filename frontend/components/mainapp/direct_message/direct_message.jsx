@@ -1,9 +1,6 @@
 import React from "react";
 import DirectMessageInputContainer from "../direct_message/direct_message_input_container";
-import ChannelHeadingContainer from "../channels/channel_heading_container";
 import MessageFormatContainer from "../channels/message_format_container";
-import { receiveUser } from "../../../actions/user_actions";
-import ServerConnectedUsers from "../servers/server_connected_users_container";
 import VideoContainer from "./video_container";
 
 class DirectMessage extends React.Component {
