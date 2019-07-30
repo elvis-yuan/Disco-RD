@@ -356,6 +356,7 @@ p.server-btn-hover::before {
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
   height: auto;
+  scrollbar-width: none;
 }
 
 .server-users-wrapper {
