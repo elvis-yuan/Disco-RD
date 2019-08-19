@@ -3,14 +3,12 @@ import { openModal } from "../../../actions/modal_actions";
 
 class ServerFormModal extends React.Component {
   render() {
-    // this.props.formType === 'main' ? (
     const message = [
       "Hi there Adam!",
       "Oh, Another server huh?",
       "This server is on the house!",
       "the next one is gonna' cost you"
     ];
-    // )
     return (
       <div className="server-modal-form">
         <h1 className="server-modal-header">
@@ -41,7 +39,6 @@ class ServerFormModal extends React.Component {
             <div className="join-action-icon" />
             <button
               className="action-btns join-action-btn"
-              // onClick={() => dispatch(openModal("join"))}
             >
               Join a server
             </button>

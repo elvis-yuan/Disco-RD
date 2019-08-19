@@ -1,6 +1,4 @@
 import React from "react";
-import { deleteErrors } from "../../../actions/session_actions";
-import { closeModal, openModal } from "../../../actions/modal_actions";
 
 class EditServerModal extends React.Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import { deleteChannel } from "../../../actions/channel_actions";
 import DeleteChannelModal from "./delete_channel_modal";
-import { openModal, closeModal } from "../../../actions/modal_actions";
+import { closeModal } from "../../../actions/modal_actions";
 import { withRouter } from "react-router-dom";
 
 const msp = ({ entities, errors, ui }) => ({

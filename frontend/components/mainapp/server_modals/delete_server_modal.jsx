@@ -1,7 +1,5 @@
 import React from "react";
 
-import { closeModal } from "../../../actions/modal_actions";
-
 class DeleteServerModal extends React.Component {
   constructor(props) {
     super(props);

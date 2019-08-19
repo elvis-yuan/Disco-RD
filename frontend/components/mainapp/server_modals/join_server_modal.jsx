@@ -1,6 +1,4 @@
 import React from "react";
-import { openModal } from "../../../actions/modal_actions";
-import { deleteErrors } from "../../../actions/session_actions";
 
 class JoinServerModal extends React.Component {
   constructor(props) {
@@ -16,10 +14,8 @@ class JoinServerModal extends React.Component {
 
   handleCloseModal(action) {
     this.props.closeModal();
-    // this.props.fetchAllChannels(action.server.id);
     this.props.history.push(`/servers/${action.server.server.id}`);
   }
-  /*onSubmit={this.handleSubmit}*/
   handleChange(field) {
     return e => {
       this.setState({ [field]: e.target.value });
@@ -30,7 +26,7 @@ class JoinServerModal extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     this.props.joinServer(this.state).then(this.handleCloseModal);
-    // this.props.history.push(`/servers/${server.server.id}`);
+
   }
 
   render() {

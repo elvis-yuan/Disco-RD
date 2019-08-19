@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import ServerFormContainer from "../mainapp/server_modals/server_form_container";
 import CreateServerContainer from "../mainapp/server_modals/create_server_container";
 import JoinServerContainer from "../mainapp/server_modals/join_server_container";
@@ -13,7 +13,7 @@ import InviteContainer from "../mainapp/server_modals/invite_modal_container";
 import CreateDMContainer from "../mainapp/direct_message/direct_message_modal_container";
 import VideoCallContainer from "../mainapp/direct_message/video_call_container";
 
-class Modal extends React.Component {
+class Modal extends Component {
   constructor(props) {
     super(props);
   }
