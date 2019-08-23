@@ -1,10 +1,10 @@
 import React from "react";
 import ServerIndexContainer from "./servers/server_index_container";
-import { Route, Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
 import ChannelIndexContainer from "./channels/channel_index_container";
-import { ServerRoute, CustomRoute } from "../../util/route_util";
+import { ServerRoute } from "../../util/route_util";
 import { connect } from "react-redux";
-import { fetchAllServers, fetchServer } from "../../actions/server_actions";
+import { fetchAllServers } from "../../actions/server_actions";
 import ChannelChatContainer from "./channels/channel_chat_container";
 import { ChannelRoute } from "../../util/channel_route_util";
 import ServerOnlineContainer from "./servers/activity_container";
