@@ -2,8 +2,9 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser, logoutUser } from "../../actions/session_actions";
+import Mushroom from "./mushroom";
 
-const msp = ({ entities, session }) => ({
+const msp = ({ session }) => ({
   currentUser: session.currentUser
 });
 
@@ -26,6 +27,16 @@ class MainContent extends React.Component {
 
   clickHandler() {
     this.props.logout();
+  }
+
+  spawnElement() {
+    const spawnBox = document.getElementById("mystery-box");
+    const spawnItem = document.createElement("IMG");
+    spawnItem.src =
+      "https://discordapp.com/assets/9e05338bd66e0985fceb83317cb94b9c.svg";
+    spawnItem.classList.add("spawn-element");
+    spawnBox.insertBefore(spawnItem, spawnBox.childNodes[0]);
+    // setTimeout(() => spawnItem.remove(), 3000);
   }
 
   render() {
@@ -125,9 +136,11 @@ class MainContent extends React.Component {
             src="https://discordapp.com/assets/afdfaaeb6d6639e24086ced7aa07975d.svg"
             className="circle3 ease-in opac"
           />
+          <div id="mystery-box" className="ease-in" />
           <img
+            className="ease-in mystery-box"
+            onClick={this.spawnElement}
             src="https://discordapp.com/assets/81d74b2ebb053fbccee41865a47d48c3.svg"
-            className="mystery-box ease-in"
           />
           <img
             src="https://discordapp.com/assets/eb301f28da3199edbd3ef19690d61674.svg"

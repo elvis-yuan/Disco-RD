@@ -157,9 +157,17 @@
   bottom: 10px;
 }
 
-.mystery-box {
+.mystery-box,
+#mystery-box {
   margin-left: -240px;
+  cursor: pointer;
   bottom: 462px;
+}
+
+#mystery-box {
+  width: 90px;
+  height: 90px;
+  position: absolute;
 }
 
 .coin1 {
@@ -219,6 +227,15 @@
   animation-duration: 0.15s;
 }
 
+.spawn-element {
+  animation-name: mushroom;
+  animation-duration: 10s;
+  animation-timing-function: linear;
+  opacity: 1;
+  position: absolute;
+  left: 5px;
+}
+
 @keyframes float-1 {
   0% {
     transform: translate3d(0, -5px, 0);
@@ -260,6 +277,33 @@
   100% {
     opacity: 1;
     transform: translate(0px, 0px);
+  }
+}
+
+@keyframes mushroom {
+  0% {
+    transform: translate3d(0px, 0px, 0px);
+  }
+  10% {
+    transform: translate3d(0px, -75px, 0px);
+  }
+  15% {
+    transform: translate3d(70px, -75px, 0px);
+  }
+  18% {
+    transform: translate3d(100px, 0px, 0px);
+  }
+  20% {
+    transform: translate3d(125px, -25px, 0px);
+  }
+  22% {
+    transform: translate3d(145px, 0px, 0px);
+  }
+  30% {
+    transform: translate3d(260px, 0px, 0px);
+  }
+  48% {
+    transform: translate3d(509px, 0px, 0px);
   }
 }
 

@@ -812,6 +812,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/esm/react-router-dom.js");
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var _actions_session_actions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../actions/session_actions */ "./frontend/actions/session_actions.js");
+/* harmony import */ var _mushroom__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mushroom */ "./frontend/components/homepage/mushroom.jsx");
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -835,9 +836,9 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var msp = function msp(_ref) {
-  var entities = _ref.entities,
-      session = _ref.session;
+  var session = _ref.session;
   return {
     currentUser: session.currentUser
   };
@@ -887,6 +888,15 @@ function (_React$Component) {
     key: "clickHandler",
     value: function clickHandler() {
       this.props.logout();
+    }
+  }, {
+    key: "spawnElement",
+    value: function spawnElement() {
+      var spawnBox = document.getElementById("mystery-box");
+      var spawnItem = document.createElement("IMG");
+      spawnItem.src = "https://discordapp.com/assets/9e05338bd66e0985fceb83317cb94b9c.svg";
+      spawnItem.classList.add("spawn-element");
+      spawnBox.insertBefore(spawnItem, spawnBox.childNodes[0]); // setTimeout(() => spawnItem.remove(), 3000);
     }
   }, {
     key: "render",
@@ -963,9 +973,13 @@ function (_React$Component) {
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "https://discordapp.com/assets/afdfaaeb6d6639e24086ced7aa07975d.svg",
         className: "circle3 ease-in opac"
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        id: "mystery-box",
+        className: "ease-in"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: "https://discordapp.com/assets/81d74b2ebb053fbccee41865a47d48c3.svg",
-        className: "mystery-box ease-in"
+        className: "ease-in mystery-box",
+        onClick: this.spawnElement,
+        src: "https://discordapp.com/assets/81d74b2ebb053fbccee41865a47d48c3.svg"
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "https://discordapp.com/assets/eb301f28da3199edbd3ef19690d61674.svg",
         className: "bomb ease-in float-2"
@@ -1010,6 +1024,29 @@ function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["withRouter"])(Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(msp, mdp)(MainContent)));
+
+/***/ }),
+
+/***/ "./frontend/components/homepage/mushroom.jsx":
+/*!***************************************************!*\
+  !*** ./frontend/components/homepage/mushroom.jsx ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+var Mushroom = function Mushroom(props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    className: "mushroom"
+  }, "Mushroom");
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Mushroom);
 
 /***/ }),
 
