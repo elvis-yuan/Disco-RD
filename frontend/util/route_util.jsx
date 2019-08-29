@@ -22,19 +22,17 @@ const Protected = ({ component: Component, path, loggedIn, exact }) => (
   />
 );
 
-const Server = ({
-  component: Component,
-  path,
-  exact,
-  connectedServer,
-  history
-}) => {
+const Server = ({ component: Component, path, exact, connectedServer }) => {
   return (
     <Route
       path={path}
       exact={exact}
       render={props =>
-        connectedServer ? <Component {...props} /> : history.push("/servers/@me")
+        connectedServer ? (
+          <Component {...props} />
+        ) : (
+          <Redirect to="/servers/@me" />
+        )
       }
     />
   );

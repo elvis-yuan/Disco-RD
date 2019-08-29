@@ -3,7 +3,6 @@ import ReactDOM from "react-dom";
 import App from "./app";
 import configureStore from "./store/store";
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const root = document.getElementById("root");
   let store;
@@ -19,6 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     store = configureStore(preloadedState);
     delete window.currentUser;
+    window.location.href = "/#/servers/@me";
   } else {
     store = configureStore();
   }

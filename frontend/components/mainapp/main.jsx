@@ -9,6 +9,7 @@ import ChannelChatContainer from "./channels/channel_chat_container";
 import { ChannelRoute } from "../../util/channel_route_util";
 import ServerOnlineContainer from "./servers/activity_container";
 import DirectMessageContainer from "./direct_message/direct_message_container";
+import LoadScreen from "./loadscreen/load_screen";
 
 const msp = ({ entities, session }) => ({
   currentUser: session.currentUser,
@@ -25,11 +26,18 @@ class Main extends React.Component {
     App.server = {};
     App.channel = {};
     App.video = {};
+    this.removeLoading = this.removeLoading.bind(this);
   }
 
   componentDidMount() {
     const { currentUser, fetchAllServers } = this.props;
-    fetchAllServers(currentUser);
+    fetchAllServers(currentUser).then(action => {
+      setTimeout(this.removeLoading, 2000);
+    });
+  }
+
+  removeLoading() {
+    document.getElementById("loading-screen").remove();
   }
 
   render() {
@@ -43,6 +51,7 @@ class Main extends React.Component {
 
     return this.props.location.pathname.includes("/servers/@me") ? (
       <div className="main-app">
+        <LoadScreen />
         <ServerIndexContainer />
         <ServerOnlineContainer />
         {this.props.location.pathname === "/servers/@me" ? (
@@ -64,6 +73,7 @@ class Main extends React.Component {
       </div>
     ) : (
       <div className="main-app">
+        <LoadScreen />
         <ServerIndexContainer />
         {servercomp}
         {this.props.history.location.pathname.split("/")[3] === undefined ? (

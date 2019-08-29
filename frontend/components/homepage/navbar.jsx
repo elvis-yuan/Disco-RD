@@ -39,7 +39,7 @@ class navbar extends React.Component {
                   target="new"
                   className="linkedin-icon"
                 >
-                  <i class="fas fa-portrait" />
+                  <i className="fas fa-portrait" />
                 </a>
               </li>
               <li className="nav-icon">
@@ -48,7 +48,7 @@ class navbar extends React.Component {
                   target="new"
                   className="linkedin-icon"
                 >
-                  <i class="fab fa-angellist" />
+                  <i className="fab fa-angellist" />
                 </a>
               </li>
               <li className="nav-icon">

@@ -1,0 +1,32 @@
+#loading-screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #35393f;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 100;
+}
+
+.load-gif {
+  width: 100px;
+}
+
+.loading-text {
+  color: #72767d;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.jibberish {
+  margin-top: 40px;
+  color: white;
+  text-transform: uppercase;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 18px;
+}
