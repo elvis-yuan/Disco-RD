@@ -31,12 +31,22 @@ class MainContent extends React.Component {
 
   spawnElement() {
     const spawnBox = document.getElementById("mystery-box");
+    const box = document.getElementById("mystery-box-img");
     const spawnItem = document.createElement("IMG");
-    spawnItem.src =
-      "https://discordapp.com/assets/9e05338bd66e0985fceb83317cb94b9c.svg";
+    const mushrooms = [
+      "https://discordapp.com/assets/cea9a3e743ac46882d3884c4decd80b7.svg?fbclid=IwAR39pOI64sHOX6It6nU6npLWc474L2iqn-l_lDipC7qfvZLuG8PzoSR9ivY,",
+      "https://discordapp.com/assets/8b3c98fdde5aeef45793ae0fef209bdc.svg?fbclid=IwAR3hpju2eYMEIaIeiam6Z9QczwC7wq0dOJfnv3jRlei1Q_QMf05royS0de8",
+      "https://discordapp.com/assets/76f701901fadb6a16accdb88351d0329.svg?fbclid=IwAR0sbr0ipnBAO13DZkrXZb2NGbwSquI1s4XfZ49Q_xnG2IbF7Ph6jza0ikQ"
+    ];
+    box.classList.remove("shake");
+    box.classList.add("shake");
+    setTimeout(() => box.classList.remove("shake"), 100);
+
+    let random = Math.floor(Math.random(1) * 3);
+    spawnItem.src = mushrooms[random];
     spawnItem.classList.add("spawn-element");
     spawnBox.insertBefore(spawnItem, spawnBox.childNodes[0]);
-    // setTimeout(() => spawnItem.remove(), 3000);
+    setTimeout(() => spawnItem.remove(), 8000);
   }
 
   render() {
@@ -138,6 +148,7 @@ class MainContent extends React.Component {
           />
           <div id="mystery-box" className="ease-in" />
           <img
+            id="mystery-box-img"
             className="ease-in mystery-box"
             onClick={this.spawnElement}
             src="https://discordapp.com/assets/81d74b2ebb053fbccee41865a47d48c3.svg"
