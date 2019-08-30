@@ -19,6 +19,7 @@ import {
   channelAppeared,
   channelDisappeared
 } from "../../../actions/channel_actions";
+import { coUser, dcUser } from '../../../actions/session_actions';
 import { serverDisappeared } from "../../../actions/server_actions";
 import { newDM } from "../../../actions/directmessage_action";
 import { receiveVideoCall } from "../../../actions/video_call_actions";
@@ -50,7 +51,9 @@ const mdp = dispatch => ({
   serverDisappeared: server => dispatch(serverDisappeared(server)),
   openModal: () => dispatch(openModal("videoCall")),
   receiveVideoCall: payload => dispatch(receiveVideoCall(payload)),
-  receiveServer: payload => dispatch(receiveServer(payload))
+  receiveServer: payload => dispatch(receiveServer(payload)),
+  coUser: payload => dispatch(coUser(payload)),
+  dcUser: payload => dispatch(dcUser(payload))
 });
 
 export default withRouter(

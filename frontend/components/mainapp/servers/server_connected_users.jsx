@@ -12,6 +12,7 @@ class ServerConnectedUsers extends React.Component {
       .map((user_id, index) => (
         <ServerUserListItem
           key={index}
+          active={this.props.users[user_id].active}
           username={this.props.users[user_id].username}
           admin={this.props.users[user_id].id === this.props.server.admin_id}
         />

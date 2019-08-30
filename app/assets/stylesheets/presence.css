@@ -1,0 +1,33 @@
+.online-indicator {
+  width: 10px;
+  height: 10px;
+  background-color: rgb(67, 181, 129);
+  border-radius: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.indicator-mask {
+  width: 16px;
+  height: 16px;
+  background-color: #2f3136;
+  border-radius: 100%;
+  position: absolute;
+  bottom: -3px;
+  right: -3px;
+}
+
+.offline-indicator {
+  width: 10px;
+  height: 10px;
+  background-color: rgb(116, 127, 141);
+  border-radius: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.current-channel-selected .indicator-mask {
+  background-color: #40444b;
+}

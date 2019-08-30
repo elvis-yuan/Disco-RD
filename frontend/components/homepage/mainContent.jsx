@@ -2,7 +2,6 @@ import React from "react";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { loginUser, logoutUser } from "../../actions/session_actions";
-import Mushroom from "./mushroom";
 
 const msp = ({ session }) => ({
   currentUser: session.currentUser

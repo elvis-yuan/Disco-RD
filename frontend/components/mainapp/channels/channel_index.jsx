@@ -175,7 +175,10 @@ class ChannelIndex extends React.Component {
         </div>
         <div className="channel-container-user-information">
           <div className="channel-container-user-icon-container">
-            <div className="channel-container-user-icon" />
+            <div className="channel-container-user-icon">
+              <div className="indicator-mask" />
+              <div className="online-indicator" />
+            </div>
           </div>
           <div className="channel-username-container">
             <div className="channel-container-user-username">

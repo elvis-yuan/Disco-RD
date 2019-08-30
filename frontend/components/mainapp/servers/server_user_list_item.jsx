@@ -20,11 +20,20 @@ class ServerUserListItem extends React.Component {
       </svg>
     ) : null;
 
+    let presence = this.props.active ? (
+      <div className="online-indicator" />
+    ) : (
+      <div className="offline-indicator"></div>
+    );
+
     return (
       <div className="server-user-list-item-container">
         <div className="server-user-list-content-wrapper">
           <span className="server-user-list-icon-wrapper">
-            <div className="server-user-list-icon" />
+            <div className="server-user-list-icon">
+              <div className="indicator-mask" />
+              {presence}
+            </div>
           </span>
           <div className="server-user-list-name">
             <div className="server-user-list-name-wrapper">

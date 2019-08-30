@@ -1,4 +1,4 @@
-import { RECEIVE_CURRENT_USER } from "../actions/session_actions";
+import { RECEIVE_CURRENT_USER, CO_USER, DC_USER } from "../actions/session_actions";
 import { RECEIVE_SERVER, RECEIVE_DM } from "../actions/server_actions";
 import { RECEIVE_USER, RECEIVE_DATA } from "../actions/user_actions";
 import { RECEIVE_CHANNEL } from "../actions/channel_actions";
@@ -29,6 +29,16 @@ const usersReducer = (state = {}, action) => {
       return merge({}, state, {
         [action.payload.user.id]: action.payload.user
       });
+    case CO_USER:
+      if (state[action.user]) {
+        const connected = { active: true }
+        return merge({}, state, { [action.user]: connected });
+      }
+    case DC_USER:
+      if (state[action.user]){
+        const disconnected = { active: false }
+        return merge({}, state, { [action.user]: disconnected })
+      }
     default:
       return state;
   }

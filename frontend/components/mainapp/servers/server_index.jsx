@@ -10,6 +10,7 @@ class ServerIndex extends React.Component {
 
   componentDidMount() {
     this.createServerSockets();
+    this.createPresenceSocket();
   }
 
   componentDidUpdate(prevProps) {
@@ -115,6 +116,29 @@ class ServerIndex extends React.Component {
     if (App.cable.subscriptions.subscriptions.length > 0) {
       App.cable.subscriptions.subscriptions.forEach(sub => sub.unsubscribe());
     }
+  }
+
+  createPresenceSocket() {
+    App.cable.subscriptions.create(
+      {
+        channel: "PresenceChannel",
+        user_id: this.props.currentUser
+      },
+      {
+        received: data => {
+          switch (data.type) {
+            case "CO_USER":
+              this.props.coUser(data.user);
+              break;
+            case "DC_USER":
+              this.props.dcUser(data.user);
+              break;
+            default:
+              return null;
+          }
+        }
+      }
+    );
   }
 
   createServerSockets() {
