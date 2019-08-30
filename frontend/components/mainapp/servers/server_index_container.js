@@ -26,6 +26,7 @@ import { receiveVideoCall } from "../../../actions/video_call_actions";
 
 const msp = ({ entities, session, ui }) => {
   return {
+    users: entities.users,
     directMessageId: entities.users[session.currentUser].direct_message_id,
     currentUser: session.currentUser,
     prevUser: session.prevUser,

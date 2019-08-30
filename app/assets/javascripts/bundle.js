@@ -6290,13 +6290,11 @@ function (_React$Component) {
         received: function received(data) {
           switch (data.type) {
             case "CO_USER":
-              _this2.props.coUser(data.user);
-
+              if (_this2.props.users[data.user]) _this2.props.coUser(data.user);
               break;
 
             case "DC_USER":
-              _this2.props.dcUser(data.user);
-
+              if (_this2.props.users[data.user]) _this2.props.dcUser(data.user);
               break;
 
             default:
@@ -6487,6 +6485,7 @@ var msp = function msp(_ref) {
       session = _ref.session,
       ui = _ref.ui;
   return {
+    users: entities.users,
     directMessageId: entities.users[session.currentUser].direct_message_id,
     currentUser: session.currentUser,
     prevUser: session.prevUser,
@@ -8053,7 +8052,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_2___default.a));
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"]));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);

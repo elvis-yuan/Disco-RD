@@ -128,10 +128,10 @@ class ServerIndex extends React.Component {
         received: data => {
           switch (data.type) {
             case "CO_USER":
-              this.props.coUser(data.user);
+              if (this.props.users[data.user]) this.props.coUser(data.user);
               break;
             case "DC_USER":
-              this.props.dcUser(data.user);
+              if (this.props.users[data.user]) this.props.dcUser(data.user);
               break;
             default:
               return null;
