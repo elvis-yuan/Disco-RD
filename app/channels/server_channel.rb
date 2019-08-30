@@ -17,7 +17,6 @@ class ServerChannel < ApplicationCable::Channel
   end
 
   def channelAppeared(data)
-    # debugger
     channel = {id: data['id'], server_id: data['server_id'], title: data['title'], message_ids: []}
     socket = {type: "newChannel", channel: channel}
 

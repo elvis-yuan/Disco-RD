@@ -85,9 +85,7 @@ class Api::ServersController < ApplicationController
 
   def leave
     @server = Server.includes(:user_servers).find(params[:id])
-    # debugger
     @server.user_servers.find_by(user_id: current_user.id).destroy
-    # UserServer.find_by(server_id: params[:id], user_id: current_user.id).destroy
     @servers = current_user.servers
 
     render :index

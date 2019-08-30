@@ -7381,7 +7381,6 @@ var currentDm = function currentDm() {
   var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
   var action = arguments.length > 1 ? arguments[1] : undefined;
 
-  //debugger;
   switch (action.type) {
     case _actions_modal_actions__WEBPACK_IMPORTED_MODULE_0__["CURRENT_DM"]:
       return action.username;
