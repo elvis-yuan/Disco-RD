@@ -2875,7 +2875,17 @@ function (_React$Component) {
       e.preventDefault();
 
       if (this.state.body.split(" ").join("") !== "" && this.state.body.length > 0) {
-        App[this.props.match.params.channelId].speak(this.state);
+        var body = this.state.body.toLowerCase().split(" ");
+        var swear = ["fuck", "bitch,", "asshole", "nigger", "nigga"];
+        swear.forEach(function (swearWord) {
+          if (body.includes(swearWord)) body[body.indexOf(swearWord)] = "*******";
+        });
+        body = body.join(" ");
+        App[this.props.match.params.channelId].speak({
+          body: body,
+          channel_id: this.state.channel_id,
+          user_id: this.state.user_id
+        });
         this.setState({
           body: ""
         });
@@ -8052,7 +8062,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var configureStore = function configureStore() {
   var preloadedState = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"], redux_logger__WEBPACK_IMPORTED_MODULE_2___default.a));
+  return Object(redux__WEBPACK_IMPORTED_MODULE_0__["createStore"])(_reducers_root_reducer__WEBPACK_IMPORTED_MODULE_3__["default"], preloadedState, Object(redux__WEBPACK_IMPORTED_MODULE_0__["applyMiddleware"])(redux_thunk__WEBPACK_IMPORTED_MODULE_1__["default"]));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (configureStore);

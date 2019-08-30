@@ -31,7 +31,19 @@ class MessageInput extends React.Component {
       this.state.body.split(" ").join("") !== "" &&
       this.state.body.length > 0
     ) {
-      App[this.props.match.params.channelId].speak(this.state);
+      let body = this.state.body.toLowerCase().split(" ");
+      let swear = ["fuck", "bitch,", "asshole", "nigger", "nigga"];
+      swear.forEach(swearWord => {
+        if (body.includes(swearWord)) body[body.indexOf(swearWord)] = "*******";
+      });
+      body = body.join(" ");
+      
+
+      App[this.props.match.params.channelId].speak({
+        body,
+        channel_id: this.state.channel_id,
+        user_id: this.state.user_id
+      });
       this.setState({ body: "" });
     }
   }
