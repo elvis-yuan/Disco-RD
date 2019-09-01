@@ -5,9 +5,13 @@ class DirectMessageListItem extends React.Component {
   render() {
     const { username, channel_id, active } = this.props;
     let presence = active ? (
-      <div className="online-indicator" />
+      <div className="online-indicator">
+        <p className="indicator-hover">Online</p>
+      </div>
     ) : (
-      <div className="offline-indicator" />
+      <div className="offline-indicator">
+        <p className="indicator-hover">Offline</p>
+      </div>
     );
     return (
       <NavLink

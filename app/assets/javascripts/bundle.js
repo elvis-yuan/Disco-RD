@@ -3449,9 +3449,13 @@ function (_React$Component) {
           active = _this$props.active;
       var presence = active ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "online-indicator"
-      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "indicator-hover"
+      }, "Online")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "offline-indicator"
-      });
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "indicator-hover"
+      }, "Offline"));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["NavLink"], {
         activeClassName: "current-channel-selected",
         to: "/servers/@me/".concat(channel_id),
@@ -6628,9 +6632,13 @@ function (_React$Component) {
       })) : null;
       var presence = this.props.active ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "online-indicator"
-      }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "indicator-hover"
+      }, "Online")) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "offline-indicator"
-      });
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "indicator-hover"
+      }, "Offline"));
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "server-user-list-item-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {

@@ -31,3 +31,41 @@
 .current-channel-selected .indicator-mask {
   background-color: #40444b;
 }
+
+.offline-indicator:hover .indicator-hover {
+  display: block;
+}
+
+.online-indicator:hover .indicator-hover {
+  display: block;
+}
+
+.indicator-hover {
+  display: none;
+  position: absolute;
+  left: -24px;
+  bottom: 20px;
+  border-radius: 5px;
+  color: #dcddde;
+  background-color: black;
+  font-family: Whitney;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 6px 12px 8px 12px;
+  text-align: center;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.indicator-hover::after {
+  content: "";
+  position: absolute;
+  top: 30px;
+  left: 23px;
+  margin-left: 0px;
+  border-width: 6px;
+  border-style: solid;
+  z-index: 10;
+  border-color: #000 transparent transparent transparent;
+  pointer-events: none;
+}

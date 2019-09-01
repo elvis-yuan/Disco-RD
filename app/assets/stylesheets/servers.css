@@ -418,7 +418,6 @@ p.server-btn-hover::before {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  overflow: hidden;
   height: 40px;
   border-radius: 3px;
   margin: 1px 0 1px 8px;
