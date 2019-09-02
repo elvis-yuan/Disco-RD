@@ -5,15 +5,26 @@ class DirectMessageInput extends React.Component {
     super(props);
     this.state = {
       body: "",
-      channel_id: this.props.match.params.channelId,
+      channel_id: this.props.currentChannelId,
       user_id: this.props.user_id
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.typingStatus = this.typingStatus.bind(this);
+  }
+
+  typingStatus() {
+    let data = {
+      channel_id: this.props.currentChannelId,
+      user_id: this.props.user_id
+    };
+    App[this.props.match.params.channelId].typing(data);
   }
 
   handleChange(field) {
+    // let type = this.typingStatus;
     return e => {
       this.setState({ [field]: e.target.value });
+      // type();
     };
   }
 
@@ -37,6 +48,9 @@ class DirectMessageInput extends React.Component {
   }
 
   render() {
+    let alert = this.props.typing ? (
+      <h1>{this.props.channelTitle} is typing</h1>
+    ) : null;
     return (
       <form className="message-input-form" onSubmit={this.handleSubmit}>
         <div className="message-input-wrapper">
@@ -55,6 +69,7 @@ class DirectMessageInput extends React.Component {
                 value="Submit"
               />
             </div>
+            {/* {alert} */}
           </div>
         </div>
       </form>

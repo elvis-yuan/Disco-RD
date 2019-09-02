@@ -7,7 +7,7 @@ class DirectMessage extends React.Component {
   constructor(props) {
     super(props);
     this.currentChannelId = this.props.match.params.channelId;
-    this.state = { messages: [], video: false };
+    this.state = { messages: [], video: false, typing: false };
     this.bottom = React.createRef();
     this.startVoice = this.startVoice.bind(this);
   }
@@ -40,6 +40,7 @@ class DirectMessage extends React.Component {
   }
 
   createSocketConnection() {
+    let currentUserId = this.props.currentUserId;
     App[this.currentChannelId] = App.cable.subscriptions.create(
       {
         channel: "ChatChannel",
@@ -48,19 +49,26 @@ class DirectMessage extends React.Component {
       },
       {
         received: data => {
-          if (data.type === "message") {
-            this.setState({
-              messages: this.state.messages.concat({
-                body: data.message.body,
-                user_id: data.message.user_id,
-                created_at: data.message.created_at,
-                updated_at: data.message.updated_at
-              })
-            });
-          }
-
-          if (data.type === "user") {
-            this.props.fetchUser(data.user);
+          switch (data.type) {
+            case "message":
+              this.setState({
+                messages: this.state.messages.concat({
+                  body: data.message.body,
+                  user_id: data.message.user_id,
+                  created_at: data.message.created_at,
+                  updated_at: data.message.updated_at
+                })
+              });
+              break;
+            case "user":
+              this.props.fetchUser(data.user);
+              break;
+            case "typing":
+              if (data.user_id !== currentUserId)
+                this.setState({ typing: true });
+              break;
+            default:
+              return null;
           }
         },
         speak: function(data) {
@@ -68,6 +76,9 @@ class DirectMessage extends React.Component {
         },
         findUser: function(data) {
           return this.perform("findUser", data);
+        },
+        typing: function(data) {
+          return this.perform("typing", data);
         }
       }
     );
@@ -84,8 +95,7 @@ class DirectMessage extends React.Component {
       messages,
       currentUser,
       currentUserId,
-      users,
-      currentDm
+      users
     } = this.props;
 
     const current_channel = channels[this.currentChannelId];
@@ -205,9 +215,10 @@ class DirectMessage extends React.Component {
               </div>
             </div>
             <DirectMessageInputContainer
-              currentId={this.currentChannelId}
+              currentChannelId={this.currentChannelId}
               channels={this.props.channels}
               channelTitle={username}
+              typing={this.state.typing}
             />
           </div>
         </div>
