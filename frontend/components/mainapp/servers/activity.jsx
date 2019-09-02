@@ -44,6 +44,7 @@ class ActivityContainer extends React.Component {
               channel_id={serverIds[user.direct_message_id].id}
               username={user.username}
               dm_id={serverIds[user.direct_message_id].id}
+              active={user.active}
             />
           );
         }
