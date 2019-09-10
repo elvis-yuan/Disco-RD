@@ -10,6 +10,7 @@ class DirectMessage extends React.Component {
     this.state = { messages: [], video: false, typing: false };
     this.bottom = React.createRef();
     this.startVoice = this.startVoice.bind(this);
+    this.timeout;
   }
 
   componentDidMount() {
@@ -41,6 +42,7 @@ class DirectMessage extends React.Component {
 
   createSocketConnection() {
     let currentUserId = this.props.currentUserId;
+    let timeout = this.timeout;
     App[this.currentChannelId] = App.cable.subscriptions.create(
       {
         channel: "ChatChannel",
@@ -66,6 +68,18 @@ class DirectMessage extends React.Component {
             case "typing":
               if (data.user_id !== currentUserId)
                 this.setState({ typing: true });
+              if (!timeout) {
+                timeout = setTimeout(
+                  () => this.setState({ typing: false }),
+                  4000
+                );
+              } else {
+                clearTimeout(timeout);
+                timeout = setTimeout(
+                  () => this.setState({ typing: false }),
+                  4000
+                );
+              }
               break;
             default:
               return null;

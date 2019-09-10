@@ -21,10 +21,10 @@ class DirectMessageInput extends React.Component {
   }
 
   handleChange(field) {
-    // let type = this.typingStatus;
+    let type = this.typingStatus;
     return e => {
       this.setState({ [field]: e.target.value });
-      // type();
+      type();
     };
   }
 
@@ -49,7 +49,7 @@ class DirectMessageInput extends React.Component {
 
   render() {
     let alert = this.props.typing ? (
-      <h1>{this.props.channelTitle} is typing</h1>
+      <h1 className="typing-alert">{this.props.channelTitle} is typing...</h1>
     ) : null;
     return (
       <form className="message-input-form" onSubmit={this.handleSubmit}>
@@ -69,7 +69,7 @@ class DirectMessageInput extends React.Component {
                 value="Submit"
               />
             </div>
-            {/* {alert} */}
+            {alert}
           </div>
         </div>
       </form>

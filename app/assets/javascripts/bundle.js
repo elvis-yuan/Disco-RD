@@ -3006,6 +3006,7 @@ function (_React$Component) {
     };
     _this.bottom = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
     _this.startVoice = _this.startVoice.bind(_assertThisInitialized(_this));
+    _this.timeout;
     return _this;
   }
 
@@ -3046,6 +3047,7 @@ function (_React$Component) {
       var _this2 = this;
 
       var currentUserId = this.props.currentUserId;
+      var timeout = this.timeout;
       App[this.currentChannelId] = App.cable.subscriptions.create({
         channel: "ChatChannel",
         channel_id: this.props.match.params.channelId,
@@ -3074,6 +3076,22 @@ function (_React$Component) {
               if (data.user_id !== currentUserId) _this2.setState({
                 typing: true
               });
+
+              if (!timeout) {
+                timeout = setTimeout(function () {
+                  return _this2.setState({
+                    typing: false
+                  });
+                }, 4000);
+              } else {
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                  return _this2.setState({
+                    typing: false
+                  });
+                }, 4000);
+              }
+
               break;
 
             default:
@@ -3340,10 +3358,11 @@ function (_React$Component) {
     value: function handleChange(field) {
       var _this2 = this;
 
-      // let type = this.typingStatus;
+      var type = this.typingStatus;
       return function (e) {
-        _this2.setState(_defineProperty({}, field, e.target.value)); // type();
+        _this2.setState(_defineProperty({}, field, e.target.value));
 
+        type();
       };
     }
   }, {
@@ -3370,7 +3389,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var alert = this.props.typing ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, this.props.channelTitle, " is typing") : null;
+      var alert = this.props.typing ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "typing-alert"
+      }, this.props.channelTitle, " is typing...") : null;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "message-input-form",
         onSubmit: this.handleSubmit
@@ -3390,7 +3411,7 @@ function (_React$Component) {
         className: "text-submit-button",
         type: "submit",
         value: "Submit"
-      })))));
+      })), alert)));
     }
   }]);
 
