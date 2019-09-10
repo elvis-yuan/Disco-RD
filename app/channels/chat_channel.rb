@@ -15,6 +15,10 @@ class ChatChannel < ApplicationCable::Channel
     ChatChannel.broadcast_to(data['channel_id'], socket)
   end
 
+  def typing(data)
+    ChatChannel.broadcast_to(data['channel_id'], {type: 'typing', user_id: data['user_id']})
+  end
+
   def unsubscribed
   end
 end

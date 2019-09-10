@@ -3001,10 +3001,12 @@ function (_React$Component) {
     _this.currentChannelId = _this.props.match.params.channelId;
     _this.state = {
       messages: [],
-      video: false
+      video: false,
+      typing: false
     };
     _this.bottom = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
     _this.startVoice = _this.startVoice.bind(_assertThisInitialized(_this));
+    _this.timeout;
     return _this;
   }
 
@@ -3044,25 +3046,56 @@ function (_React$Component) {
     value: function createSocketConnection() {
       var _this2 = this;
 
+      var currentUserId = this.props.currentUserId;
+      var timeout = this.timeout;
       App[this.currentChannelId] = App.cable.subscriptions.create({
         channel: "ChatChannel",
         channel_id: this.props.match.params.channelId,
         user_id: this.props.currentUserId
       }, {
         received: function received(data) {
-          if (data.type === "message") {
-            _this2.setState({
-              messages: _this2.state.messages.concat({
-                body: data.message.body,
-                user_id: data.message.user_id,
-                created_at: data.message.created_at,
-                updated_at: data.message.updated_at
-              })
-            });
-          }
+          switch (data.type) {
+            case "message":
+              _this2.setState({
+                messages: _this2.state.messages.concat({
+                  body: data.message.body,
+                  user_id: data.message.user_id,
+                  created_at: data.message.created_at,
+                  updated_at: data.message.updated_at
+                })
+              });
 
-          if (data.type === "user") {
-            _this2.props.fetchUser(data.user);
+              break;
+
+            case "user":
+              _this2.props.fetchUser(data.user);
+
+              break;
+
+            case "typing":
+              if (data.user_id !== currentUserId) _this2.setState({
+                typing: true
+              });
+
+              if (!timeout) {
+                timeout = setTimeout(function () {
+                  return _this2.setState({
+                    typing: false
+                  });
+                }, 4000);
+              } else {
+                clearTimeout(timeout);
+                timeout = setTimeout(function () {
+                  return _this2.setState({
+                    typing: false
+                  });
+                }, 4000);
+              }
+
+              break;
+
+            default:
+              return null;
           }
         },
         speak: function speak(data) {
@@ -3070,6 +3103,9 @@ function (_React$Component) {
         },
         findUser: function findUser(data) {
           return this.perform("findUser", data);
+        },
+        typing: function typing(data) {
+          return this.perform("typing", data);
         }
       });
     }
@@ -3091,8 +3127,7 @@ function (_React$Component) {
           messages = _this$props.messages,
           currentUser = _this$props.currentUser,
           currentUserId = _this$props.currentUserId,
-          users = _this$props.users,
-          currentDm = _this$props.currentDm;
+          users = _this$props.users;
       var current_channel = channels[this.currentChannelId];
       var dm_id = current_channel ? current_channel.server_id === currentUser.direct_message_id ? current_channel.dm_id : current_channel.server_id : null;
       var user = Object.values(users).length > 0 ? Object.values(users).filter(function (user) {
@@ -3185,9 +3220,10 @@ function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "This is the beginning of your direct message history with", " ", "@", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "username"
       }, username), ".")), history, allMessages))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_direct_message_direct_message_input_container__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        currentId: this.currentChannelId,
+        currentChannelId: this.currentChannelId,
         channels: this.props.channels,
-        channelTitle: username
+        channelTitle: username,
+        typing: this.state.typing
       }))));
     }
   }]);
@@ -3300,20 +3336,33 @@ function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(DirectMessageInput).call(this, props));
     _this.state = {
       body: "",
-      channel_id: _this.props.match.params.channelId,
+      channel_id: _this.props.currentChannelId,
       user_id: _this.props.user_id
     };
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    _this.typingStatus = _this.typingStatus.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(DirectMessageInput, [{
+    key: "typingStatus",
+    value: function typingStatus() {
+      var data = {
+        channel_id: this.props.currentChannelId,
+        user_id: this.props.user_id
+      };
+      App[this.props.match.params.channelId].typing(data);
+    }
+  }, {
     key: "handleChange",
     value: function handleChange(field) {
       var _this2 = this;
 
+      var type = this.typingStatus;
       return function (e) {
         _this2.setState(_defineProperty({}, field, e.target.value));
+
+        type();
       };
     }
   }, {
@@ -3340,6 +3389,9 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var alert = this.props.typing ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "typing-alert"
+      }, this.props.channelTitle, " is typing...") : null;
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         className: "message-input-form",
         onSubmit: this.handleSubmit
@@ -3359,7 +3411,7 @@ function (_React$Component) {
         className: "text-submit-button",
         type: "submit",
         value: "Submit"
-      })))));
+      })), alert)));
     }
   }]);
 
