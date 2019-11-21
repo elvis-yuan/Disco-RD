@@ -295,6 +295,7 @@ p.server-btn-hover::before {
 }
 
 .wompus-wrapper {
+  background-color: #35393f;
   width: 100%;
   height: 100%;
   display: -webkit-box;

@@ -10,6 +10,8 @@ import { ChannelRoute } from "../../util/channel_route_util";
 import ServerOnlineContainer from "./servers/activity_container";
 import DirectMessageContainer from "./direct_message/direct_message_container";
 import LoadScreen from "./loadscreen/load_screen";
+import MediaQuery from 'react-responsive';
+import Mobilebar from './mobile/navbar';
 
 const msp = ({ entities, session }) => ({
   currentUser: session.currentUser,
@@ -31,9 +33,8 @@ class Main extends React.Component {
 
   componentDidMount() {
     const { currentUser, fetchAllServers } = this.props;
-    fetchAllServers(currentUser).then(action => {
-      setTimeout(this.removeLoading, 2000);
-    });
+    fetchAllServers(currentUser);
+    setTimeout(this.removeLoading, 1000);
   }
 
   removeLoading() {
@@ -52,45 +53,58 @@ class Main extends React.Component {
     return this.props.location.pathname.includes("/servers/@me") ? (
       <div className="main-app">
         <LoadScreen />
-        <ServerIndexContainer />
-        <ServerOnlineContainer />
+        <MediaQuery minDeviceWidth={600} >
+          <ServerIndexContainer />
+          <ServerOnlineContainer />
+        </MediaQuery>
+        <MediaQuery maxDeviceWidth={600}>
+          <Mobilebar />
+        </MediaQuery>
         {this.props.location.pathname === "/servers/@me" ? (
-          <div className="wompus-wrapper">
-            <div className="wompus-container">
-              <div className="wompus-image" />
-              <div className="wompus-text">
-                Welcome To Disco-RD. This is a clone of Discord. Enjoy your
-                stay!
+          <>
+            <MediaQuery minDeviceWidth={600}>
+              <div className="wompus-wrapper">
+                <div className="wompus-container">
+                  <div className="wompus-image" />
+                  <div className="wompus-text">
+                    Welcome To Disco-RD. This is a clone of Discord. Enjoy your
+                    stay!
               </div>
-            </div>
-          </div>
+                </div>
+              </div>
+            </MediaQuery>
+            <MediaQuery maxDeviceWidth={600}>
+              <ServerOnlineContainer />
+            </MediaQuery>
+          </>
         ) : (
-          <Route
-            path="/servers/@me/:channelId"
-            component={DirectMessageContainer}
-          />
-        )}
+            <Route
+              path="/servers/@me/:channelId"
+              component={DirectMessageContainer}
+            />
+          )}
+
       </div>
     ) : (
-      <div className="main-app">
-        <LoadScreen />
-        <ServerIndexContainer />
-        {servercomp}
-        {this.props.history.location.pathname.split("/")[3] === undefined ? (
-          <div className="no-channel">
-            <div className="no-channel-image-wrapper">
-              <div className="no-channel-image" />
+        <div className="main-app">
+          <LoadScreen />
+          <ServerIndexContainer />
+          {servercomp}
+          {this.props.history.location.pathname.split("/")[3] === undefined ? (
+            <div className="no-channel">
+              <div className="no-channel-image-wrapper">
+                <div className="no-channel-image" />
+              </div>
             </div>
-          </div>
-        ) : (
-          <ChannelRoute
-            exact
-            path="/servers/:serverId/:channelId"
-            component={ChannelChatContainer}
-          />
-        )}
-      </div>
-    );
+          ) : (
+              <ChannelRoute
+                exact
+                path="/servers/:serverId/:channelId"
+                component={ChannelChatContainer}
+              />
+            )}
+        </div>
+      );
   }
 }
 

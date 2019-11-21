@@ -26,6 +26,8 @@ DS_Store
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/frontend/.DS_Store
+/frontend/components/.DS_Store
 
 bundle.js
 bundle.js.map

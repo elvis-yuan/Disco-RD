@@ -1,6 +1,7 @@
 body {
   overscroll-behavior-y: none;
   overscroll-behavior-x: none;
+  height: 100%;
 }
 
 body > main {

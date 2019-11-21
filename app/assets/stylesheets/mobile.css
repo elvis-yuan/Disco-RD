@@ -1,0 +1,8 @@
+.mobile-bar{
+  width: 100;
+  height: 40px;
+  position: absolute;
+  top: 0;
+  color: white;
+  font-size: 4em;
+}
