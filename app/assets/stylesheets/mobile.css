@@ -8,6 +8,10 @@
   display: flex;
 }
 
+.start-here {
+  display: none;
+}
+
 @media(max-width: 500px){
   .main-app{
     flex-direction: column;
