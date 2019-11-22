@@ -533,4 +533,8 @@
     justify-content: space-between;
   }
 
+  .create-form-container {
+    padding: 28px 15px 0;
+  }
+
 }

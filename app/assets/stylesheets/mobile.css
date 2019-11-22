@@ -38,12 +38,24 @@
     align-items: center;
   }
 
+  .edit-server-modal-form {
+    width: 95vw;
+  }
+
+  .delete-server-modal-form {
+    width: 95vw;
+  }
+
+  .invite-modal-container {
+    width: 95vw;
+  }
+
   .start-here {
     display: block;
     margin-left: 10px;
   }
   .create-channel-modal-form {
-    width: 100vw;
+    width: 95vw;
   }
 
   .mobile-bar {
@@ -58,6 +70,10 @@
     left: 0;
     height: 100vh;
     width: 100vw;
+  }
+
+  .edit-server-button-wrapper{
+    padding: 10px;
   }
 
   .footer {
