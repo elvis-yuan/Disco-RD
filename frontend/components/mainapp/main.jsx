@@ -10,7 +10,6 @@ import { ChannelRoute } from "../../util/channel_route_util";
 import ServerOnlineContainer from "./servers/activity_container";
 import DirectMessageContainer from "./direct_message/direct_message_container";
 import LoadScreen from "./loadscreen/load_screen";
-import MediaQuery from 'react-responsive';
 import Mobilebar from './mobile/navbar';
 
 const msp = ({ entities, session }) => ({
@@ -35,6 +34,12 @@ class Main extends React.Component {
     const { currentUser, fetchAllServers } = this.props;
     fetchAllServers(currentUser);
     setTimeout(this.removeLoading, 1000);
+    window.addEventListener('resize', () => {
+      let drawer = document.getElementsByClassName('drawer')[0];
+      if (window.innerWidth > 500 && drawer.style.display === "none") {
+        drawer.style.display = 'flex';
+      }
+    })
   }
 
   removeLoading() {
@@ -53,29 +58,25 @@ class Main extends React.Component {
     return this.props.location.pathname.includes("/servers/@me") ? (
       <div className="main-app">
         <LoadScreen />
-        <MediaQuery minDeviceWidth={600} >
+        <div className='drawer'>
           <ServerIndexContainer />
           <ServerOnlineContainer />
-        </MediaQuery>
-        <MediaQuery maxDeviceWidth={600}>
-          <Mobilebar />
-        </MediaQuery>
+          <div id='drawer-modal'></div>
+        </div>
         {this.props.location.pathname === "/servers/@me" ? (
           <>
-            <MediaQuery minDeviceWidth={600}>
-              <div className="wompus-wrapper">
-                <div className="wompus-container">
-                  <div className="wompus-image" />
-                  <div className="wompus-text">
-                    Welcome To Disco-RD. This is a clone of Discord. Enjoy your
-                    stay!
+            <div className='mobile-navbar'>
+              <Mobilebar />
+            </div>
+            <div className="wompus-wrapper">
+              <div className="wompus-container">
+                <div className="wompus-image" />
+                <div className="wompus-text">
+                  Welcome To Disco-RD. This is a clone of Discord. Enjoy your
+                  stay!
               </div>
-                </div>
               </div>
-            </MediaQuery>
-            <MediaQuery maxDeviceWidth={600}>
-              <ServerOnlineContainer />
-            </MediaQuery>
+            </div>
           </>
         ) : (
             <Route
@@ -88,8 +89,11 @@ class Main extends React.Component {
     ) : (
         <div className="main-app">
           <LoadScreen />
-          <ServerIndexContainer />
-          {servercomp}
+          <div className='drawer'>
+            <ServerIndexContainer />
+            {servercomp}
+            <div id='drawer-modal'></div>
+          </div>
           {this.props.history.location.pathname.split("/")[3] === undefined ? (
             <div className="no-channel">
               <div className="no-channel-image-wrapper">

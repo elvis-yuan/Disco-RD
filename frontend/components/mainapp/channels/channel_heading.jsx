@@ -1,4 +1,5 @@
 import React from "react";
+import Mobilebar from '../mobile/navbar';
 
 class ChannelHeading extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ class ChannelHeading extends React.Component {
     return (
       <div className="channel-heading-wrapper">
         <div className="channel-heading-channel-title">
+          <Mobilebar />
           <div className="channel-icon-wrapper" role="button">
             <svg
               width="24"

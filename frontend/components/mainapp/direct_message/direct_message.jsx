@@ -2,6 +2,7 @@ import React from "react";
 import DirectMessageInputContainer from "../direct_message/direct_message_input_container";
 import MessageFormatContainer from "../channels/message_format_container";
 import VideoContainer from "./video_container";
+import Mobilebar from '../mobile/navbar';
 
 class DirectMessage extends React.Component {
   constructor(props) {
@@ -85,13 +86,13 @@ class DirectMessage extends React.Component {
               return null;
           }
         },
-        speak: function(data) {
+        speak: function (data) {
           return this.perform("speak", data);
         },
-        findUser: function(data) {
+        findUser: function (data) {
           return this.perform("findUser", data);
         },
-        typing: function(data) {
+        typing: function (data) {
           return this.perform("typing", data);
         }
       }
@@ -139,20 +140,20 @@ class DirectMessage extends React.Component {
     const oldMessages =
       Object.values(channels).length > 0 && Object.values(messages).length > 0
         ? channels[this.props.match.params.channelId].message_ids.map(
-            message_id => messages[message_id]
-          )
+          message_id => messages[message_id]
+        )
         : null;
 
     const history =
       oldMessages !== null &&
-      !oldMessages.includes(undefined) &&
-      !oldMessages.includes(null)
+        !oldMessages.includes(undefined) &&
+        !oldMessages.includes(null)
         ? oldMessages.map((message, index) => (
-            <div key={index}>
-              <MessageFormatContainer message={message} />
-              <div ref={this.bottom} />
-            </div>
-          ))
+          <div key={index}>
+            <MessageFormatContainer message={message} />
+            <div ref={this.bottom} />
+          </div>
+        ))
         : null;
 
     return (
@@ -171,6 +172,7 @@ class DirectMessage extends React.Component {
           <div className="channel-heading-wrapper">
             <div className="channel-heading-channel-title">
               <div className="channel-icon-wrapper">
+                <Mobilebar />
                 <div className="direct-message-at">
                   <svg
                     x="0"

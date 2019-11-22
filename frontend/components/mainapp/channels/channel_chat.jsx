@@ -141,7 +141,6 @@ class ChannelChat extends React.Component {
               channelTitle={title}
             />
           </div>
-          {/* <ServerConnectedUsers /> */}
           {connectedUsers}
         </div>
       </div>
