@@ -39,6 +39,7 @@
   }
 
   .start-here {
+    display: block;
     margin-left: 10px;
   }
   .create-channel-modal-form {
