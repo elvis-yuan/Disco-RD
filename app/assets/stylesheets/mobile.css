@@ -13,8 +13,32 @@
     flex-direction: column;
   }
 
+  .call-icon-container {
+    display: none;
+  }
+
+  .nav-bar {
+    padding: 0 10px;
+  }
+
+  .login-button {
+    margin-right: 10px;
+  }
+
   .mobile-navbar {
     margin: 10px;
+    display: flex;
+    color: white;
+    font-weight: 500;
+    /* justify-content: center; */
+    align-items: center;
+  }
+
+  .start-here {
+    margin-left: 10px;
+  }
+  .create-channel-modal-form {
+    width: 100vw;
   }
 
   .mobile-bar {
@@ -29,6 +53,10 @@
     left: 0;
     height: 100vh;
     width: 100vw;
+  }
+
+  .footer {
+    padding: 20px;
   }
 
   #drawer-modal {

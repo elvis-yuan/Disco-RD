@@ -4547,7 +4547,11 @@ function (_React$Component) {
         id: "drawer-modal"
       })), this.props.location.pathname === "/servers/@me" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "mobile-navbar"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mobile_navbar__WEBPACK_IMPORTED_MODULE_12__["default"], null)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_mobile_navbar__WEBPACK_IMPORTED_MODULE_12__["default"], null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "start-here"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("i", {
+        "class": "fas fa-arrow-left"
+      }), " Start Here!")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wompus-wrapper"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wompus-container"

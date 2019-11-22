@@ -67,6 +67,7 @@ class Main extends React.Component {
           <>
             <div className='mobile-navbar'>
               <Mobilebar />
+              <span className='start-here'><i class="fas fa-arrow-left"></i> Start Here!</span>
             </div>
             <div className="wompus-wrapper">
               <div className="wompus-container">

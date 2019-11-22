@@ -146,9 +146,22 @@
 .form-button:hover {
   background-color: #677bc4;
 }
-
-@media (min-width: 486px) {
+@media (max-width: 500px) {
   .form-logo {
+    width: 60%;
+    position: absolute;
+    top: 10%;
+  }
+
+  .left-split{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+@media (min-width: 501px) {
+  .form-logo {
+    /* display: none; */
     position: absolute;
     top: 40px;
     left: 50%;
@@ -218,6 +231,7 @@
 }
 
 .form-logo {
+  cursor:pointer;
   z-index: 2;
   opacity: 1;
   background: url("https://res.cloudinary.com/divtvpzuc/image/upload/v1559268535/disco-rd_logo_with_reflection.png")
