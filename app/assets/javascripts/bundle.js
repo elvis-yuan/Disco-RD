@@ -4784,7 +4784,8 @@ function (_React$Component) {
         className: "create-animation"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
         action: "create-form",
-        onSubmit: this.handleSubmit
+        onSubmit: this.handleSubmit,
+        className: "server-create-form"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "create-form-container"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {

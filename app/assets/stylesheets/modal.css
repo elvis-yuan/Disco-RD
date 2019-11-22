@@ -516,3 +516,21 @@
 .green-background {
   background-color: #3ca374;
 }
+
+@media (max-width: 500px){
+  .server-modal-form {
+    width: 95vw;
+    height: 60vh;
+  }
+
+  .server-center-image {
+    display: none;
+  }
+
+  .server-create-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+}

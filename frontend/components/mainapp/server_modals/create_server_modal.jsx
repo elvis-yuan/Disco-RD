@@ -53,7 +53,7 @@ class CreateServerModal extends React.Component {
       <div className="server-modal-form no-padding">
         <div className="server-create-animation">
           <div className="create-animation">
-            <form action="create-form" onSubmit={this.handleSubmit}>
+            <form action="create-form" onSubmit={this.handleSubmit} className='server-create-form'>
               <div className="create-form-container">
                 <h1 className="create-form-header">Create Your Server</h1>
                 <p className="create-form-p">
